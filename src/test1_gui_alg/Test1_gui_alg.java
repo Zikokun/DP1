@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package test1_gui_alg;
-import vista.NuevaVentana;
+import vista.Nv;
 /**
  *
  * @author alulab
@@ -15,8 +15,10 @@ public class Test1_gui_alg {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        NuevaVentana nv= new NuevaVentana();
+        Nv nv= new Nv();
+        
         nv.setVisible(true);
+        
     }
     
 }
