@@ -5,6 +5,7 @@
  */
 package test1_gui_alg;
 import vista.Nv;
+import vista.VentanaPrincipal;
 /**
  *
  * @author alulab
@@ -15,9 +16,11 @@ public class Test1_gui_alg {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Nv nv= new Nv();
+//        Nv nv= new Nv();
+//        nv.setVisible(true);
         
-        nv.setVisible(true);
+        VentanaPrincipal principal=new VentanaPrincipal();
+        principal.setVisible(true);
         
     }
     
