@@ -28,8 +28,8 @@ public class Nv extends javax.swing.JFrame {
     private void initComponents() {
 
         label1 = new java.awt.Label();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        usuario = new javax.swing.JTextField();
+        contrasenha = new javax.swing.JTextField();
         label2 = new java.awt.Label();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -39,9 +39,9 @@ public class Nv extends javax.swing.JFrame {
 
         label1.setText("ID Usuario:");
 
-        jTextField1.setText("Usuario");
+        usuario.setText("Usuario");
 
-        jTextField2.setText("Contraseña");
+        contrasenha.setText("Contraseña");
 
         label2.setText("Contraseña:");
 
@@ -83,8 +83,8 @@ public class Nv extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+                            .addComponent(usuario)
+                            .addComponent(contrasenha, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
                         .addGap(56, 56, 56)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -102,11 +102,11 @@ public class Nv extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(contrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jButton1)
@@ -118,12 +118,23 @@ public class Nv extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        this.dispose();
         //verifica los datos introducidos y carga la siguiente pantalla acorde a lo necesario
+        String usuario=this.usuario.getText();
+        String contrasenha=this.contrasenha.getText();
         
-        VentanaPrincipal principal=new VentanaPrincipal();
-        principal.setVisible(true);
+        if(usuario.equals("admin")){
+            this.setVisible(false);
+            this.dispose();
+            VentanaPrincipal principal=new VentanaPrincipal();
+            principal.setVisible(true);
+        }
+        if(usuario.equals("")&& contrasenha.equals("admin")){
+            this.setVisible(false);
+            this.dispose();
+            VentanaPrincipal principal=new VentanaPrincipal();
+            principal.setVisible(true);
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -162,12 +173,12 @@ public class Nv extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField contrasenha;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private java.awt.Label label1;
     private java.awt.Label label2;
+    private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 }
