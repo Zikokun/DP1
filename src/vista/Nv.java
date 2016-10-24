@@ -5,9 +5,11 @@
  */
 package vista;
 
+import java.awt.BorderLayout;
+
 /**
  *
- * @author alulab
+ * @author a20090245
  */
 public class Nv extends javax.swing.JFrame {
 
@@ -26,112 +28,126 @@ public class Nv extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel3 = new javax.swing.JPanel();
-        label1 = new java.awt.Label();
-        usuario = new javax.swing.JTextField();
-        contrasenha = new javax.swing.JTextField();
-        label2 = new java.awt.Label();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        pnlFondo = new javax.swing.JPanel();
+        pnlFrente = new javax.swing.JPanel();
+        etiquetaNombre = new javax.swing.JLabel();
+        etiquetaID = new javax.swing.JLabel();
+        etiquetaCon = new javax.swing.JLabel();
+        campoIdUsuario = new javax.swing.JTextField();
+        campoContrasenha = new javax.swing.JTextField();
+        botonConfirmar = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        label1.setText("ID Usuario:");
+        pnlFondo.setLayout(new java.awt.BorderLayout());
 
-        usuario.setText("Usuario");
+        pnlFrente.setLayout(new java.awt.GridBagLayout());
 
-        contrasenha.setText("Contraseña");
+        etiquetaNombre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        etiquetaNombre.setText("TraslaPACK");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 2;
+        gridBagConstraints.ipady = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 10, 0, 0);
+        pnlFrente.add(etiquetaNombre, gridBagConstraints);
 
-        label2.setText("Contraseña:");
+        etiquetaID.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        etiquetaID.setText("ID Usuario:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(61, 42, 0, 0);
+        pnlFrente.add(etiquetaID, gridBagConstraints);
 
-        jButton1.setText("Confirmar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        etiquetaCon.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        etiquetaCon.setText("Contraseña");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(33, 42, 0, 0);
+        pnlFrente.add(etiquetaCon, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 158;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(58, 18, 0, 102);
+        pnlFrente.add(campoIdUsuario, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 158;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(30, 18, 0, 102);
+        pnlFrente.add(campoContrasenha, gridBagConstraints);
+
+        botonConfirmar.setText("Confirmar");
+        botonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonConfirmarActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(81, 6, 25, 0);
+        pnlFrente.add(botonConfirmar, gridBagConstraints);
 
-        jLabel1.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        jLabel1.setText("TraslaPACK");
+        botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(81, 31, 25, 102);
+        pnlFrente.add(botonCancelar, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(usuario)
-                        .addComponent(contrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(41, 41, 41))
-        );
+        pnlFondo.add(pnlFrente, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 21, Short.MAX_VALUE))
-        );
+        getContentPane().add(pnlFondo, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
-        //verifica los datos introducidos y carga la siguiente pantalla acorde a lo necesario
-        String usuario=this.usuario.getText();
-        String contrasenha=this.contrasenha.getText();
-        
-        if(usuario.equals("admin")){
-//            this.setVisible(false);
-//            this.dispose();
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
+        // TODO add your handling code here:
+        String usuario=this.campoIdUsuario.getText();
+        String contrasenha=this.campoContrasenha.getText();
+        if(usuario.contentEquals("admin")){
+            //this.setVisible(false);
+            pnlFondo.remove(pnlFrente);
+            PanelSim ps=new PanelSim();
+            pnlFondo.add(ps,BorderLayout.CENTER);
+            this.revalidate();
             
-            PanelSim panelSim=new PanelSim();
-            panelSim.setVisible(true);
         }
-        if(usuario.equals("user")){
-            this.setVisible(false);
-            this.dispose();
-            VentanaPrincipal principal=new VentanaPrincipal();
-            principal.setVisible(true);
-        }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,12 +185,14 @@ public class Nv extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField contrasenha;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel3;
-    private java.awt.Label label1;
-    private java.awt.Label label2;
-    private javax.swing.JTextField usuario;
+    private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonConfirmar;
+    private javax.swing.JTextField campoContrasenha;
+    private javax.swing.JTextField campoIdUsuario;
+    private javax.swing.JLabel etiquetaCon;
+    private javax.swing.JLabel etiquetaID;
+    private javax.swing.JLabel etiquetaNombre;
+    private javax.swing.JPanel pnlFondo;
+    private javax.swing.JPanel pnlFrente;
     // End of variables declaration//GEN-END:variables
 }
