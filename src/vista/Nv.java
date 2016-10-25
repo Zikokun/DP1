@@ -41,9 +41,11 @@ public class Nv extends javax.swing.JFrame {
         botonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         pnlFondo.setLayout(new java.awt.BorderLayout());
 
+        pnlFrente.setPreferredSize(new java.awt.Dimension(642, 444));
         pnlFrente.setLayout(new java.awt.GridBagLayout());
 
         etiquetaNombre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -145,6 +147,19 @@ public class Nv extends javax.swing.JFrame {
             PanelSim ps=new PanelSim();
             pnlFondo.add(ps,BorderLayout.CENTER);
             this.revalidate();
+        }
+         if(usuario.contentEquals("user")){
+            //this.setVisible(false);
+            this.setVisible(false);
+            this.dispose();
+            PaqueteBusqueda pb=new PaqueteBusqueda();
+            pb.setVisible(true);
+        }
+          if(usuario.contentEquals("client")){
+            this.setVisible(false);
+            this.dispose();
+            VentanaPrincipal principal=new VentanaPrincipal();
+            principal.setVisible(true);
             
         }
     }//GEN-LAST:event_botonConfirmarActionPerformed
