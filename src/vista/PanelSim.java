@@ -16,6 +16,7 @@ public class PanelSim extends javax.swing.JPanel {
      */
     public PanelSim() {
         initComponents();
+        
     }
 
     /**
