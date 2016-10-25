@@ -16,8 +16,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal() {
+    public VentanaPrincipal(){
         initComponents();
+    }
+    public VentanaPrincipal(String type) {
+        initComponents();
+        if(type.equals("admin")){
+            this.remove(pnlFrente);
+            PanelSim ps=new PanelSim();
+            pnlFondo.add(ps);
+            this.revalidate();
+            this.repaint();
+        }
+        if(type.equals("client")){
+            this.remove(pnlFrente);
+            panelMantUsuario pmu=new panelMantUsuario();
+            pnlFondo.add(pmu);
+            this.revalidate();
+            this.repaint();
+        }    
     }
 
     /**
