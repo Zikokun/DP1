@@ -32,6 +32,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        pnlFondo = new javax.swing.JPanel();
         pnlFrente = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuMant = new javax.swing.JMenu();
@@ -56,7 +57,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         pnlFrenteLayout.setVerticalGroup(
             pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnlFondoLayout = new javax.swing.GroupLayout(pnlFondo);
+        pnlFondo.setLayout(pnlFondoLayout);
+        pnlFondoLayout.setHorizontalGroup(
+            pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlFrente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlFondoLayout.setVerticalGroup(
+            pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlFrente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         menuMant.setText("Mantenimiento");
@@ -105,7 +123,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                                 .addGap(46, 46, 46)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(pnlFrente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -118,7 +136,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlFrente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -127,7 +145,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void mantUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantUsuarioActionPerformed
         // TODO add your handling code here:
-        this.remove(pnlFrente);
+        this.remove(pnlFondo);
         panelMantUsuario ps=new panelMantUsuario();
         this.add(ps,BorderLayout.CENTER);
         this.revalidate();
@@ -136,8 +154,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void mantUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantUsuarioMouseClicked
         // TODO add your handling code here:
         this.remove(pnlFrente);
-        panelMantUsuario ps=new panelMantUsuario();
-        this.add(ps,BorderLayout.CENTER);
+        panelMantUsuario pmu=new panelMantUsuario();
+        pnlFondo.add(pmu,BorderLayout.CENTER);
         this.revalidate();
     }//GEN-LAST:event_mantUsuarioMouseClicked
 
@@ -186,6 +204,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuMant;
     private javax.swing.JMenu menuRastreo;
     private javax.swing.JMenu menuSim;
+    private javax.swing.JPanel pnlFondo;
     private javax.swing.JPanel pnlFrente;
     // End of variables declaration//GEN-END:variables
 }
