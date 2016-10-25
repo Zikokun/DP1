@@ -73,7 +73,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         jLabel5.setText("Tipo usuario");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuario", "Cliente" }));
 
         jLabel7.setText("Direccion");
 
@@ -81,7 +81,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         jLabel9.setText("Documento de identidad");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "LE", "CE" }));
 
         jButton1.setText("Registrar");
 
