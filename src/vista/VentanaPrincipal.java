@@ -49,6 +49,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("Cerrar Sesión");
 
+        pnlFondo.setLayout(new java.awt.BorderLayout());
+
         javax.swing.GroupLayout pnlFrenteLayout = new javax.swing.GroupLayout(pnlFrente);
         pnlFrente.setLayout(pnlFrenteLayout);
         pnlFrenteLayout.setHorizontalGroup(
@@ -60,22 +62,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGap(0, 408, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout pnlFondoLayout = new javax.swing.GroupLayout(pnlFondo);
-        pnlFondo.setLayout(pnlFondoLayout);
-        pnlFondoLayout.setHorizontalGroup(
-            pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFondoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlFrente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlFondoLayout.setVerticalGroup(
-            pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFondoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlFrente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        pnlFondo.add(pnlFrente, java.awt.BorderLayout.CENTER);
 
         menuMant.setText("Mantenimiento");
 
@@ -145,9 +132,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void mantUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantUsuarioActionPerformed
         // TODO add your handling code here:
-        this.remove(pnlFondo);
-        panelMantUsuario ps=new panelMantUsuario();
-        this.add(ps,BorderLayout.CENTER);
+        this.remove(pnlFrente);
+        panelMantUsuario pmu=new panelMantUsuario();
+        pnlFondo.add(pmu,BorderLayout.CENTER);
         this.revalidate();
     }//GEN-LAST:event_mantUsuarioActionPerformed
 
