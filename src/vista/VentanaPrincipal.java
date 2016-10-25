@@ -6,6 +6,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +22,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     public VentanaPrincipal(String type) {
         initComponents();
+        String mensajeBien="Bienvenido " + type +" !";
         if(type.equals("admin")){
+            labelBienvenido.setText(mensajeBien);
             this.remove(pnlFrente);
             PanelSim ps=new PanelSim();
             pnlFondo.add(ps);
@@ -46,9 +49,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        labelBienvenido = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelCerrarSesion = new javax.swing.JLabel();
         pnlFondo = new javax.swing.JPanel();
         pnlFrente = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -60,11 +63,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Bienvenido !");
+        labelBienvenido.setText("Bienvenido !");
 
         jLabel2.setText("Opciones");
 
-        jLabel3.setText("Cerrar Sesión");
+        labelCerrarSesion.setText("Cerrar Sesión");
+        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        labelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelCerrarSesionMouseClicked(evt);
+            }
+        });
 
         pnlFondo.setLayout(new java.awt.BorderLayout());
 
@@ -120,12 +129,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addGap(0, 588, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(labelBienvenido)
                                 .addGap(29, 29, 29))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(46, 46, 46)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(26, 26, 26)
+                                .addComponent(labelCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -134,11 +144,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelBienvenido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(labelCerrarSesion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -162,6 +172,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pnlFondo.add(pmu,BorderLayout.CENTER);
         this.revalidate();
     }//GEN-LAST:event_mantUsuarioMouseClicked
+
+    private void labelCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarSesionMouseClicked
+        // TODO add your handling code here:
+        
+        //Mensaje para salir
+        Object[] opciones={"Sí","No"};
+        int respuesta=JOptionPane.showOptionDialog(this,"¿Estás seguro que deseas cerrar sesión?", "Cerrar Sesión",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
+        if(respuesta==JOptionPane.YES_OPTION){ 
+            this.setVisible(false);
+            this.dispose();
+            Nv login=new Nv();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_labelCerrarSesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -199,10 +223,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel labelBienvenido;
+    private javax.swing.JLabel labelCerrarSesion;
     private javax.swing.JMenuItem mantUsuario;
     private javax.swing.JMenu menuEnvio;
     private javax.swing.JMenu menuMant;

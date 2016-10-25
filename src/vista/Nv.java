@@ -143,10 +143,14 @@ public class Nv extends javax.swing.JFrame {
         String contrasenha=this.campoContrasenha.getText();
         if(usuario.contentEquals("admin")){
             //this.setVisible(false);
-            pnlFondo.remove(pnlFrente);
-            PanelSim ps=new PanelSim();
-            pnlFondo.add(ps,BorderLayout.CENTER);
-            this.revalidate();
+            this.setVisible(false);
+            this.dispose();
+            VentanaPrincipal vp=new VentanaPrincipal("admin");
+            vp.setVisible(true);
+//            pnlFondo.remove(pnlFrente);
+//            PanelSim ps=new PanelSim();
+//            pnlFondo.add(ps,BorderLayout.CENTER);
+//            this.revalidate();
         }
          if(usuario.contentEquals("user")){
             //this.setVisible(false);
