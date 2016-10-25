@@ -25,19 +25,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String mensajeBien="Bienvenido " + type +" !";
         if(type.equals("admin")){
             labelBienvenido.setText(mensajeBien);
-            this.remove(pnlFrente);
+            //this.remove(pnlFrente);
+            pnlFrente.setVisible(false);
             PanelSim ps=new PanelSim();
             pnlFondo.add(ps);
             this.revalidate();
             this.repaint();
         }
         if(type.equals("client")){
-            this.remove(pnlFrente);
-            panelMantUsuario pmu=new panelMantUsuario();
-            pnlFondo.add(pmu);
+            //this.remove(pnlFrente);
+            this.pnlFrente.setVisible(false);
+            //panelMantUsuario pmu=new panelMantUsuario();
+            //pnlFondo.add(pmu);
             this.revalidate();
             this.repaint();
-        }    
+        }
     }
 
     /**

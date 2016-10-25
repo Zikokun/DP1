@@ -78,6 +78,17 @@ public class Nv extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(33, 42, 0, 0);
         pnlFrente.add(etiquetaCon, gridBagConstraints);
+
+        campoIdUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoIdUsuarioActionPerformed(evt);
+            }
+        });
+        campoIdUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoIdUsuarioKeyPressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
@@ -162,11 +173,20 @@ public class Nv extends javax.swing.JFrame {
           if(usuario.contentEquals("client")){
             this.setVisible(false);
             this.dispose();
-            VentanaPrincipal principal=new VentanaPrincipal();
+            VentanaPrincipal principal=new VentanaPrincipal("client");
             principal.setVisible(true);
             
         }
     }//GEN-LAST:event_botonConfirmarActionPerformed
+
+    private void campoIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIdUsuarioActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_campoIdUsuarioActionPerformed
+
+    private void campoIdUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoIdUsuarioKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoIdUsuarioKeyPressed
 
     /**
      * @param args the command line arguments
