@@ -5,6 +5,8 @@
  */
 package vista;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author a20125540
@@ -30,8 +32,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        pnlFrente = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuMant = new javax.swing.JMenu();
+        mantUsuario = new javax.swing.JMenuItem();
         menuEnvio = new javax.swing.JMenu();
         menuRastreo = new javax.swing.JMenu();
         menuSim = new javax.swing.JMenu();
@@ -44,7 +48,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("Cerrar Sesión");
 
+        javax.swing.GroupLayout pnlFrenteLayout = new javax.swing.GroupLayout(pnlFrente);
+        pnlFrente.setLayout(pnlFrenteLayout);
+        pnlFrenteLayout.setHorizontalGroup(
+            pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlFrenteLayout.setVerticalGroup(
+            pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 430, Short.MAX_VALUE)
+        );
+
         menuMant.setText("Mantenimiento");
+
+        mantUsuario.setLabel("Usuario");
+        mantUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mantUsuarioMouseClicked(evt);
+            }
+        });
+        mantUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mantUsuarioActionPerformed(evt);
+            }
+        });
+        menuMant.add(mantUsuario);
+
         jMenuBar1.add(menuMant);
 
         menuEnvio.setText("Envío");
@@ -62,16 +91,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(598, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(29, 29, 29))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 588, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(29, 29, 29))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(46, 46, 46)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(pnlFrente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,11 +117,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addContainerGap(447, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlFrente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mantUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantUsuarioActionPerformed
+        // TODO add your handling code here:
+        this.remove(pnlFrente);
+        panelMantUsuario ps=new panelMantUsuario();
+        this.add(ps,BorderLayout.CENTER);
+        this.revalidate();
+    }//GEN-LAST:event_mantUsuarioActionPerformed
+
+    private void mantUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantUsuarioMouseClicked
+        // TODO add your handling code here:
+        this.remove(pnlFrente);
+        panelMantUsuario ps=new panelMantUsuario();
+        this.add(ps,BorderLayout.CENTER);
+        this.revalidate();
+    }//GEN-LAST:event_mantUsuarioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -128,9 +181,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem mantUsuario;
     private javax.swing.JMenu menuEnvio;
     private javax.swing.JMenu menuMant;
     private javax.swing.JMenu menuRastreo;
     private javax.swing.JMenu menuSim;
+    private javax.swing.JPanel pnlFrente;
     // End of variables declaration//GEN-END:variables
 }
