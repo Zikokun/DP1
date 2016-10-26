@@ -20,9 +20,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public String tipoUsuario;
     public VentanaPrincipal(){
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     public VentanaPrincipal(String type) {
         initComponents();
+        this.setLocationRelativeTo(null);
         System.out.println(type);
         tipoUsuario=type;
         String mensajeBien="Bienvenido " + type +" !";
@@ -241,21 +243,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuRastreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRastreoMouseClicked
         // TODO add your handling code here:
-        if(tipoUsuario.equals("user")){
-            this.setVisible(false);
-            this.dispose();
-            PaqueteBusqueda pb=new PaqueteBusqueda();
-            pb.setVisible(true);
+        if(tipoUsuario.equals("user")||tipoUsuario.equals("client")){
+             this.remove(pnlFrente);
+            pnlFondo.removeAll();
+            panelPaqueteBusqueda ppb=new panelPaqueteBusqueda();
+            pnlFondo.add(ppb,BorderLayout.CENTER);
+            this.revalidate();
         }
     }//GEN-LAST:event_menuRastreoMouseClicked
 
     private void menuRastreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRastreoActionPerformed
         // TODO add your handling code here:
-        if(tipoUsuario.equals("user")){
-            this.setVisible(false);
-            this.dispose();
-            PaqueteBusqueda pb=new PaqueteBusqueda();
-            pb.setVisible(true);
+        if(tipoUsuario.equals("user")||tipoUsuario.equals("client")){
+            this.remove(pnlFrente);
+            pnlFondo.removeAll();
+            panelPaqueteBusqueda ppb=new panelPaqueteBusqueda();
+            pnlFondo.add(ppb,BorderLayout.CENTER);
+            this.revalidate();
         }
     }//GEN-LAST:event_menuRastreoActionPerformed
 

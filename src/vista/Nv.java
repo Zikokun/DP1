@@ -19,6 +19,7 @@ public class Nv extends javax.swing.JFrame {
      */
     public Nv() {
         initComponents();
+         this.setLocationRelativeTo(null);
     }
 
     /**
