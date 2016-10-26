@@ -45,6 +45,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.pnlFrente.setVisible(false);
             this.menuMant.setEnabled(false);
             this.menuSim.setEnabled(false);
+            this.jMenuItem1.setEnabled(false);
+            this.jMenuItem1.setVisible(false);
             //panelMantUsuario pmu=new panelMantUsuario();
             //pnlFondo.add(pmu);
             this.revalidate();
@@ -144,6 +146,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuEnvio.add(jMenuItem1);
 
         jMenuItem2.setText("Visualizar detalle");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         menuEnvio.add(jMenuItem2);
 
         jMenuBar1.add(menuEnvio);
@@ -286,6 +293,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        if(tipoUsuario.equals("user")||tipoUsuario.equals("client")){
+         this.remove(pnlFrente);
+         pnlFondo.removeAll();
+         panelDetallePaquete pdp=new panelDetallePaquete();
+         pnlFondo.add(pdp,BorderLayout.CENTER);
+         this.revalidate();
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
