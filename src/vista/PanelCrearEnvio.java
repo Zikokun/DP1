@@ -5,6 +5,8 @@
  */
 package vista;
 
+import modelo.Pedido;
+
 /**
  *
  * @author a20122988
@@ -442,6 +444,15 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        String ori;
+        String dest;
+        int cantidad;
+        int horaL;
+        int minL;
+        int diaL;
+        int mesL;
+        int añoL;
+       //Pedido pd=new Pedido();
     }//GEN-LAST:event_jButton6ActionPerformed
 
 

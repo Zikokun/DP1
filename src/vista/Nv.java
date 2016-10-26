@@ -6,6 +6,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -98,6 +99,12 @@ public class Nv extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(58, 18, 0, 102);
         pnlFrente.add(campoIdUsuario, gridBagConstraints);
+
+        campoContrasenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoContrasenhaKeyPressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 3;
@@ -148,8 +155,7 @@ public class Nv extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
-    private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
-        // TODO add your handling code here:
+    private void abrirVentanaInicio(){
         String usuario=this.campoIdUsuario.getText();
         String contrasenha=this.campoContrasenha.getText();
         if(usuario.contentEquals("admin")){
@@ -158,25 +164,25 @@ public class Nv extends javax.swing.JFrame {
             this.dispose();
             VentanaPrincipal vp=new VentanaPrincipal("admin");
             vp.setVisible(true);
-//            pnlFondo.remove(pnlFrente);
-//            PanelSim ps=new PanelSim();
-//            pnlFondo.add(ps,BorderLayout.CENTER);
-//            this.revalidate();
-        }
-         if(usuario.contentEquals("user")){
+        }else if(usuario.contentEquals("user")){
             //this.setVisible(false);
             this.setVisible(false);
             this.dispose();
-            PaqueteBusqueda pb=new PaqueteBusqueda();
-            pb.setVisible(true);
-        }
-          if(usuario.contentEquals("client")){
+            VentanaPrincipal principal=new VentanaPrincipal("user");
+            principal.setVisible(true); 
+        }else if(usuario.contentEquals("client")){
             this.setVisible(false);
             this.dispose();
             VentanaPrincipal principal=new VentanaPrincipal("client");
-            principal.setVisible(true);
-            
+            principal.setVisible(true); 
+        }else{
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
         }
+    }
+    
+    private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
+        // TODO add your handling code here:
+        abrirVentanaInicio();
     }//GEN-LAST:event_botonConfirmarActionPerformed
 
     private void campoIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIdUsuarioActionPerformed
@@ -186,7 +192,17 @@ public class Nv extends javax.swing.JFrame {
 
     private void campoIdUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoIdUsuarioKeyPressed
         // TODO add your handling code here:
+        if(evt.getKeyCode() == evt.VK_ENTER){
+            abrirVentanaInicio();
+        }
     }//GEN-LAST:event_campoIdUsuarioKeyPressed
+
+    private void campoContrasenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoContrasenhaKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == evt.VK_ENTER){
+            abrirVentanaInicio();
+        }
+    }//GEN-LAST:event_campoContrasenhaKeyPressed
 
     /**
      * @param args the command line arguments

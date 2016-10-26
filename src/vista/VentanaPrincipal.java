@@ -7,7 +7,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
-
+import modelo.*;
 /**
  *
  * @author a20125540
@@ -17,15 +17,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VentanaPrincipal
      */
+    public String tipoUsuario;
     public VentanaPrincipal(){
         initComponents();
     }
     public VentanaPrincipal(String type) {
         initComponents();
+        System.out.println(type);
+        tipoUsuario=type;
         String mensajeBien="Bienvenido " + type +" !";
         if(type.equals("admin")){
             labelBienvenido.setText(mensajeBien);
             //this.remove(pnlFrente);
+            this.menuMant.setEnabled(false);
+            this.menuEnvio.setEnabled(false);
+            this.menuRastreo.setEnabled(false);
             pnlFrente.setVisible(false);
             PanelSim ps=new PanelSim();
             pnlFondo.add(ps);
@@ -35,6 +41,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(type.equals("client")){
             //this.remove(pnlFrente);
             this.pnlFrente.setVisible(false);
+            this.menuMant.setEnabled(false);
+            this.menuSim.setEnabled(false);
+            //panelMantUsuario pmu=new panelMantUsuario();
+            //pnlFondo.add(pmu);
+            this.revalidate();
+            this.repaint();
+        }
+        if(type.equals("user")){
+            labelBienvenido.setText(mensajeBien);
+            //this.remove(pnlFrente);
+            this.pnlFrente.setVisible(false);
+//            this.menuMant.setEnabled(false);
+            //this.menuEnvio.setEnabled(false);
+            this.menuSim.setEnabled(false);
             //panelMantUsuario pmu=new panelMantUsuario();
             //pnlFondo.add(pmu);
             this.revalidate();
@@ -60,6 +80,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuMant = new javax.swing.JMenu();
         mantUsuario = new javax.swing.JMenuItem();
         menuEnvio = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menuRastreo = new javax.swing.JMenu();
         menuSim = new javax.swing.JMenu();
 
@@ -110,12 +132,39 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menuMant);
 
         menuEnvio.setText("Envío");
+
+        jMenuItem1.setText("Registrar envio");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuEnvio.add(jMenuItem1);
+
+        jMenuItem2.setText("Visualizar detalle");
+        menuEnvio.add(jMenuItem2);
+
         jMenuBar1.add(menuEnvio);
 
         menuRastreo.setText("Rastreo");
+        menuRastreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuRastreoMouseClicked(evt);
+            }
+        });
+        menuRastreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRastreoActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(menuRastreo);
 
         menuSim.setText("Simulación");
+        menuSim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSimActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(menuSim);
 
         setJMenuBar(jMenuBar1);
@@ -162,6 +211,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void mantUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantUsuarioActionPerformed
         // TODO add your handling code here:
         this.remove(pnlFrente);
+        pnlFondo.removeAll();
         panelMantUsuario pmu=new panelMantUsuario();
         pnlFondo.add(pmu,BorderLayout.CENTER);
         this.revalidate();
@@ -188,6 +238,50 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             login.setVisible(true);
         }
     }//GEN-LAST:event_labelCerrarSesionMouseClicked
+
+    private void menuRastreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRastreoMouseClicked
+        // TODO add your handling code here:
+        if(tipoUsuario.equals("user")){
+            this.setVisible(false);
+            this.dispose();
+            PaqueteBusqueda pb=new PaqueteBusqueda();
+            pb.setVisible(true);
+        }
+    }//GEN-LAST:event_menuRastreoMouseClicked
+
+    private void menuRastreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRastreoActionPerformed
+        // TODO add your handling code here:
+        if(tipoUsuario.equals("user")){
+            this.setVisible(false);
+            this.dispose();
+            PaqueteBusqueda pb=new PaqueteBusqueda();
+            pb.setVisible(true);
+        }
+    }//GEN-LAST:event_menuRastreoActionPerformed
+
+    private void menuSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSimActionPerformed
+        // TODO add your handling code here:
+        if(tipoUsuario.equals("admin")){
+            this.remove(pnlFrente);
+            pnlFondo.removeAll();
+            PanelSim ps=new PanelSim();
+            pnlFondo.add(ps,BorderLayout.CENTER);
+            this.revalidate();
+        }
+    }//GEN-LAST:event_menuSimActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        if(tipoUsuario.equals("user")){
+         this.remove(pnlFrente);
+         pnlFondo.removeAll();
+         PanelCrearEnvio pb=new PanelCrearEnvio();
+         pnlFondo.add(pb,BorderLayout.CENTER);
+         this.revalidate();
+        }
+       
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,6 +321,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel labelBienvenido;
     private javax.swing.JLabel labelCerrarSesion;
     private javax.swing.JMenuItem mantUsuario;

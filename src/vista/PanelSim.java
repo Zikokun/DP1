@@ -120,6 +120,8 @@ public class PanelSim extends javax.swing.JPanel {
 
     private void buttonExaminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExaminarActionPerformed
         // TODO add your handling code here:
+        escogerArchivo fs=new escogerArchivo();
+        fs.setVisible(true);
     }//GEN-LAST:event_buttonExaminarActionPerformed
 
     private void buttonEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEmpezarActionPerformed
