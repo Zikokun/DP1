@@ -5,8 +5,14 @@
  */
 package modelo;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +28,27 @@ public class Lectura {
     }
     
     public void leerHusos(String archHusos,TreeMap<String,Ciudad> ciudades){
+        String linea;
+        String []valor;
+        
+        try {
+            BufferedReader bufer= new BufferedReader(new FileReader(archHusos));
+            try {
+                while((linea=bufer.readLine())!= null){
+                    valor=linea.trim().split("\t");
+                    String ciudad=valor[1];
+                    int huso=Integer.parseInt(valor[2]);
+                    ciudades.get(ciudad).huso=huso;
+                }
+            }catch(IOException ex){
+                Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE,null,ex);
+                
+            }
+            
+        }catch(FileNotFoundException ex){
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        
     }
     
     public void leerAeropuertos(String archAeropuertos,TreeMap<String,Ciudad> aeropuertos){
