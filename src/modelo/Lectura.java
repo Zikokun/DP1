@@ -82,6 +82,7 @@ public class Lectura {
                 Ciudad aero= new Ciudad(id,codAeropuerto,ciudad,pais,abreviado,continente);
                 aeropuertos.put(codAeropuerto,aero);
             }
+            bufer.close();
 
         }catch(IOException ex){
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE,null,ex);                        
@@ -89,6 +90,27 @@ public class Lectura {
     }
     
     public void leerVuelos(String archVuelos, ArrayList<Vuelo> vuelos){
+        String linea;
+        String []valor;
+        String origen,destino,continente="";
+        int hSalida, mSalida, hLlegada, mLlegada;
+        try{
+            BufferedReader bufer= new BufferedReader(new FileReader(archVuelos));
+            while((linea=bufer.readLine())!= null){
+                valor=linea.trim().split("-|:");
+                origen=valor[0];
+                destino=valor[1];
+                hSalida=Integer.parseInt(valor[2]);
+                mSalida=Integer.parseInt(valor[3]);
+                hLlegada=Integer.parseInt(valor[4]);
+                mLlegada=Integer.parseInt(valor[5]);
+                Vuelo vuel=new Vuelo(hSalida, mSalida, hLlegada,mLlegada,origen,destino);
+                vuelos.add(vuel);
+            }
+            bufer.close();
+        }catch(IOException ex){
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE,null,ex);
+        }
     }
     
     public void leerPedidos(String archPedidos,ArrayList<Pedido> pedidos){
