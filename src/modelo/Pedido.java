@@ -21,9 +21,17 @@ public class Pedido {
     private int diaSemana;
     
     Pedido(){
+        origen="";
+        destino="";
+        cant=0;
+        hora=0;
+        min=0;
+        dia=0;
+        mes=0;
+        año=0;
     }
     
-     Pedido(String ori, String dest, int cantidad, int horaL, int minL,int diaL,int mesL,int añoL){
+     public Pedido(String ori, String dest, int cantidad, int horaL, int minL,int diaL,int mesL,int añoL){
         origen=ori;
         destino=dest;
         cant=cantidad;

@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import modelo.*;
 import utilitario.funcionesBaseDeDatos;
 import utilitario.funcionesVentanaPrincipal;
+import javax.swing.Timer;
+ 
 /**
  *
  * @author a20125540
@@ -21,11 +23,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(){
         initComponents();
         this.setLocationRelativeTo(null);
+        
     }
     public VentanaPrincipal(String type) {
         initComponents();
         this.setLocationRelativeTo(null);
-
+        
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection cn = cc.getConectar();
         
