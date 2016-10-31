@@ -84,7 +84,7 @@ public class Genetico {
                 }
                 
             }
-            reiniciarCapsCiudades(ciudades);//regresar las ciudades a su capacidad COMPLETA
+            reiniciarCapsCiudades(ciudades);//regresar las ciudades a su capacidad COMPLETA porque se comenzara de nuevo para el siguiente cromosoma
             int fitness=calcFitness(crom);
             fitnessTotal+=fitness;
             crom.fitness=fitness;
@@ -117,6 +117,7 @@ public class Genetico {
             tiempoTotal+=gen.tiempo;
             //espacioLibre+=gen.espacioLibre;
         }
+        //48 porque es el mayor tiempo que se puede demorar,a mayor fitness es una mejor solucion
         fitness=4*48-4*tiempoTotal/crom.genes.size();
         return fitness;
     }
