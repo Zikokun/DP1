@@ -5,12 +5,14 @@
  */
 package vista;
 
+import static constantes.constantesVentanaPrincipal.*;
 import java.awt.BorderLayout;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import modelo.*;
 import utilitario.funcionesBaseDeDatos;
 import utilitario.funcionesVentanaPrincipal;
+import utilitario.funcionesVentanaPrincipal.*;
 /**
  *
  * @author a20125540
@@ -18,6 +20,7 @@ import utilitario.funcionesVentanaPrincipal;
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     public String tipoUsuario;
+    public funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
     public VentanaPrincipal(){
         initComponents();
         this.setLocationRelativeTo(null);
@@ -25,20 +28,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(String type) {
         initComponents();
         this.setLocationRelativeTo(null);
-
-        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
-        Connection cn = cc.getConectar();
         
         tipoUsuario=type;
         String mensajeBien="Bienvenido " + type +" !";
         if(type.equals("admin")){
             labelBienvenido.setText(mensajeBien);
 
-            funcionesVentanaPrincipal.esconderMenu(menuMant);
+            utilitarioVentanaPrincial.esconderMenu(menuMant);
 
-            funcionesVentanaPrincipal.esconderMenu(menuEnvio);
+            utilitarioVentanaPrincial.esconderMenu(menuEnvio);
 
-            funcionesVentanaPrincipal.esconderMenu(menuRastreo);
+            utilitarioVentanaPrincial.esconderMenu(menuRastreo);
             
             pnlFrente.setVisible(false);
             PanelSim ps=new PanelSim();
@@ -50,9 +50,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             this.pnlFrente.setVisible(false);
             
-            funcionesVentanaPrincipal.esconderMenu(menuMant);
+            utilitarioVentanaPrincial.esconderMenu(menuMant);
             
-            funcionesVentanaPrincipal.esconderMenu(menuSim);
+            utilitarioVentanaPrincial.esconderMenu(menuSim);
 
             this.revalidate();
             this.repaint();
@@ -62,10 +62,49 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             this.pnlFrente.setVisible(false);
 
-            funcionesVentanaPrincipal.esconderMenu(menuSim);
+            utilitarioVentanaPrincial.esconderMenu(menuSim);
 
             this.revalidate();
             this.repaint();
+        }
+    }
+    
+    public VentanaPrincipal(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
+
+        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(Integer.parseInt(usuario), contrasenha);
+        this.tipoUsuario = tipo;
+        String mensajeBien = "";
+        
+        if(!tipoUsuario.equals(USUARIO_NO_VALIDO)){
+            mensajeBien="Bienvenido " + usuario +" !";
+            initComponents();
+            this.setLocationRelativeTo(null);
+            labelBienvenido.setText(mensajeBien);
+            pnlFrente.setVisible(false);
+        }
+        
+        if(tipoUsuario.equals(TIPO_ADMIN)){
+            utilitarioVentanaPrincial.esconderMenu(menuMant);
+            utilitarioVentanaPrincial.esconderMenu(menuEnvio);
+            utilitarioVentanaPrincial.esconderMenu(menuRastreo);
+            PanelSim ps=new PanelSim();
+            pnlFondo.add(ps);
+        }
+        
+        if(tipoUsuario.equals(TIPO_CLIENTE)){ //Operario
+            utilitarioVentanaPrincial.esconderMenu(menuMant);
+            utilitarioVentanaPrincial.esconderMenu(menuSim);
+        }
+        
+        if(tipoUsuario.equals(TIPO_OPERARIO)){
+            utilitarioVentanaPrincial.esconderMenu(menuSim);
+        }
+        
+        if(!tipoUsuario.equals(USUARIO_NO_VALIDO)){
+            this.revalidate();
+            this.repaint();
+        }else{
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
         }
     }
 

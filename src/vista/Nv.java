@@ -5,8 +5,13 @@
  */
 package vista;
 
+import constantes.constantesVentanaPrincipal;
+import static constantes.constantesVentanaPrincipal.*;
 import java.awt.BorderLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import utilitario.funcionesVentanaPrincipal;
 
 /**
  *
@@ -156,34 +161,31 @@ public class Nv extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
-    private void abrirVentanaInicio(){
+    private void abrirVentanaInicio() throws InstantiationException, IllegalAccessException{
         String usuario=this.campoIdUsuario.getText();
         String contrasenha=this.campoContrasenha.getText();
-        if(usuario.contentEquals("admin")){
-            //this.setVisible(false);
-            this.setVisible(false);
-            this.dispose();
-            VentanaPrincipal vp=new VentanaPrincipal("admin");
+
+        funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
+        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(Integer.parseInt(usuario), contrasenha);
+
+        if(tipo != USUARIO_NO_VALIDO){
+            VentanaPrincipal vp=new VentanaPrincipal(usuario,contrasenha);
             vp.setVisible(true);
-        }else if(usuario.contentEquals("user")){
-            //this.setVisible(false);
             this.setVisible(false);
-            this.dispose();
-            VentanaPrincipal principal=new VentanaPrincipal("user");
-            principal.setVisible(true); 
-        }else if(usuario.contentEquals("client")){
-            this.setVisible(false);
-            this.dispose();
-            VentanaPrincipal principal=new VentanaPrincipal("client");
-            principal.setVisible(true); 
-        }else{
-            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
-        }
+        this.dispose();
+        }else JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
+        
     }
     
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
-        // TODO add your handling code here:
-        abrirVentanaInicio();
+        try {
+            // TODO add your handling code here:
+            abrirVentanaInicio();
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonConfirmarActionPerformed
 
     private void campoIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIdUsuarioActionPerformed
@@ -194,14 +196,26 @@ public class Nv extends javax.swing.JFrame {
     private void campoIdUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoIdUsuarioKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == evt.VK_ENTER){
-            abrirVentanaInicio();
+            try {
+                abrirVentanaInicio();
+            } catch (InstantiationException ex) {
+                Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_campoIdUsuarioKeyPressed
 
     private void campoContrasenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoContrasenhaKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode() == evt.VK_ENTER){
-            abrirVentanaInicio();
+            try {
+                abrirVentanaInicio();
+            } catch (InstantiationException ex) {
+                Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_campoContrasenhaKeyPressed
 
