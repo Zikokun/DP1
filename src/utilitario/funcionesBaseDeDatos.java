@@ -23,6 +23,7 @@ public class funcionesBaseDeDatos {
            Class.forName("com.mysql.jdbc.Driver").newInstance();//.newInstance();
            
             setConectar(DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","contrasenha"));
+            
        }catch(SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error de conexion de la base de datos");
        }catch(ClassNotFoundException ex) { 

@@ -21,8 +21,8 @@ public class Vuelo {
     private String tipoVuelo;
     private int tiempo;
     private int capacidad=250;
-//    private Ciudad aeroOrig;
-//    private Ciudad aeroFin;
+    private Ciudad aeroOrig;
+    private Ciudad aeroFin;
     private ArrayList<Integer> capTiempo = new ArrayList<>(); // capacidades en el tiempo
             
     Vuelo(){
@@ -180,6 +180,34 @@ public class Vuelo {
      */
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+
+    /**
+     * @return the aeroOrig
+     */
+    public Ciudad getAeroOrig() {
+        return aeroOrig;
+    }
+
+    /**
+     * @param aeroOrig the aeroOrig to set
+     */
+    public void setAeroOrig(Ciudad aeroOrig) {
+        this.aeroOrig = aeroOrig;
+    }
+
+    /**
+     * @return the aeroFin
+     */
+    public Ciudad getAeroFin() {
+        return aeroFin;
+    }
+
+    /**
+     * @param aeroFin the aeroFin to set
+     */
+    public void setAeroFin(Ciudad aeroFin) {
+        this.aeroFin = aeroFin;
     }
     
     

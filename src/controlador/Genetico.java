@@ -94,7 +94,22 @@ public class Genetico {
     }
     
     public void actualizarCaps(Gen gen,int diaP,int horaP, int minP){  //esta es hora y min del pedido////// dia-hora:00 / dia-hora:01
-        
+        Ruta ruta= gen.getRuta();
+        int diaK=diaP;
+        int cant=ruta.getVuelos().size();
+        for(int i=0;i<cant;i++){
+            Vuelo vuelo=ruta.getVuelos().get(i);
+            Ciudad ciudadOrig=vuelo.getAeroOrig();
+            Ciudad ciudadFin=vuelo.getAeroFin();
+            int hSalida=vuelo.gethSalida();
+            int hllegada=vuelo.gethLlegada();
+            int horaKey;
+            
+            //registramos su ingreso
+//            if(i==0){
+//                if()
+//            }
+        }
     }
     
     public void reiniciarCapsCiudades(TreeMap<String,Ciudad> ciudades){ // reiniciamos las ciudades a su capacidad COMPLETA
