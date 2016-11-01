@@ -102,14 +102,65 @@ public class Genetico {
             Ciudad ciudadOrig=vuelo.getAeroOrig();
             Ciudad ciudadFin=vuelo.getAeroFin();
             int hSalida=vuelo.gethSalida();
-            int hllegada=vuelo.gethLlegada();
+            int hLlegada=vuelo.gethLlegada();
             int horaKey;
             
-            //registramos su ingreso
-//            if(i==0){
-//                if()
-//            }
+            //registramos su ingreso por primera vez
+            if(i==0){ 
+                //si la hora de salida ya paso, hay que esperar hasta el dia siguiente
+                if(hSalida<horaP) hSalida+=24;
+                for (int hora=horaP;hora<=hSalida;hora++){
+                    horaKey=horaP%24; // porque las horas del dia van de 0 a 24 (circular)
+                    if(hora!=horaP && horaKey==0) diaK++; // se paso al día siguiente
+                    diaK=diaK%7; //mantener el rango de los 7 dias (circular)
+                    String key=diasSemana[diaK]+"-"+horaKey+":00";
+                    ciudadOrig.capTiempo.put(key,ciudadOrig.capTiempo.get(key)-1);//un espacio menos disponible
+                    if(hora!=hSalida){ //el paquete todavia se va a quedar ahi por una hora mass
+                        String key2=diasSemana[diaK]+"-"+horaKey+":01";
+                        ciudadOrig.capTiempo.put(key2, ciudadOrig.capTiempo.get(key2)-1);
+                    }
+                }
+            }
+            //registramos su escala si la hubiera
+            if(i==1){
+                int hLlegadaEscala=ruta.getVuelos().get(0).gethLlegada();
+                int hSalidaDeOrigen=ruta.getVuelos().get(0).gethSalida();
+                int diasTrans=diasTrans(ruta.getVuelos().get(0));
+                diaK=(diaK+diasTrans)%7;//se determina que dia llego a la ciudad escala
+                if(hSalida<hLlegadaEscala)hSalida+=24;//si la salida es al dia siguiente
+                for(int hora=hLlegadaEscala;hora<=hSalida;hora++){
+                    horaKey=hora%24;
+                    if(hora!=hLlegadaEscala && horaKey==0) diaK++;//se paso al dia siguiente
+                    diaK=diaK%7;
+                    String key=diasSemana[diaK]+"-"+horaKey+":00";
+                    ciudadOrig.capTiempo.put(key, ciudadOrig.capTiempo.get(key)-1);
+                    if(hora!=hSalida){
+                        String key2=diasSemana[diaK]+"-"+horaKey+":01";
+                        ciudadOrig.capTiempo.put(key2, ciudadOrig.capTiempo.get(key2)-1);
+                    }
+                }
+                
+            }
+            
+            //registramos fin del destino de paquete
+            
+            if(i==ruta.getVuelos().size()-1){
+                int diasTrans=diasTrans(vuelo);
+                diaK=(diaK+diasTrans)%7;//se determina que dia llego a la ciudad escala
+                String key=diasSemana[diaK]+"-"+hLlegada+":00";
+                ciudadFin.capTiempo.put(key,ciudadFin.capTiempo.get(key)-1);
+            }
+            
         }
+    }
+    
+    public int diasTrans(Vuelo vuel){
+        int hSalida=vuel.gethSalida();
+        int hLlegada=vuel.gethLlegada();
+        Ciudad ciudOrig=vuel.getAeroOrig();
+        Ciudad ciudFin=vuel.getAeroFin();
+        int diasTrans=(hSalida+vuel.getTiempo()+ciudFin.huso-ciudOrig.huso)/24;//es division entera?
+        return diasTrans;
     }
     
     public void reiniciarCapsCiudades(TreeMap<String,Ciudad> ciudades){ // reiniciamos las ciudades a su capacidad COMPLETA
