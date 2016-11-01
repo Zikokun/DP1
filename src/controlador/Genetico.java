@@ -30,7 +30,7 @@ public class Genetico {
     private ArrayList<Ruta> universoRutas= new ArrayList<>();
     private ArrayList<Cromosoma> cromosomas=new ArrayList<>();
     
-    Genetico(){
+    public Genetico(){
         
     }
     
