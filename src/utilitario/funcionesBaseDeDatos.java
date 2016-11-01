@@ -21,15 +21,12 @@ public class funcionesBaseDeDatos {
     public Connection conexion() throws InstantiationException, IllegalAccessException{   
         try{
            Class.forName("com.mysql.jdbc.Driver").newInstance();//.newInstance();
-           
-            setConectar(DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","contrasenha"));
-            
-       }catch(SQLException ex) {
+           conectar = DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","root");
+           JOptionPane.showMessageDialog(null, "Conexión establecida");
+       }catch(ClassNotFoundException|SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error de conexion de la base de datos");
-       }catch(ClassNotFoundException ex) { 
-           return getConectar();
        }
-        return getConectar();
+        return conectar;
     }
     public Connection getConectar() {
         return conectar;

@@ -166,7 +166,7 @@ public class Nv extends javax.swing.JFrame {
         String contrasenha=this.campoContrasenha.getText();
 
         funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
-        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(Integer.parseInt(usuario), contrasenha);
+        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(usuario, contrasenha);
 
         if(tipo != USUARIO_NO_VALIDO){
             VentanaPrincipal vp=new VentanaPrincipal(usuario,contrasenha);

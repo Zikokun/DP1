@@ -25,27 +25,31 @@ public class funcionesVentanaPrincipal {
         menu.setVisible(false);
     }
     
-    public String devolverTipoUsuario(int usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
+    public String devolverTipoUsuario(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         System.out.println(cc);
         Connection conexion = cc.conexion();//null
+        
+        String sqlBuscarTipo = "SELECT tipoUsuario FROM basededatos.usuario WHERE username='"+ usuario +"'  AND Contrasenha='" + contrasenha + "'";
+        
         String valorTipoUsuario= "";
-        
         String tipo = "";
-        
-        String sqlBuscarTipo = "SELECT tipoUsuario "
-                             + "FROM usuario "
-                             + "WHERE idUsuario="+usuario+"  AND Contrasenha='"+contrasenha+"'";
-        
+
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscarTipo = st.executeQuery(sqlBuscarTipo);
             
+            if(resultadoBuscarTipo!=null){
+                resultadoBuscarTipo.next();
+                
+                valorTipoUsuario = resultadoBuscarTipo.getString("tipoUsuario");
+            }
+            /*
             while(resultadoBuscarTipo!=null && resultadoBuscarTipo.next()){
                 valorTipoUsuario = resultadoBuscarTipo.getString(1);
             }
-            
-            if(valorTipoUsuario!=null){
+            */
+            if(valorTipoUsuario!=""){
                 tipo = valorTipoUsuario;
             }else{
                 tipo = USUARIO_NO_VALIDO;

@@ -80,7 +80,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     public VentanaPrincipal(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
 
-        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(Integer.parseInt(usuario), contrasenha);
+        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(usuario, contrasenha);
         this.tipoUsuario = tipo;
         String mensajeBien = "";
         
