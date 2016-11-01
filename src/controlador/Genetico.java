@@ -35,7 +35,74 @@ public class Genetico {
     }
     
     public void ejecutar(TreeMap<String,Ciudad> aeropuertos, ArrayList<Vuelo> vuelos, ArrayList<Pedido> pedidos,int hora, int dia){
-        
+        int fitnessTotal=generarPoblacion(pedidos,aeropuertos);//poblacion incicial
+        System.out.println("fitness Total: "+fitnessTotal);
+        reproduccion(fitnessTotal);
+        horaSist=hora;
+        diaSist=dia;        
+    }
+    
+    public void reproduccion(int fitnessTotal){
+        Cromosoma mejorCrom=new Cromosoma();
+        mejorCrom.fitness=0;
+        for(int i=0;i<maxGeneraciones;i++){
+            int auxFitnessTotal=0;
+            ArrayList<Cromosoma> descendencia= new ArrayList<>();
+            for(int j=0;j<maxPoblacion;j++){
+                Random semilla=new Random();//seleccionar padre
+                Random semilla2=new Random();//seleccionar madre
+                int posPadre=semilla.nextInt(fitnessTotal);
+                int posMadre=semilla2.nextInt(fitnessTotal);
+                int encPadre=0,encMadre=0,sumaFit=0;//simulamos ruleta de seleccion de padres
+                while(sumaFit<=posPadre){
+                    sumaFit+=cromosomas.get(encPadre++).fitness;
+                }
+                sumaFit=0;
+                while(sumaFit<=posMadre){
+                    sumaFit+=cromosomas.get(encMadre++).fitness;
+                }
+                Cromosoma hijo= crossover(cromosomas.get(--encPadre),cromosomas.get(--encMadre),cromosomas.get(0).genes.size());
+                mutacion(hijo);
+                hijo.fitness=calcFitness(hijo);
+                if(hijo.fitness>mejorCrom.fitness)mejorCrom=hijo;
+                auxFitnessTotal+=hijo.fitness;
+                descendencia.add(hijo);
+            }
+            fitnessTotal=auxFitnessTotal;
+            for(int h=0;h<maxPoblacion;h++)//reemplazo de nuevo generacion
+                cromosomas.set(h, descendencia.get(h));
+            
+        }
+    }
+    
+    public void mutacion(Cromosoma crom){
+        if(Math.random()<=probMutacion){ //prob Mutacion
+            Random paqueteRand=new Random();
+            Random rutaRand=new Random();
+            int cromNumero=rutaRand.nextInt(maxPoblacion);//Elegimos otro cromosoma de la poblacion
+            int aleloNumero=paqueteRand.nextInt(crom.genes.size());//elegimos un gen de ese cromosoma
+            crom.genes.set(aleloNumero,cromosomas.get(cromNumero).genes.get(aleloNumero));//hacemos la mutacion
+        }
+    }
+    
+    public Cromosoma crossover(Cromosoma padre, Cromosoma madre, int nPaquetes){
+        Cromosoma hijo = new Cromosoma();
+        int posIni=(int) (Math.random()*nPaquetes);
+        int aux=posIni;
+        int posFin=(int) (Math.random()*nPaquetes);
+        if(posIni>posFin){
+            posIni=posFin;
+            posFin=aux;
+        }
+        for(int i=0;i<nPaquetes;i++){ //inicializamos el hijo con genes de la madre
+            hijo.genes.add(madre.genes.get(i));
+        }
+        for(int i=0;i<nPaquetes;i++){
+            if(i<posIni||i>posFin){
+                hijo.genes.set(i, padre.genes.get(i));
+            }
+        }
+        return hijo;
     }
     
     public int generarPoblacion(ArrayList<Pedido> pedidos,TreeMap<String,Ciudad> ciudades){
