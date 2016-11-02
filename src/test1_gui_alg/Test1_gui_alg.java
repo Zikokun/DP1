@@ -25,13 +25,13 @@ public class Test1_gui_alg {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Nv nv= new Nv();
-        nv.setVisible(true);
+        //Nv nv= new Nv();
+        //nv.setVisible(true);
         
         //principal();
         
-        //VentanaPrincipal principal=new VentanaPrincipal();
-        //principal.setVisible(true);
+        VentanaPrincipal principal=new VentanaPrincipal("admin");
+        principal.setVisible(true);
         
     }
     

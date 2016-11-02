@@ -5,6 +5,10 @@
  */
 package vista;
 
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author a20125540
@@ -126,6 +130,14 @@ public class PanelSim extends javax.swing.JPanel {
 
     private void buttonEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEmpezarActionPerformed
         // TODO add your handling code here:
+        VentanaPrincipal topFrame = (VentanaPrincipal) SwingUtilities.getWindowAncestor(this);
+        topFrame.remove(topFrame.pnlFrente);
+        topFrame.pnlFondo.removeAll();
+        panelEjecSimu pse=new panelEjecSimu();
+        topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
+        this.setVisible(false);
+        topFrame.revalidate();
+        topFrame.repaint();
     }//GEN-LAST:event_buttonEmpezarActionPerformed
 
 
