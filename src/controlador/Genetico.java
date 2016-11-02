@@ -151,6 +151,8 @@ public class Genetico {
                 */
                 for(int h=0;h<pedActual.getCant();h++){ //por paquete se genera un alelo
                     Ruta ruta=rutasOF.get(ran.nextInt(rutasOF.size())); //escogemos una ruta aleatoriamente
+                    int hSalida=ruta.getVuelos().get(0).gethSalida();
+                    if(hSalida<hPedido) hSalida+=24;
                     /*
                     La ruta solo se debe elegir si cumple con las condiciones de tiempo
                     de lo contrario se prueba con otra ruta, por ahora debido a que el archivo
@@ -165,10 +167,10 @@ public class Genetico {
 //                    }
                     Gen gen=new Gen();
                     gen.setRuta(ruta);
-                    gen.setTiempo(ruta.getTiempo()); //horaSalidaVuelo - horaPEdido + tiemporuta
+                    gen.setTiempo(hSalida-hPedido+ruta.getTiempo()); //horaSalidaVuelo - horaPEdido + tiemporuta
                     gen.setPedido(pedActual);
                     //de acuerdo a la ruta escogida, se debe actualizar las capacidades de los almacenes
-                    actualizarCaps(gen,pedActual.getDia(),pedActual.getHora(),pedActual.getMin());
+                    actualizarCaps(gen,pedActual.getDiaSemana(),pedActual.getHora(),pedActual.getMin());
                     crom.genes.add(gen); //se ha generado aleatoriamente su ruta
                 }
                 
