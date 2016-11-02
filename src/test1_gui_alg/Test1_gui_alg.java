@@ -27,6 +27,8 @@ public class Test1_gui_alg {
     public static void main(String[] args) {
         Nv nv= new Nv();
         nv.setVisible(true);
+        
+        //principal();
     }
     
     public static void principal(){

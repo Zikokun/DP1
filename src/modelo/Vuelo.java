@@ -24,6 +24,7 @@ public class Vuelo {
     private Ciudad aeroOrig;
     private Ciudad aeroFin;
     private ArrayList<Integer> capTiempo = new ArrayList<>(); // capacidades en el tiempo
+    private ArrayList<Integer> capTiempoAux = new ArrayList<>(); //copia de capacidades en el tiempo
             
     Vuelo(){
         
@@ -48,8 +49,15 @@ public class Vuelo {
         //inicializar capacidades en el tiempo
         for (int i=1; i<8; i++){ //los 7 dias de la semana
             capTiempo.add(capacidad);
+            capTiempoAux.add(capacidad);
         }
         
+    }
+    
+    public void copiarCaps(){
+        for(int i=0;i<capTiempo.size();i++){
+            capTiempoAux.set(i, capTiempo.get(i));
+        }
     }
     
     public void print(){

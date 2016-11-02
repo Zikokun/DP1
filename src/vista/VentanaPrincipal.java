@@ -347,7 +347,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(tipoUsuario.equals(TIPO_OPERARIO)){
          this.remove(pnlFrente);
          pnlFondo.removeAll();
-         PanelCrearEnvio pb=new PanelCrearEnvio();
+         PanelCrearEnvio pb = null;
+            try {
+                pb = new PanelCrearEnvio();
+            } catch (InstantiationException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
          pnlFondo.add(pb,BorderLayout.CENTER);
          this.revalidate();
         }

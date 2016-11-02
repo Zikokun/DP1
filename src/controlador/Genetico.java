@@ -89,7 +89,7 @@ public class Genetico {
                 Vuelo vuelo= rutasPacki.getVuelos().get(j);
                 System.out.print(vuelo.getOrigen()+"-"+vuelo.getDestino()+"//");
             }
-            System.out.println("------Tiempo: "+mejorCrom.genes.get(i).tiempo);
+            System.out.println("------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas");
             tiempoTotal+=mejorCrom.genes.get(i).tiempo;
             
         }
@@ -143,6 +143,7 @@ public class Genetico {
                 int tiempoMax=48; //tiempo maximo(horas) para envios entre continentes
                 if (ciudades.get(origen).getContinente().equals(ciudades.get(destino).getContinente())) tiempoMax=24; //si estan en el mismo continente, el maximo es de 24 horas
                 int hPedido=pedActual.getHora();
+                int mPedido=pedActual.getMin();
                 int tTotal=50;
                 /*
                 A partir de aqui se considera que un pedido puede tener varios paquetes,
@@ -152,7 +153,7 @@ public class Genetico {
                 for(int h=0;h<pedActual.getCant();h++){ //por paquete se genera un alelo
                     Ruta ruta=rutasOF.get(ran.nextInt(rutasOF.size())); //escogemos una ruta aleatoriamente
                     int hSalida=ruta.getVuelos().get(0).gethSalida();
-                    if(hSalida<hPedido) hSalida+=24;
+                    if(hSalida<hPedido ||(hSalida==hPedido && mPedido!=0)) hSalida+=24;
                     /*
                     La ruta solo se debe elegir si cumple con las condiciones de tiempo
                     de lo contrario se prueba con otra ruta, por ahora debido a que el archivo
@@ -165,9 +166,10 @@ public class Genetico {
 //                        if(hSalida<hPedido) hSalida+=24;
 //                        tTotal=hSalida-hPedido+ruta.getTiempo();
 //                    }
+                    
                     Gen gen=new Gen();
                     gen.setRuta(ruta);
-                    gen.setTiempo(hSalida-hPedido+ruta.getTiempo()); //horaSalidaVuelo - horaPEdido + tiemporuta
+                    gen.setTiempo((hSalida-hPedido+ruta.getTiempo())*60-mPedido); //el tiempo se toma en minutos
                     gen.setPedido(pedActual);
                     //de acuerdo a la ruta escogida, se debe actualizar las capacidades de los almacenes
                     actualizarCaps(gen,pedActual.getDiaSemana(),pedActual.getHora(),pedActual.getMin());
@@ -182,6 +184,11 @@ public class Genetico {
             cromosomas.add(crom);
         }
         return fitnessTotal;
+    }
+    
+    public int verificarCapsAvion(Ruta ruta){
+        
+        return 1;
     }
     
     public void actualizarCaps(Gen gen,int diaP,int horaP, int minP){  //esta es hora y min del pedido////// dia-hora:00 / dia-hora:01
@@ -199,13 +206,18 @@ public class Genetico {
             //registramos su ingreso por primera vez
             if(i==0){ 
                 //si la hora de salida ya paso, hay que esperar hasta el dia siguiente
-                if(hSalida<horaP) hSalida+=24;
+                if(hSalida<horaP ||(hSalida==horaP && minP!=0)) hSalida+=24;
+                int primeraVez=1;
+                if(minP==0)primeraVez=0;
                 for (int hora=horaP;hora<=hSalida;hora++){
-                    horaKey=horaP%24; // porque las horas del dia van de 0 a 24 (circular)
+                    horaKey=hora%24; // porque las horas del dia van de 0 a 24 (circular)
                     if(hora!=horaP && horaKey==0) diaK++; // se paso al día siguiente
                     diaK=diaK%7; //mantener el rango de los 7 dias (circular)
-                    String key=diasSemana[diaK]+"-"+horaKey+":00";
-                    ciudadOrig.capTiempo.put(key,ciudadOrig.capTiempo.get(key)-1);//un espacio menos disponible
+                    if(primeraVez==0){//si el paquete no acaba de llegar o si ha llegado en una hora exacta
+                        String key=diasSemana[diaK]+"-"+horaKey+":00";
+                        ciudadOrig.capTiempo.put(key,ciudadOrig.capTiempo.get(key)-1);//un espacio menos disponible
+                    }
+                    else{primeraVez=0;}
                     if(hora!=hSalida){ //el paquete todavia se va a quedar ahi por una hora mass
                         String key2=diasSemana[diaK]+"-"+horaKey+":01";
                         ciudadOrig.capTiempo.put(key2, ciudadOrig.capTiempo.get(key2)-1);
@@ -277,7 +289,7 @@ public class Genetico {
             //espacioLibre+=gen.espacioLibre;
         }
         //48 porque es el mayor tiempo que se puede demorar,a mayor fitness es una mejor solucion
-        fitness=4*48-4*tiempoTotal/crom.genes.size();
+        fitness=48*60-tiempoTotal/crom.genes.size();
         return fitness;
     }
 }
