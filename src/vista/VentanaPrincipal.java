@@ -311,7 +311,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuRastreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRastreoMouseClicked
         // TODO add your handling code here:
-        if(tipoUsuario.equals("user")||tipoUsuario.equals("client")){
+        if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
              this.remove(pnlFrente);
             pnlFondo.removeAll();
             panelPaqueteBusqueda ppb=new panelPaqueteBusqueda();
@@ -322,7 +322,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuRastreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRastreoActionPerformed
         // TODO add your handling code here:
-        if(tipoUsuario.equals("user")||tipoUsuario.equals("client")){
+        if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
             panelPaqueteBusqueda ppb=new panelPaqueteBusqueda();
@@ -333,7 +333,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSimActionPerformed
         // TODO add your handling code here:
-        if(tipoUsuario.equals("admin")){
+        if(tipoUsuario.equals(TIPO_ADMIN)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
             PanelSim ps=new PanelSim();
@@ -344,7 +344,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void envoRegEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoRegEnvioActionPerformed
         // TODO add your handling code here:
-        if(tipoUsuario.equals("user")){
+        if(tipoUsuario.equals(TIPO_OPERARIO)){
          this.remove(pnlFrente);
          pnlFondo.removeAll();
          PanelCrearEnvio pb=new PanelCrearEnvio();
@@ -355,7 +355,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void envioVisualizarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioVisualizarHistorialActionPerformed
         // TODO add your handling code here:
-        if(tipoUsuario.equals("user")||tipoUsuario.equals("client")){
+        if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
          this.remove(pnlFrente);
          pnlFondo.removeAll();
          panelDetallePaquete pdp=new panelDetallePaquete();

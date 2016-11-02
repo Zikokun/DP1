@@ -6,6 +6,7 @@
 package vista;
 
 import modelo.Pedido;
+import utilitario.funcionesPanelCrearEnvio;
 
 /**
  *
@@ -16,8 +17,16 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     /**
      * Creates new form PanelCrearEnvio
      */
-    public PanelCrearEnvio() {
+   public PanelCrearEnvio() throws InstantiationException, IllegalAccessException {
         initComponents();
+        funcionesPanelCrearEnvio funcionesMantAlmacen = new funcionesPanelCrearEnvio();
+        String[] datosAlmacen = new String[1000];
+        datosAlmacen = funcionesMantAlmacen.devolverDatosAlmacenes();
+        int cantidad=datosAlmacen.length;
+        for(int i=0;i<cantidad;i++){
+            this.comboDestino.addItem(datosAlmacen[i]);
+            this.comboOrigen.addItem(datosAlmacen[i]);
+        }
     }
 
     /**
@@ -78,7 +87,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        comboDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboDestinoActionPerformed(evt);
@@ -172,7 +180,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        comboOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboOrigenActionPerformed(evt);
