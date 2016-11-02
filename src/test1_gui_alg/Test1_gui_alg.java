@@ -41,16 +41,17 @@ public class Test1_gui_alg {
         TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
         ArrayList<Vuelo> vuelos=new ArrayList<>();
         ArrayList<Pedido> pedidos=new ArrayList<>();
-        lector.leerArchivos("Data/_aeropuertos.OACI.txt", "Data/_plan_vuelo.txt",
-                "Data/_pedidos_04-10-2-2016.txt", "Data/_husos_horarios.txt", vuelos, ciudades, pedidos);
+        lector.leerArchivos("src/recursos/_aeropuertos.OACI.txt", "src/recursos/_plan_vuelo.txt",
+                "src/recursos/_pedidos_04-10-2-2016.txt", "src/recursos/_husos_horarios.txt", vuelos, ciudades, pedidos);
         asignarTipoVuelo(vuelos,ciudades);
         generarRutas(ciudades);
-        Calendar calendario=Calendar.getInstance();
-        hora=calendario.get(Calendar.HOUR_OF_DAY);
-        dia=calendario.get(Calendar.DAY_OF_WEEK);
-        
-        Genetico algoritmo=new Genetico();
-        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia);        
+        imprimirAeros(ciudades);
+//        Calendar calendario=Calendar.getInstance();
+//        hora=calendario.get(Calendar.HOUR_OF_DAY);
+//        dia=calendario.get(Calendar.DAY_OF_WEEK);
+//        
+//        Genetico algoritmo=new Genetico();
+//        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia);        
     }
     
     public static void generarRutas(TreeMap<String,Ciudad> ciudades){
@@ -120,6 +121,13 @@ public class Test1_gui_alg {
             ciudades.get(origen).vuelos.add(vuelos.get(i));// agrego vuelos del aeropuerto
             vuelos.get(i).setAeroOrig(ciudades.get(origen));//agrego aeropuerto origen
             vuelos.get(i).setAeroFin(ciudades.get(destino)); // agrego aeropuerto fin 
+        }
+    }
+    
+    public static void imprimirAeros(TreeMap<String,Ciudad> aeropuertos){
+        for(int i=0;i<aeropuertos.size();i++){
+            //System.out.println(ciudades.get(i).getCiudad()+" cant: "+ciudades.get(i).getCantEspacioUsado());
+            System.out.println(aeropuertos.get(i).getCiudad());
         }
     }
 }
