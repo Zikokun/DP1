@@ -42,16 +42,18 @@ public class Test1_gui_alg {
         ArrayList<Vuelo> vuelos=new ArrayList<>();
         ArrayList<Pedido> pedidos=new ArrayList<>();
         lector.leerArchivos("src/recursos/_aeropuertos.OACI.txt", "src/recursos/_plan_vuelo.txt",
-                "src/recursos/_pedidos_04-10-2-2016.txt", "src/recursos/_husos_horarios.txt", vuelos, ciudades, pedidos);
+                "src/recursos/_pedidos_04-10-2016.txt", "src/recursos/_husos_horarios.txt", vuelos, ciudades, pedidos);
         asignarTipoVuelo(vuelos,ciudades);
         generarRutas(ciudades);
-        imprimirAeros(ciudades);
-//        Calendar calendario=Calendar.getInstance();
-//        hora=calendario.get(Calendar.HOUR_OF_DAY);
-//        dia=calendario.get(Calendar.DAY_OF_WEEK);
-//        
-//        Genetico algoritmo=new Genetico();
-//        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia);        
+//        for(Pedido item:pedidos)
+//            item.print();
+//        imprimirAeros(ciudades);
+        Calendar calendario=Calendar.getInstance();
+        hora=calendario.get(Calendar.HOUR_OF_DAY);
+        dia=calendario.get(Calendar.DAY_OF_WEEK);
+        
+        Genetico algoritmo=new Genetico();
+        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia);        
     }
     
     public static void generarRutas(TreeMap<String,Ciudad> ciudades){
@@ -125,9 +127,7 @@ public class Test1_gui_alg {
     }
     
     public static void imprimirAeros(TreeMap<String,Ciudad> aeropuertos){
-        for(int i=0;i<aeropuertos.size();i++){
-            //System.out.println(ciudades.get(i).getCiudad()+" cant: "+ciudades.get(i).getCantEspacioUsado());
-            System.out.println(aeropuertos.get(i).getCiudad());
-        }
+        for(Ciudad item:aeropuertos.values())
+            System.out.println(item.getCiudad());
     }
 }

@@ -48,7 +48,7 @@ public class Ciudad {
             for(int j=0; j<24; j++){
                 String llave=dias[i]+"-"+j+":00";
                 capTiempo.put(llave,capacidadTotal);
-                String llave2=dias[i]+"-"+j+":00";
+                String llave2=dias[i]+"-"+j+":01";
                 capTiempo.put(llave2,capacidadTotal);
             }
         }
@@ -60,7 +60,7 @@ public class Ciudad {
             for(int j=0; j<24; j++){
                 String llave=dias[i]+"-"+j+":00";
                 capTiempo.put(llave,capacidadTotal);
-                String llave2=dias[i]+"-"+j+":00";
+                String llave2=dias[i]+"-"+j+":01";
                 capTiempo.put(llave2,capacidadTotal);
             }
         }

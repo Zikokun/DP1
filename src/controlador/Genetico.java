@@ -69,10 +69,32 @@ public class Genetico {
                 descendencia.add(hijo);
             }
             fitnessTotal=auxFitnessTotal;
+            //System.out.println("generacion-"+i+" Fitnessprom= "+fitnessTotal/maxPoblacion);
+            //System.out.println("fitness Total: "+fitnessTotal);
             for(int h=0;h<maxPoblacion;h++)//reemplazo de nuevo generacion
                 cromosomas.set(h, descendencia.get(h));
             
         }
+        
+        int tiempoTotal=0;
+        for(int i=0;i<mejorCrom.genes.size();i++){
+            Ruta rutasPacki=mejorCrom.genes.get(i).ruta;
+            
+            System.out.print("Paquete "+i+":");
+            //Aeropuerto aeroPackO=rutasPacki.vuelos.get(0).getAeroOrig(); 
+            //Aeropuerto aeroPackF=rutasPacki.vuelos.get(0).getAeroFin();
+            //aeroPackO.setCantEspacioUsado(aeroPackO.getCantEspacioUsado()+1);// asigno espacio usado
+            //aeroPackF.setCantEspacioUsado(aeroPackF.getCantEspacioUsado()+1);
+            for(int j=0;j<rutasPacki.getVuelos().size();j++){
+                Vuelo vuelo= rutasPacki.getVuelos().get(j);
+                System.out.print(vuelo.getOrigen()+"-"+vuelo.getDestino()+"//");
+            }
+            System.out.println("------Tiempo: "+mejorCrom.genes.get(i).tiempo);
+            tiempoTotal+=mejorCrom.genes.get(i).tiempo;
+            
+        }
+        System.out.println("Tiempo total de entrega de paquetes: "+tiempoTotal);
+        
     }
     
     public void mutacion(Cromosoma crom){
