@@ -165,7 +165,7 @@ public class Genetico {
 //                    }
                     Gen gen=new Gen();
                     gen.setRuta(ruta);
-                    gen.setTiempo(ruta.getTiempo());
+                    gen.setTiempo(ruta.getTiempo()); //horaSalidaVuelo - horaPEdido + tiemporuta
                     gen.setPedido(pedActual);
                     //de acuerdo a la ruta escogida, se debe actualizar las capacidades de los almacenes
                     actualizarCaps(gen,pedActual.getDia(),pedActual.getHora(),pedActual.getMin());
@@ -234,7 +234,9 @@ public class Genetico {
             //registramos fin del destino de paquete
             
             if(i==ruta.getVuelos().size()-1){
-                int diasTrans=diasTrans(vuelo);
+                int diasTrans=(hSalida+ruta.getVuelos().get(i).getTiempo()+
+                         ruta.getVuelos().get(i).getAeroFin().huso
+                         -ruta.getVuelos().get(i).getAeroOrig().huso)/24;
                 diaK=(diaK+diasTrans)%7;//se determina que dia llego a la ciudad escala
                 String key=diasSemana[diaK]+"-"+hLlegada+":00";
                 ciudadFin.capTiempo.put(key,ciudadFin.capTiempo.get(key)-1);

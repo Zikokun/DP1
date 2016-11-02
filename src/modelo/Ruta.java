@@ -27,7 +27,7 @@ public class Ruta {
     public Ruta(Vuelo vuel1, Vuelo vuel2, int tiemp){
         vuelos.add(vuel1);
         vuelos.add(vuel2);
-        tiempo=tiempo;
+        tiempo=tiemp;
     }
     
     public void print(){

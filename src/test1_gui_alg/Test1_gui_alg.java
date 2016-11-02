@@ -97,6 +97,7 @@ public class Test1_gui_alg {
                         rutas.add(ruta);
                         ciudad.rutas.put(destino2,rutas);
                     }
+                    //System.out.println(tiempoRuta);
                 }
             }
         }        
