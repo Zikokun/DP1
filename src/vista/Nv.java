@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import utilitario.funcionesVentanaPrincipal;
 
 /**
@@ -24,7 +25,7 @@ public class Nv extends javax.swing.JFrame {
      */
     public Nv() {
         initComponents();
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -35,7 +36,6 @@ public class Nv extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         pnlFondo = new javax.swing.JPanel();
         pnlFrente = new javax.swing.JPanel();
@@ -43,48 +43,24 @@ public class Nv extends javax.swing.JFrame {
         etiquetaID = new javax.swing.JLabel();
         etiquetaCon = new javax.swing.JLabel();
         campoIdUsuario = new javax.swing.JTextField();
-        campoContrasenha = new javax.swing.JTextField();
         botonConfirmar = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
+        camporContrasenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         pnlFondo.setLayout(new java.awt.BorderLayout());
 
         pnlFrente.setPreferredSize(new java.awt.Dimension(642, 444));
-        pnlFrente.setLayout(new java.awt.GridBagLayout());
 
         etiquetaNombre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         etiquetaNombre.setText("TraslaPACK");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 2;
-        gridBagConstraints.ipady = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 10, 0, 0);
-        pnlFrente.add(etiquetaNombre, gridBagConstraints);
 
         etiquetaID.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         etiquetaID.setText("ID Usuario:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(61, 42, 0, 0);
-        pnlFrente.add(etiquetaID, gridBagConstraints);
 
         etiquetaCon.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         etiquetaCon.setText("Contraseña");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(33, 42, 0, 0);
-        pnlFrente.add(etiquetaCon, gridBagConstraints);
 
         campoIdUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,30 +72,6 @@ public class Nv extends javax.swing.JFrame {
                 campoIdUsuarioKeyPressed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 158;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(58, 18, 0, 102);
-        pnlFrente.add(campoIdUsuario, gridBagConstraints);
-
-        campoContrasenha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                campoContrasenhaKeyPressed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 158;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 18, 0, 102);
-        pnlFrente.add(campoContrasenha, gridBagConstraints);
 
         botonConfirmar.setText("Confirmar");
         botonConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,13 +79,6 @@ public class Nv extends javax.swing.JFrame {
                 botonConfirmarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(81, 6, 25, 0);
-        pnlFrente.add(botonConfirmar, gridBagConstraints);
 
         botonCancelar.setText("Cancelar");
         botonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,12 +86,52 @@ public class Nv extends javax.swing.JFrame {
                 botonCancelarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(81, 31, 25, 102);
-        pnlFrente.add(botonCancelar, gridBagConstraints);
+
+        javax.swing.GroupLayout pnlFrenteLayout = new javax.swing.GroupLayout(pnlFrente);
+        pnlFrente.setLayout(pnlFrenteLayout);
+        pnlFrenteLayout.setHorizontalGroup(
+            pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFrenteLayout.createSequentialGroup()
+                .addGroup(pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFrenteLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(etiquetaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlFrenteLayout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(botonConfirmar)
+                        .addGap(31, 31, 31)
+                        .addComponent(botonCancelar))
+                    .addGroup(pnlFrenteLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(etiquetaID)
+                            .addComponent(etiquetaCon))
+                        .addGap(27, 27, 27)
+                        .addGroup(pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(campoIdUsuario)
+                            .addComponent(camporContrasenha, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))))
+                .addGap(101, 101, 101))
+        );
+        pnlFrenteLayout.setVerticalGroup(
+            pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFrenteLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(etiquetaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
+                .addGroup(pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFrenteLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(etiquetaID))
+                    .addComponent(campoIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etiquetaCon)
+                    .addComponent(camporContrasenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(81, 81, 81)
+                .addGroup(pnlFrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonConfirmar)
+                    .addComponent(botonCancelar)))
+        );
 
         pnlFondo.add(pnlFrente, java.awt.BorderLayout.CENTER);
 
@@ -163,10 +148,10 @@ public class Nv extends javax.swing.JFrame {
 
     private void abrirVentanaInicio() throws InstantiationException, IllegalAccessException{
         String usuario=this.campoIdUsuario.getText();
-        String contrasenha=this.campoContrasenha.getText();
+        String contrasenha=new String(this.camporContrasenha.getPassword());
 
         funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
-        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(Integer.parseInt(usuario), contrasenha);
+        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(usuario, contrasenha);
 
         if(tipo != USUARIO_NO_VALIDO){
             VentanaPrincipal vp=new VentanaPrincipal(usuario,contrasenha);
@@ -206,19 +191,6 @@ public class Nv extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoIdUsuarioKeyPressed
 
-    private void campoContrasenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoContrasenhaKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == evt.VK_ENTER){
-            try {
-                abrirVentanaInicio();
-            } catch (InstantiationException ex) {
-                Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_campoContrasenhaKeyPressed
-
     /**
      * @param args the command line arguments
      */
@@ -257,8 +229,8 @@ public class Nv extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonConfirmar;
-    private javax.swing.JTextField campoContrasenha;
     private javax.swing.JTextField campoIdUsuario;
+    private javax.swing.JPasswordField camporContrasenha;
     private javax.swing.JLabel etiquetaCon;
     private javax.swing.JLabel etiquetaID;
     private javax.swing.JLabel etiquetaNombre;

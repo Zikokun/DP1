@@ -22,7 +22,7 @@ public class funcionesBaseDeDatos {
         try{
            Class.forName("com.mysql.jdbc.Driver").newInstance();//.newInstance();
            
-            setConectar(DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","contrasenha"));
+            setConectar(DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","jinxRipperkiller12345"));
             
        }catch(SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error de conexion de la base de datos");

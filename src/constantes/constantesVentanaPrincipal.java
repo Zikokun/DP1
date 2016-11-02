@@ -11,7 +11,7 @@ package constantes;
  */
 public class constantesVentanaPrincipal {
     public static String USUARIO_NO_VALIDO = "noValido";
-    public static String TIPO_OPERARIO = "operario";
-    public static String TIPO_ADMIN = "amin";
-    public static String TIPO_CLIENTE = "operario";
+    public static String TIPO_OPERARIO = "Operario";
+    public static String TIPO_ADMIN = "Administrador";
+    public static String TIPO_CLIENTE = "Cliente";
 }

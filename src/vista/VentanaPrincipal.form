@@ -4,6 +4,14 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="barraMenu">
       <SubComponents>
+        <Menu class="javax.swing.JMenu" name="menuMiCuenta">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mi Cuenta"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuMiCuentaMouseClicked"/>
+          </Events>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="menuMant">
           <Properties>
             <Property name="text" type="java.lang.String" value="Mantenimiento"/>

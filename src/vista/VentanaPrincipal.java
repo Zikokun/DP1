@@ -8,6 +8,8 @@ package vista;
 import static constantes.constantesVentanaPrincipal.*;
 import java.awt.BorderLayout;
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.*;
 import utilitario.funcionesBaseDeDatos;
@@ -25,11 +27,12 @@ import javax.swing.Timer;
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     public String tipoUsuario;
+    private String usuario;
+    private String contrasenha;
     public funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
     public VentanaPrincipal(){
         initComponents();
         this.setLocationRelativeTo(null);
-        
     }
     public VentanaPrincipal(String type) {
         initComponents();
@@ -80,9 +83,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     public VentanaPrincipal(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
 
-        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(Integer.parseInt(usuario), contrasenha);
+        String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(usuario, contrasenha);
         this.tipoUsuario = tipo;
         String mensajeBien = "";
+        
+        this.setUsuario(usuario);
+        this.setContrasenha(contrasenha);
         
         if(!tipoUsuario.equals(USUARIO_NO_VALIDO)){
             mensajeBien="Bienvenido " + usuario +" !";
@@ -100,12 +106,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             pnlFondo.add(ps);
         }
         
-        if(tipoUsuario.equals(TIPO_CLIENTE)){ //Operario
+        if(tipoUsuario.equals(TIPO_CLIENTE)){ 
             utilitarioVentanaPrincial.esconderMenu(menuMant);
             utilitarioVentanaPrincial.esconderMenu(menuSim);
         }
         
-        if(tipoUsuario.equals(TIPO_OPERARIO)){
+        if(tipoUsuario.equals(TIPO_OPERARIO)){//Operario
             utilitarioVentanaPrincial.esconderMenu(menuSim);
         }
         
@@ -127,6 +133,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pnlFondo = new javax.swing.JPanel();
         pnlFrente = new javax.swing.JPanel();
         barraMenu = new javax.swing.JMenuBar();
+        menuMiCuenta = new javax.swing.JMenu();
         menuMant = new javax.swing.JMenu();
         mantUsuario = new javax.swing.JMenuItem();
         menuEnvio = new javax.swing.JMenu();
@@ -163,6 +170,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         pnlFondo.add(pnlFrente, java.awt.BorderLayout.CENTER);
+
+        menuMiCuenta.setText("Mi Cuenta");
+        menuMiCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuMiCuentaMouseClicked(evt);
+            }
+        });
+        barraMenu.add(menuMiCuenta);
 
         menuMant.setText("Mantenimiento");
 
@@ -336,8 +351,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          pnlFondo.add(pb,BorderLayout.CENTER);
          this.revalidate();
         }
-       
-        
     }//GEN-LAST:event_envoRegEnvioActionPerformed
 
     private void envioVisualizarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioVisualizarHistorialActionPerformed
@@ -350,6 +363,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          this.revalidate();
         }
     }//GEN-LAST:event_envioVisualizarHistorialActionPerformed
+
+    private void menuMiCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMiCuentaMouseClicked
+        try {
+            // TODO add your handling code here:
+            this.remove(pnlFrente);
+            pnlFondo.removeAll();
+            panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario);
+            pnlFondo.add(pmu,BorderLayout.CENTER);
+            this.revalidate();
+        } catch (InstantiationException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuMiCuentaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -396,9 +424,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mantUsuario;
     private javax.swing.JMenu menuEnvio;
     private javax.swing.JMenu menuMant;
+    private javax.swing.JMenu menuMiCuenta;
     private javax.swing.JMenu menuRastreo;
     private javax.swing.JMenu menuSim;
     private javax.swing.JPanel pnlFondo;
     private javax.swing.JPanel pnlFrente;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @return the contrasenha
+     */
+    public String getContrasenha() {
+        return contrasenha;
+    }
+
+    /**
+     * @param contrasenha the contrasenha to set
+     */
+    public void setContrasenha(String contrasenha) {
+        this.contrasenha = contrasenha;
+    }
 }
