@@ -19,10 +19,15 @@ public class Ruta {
     Ruta(){
     }
     
-    Ruta(Vuelo vuel1, Vuelo vuel2, int tiemp){
+    public Ruta(Vuelo vuel, int tiemp){
+        vuelos.add(vuel);
+        tiempo=tiemp;
+    }
+    
+    public Ruta(Vuelo vuel1, Vuelo vuel2, int tiemp){
         vuelos.add(vuel1);
         vuelos.add(vuel2);
-        tiempo=tiempo;
+        tiempo=tiemp;
     }
     
     public void print(){

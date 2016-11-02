@@ -415,20 +415,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar barraMenu;
+    public javax.swing.JMenuBar barraMenu;
     private javax.swing.JMenuItem envioVisualizarHistorial;
     private javax.swing.JMenuItem envoRegEnvio;
-    private javax.swing.JLabel labelBienvenido;
-    private javax.swing.JLabel labelCerrarSesion;
-    private javax.swing.JLabel labelOpciones;
+    public javax.swing.JLabel labelBienvenido;
+    public javax.swing.JLabel labelCerrarSesion;
+    public javax.swing.JLabel labelOpciones;
     private javax.swing.JMenuItem mantUsuario;
     private javax.swing.JMenu menuEnvio;
     private javax.swing.JMenu menuMant;
     private javax.swing.JMenu menuMiCuenta;
     private javax.swing.JMenu menuRastreo;
     private javax.swing.JMenu menuSim;
-    private javax.swing.JPanel pnlFondo;
-    private javax.swing.JPanel pnlFrente;
+    public javax.swing.JPanel pnlFondo;
+    public javax.swing.JPanel pnlFrente;
     // End of variables declaration//GEN-END:variables
 
     /**

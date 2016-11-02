@@ -19,7 +19,7 @@
 15	UMMS	Minsk	Bielorrusia	mins
 16	LBSF	Sofia	Bulgaria	sofi
 17	LKPR	Praga	Checa	prag
-18	 LDZA	Zagreb	Croacia	zagr
+18	LDZA	Zagreb	Croacia	zagr
 19	EKCH	Copenhague	Dinamarca	cope
 20	LZIB	Bratislava	Eslovaquia	brat
 21	LJLJ	Liubliana	Eslovenia	liub

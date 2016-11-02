@@ -28,8 +28,8 @@ public class funcionesVentanaPrincipal {
     public String devolverTipoUsuario(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();//null
+                
         String valorTipoUsuario= "";
-        
         String tipo = "";
         
         String sqlBuscarTipo = "SELECT tipoUsuario "
@@ -39,6 +39,12 @@ public class funcionesVentanaPrincipal {
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscarTipo = st.executeQuery(sqlBuscarTipo);
+            
+            if(resultadoBuscarTipo!=null){
+                resultadoBuscarTipo.next();
+                
+                valorTipoUsuario = resultadoBuscarTipo.getString("tipoUsuario");
+            }
             
             while(resultadoBuscarTipo!=null && resultadoBuscarTipo.next()){
                 valorTipoUsuario = resultadoBuscarTipo.getString(1);
