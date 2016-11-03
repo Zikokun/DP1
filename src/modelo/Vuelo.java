@@ -55,8 +55,8 @@ public class Vuelo {
     }
     
     public void copiarCaps(){
-        for(int i=0;i<capTiempo.size();i++){
-            capTiempoAux.set(i, capTiempo.get(i));
+        for(int i=0;i<getCapTiempo().size();i++){
+            getCapTiempoAux().set(i, getCapTiempo().get(i));
         }
     }
     
@@ -216,6 +216,34 @@ public class Vuelo {
      */
     public void setAeroFin(Ciudad aeroFin) {
         this.aeroFin = aeroFin;
+    }
+
+    /**
+     * @return the capTiempo
+     */
+    public ArrayList<Integer> getCapTiempo() {
+        return capTiempo;
+    }
+
+    /**
+     * @param capTiempo the capTiempo to set
+     */
+    public void setCapTiempo(ArrayList<Integer> capTiempo) {
+        this.capTiempo = capTiempo;
+    }
+
+    /**
+     * @return the capTiempoAux
+     */
+    public ArrayList<Integer> getCapTiempoAux() {
+        return capTiempoAux;
+    }
+
+    /**
+     * @param capTiempoAux the capTiempoAux to set
+     */
+    public void setCapTiempoAux(ArrayList<Integer> capTiempoAux) {
+        this.capTiempoAux = capTiempoAux;
     }
     
     

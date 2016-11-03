@@ -186,8 +186,21 @@ public class Genetico {
         return fitnessTotal;
     }
     
-    public int verificarCapsAvion(Ruta ruta){
-        
+    public int verificarCapsAvion(Ruta ruta,int diaP,int horaP, int minP){
+        ArrayList<Vuelo> vuelos=ruta.getVuelos();
+        for(Vuelo item:vuelos){
+            int hSalida=item.gethSalida();
+            int espacioLibre=0,dia;
+            item.copiarCaps();
+            if(hSalida<horaP || (hSalida==horaP&&minP!=0)){ //el paquete se va a en el vuelo del dia siguiente
+                dia=(diaP+1)%7;
+                espacioLibre=item.getCapTiempoAux().get(dia)-1;
+            }else if(hSalida>horaP||(hSalida==horaP&&minP==0)){// el paquete se va el mismo dia que llega
+                dia=diaP;   
+                espacioLibre=item.getCapTiempoAux().get(dia)-1;
+            }
+            if (espacioLibre<0)return 0;
+        }
         return 1;
     }
     
