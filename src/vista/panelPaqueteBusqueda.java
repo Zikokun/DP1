@@ -23,13 +23,20 @@ import utilitario.funcionesPanelPaqueteBusqueda;
  * @author a20090245
  */
 public class panelPaqueteBusqueda extends javax.swing.JPanel {
-
+    private String usuario;
+    private String contrasenha;
+    private String tipoUsuario;
+    
     public panelPaqueteBusqueda() {
         initComponents();
     }
 
     public panelPaqueteBusqueda(String usuario, String contrasenha, String tipoUsuario) throws InstantiationException, IllegalAccessException{
         initComponents();
+        this.usuario = usuario;
+        this.contrasenha = contrasenha;
+        this.tipoUsuario = tipoUsuario;
+        
         funcionesPanelPaqueteBusqueda funcionPanPaqBus = new funcionesPanelPaqueteBusqueda();
         List<Paquete> lstPaquetes = funcionPanPaqBus.devolverPaquetesAsociados(usuario,contrasenha,tipoUsuario);
         
@@ -245,7 +252,7 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
                 
                 panelDetallePaquete pdpaquete = null;
                 try {
-                    pdpaquete = new panelDetallePaquete(numeroRastreo);
+                    pdpaquete = new panelDetallePaquete(numeroRastreo, getUsuario(), getContrasenha(),getTipoUsuario());
                 } catch (InstantiationException ex) {
                     Logger.getLogger(panelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IllegalAccessException ex) {
@@ -276,4 +283,46 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTable paquetesTabla;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @return the contrasenha
+     */
+    public String getContrasenha() {
+        return contrasenha;
+    }
+
+    /**
+     * @param contrasenha the contrasenha to set
+     */
+    public void setContrasenha(String contrasenha) {
+        this.contrasenha = contrasenha;
+    }
+
+    /**
+     * @return the tipoUsuario
+     */
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    /**
+     * @param tipoUsuario the tipoUsuario to set
+     */
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
 }

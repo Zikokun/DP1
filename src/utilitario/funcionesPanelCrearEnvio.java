@@ -60,9 +60,7 @@ public class funcionesPanelCrearEnvio {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscar = st.executeQuery(sqlBuscarPersona);
             
-            if(resultadoBuscar!=null){
-                resultadoBuscar.next();
-                
+            while(resultadoBuscar!=null && resultadoBuscar.next()){
                 nuevo.setNombre(resultadoBuscar.getString("Nombres"));
                 nuevo.setApellidoP(resultadoBuscar.getString("ApellidoPaterno"));
                 nuevo.setApellidoM(resultadoBuscar.getString("ApellidoMaterno"));

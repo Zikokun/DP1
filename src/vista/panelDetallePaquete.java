@@ -5,7 +5,10 @@
  */
 package vista;
 
+import java.awt.BorderLayout;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Paquete;
 import utilitario.funcionesPanelDetallePaquete;
 
@@ -14,20 +17,26 @@ import utilitario.funcionesPanelDetallePaquete;
  * @author a20090245
  */
 public class panelDetallePaquete extends javax.swing.JPanel {
-
-    /**
-     * Creates new form panelDetallePaquete
-     */
+    private String usuario;
+    private String contrasenha;
+    private String tipoUsuario;
+    
     public panelDetallePaquete() {
         initComponents();
     }
     
-    public panelDetallePaquete(String numeroRastreo) throws InstantiationException, IllegalAccessException {
+    public panelDetallePaquete(String numeroRastreo, String usuario, String contrasenha, String tipoUsuario) throws InstantiationException, IllegalAccessException {
         initComponents();
         this.setVisible(true);
+        
+        this.usuario = usuario;
+        this.contrasenha = contrasenha;
+        this.tipoUsuario = tipoUsuario;
+        
         funcionesPanelDetallePaquete fuDetallePaquete = new funcionesPanelDetallePaquete();
         Paquete paquete = fuDetallePaquete.devolverDescripcionGeneralPaquete(numeroRastreo);
         
+        this.tituloRastreoLabel.setText("Detalle de envio: " + numeroRastreo);
         this.lugarOrigenTextField.setText(paquete.getAlmacenOrigen().getCiudad());
         this.lugarDestinoTextField.setText(paquete.getAlamcenDestino().getCiudad());
         String sFechaEnvio = fuDetallePaquete.convertirStringFecha(paquete.getFechaEnvio());
@@ -73,6 +82,8 @@ public class panelDetallePaquete extends javax.swing.JPanel {
         estadoPaqueteTextField = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         DesciprcionTextField = new javax.swing.JTextField();
+        regresarBoton = new javax.swing.JButton();
+        tituloRastreoLabel = new javax.swing.JLabel();
 
         detallePaqueteTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -161,37 +172,68 @@ public class panelDetallePaquete extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(DesciprcionTextField)
+                .addComponent(DesciprcionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        regresarBoton.setText("Regresar");
+        regresarBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regresarBotonMouseClicked(evt);
+            }
+        });
+
+        tituloRastreoLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 711, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(18, 18, 18)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(tituloRastreoLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(regresarBoton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tituloRastreoLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(regresarBoton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    private void regresarBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarBotonMouseClicked
+        // TODO add your handling code here:
+        panelPaqueteBusqueda pnlPaqueteBusqueda;
+        try {
+            pnlPaqueteBusqueda = new panelPaqueteBusqueda(getUsuario(),getContrasenha(),getTipoUsuario());
+                    
+            VentanaPrincipal.pnlFondo.removeAll();
+            VentanaPrincipal.pnlFondo.add(pnlPaqueteBusqueda,BorderLayout.CENTER);
+            VentanaPrincipal.pnlFondo.revalidate();
+            VentanaPrincipal.pnlFondo.repaint();
+        } catch (InstantiationException ex) {
+            Logger.getLogger(panelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(panelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_regresarBotonMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField DesciprcionTextField;
     private javax.swing.JTable detallePaqueteTabla;
@@ -208,5 +250,49 @@ public class panelDetallePaquete extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField lugarDestinoTextField;
     private javax.swing.JTextField lugarOrigenTextField;
+    private javax.swing.JButton regresarBoton;
+    private javax.swing.JLabel tituloRastreoLabel;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @return the contrasenha
+     */
+    public String getContrasenha() {
+        return contrasenha;
+    }
+
+    /**
+     * @param contrasenha the contrasenha to set
+     */
+    public void setContrasenha(String contrasenha) {
+        this.contrasenha = contrasenha;
+    }
+
+    /**
+     * @return the tipoUsuario
+     */
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    /**
+     * @param tipoUsuario the tipoUsuario to set
+     */
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
 }

@@ -84,7 +84,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        registrarEnvioBoton = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(193, 189, 189));
 
@@ -358,12 +358,12 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 .addGap(36, 36, 36))
         );
 
-        jButton6.setText("Registrar Envio");
-        jButton6.setToolTipText("");
-        jButton6.setActionCommand("RegistrarEnvio");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        registrarEnvioBoton.setText("Registrar Envio");
+        registrarEnvioBoton.setToolTipText("");
+        registrarEnvioBoton.setActionCommand("RegistrarEnvio");
+        registrarEnvioBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                registrarEnvioBotonActionPerformed(evt);
             }
         });
 
@@ -383,7 +383,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6)
+                .addComponent(registrarEnvioBoton)
                 .addGap(45, 45, 45))
         );
         jPanel6Layout.setVerticalGroup(
@@ -402,7 +402,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addComponent(registrarEnvioBoton)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -467,7 +467,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void registrarEnvioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEnvioBotonActionPerformed
         // TODO add your handling code here:
         String ori=(String)this.comboOrigen.getSelectedItem();
         String dest=(String)this.comboDestino.getSelectedItem();
@@ -481,7 +481,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         
        //Pedido pd=new Pedido(ori,dest,cantidad,horaL,minL,diaL,mesL,anhoL);
        
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_registrarEnvioBotonActionPerformed
 
     private void EncontrarCliente() throws InstantiationException, IllegalAccessException{
         String DNI=this.campoDni.getText();
@@ -489,7 +489,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
         Persona nuevo = utilitarioPanelCrearEnvio.BuscarClienteRegistrado(DNI);
 
-        if(nuevo.getDocumento() != ""){
+        if(!nuevo.getDocumento().equals("")){
             campoNombre.setText(nuevo.getNombre());
             campoApellidoP.setText(nuevo.getApellidoP());
             campoApellidoM.setText(nuevo.getApellidoM());
@@ -524,7 +524,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboOrigen;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -553,5 +552,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
+    private javax.swing.JButton registrarEnvioBoton;
     // End of variables declaration//GEN-END:variables
 }
