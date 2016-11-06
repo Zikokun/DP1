@@ -7,6 +7,7 @@ package vista;
 
 import constantes.constantesVentanaPrincipal;
 import static constantes.constantesVentanaPrincipal.*;
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -20,16 +21,29 @@ import utilitario.funcionesPanelMantUsuario;
  * @author FranciscoMartin
  */
 public class panelMantUsuario extends javax.swing.JPanel {
-
-    /**
-     * Creates new form panelMantUsuario
-     */
+    private String usuario;
+    private String contrasenha;
+    private String tipoUsuario;
+    
     public panelMantUsuario() {
+        initComponents();
+        this.setVisible(true);
+    }
+    
+    public panelMantUsuario(String usuario, String contrasenha,String tipoUsuario, int distinguidor) {
+        this.usuario = usuario;
+        this.contrasenha = contrasenha;
+        this.tipoUsuario = tipoUsuario;
         initComponents();
         this.setVisible(true);
     }
 
     public panelMantUsuario(String usuario, String contrasenha,String tipoUsuario) throws InstantiationException, IllegalAccessException {
+                
+        this.usuario = usuario;
+        this.contrasenha = contrasenha;
+        this.tipoUsuario = tipoUsuario;
+        System.out.println(this.tipoUsuario);
         initComponents();
         this.setVisible(true);
         String[] datosUsuario = new String[10];
@@ -102,6 +116,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
         usuarioCampo = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         contrasenhaCampo = new javax.swing.JTextField();
+        regresarBoton = new javax.swing.JButton();
 
         jTextField2.setText("jTextField2");
 
@@ -147,6 +162,13 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         jLabel11.setText("Contraseña");
 
+        regresarBoton.setText("Regresar");
+        regresarBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                regresarBotonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,13 +197,14 @@ public class panelMantUsuario extends javax.swing.JPanel {
                                 .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8))
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(correoCampo)
-                            .addComponent(direccionCampo, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(direccionCampo, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botonRegistrar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(regresarBoton))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nombreCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,15 +213,11 @@ public class panelMantUsuario extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(apellidoPaternoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(apellidoMaternoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
-                .addGap(19, 19, 19))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonRegistrar)
-                .addGap(35, 35, 35))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,7 +257,9 @@ public class panelMantUsuario extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(botonRegistrar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonRegistrar)
+                            .addComponent(regresarBoton)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -248,7 +269,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(usuarioCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(contrasenhaCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -287,6 +308,17 @@ public class panelMantUsuario extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
+    private void regresarBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarBotonMouseClicked
+        VentanaPrincipal.pnlFondo.removeAll();
+        
+        if(tipoUsuario.equals(TIPO_ADMIN)){
+            PanelSim ps=new PanelSim();
+            VentanaPrincipal.pnlFondo.add(ps,BorderLayout.CENTER);
+        }
+        VentanaPrincipal.pnlFondo.revalidate();
+        VentanaPrincipal.pnlFondo.repaint();
+    }//GEN-LAST:event_regresarBotonMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellidoMaternoCampo;
@@ -313,7 +345,32 @@ public class panelMantUsuario extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField nombreCampo;
+    private javax.swing.JButton regresarBoton;
     private javax.swing.JComboBox<String> tipoUsuarioComboBox;
     private javax.swing.JTextField usuarioCampo;
     // End of variables declaration//GEN-END:variables
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContrasenha() {
+        return contrasenha;
+    }
+
+    public void setContrasenha(String contrasenha) {
+        this.contrasenha = contrasenha;
+    }
+
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
 }

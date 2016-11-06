@@ -163,7 +163,7 @@ public class Nv extends javax.swing.JFrame {
             VentanaPrincipal vp=new VentanaPrincipal(usuario,contrasenha);
             vp.setVisible(true);
             this.setVisible(false);
-        this.dispose();
+            this.dispose();
         }else JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
         
     }

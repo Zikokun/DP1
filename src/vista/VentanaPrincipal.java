@@ -5,6 +5,7 @@
  */
 package vista;
 
+import static constantes.constantesGenerales.*;
 import static constantes.constantesVentanaPrincipal.*;
 import java.awt.BorderLayout;
 import java.sql.Connection;
@@ -82,8 +83,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     public VentanaPrincipal(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
-
+        
         String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(usuario, contrasenha);
+        this.usuario = usuario;
+        this.contrasenha = contrasenha;
         this.tipoUsuario = tipo;
         String mensajeBien = "";
         
@@ -282,7 +285,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.remove(pnlFrente);
         pnlFondo.removeAll();
-        panelMantUsuario pmu=new panelMantUsuario();
+        panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario,DISTINGUIDOR);
         pnlFondo.add(pmu,BorderLayout.CENTER);
         this.revalidate();
     }//GEN-LAST:event_mantUsuarioActionPerformed
@@ -290,7 +293,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void mantUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantUsuarioMouseClicked
         // TODO add your handling code here:
         this.remove(pnlFrente);
-        panelMantUsuario pmu=new panelMantUsuario();
+        panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario,DISTINGUIDOR);
         pnlFondo.add(pmu,BorderLayout.CENTER);
         this.revalidate();
     }//GEN-LAST:event_mantUsuarioMouseClicked
@@ -312,7 +315,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuRastreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRastreoMouseClicked
         // TODO add your handling code here:
         if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
-             this.remove(pnlFrente);
+            this.remove(pnlFrente);
             pnlFondo.removeAll();
             panelPaqueteBusqueda ppb=new panelPaqueteBusqueda();
             pnlFondo.add(ppb,BorderLayout.CENTER);
@@ -365,7 +368,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             try {
                 this.remove(pnlFrente);
                 pnlFondo.removeAll();
-                //panelPaqueteBusqueda pdp=new panelPaqueteBusqueda();
                 panelPaqueteBusqueda pdp=new panelPaqueteBusqueda(usuario,contrasenha,tipoUsuario);
                 pnlFondo.add(pdp,BorderLayout.CENTER);
                 this.revalidate();
