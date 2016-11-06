@@ -33,8 +33,8 @@ public class funcionesVentanaPrincipal {
         String tipo = "";
         
         String sqlBuscarTipo = "SELECT tipoUsuario "
-                             + "FROM usuario "
-                             + "WHERE nombreUsuario='"+usuario+"'  AND Contrasenha='"+contrasenha+"'";
+                             + "FROM `bdlp2_20090245`.`usuario` "
+                             + "WHERE username='"+usuario+"'  AND Contrasenha='"+contrasenha+"'";
         
         try {
             Statement st = conexion.createStatement();

@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Persona;
 
 /**
  *
@@ -47,5 +48,31 @@ public class funcionesPanelCrearEnvio {
         }
         
         return datosAlmacen;
+    }
+    
+    public Persona BuscarClienteRegistrado(String Documento) throws InstantiationException, IllegalAccessException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();//null
+        Persona nuevo = new Persona();
+        String sqlBuscarPersona = "SELECT * FROM `bdlp2_20090245`.`persona` WHERE DNI = '"+ Documento + "'";
+        
+        try {
+            Statement st = conexion.createStatement();
+            ResultSet resultadoBuscar = st.executeQuery(sqlBuscarPersona);
+            
+            if(resultadoBuscar!=null){
+                resultadoBuscar.next();
+                
+                nuevo.setNombre(resultadoBuscar.getString("Nombres"));
+                nuevo.setApellidoP(resultadoBuscar.getString("ApellidoPaterno"));
+                nuevo.setApellidoM(resultadoBuscar.getString("ApellidoMaterno"));
+                nuevo.setCorreo(resultadoBuscar.getString("CorreoElectronico"));
+                nuevo.setDocumento(resultadoBuscar.getString("DNI"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return nuevo;
     }
 }
