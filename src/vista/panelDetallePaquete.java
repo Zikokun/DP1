@@ -69,18 +69,18 @@ public class panelDetallePaquete extends javax.swing.JPanel {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         detallePaqueteTabla = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        panelDatosPaquete = new javax.swing.JPanel();
+        lugarOrigenLabel = new javax.swing.JLabel();
         lugarOrigenTextField = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        lugarDestinoLabel = new javax.swing.JLabel();
         lugarDestinoTextField = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        fechaSalidaLabel = new javax.swing.JLabel();
         fechaSalidaTextField = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        fechaLlegadaLabel = new javax.swing.JLabel();
         fechaLlegadaTextField = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        estadoLabel = new javax.swing.JLabel();
         estadoPaqueteTextField = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
+        descripcionLabel = new javax.swing.JLabel();
         DesciprcionTextField = new javax.swing.JTextField();
         regresarBoton = new javax.swing.JButton();
         tituloRastreoLabel = new javax.swing.JLabel();
@@ -103,34 +103,34 @@ public class panelDetallePaquete extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(detallePaqueteTabla);
 
-        jPanel2.setBackground(new java.awt.Color(193, 189, 189));
+        panelDatosPaquete.setBackground(new java.awt.Color(193, 189, 189));
 
-        jLabel5.setText("Lugar de Origen:");
+        lugarOrigenLabel.setText("Lugar de Origen:");
 
-        jLabel6.setText("Lugar de Destino:");
+        lugarDestinoLabel.setText("Lugar de Destino:");
 
-        jLabel7.setText("Fecha de Salida:");
+        fechaSalidaLabel.setText("Fecha de Salida:");
 
-        jLabel8.setText("Fecha de Llegada:");
+        fechaLlegadaLabel.setText("Fecha de Llegada:");
 
-        jLabel9.setText("Estado:");
+        estadoLabel.setText("Estado:");
 
-        jLabel11.setText("Descripción:");
+        descripcionLabel.setText("Descripción:");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelDatosPaqueteLayout = new javax.swing.GroupLayout(panelDatosPaquete);
+        panelDatosPaquete.setLayout(panelDatosPaqueteLayout);
+        panelDatosPaqueteLayout.setHorizontalGroup(
+            panelDatosPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosPaqueteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
+                .addGroup(panelDatosPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDatosPaqueteLayout.createSequentialGroup()
+                        .addGroup(panelDatosPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lugarDestinoLabel)
+                            .addComponent(fechaSalidaLabel)
+                            .addGroup(panelDatosPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelDatosPaqueteLayout.createSequentialGroup()
+                                    .addComponent(fechaLlegadaLabel)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(fechaLlegadaTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(fechaSalidaTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,39 +138,39 @@ public class panelDetallePaquete extends javax.swing.JPanel {
                                 .addComponent(lugarOrigenTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(estadoPaqueteTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(DesciprcionTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel9))
+                            .addComponent(estadoLabel))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel11))
+                    .addGroup(panelDatosPaqueteLayout.createSequentialGroup()
+                        .addGroup(panelDatosPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lugarOrigenLabel)
+                            .addComponent(descripcionLabel))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelDatosPaqueteLayout.setVerticalGroup(
+            panelDatosPaqueteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosPaqueteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5)
+                .addComponent(lugarOrigenLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lugarOrigenTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
+                .addComponent(lugarDestinoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lugarDestinoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
+                .addComponent(fechaSalidaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaSalidaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
+                .addComponent(fechaLlegadaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fechaLlegadaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9)
+                .addComponent(estadoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(estadoPaqueteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11)
+                .addComponent(descripcionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(DesciprcionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                 .addContainerGap())
@@ -193,7 +193,7 @@ public class panelDetallePaquete extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelDatosPaquete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -213,7 +213,7 @@ public class panelDetallePaquete extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelDatosPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -236,62 +236,44 @@ public class panelDetallePaquete extends javax.swing.JPanel {
     }//GEN-LAST:event_regresarBotonMouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField DesciprcionTextField;
+    private javax.swing.JLabel descripcionLabel;
     private javax.swing.JTable detallePaqueteTabla;
+    private javax.swing.JLabel estadoLabel;
     private javax.swing.JTextField estadoPaqueteTextField;
+    private javax.swing.JLabel fechaLlegadaLabel;
     private javax.swing.JTextField fechaLlegadaTextField;
+    private javax.swing.JLabel fechaSalidaLabel;
     private javax.swing.JTextField fechaSalidaTextField;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lugarDestinoLabel;
     private javax.swing.JTextField lugarDestinoTextField;
+    private javax.swing.JLabel lugarOrigenLabel;
     private javax.swing.JTextField lugarOrigenTextField;
+    private javax.swing.JPanel panelDatosPaquete;
     private javax.swing.JButton regresarBoton;
     private javax.swing.JLabel tituloRastreoLabel;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the usuario
-     */
     public String getUsuario() {
         return usuario;
     }
 
-    /**
-     * @param usuario the usuario to set
-     */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
-    /**
-     * @return the contrasenha
-     */
     public String getContrasenha() {
         return contrasenha;
     }
 
-    /**
-     * @param contrasenha the contrasenha to set
-     */
     public void setContrasenha(String contrasenha) {
         this.contrasenha = contrasenha;
     }
 
-    /**
-     * @return the tipoUsuario
-     */
     public String getTipoUsuario() {
         return tipoUsuario;
     }
 
-    /**
-     * @param tipoUsuario the tipoUsuario to set
-     */
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
