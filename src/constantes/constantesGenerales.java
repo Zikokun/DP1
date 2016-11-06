@@ -11,4 +11,5 @@ package constantes;
  */
 public class constantesGenerales {
     public static String ESTADO_PAQUETE_NO_VALIDO = "noValidoEstadoPaquete";
+    public static int PRIMERA_COLUMNA_PAQUETE = 0;
 }

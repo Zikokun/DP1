@@ -5,6 +5,10 @@
  */
 package vista;
 
+import java.util.List;
+import modelo.Paquete;
+import utilitario.funcionesPanelDetallePaquete;
+
 /**
  *
  * @author a20090245
@@ -17,6 +21,33 @@ public class panelDetallePaquete extends javax.swing.JPanel {
     public panelDetallePaquete() {
         initComponents();
     }
+    
+    public panelDetallePaquete(String numeroRastreo) throws InstantiationException, IllegalAccessException {
+        initComponents();
+        this.setVisible(true);
+        funcionesPanelDetallePaquete fuDetallePaquete = new funcionesPanelDetallePaquete();
+        Paquete paquete = fuDetallePaquete.devolverDescripcionGeneralPaquete(numeroRastreo);
+        
+        this.lugarOrigenTextField.setText(paquete.getAlmacenOrigen().getCiudad());
+        this.lugarDestinoTextField.setText(paquete.getAlamcenDestino().getCiudad());
+        String sFechaEnvio = fuDetallePaquete.convertirStringFecha(paquete.getFechaEnvio());
+        String sFechaRecepcion = fuDetallePaquete.convertirStringFecha(paquete.getFechaRecepcion());
+        this.fechaSalidaTextField.setText(sFechaEnvio);
+        this.fechaLlegadaTextField.setText(sFechaRecepcion);
+        this.estadoPaqueteTextField.setText(fuDetallePaquete.devolverEstadoPaquete(paquete.getEstado()));
+        this.DesciprcionTextField.setText(paquete.getDescripcion());
+        
+        fuDetallePaquete.colocarCampoComoNoEditable(lugarOrigenTextField);
+        fuDetallePaquete.colocarCampoComoNoEditable(lugarDestinoTextField);
+        fuDetallePaquete.colocarCampoComoNoEditable(fechaSalidaTextField);
+        fuDetallePaquete.colocarCampoComoNoEditable(fechaLlegadaTextField);
+        fuDetallePaquete.colocarCampoComoNoEditable(estadoPaqueteTextField);
+        fuDetallePaquete.colocarCampoComoNoEditable(DesciprcionTextField);
+        
+        List<String[]> listadoPaquetes = fuDetallePaquete.devolverDetallePaquete(numeroRastreo);
+        
+        fuDetallePaquete.mostrarDetallePaquete(listadoPaquetes,this.detallePaqueteTabla);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,27 +59,24 @@ public class panelDetallePaquete extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        detallePaqueteTabla = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        lugarOrigenTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        lugarDestinoTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        fechaSalidaTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        fechaLlegadaTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        estadoPaqueteTextField = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        DesciprcionTextField = new javax.swing.JTextField();
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        detallePaqueteTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Nro de Rastreo", "Estado", "Destinatario", "País Destino", "Detalle"
@@ -62,7 +90,7 @@ public class panelDetallePaquete extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(detallePaqueteTabla);
 
         jPanel2.setBackground(new java.awt.Color(193, 189, 189));
 
@@ -93,12 +121,12 @@ public class panelDetallePaquete extends javax.swing.JPanel {
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(jLabel8)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(fechaLlegadaTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fechaSalidaTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lugarDestinoTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lugarOrigenTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(estadoPaqueteTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(DesciprcionTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel9))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -113,27 +141,27 @@ public class panelDetallePaquete extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lugarOrigenTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lugarDestinoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fechaSalidaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fechaLlegadaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(estadoPaqueteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField7)
+                .addComponent(DesciprcionTextField)
                 .addContainerGap())
         );
 
@@ -165,6 +193,11 @@ public class panelDetallePaquete extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField DesciprcionTextField;
+    private javax.swing.JTable detallePaqueteTabla;
+    private javax.swing.JTextField estadoPaqueteTextField;
+    private javax.swing.JTextField fechaLlegadaTextField;
+    private javax.swing.JTextField fechaSalidaTextField;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -173,12 +206,7 @@ public class panelDetallePaquete extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField lugarDestinoTextField;
+    private javax.swing.JTextField lugarOrigenTextField;
     // End of variables declaration//GEN-END:variables
 }

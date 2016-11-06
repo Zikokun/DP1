@@ -5,11 +5,15 @@
  */
 package vista;
 
+import constantes.constantesGenerales;
+import static constantes.constantesGenerales.*;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Array;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import modelo.Paquete;
 import utilitario.funcionesPanelPaqueteBusqueda;
@@ -20,9 +24,6 @@ import utilitario.funcionesPanelPaqueteBusqueda;
  */
 public class panelPaqueteBusqueda extends javax.swing.JPanel {
 
-    /**
-     * Creates new form panelPaqueteBusqueda
-     */
     public panelPaqueteBusqueda() {
         initComponents();
     }
@@ -240,7 +241,16 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
             if(value instanceof JButton){
                 ((JButton) value).doClick();
                 JButton boton = (JButton) value;
-                panelDetallePaquete pdpaquete = new panelDetallePaquete();
+                String numeroRastreo = (String)paquetesTabla.getValueAt(fila,PRIMERA_COLUMNA_PAQUETE);
+                
+                panelDetallePaquete pdpaquete = null;
+                try {
+                    pdpaquete = new panelDetallePaquete(numeroRastreo);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(panelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(panelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 VentanaPrincipal.pnlFondo.removeAll();
                 VentanaPrincipal.pnlFondo.add(pdpaquete,BorderLayout.CENTER);
                 VentanaPrincipal.pnlFondo.revalidate();
