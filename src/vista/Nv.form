@@ -151,6 +151,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="camporContrasenha">
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="camporContrasenhaKeyPressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

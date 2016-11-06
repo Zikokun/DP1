@@ -87,6 +87,12 @@ public class Nv extends javax.swing.JFrame {
             }
         });
 
+        camporContrasenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                camporContrasenhaKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlFrenteLayout = new javax.swing.GroupLayout(pnlFrente);
         pnlFrente.setLayout(pnlFrenteLayout);
         pnlFrenteLayout.setHorizontalGroup(
@@ -190,6 +196,19 @@ public class Nv extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_campoIdUsuarioKeyPressed
+
+    private void camporContrasenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camporContrasenhaKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == evt.VK_ENTER){
+            try {
+                abrirVentanaInicio();
+            } catch (InstantiationException ex) {
+                Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_camporContrasenhaKeyPressed
 
     /**
      * @param args the command line arguments
