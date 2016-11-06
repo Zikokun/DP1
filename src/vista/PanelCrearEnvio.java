@@ -5,7 +5,11 @@
  */
 package vista;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.Pedido;
+import modelo.Persona;
 import utilitario.funcionesPanelCrearEnvio;
 
 /**
@@ -54,6 +58,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         campoApellidoM = new javax.swing.JTextField();
         campoCorreo = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -105,6 +110,13 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jLabel17.setText("Correo electrónico del destinatario: *");
 
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -122,7 +134,10 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addComponent(jLabel13))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(campoDni, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoDni, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton1)))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -168,9 +183,12 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                     .addComponent(campoDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(campoApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campoApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -366,7 +384,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6)
-                .addGap(137, 137, 137))
+                .addGap(45, 45, 45))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -465,6 +483,31 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
        
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void EncontrarCliente() throws InstantiationException, IllegalAccessException{
+        String DNI=this.campoDni.getText();
+
+        funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
+        Persona nuevo = utilitarioPanelCrearEnvio.BuscarClienteRegistrado(DNI);
+
+        if(nuevo.getDocumento() != ""){
+            campoNombre.setText(nuevo.getNombre());
+            campoApellidoP.setText(nuevo.getApellidoP());
+            campoApellidoM.setText(nuevo.getApellidoM());
+            campoCorreo.setText(nuevo.getCorreo());
+            campoDni.setText(nuevo.getDocumento());
+        }else JOptionPane.showMessageDialog(null, "Cliente no se encuentra registrado");
+        
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            EncontrarCliente();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField campoApellidoM;
@@ -479,6 +522,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     private javax.swing.JTextField campoNombreRe;
     private javax.swing.JComboBox<String> comboDestino;
     private javax.swing.JComboBox<String> comboOrigen;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel10;
