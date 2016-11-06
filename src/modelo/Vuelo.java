@@ -7,10 +7,6 @@ package modelo;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author a20111055-Vivian
- */
 public class Vuelo {
     private int hSalida;
     private int mSalida;
@@ -27,7 +23,6 @@ public class Vuelo {
     private ArrayList<Integer> capTiempoAux = new ArrayList<>(); //copia de capacidades en el tiempo
             
     Vuelo(){
-        
         hSalida = 0;
         mSalida = 0;
         hLlegada = 0;
@@ -51,7 +46,6 @@ public class Vuelo {
             capTiempo.add(capacidad);
             capTiempoAux.add(capacidad);
         }
-        
     }
     
     public void copiarCaps(){
@@ -64,187 +58,107 @@ public class Vuelo {
         System.out.println(getOrigen()+"-"+getDestino()+"-"+getTiempo());
     }
 
-    /**
-     * @return the hSalida
-     */
     public int gethSalida() {
         return hSalida;
     }
 
-    /**
-     * @param hSalida the hSalida to set
-     */
     public void sethSalida(int hSalida) {
         this.hSalida = hSalida;
     }
 
-    /**
-     * @return the mSalida
-     */
     public int getmSalida() {
         return mSalida;
     }
 
-    /**
-     * @param mSalida the mSalida to set
-     */
     public void setmSalida(int mSalida) {
         this.mSalida = mSalida;
     }
 
-    /**
-     * @return the hLlegada
-     */
     public int gethLlegada() {
         return hLlegada;
     }
 
-    /**
-     * @param hLlegada the hLlegada to set
-     */
     public void sethLlegada(int hLlegada) {
         this.hLlegada = hLlegada;
     }
 
-    /**
-     * @return the mLlegada
-     */
     public int getmLlegada() {
         return mLlegada;
     }
 
-    /**
-     * @param mLlegada the mLlegada to set
-     */
     public void setmLlegada(int mLlegada) {
         this.mLlegada = mLlegada;
     }
 
-    /**
-     * @return the origen
-     */
     public String getOrigen() {
         return origen;
     }
 
-    /**
-     * @param origen the origen to set
-     */
     public void setOrigen(String origen) {
         this.origen = origen;
     }
 
-    /**
-     * @return the destino
-     */
     public String getDestino() {
         return destino;
     }
 
-    /**
-     * @param destino the destino to set
-     */
     public void setDestino(String destino) {
         this.destino = destino;
     }
 
-    /**
-     * @return the tipoVuelo
-     */
     public String getTipoVuelo() {
         return tipoVuelo;
     }
 
-    /**
-     * @param tipoVuelo the tipoVuelo to set
-     */
     public void setTipoVuelo(String tipoVuelo) {
         this.tipoVuelo = tipoVuelo;
     }
 
-    /**
-     * @return the tiempo
-     */
     public int getTiempo() {
         return tiempo;
     }
 
-    /**
-     * @param tiempo the tiempo to set
-     */
     public void setTiempo(int tiempo) {
         this.tiempo = tiempo;
     }
 
-    /**
-     * @return the capacidad
-     */
     public int getCapacidad() {
         return capacidad;
     }
 
-    /**
-     * @param capacidad the capacidad to set
-     */
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
 
-    /**
-     * @return the aeroOrig
-     */
     public Ciudad getAeroOrig() {
         return aeroOrig;
     }
 
-    /**
-     * @param aeroOrig the aeroOrig to set
-     */
     public void setAeroOrig(Ciudad aeroOrig) {
         this.aeroOrig = aeroOrig;
     }
 
-    /**
-     * @return the aeroFin
-     */
     public Ciudad getAeroFin() {
         return aeroFin;
     }
 
-    /**
-     * @param aeroFin the aeroFin to set
-     */
     public void setAeroFin(Ciudad aeroFin) {
         this.aeroFin = aeroFin;
     }
 
-    /**
-     * @return the capTiempo
-     */
     public ArrayList<Integer> getCapTiempo() {
         return capTiempo;
     }
 
-    /**
-     * @param capTiempo the capTiempo to set
-     */
     public void setCapTiempo(ArrayList<Integer> capTiempo) {
         this.capTiempo = capTiempo;
     }
 
-    /**
-     * @return the capTiempoAux
-     */
     public ArrayList<Integer> getCapTiempoAux() {
         return capTiempoAux;
     }
 
-    /**
-     * @param capTiempoAux the capTiempoAux to set
-     */
     public void setCapTiempoAux(ArrayList<Integer> capTiempoAux) {
         this.capTiempoAux = capTiempoAux;
     }
-    
-    
 }

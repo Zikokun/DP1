@@ -47,13 +47,10 @@ public class Lectura {
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
-
             }
-
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public void leerAeropuertos(String archAeropuertos, TreeMap<String, Ciudad> aeropuertos) {
@@ -169,7 +166,5 @@ public class Lectura {
         } catch (ParseException ex) {
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
         }
-               
-
     }
 }
