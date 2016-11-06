@@ -361,19 +361,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_envoRegEnvioActionPerformed
 
     private void envioVisualizarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioVisualizarHistorialActionPerformed
-        // TODO add your handling code here:
         if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
-         this.remove(pnlFrente);
-         pnlFondo.removeAll();
-         panelDetallePaquete pdp=new panelDetallePaquete();
-         pnlFondo.add(pdp,BorderLayout.CENTER);
-         this.revalidate();
+            try {
+                this.remove(pnlFrente);
+                pnlFondo.removeAll();
+                //panelPaqueteBusqueda pdp=new panelPaqueteBusqueda();
+                panelPaqueteBusqueda pdp=new panelPaqueteBusqueda(usuario,contrasenha,tipoUsuario);
+                pnlFondo.add(pdp,BorderLayout.CENTER);
+                this.revalidate();
+            } catch (InstantiationException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_envioVisualizarHistorialActionPerformed
 
     private void menuMiCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMiCuentaMouseClicked
         try {
-            // TODO add your handling code here:
             this.remove(pnlFrente);
             pnlFondo.removeAll();
             panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario);
@@ -386,9 +391,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuMiCuentaMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -438,30 +440,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public javax.swing.JPanel pnlFrente;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the usuario
-     */
     public String getUsuario() {
         return usuario;
     }
 
-    /**
-     * @param usuario the usuario to set
-     */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
-    /**
-     * @return the contrasenha
-     */
     public String getContrasenha() {
         return contrasenha;
     }
 
-    /**
-     * @param contrasenha the contrasenha to set
-     */
     public void setContrasenha(String contrasenha) {
         this.contrasenha = contrasenha;
     }

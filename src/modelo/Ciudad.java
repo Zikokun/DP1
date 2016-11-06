@@ -27,7 +27,7 @@ public class Ciudad {
     public HashMap<String,ArrayList<Ruta>> rutas= new HashMap<>(); // llave es el codigo de la ciudad destino, valor es las rutas posibles
     public HashMap<String, Integer> capTiempo= new HashMap<>(); // capacidades en el tiempo, key es : dia-hora:00 / dia-hora:01 
     
-    Ciudad(){
+    public Ciudad(){
         id=-1;
         codCiudad="";
         pais="";
@@ -36,7 +36,7 @@ public class Ciudad {
         continente="";
     }
     
-    Ciudad(int cod, String codAeropuerto, String ciud,String pai, String abrev, String cont){
+    public Ciudad(int cod, String codAeropuerto, String ciud,String pai, String abrev, String cont){
         id=cod;
         codCiudad=codAeropuerto;
         ciudad=ciud;
