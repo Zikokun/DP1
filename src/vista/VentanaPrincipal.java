@@ -436,8 +436,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuMiCuenta;
     private javax.swing.JMenu menuRastreo;
     private javax.swing.JMenu menuSim;
-    public javax.swing.JPanel pnlFondo;
-    public javax.swing.JPanel pnlFrente;
+    public static javax.swing.JPanel pnlFondo;
+    public static javax.swing.JPanel pnlFrente;
     // End of variables declaration//GEN-END:variables
 
     public String getUsuario() {

@@ -241,6 +241,10 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
                 ((JButton) value).doClick();
                 JButton boton = (JButton) value;
                 panelDetallePaquete pdpaquete = new panelDetallePaquete();
+                VentanaPrincipal.pnlFondo.removeAll();
+                VentanaPrincipal.pnlFondo.add(pdpaquete,BorderLayout.CENTER);
+                VentanaPrincipal.pnlFondo.revalidate();
+                VentanaPrincipal.pnlFondo.repaint();
             }
         }
     }//GEN-LAST:event_paquetesTablaMouseClicked
