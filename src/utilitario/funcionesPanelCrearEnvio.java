@@ -54,7 +54,7 @@ public class funcionesPanelCrearEnvio {
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();//null
         Persona nuevo = new Persona();
-        String sqlBuscarPersona = "SELECT * FROM `bdlp2_20090245`.`persona` WHERE DNI = '"+ Documento + "'";
+        String sqlBuscarPersona = "SELECT * FROM `persona` WHERE DNI = '"+ Documento + "'";
         
         try {
             Statement st = conexion.createStatement();
