@@ -5,8 +5,12 @@
  */
 package vista;
 
+import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Array;
 import java.util.List;
+import javax.swing.JButton;
 import modelo.Paquete;
 import utilitario.funcionesPanelPaqueteBusqueda;
 
@@ -73,6 +77,11 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        paquetesTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                paquetesTablaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(paquetesTabla);
@@ -219,6 +228,22 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void paquetesTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paquetesTablaMouseClicked
+        // TODO add your handling code here:
+        int columna = paquetesTabla.getColumnModel().getColumnIndexAtX(evt.getX());
+        int fila = evt.getY()/paquetesTabla.getRowHeight();
+        
+        if(fila < paquetesTabla.getRowCount() && fila >= 0 && columna < paquetesTabla.getColumnCount() && columna >= 0){
+            
+            Object value = paquetesTabla.getValueAt(fila, columna);
+            if(value instanceof JButton){
+                ((JButton) value).doClick();
+                JButton boton = (JButton) value;
+                panelDetallePaquete pdpaquete = new panelDetallePaquete();
+            }
+        }
+    }//GEN-LAST:event_paquetesTablaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

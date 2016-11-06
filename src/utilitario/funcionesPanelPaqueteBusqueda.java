@@ -9,6 +9,10 @@ import constantes.constanteEstadoPaquete;
 import static constantes.constantesGenerales.*;
 import constantes.constantesVentanaPrincipal;
 import static constantes.constantesVentanaPrincipal.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,12 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import modelo.Ciudad;
 import modelo.Cliente;
 import modelo.Paquete;
 import modelo.Persona;
+import utilitario.renderizadoTabla.render;
+import vista.panelDetallePaquete;
 
 public class funcionesPanelPaqueteBusqueda {
     public String devolverEstadoPaquete(int estadoPaquete){
@@ -115,11 +124,25 @@ public class funcionesPanelPaqueteBusqueda {
         return lstPaquetes;
     }
     
+    public Object[] listadoMasBotonDetalle(String[] datosPaquetes){
+        Object datos[] = new Object[7];
+
+        for(int i = 0; i < datosPaquetes.length; i++){
+            datos[i] = datosPaquetes[i]; 
+        }
+        datos[6] = new JButton("Ver Detalle");
+        return datos;
+    }    
+    
     public void mostrarPaquetes(List<String[]> listadoPaquetes, JTable tablaPaquetes){
-        DefaultTableModel modelo=(DefaultTableModel) tablaPaquetes.getModel();
         
+        tablaPaquetes.setDefaultRenderer(Object.class, new render());
+        
+        DefaultTableModel modelo=(DefaultTableModel) tablaPaquetes.getModel();
+
         for(int i = 0; i < listadoPaquetes.size(); i++){
-            modelo.addRow(listadoPaquetes.get(i)); 
+            Object datos[] = listadoMasBotonDetalle(listadoPaquetes.get(i));
+            modelo.addRow(datos); 
         }
         tablaPaquetes.setModel(modelo); 
     }
