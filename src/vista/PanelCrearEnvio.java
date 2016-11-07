@@ -5,9 +5,15 @@
  */
 package vista;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.Ciudad;
+import modelo.Cliente;
+import modelo.Paquete;
 import modelo.Pedido;
 import modelo.Persona;
 import utilitario.funcionesPanelCrearEnvio;
@@ -46,7 +52,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        campoDni = new javax.swing.JTextField();
+        campoDNIEmisor = new javax.swing.JTextField();
         comboDestino = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -62,7 +68,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        campoDniRe = new javax.swing.JTextField();
+        campoDNIReceptor = new javax.swing.JTextField();
         comboOrigen = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -76,10 +82,10 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jTextField16 = new javax.swing.JTextField();
+        campoDescripcion1 = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
-        jTextField17 = new javax.swing.JTextField();
-        jTextField18 = new javax.swing.JTextField();
+        campoDescripcion3 = new javax.swing.JTextField();
+        campoDescripcion2 = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
@@ -134,7 +140,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addComponent(jLabel13))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(campoDni, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(campoDNIEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addComponent(jButton1)))
@@ -180,7 +186,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDNIEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +239,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addComponent(jLabel20))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(campoDniRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoDNIReceptor, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -276,7 +282,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoDniRe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDNIReceptor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoApellidoPRe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel23)
@@ -289,9 +295,9 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTextField16.addActionListener(new java.awt.event.ActionListener() {
+        campoDescripcion1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField16ActionPerformed(evt);
+                campoDescripcion1ActionPerformed(evt);
             }
         });
 
@@ -326,9 +332,9 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                             .addComponent(jLabel30))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoDescripcion3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoDescripcion2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(402, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel27)
@@ -345,15 +351,15 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                     .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDescripcion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDescripcion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel30))
                 .addGap(36, 36, 36))
         );
@@ -459,32 +465,53 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboOrigenActionPerformed
 
-    private void jTextField16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField16ActionPerformed
+    private void campoDescripcion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDescripcion1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField16ActionPerformed
+    }//GEN-LAST:event_campoDescripcion1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void RegistrarEnvio(String Descripcion) throws InstantiationException, IllegalAccessException{
+        funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
+        Paquete nuevo = new Paquete();
+        Ciudad origen = new Ciudad(Integer.parseInt(comboOrigen.getSelectedItem().toString()), comboOrigen.getSelectedItem().toString(), "", "", "", "");
+        Ciudad destino = new Ciudad(Integer.parseInt(comboDestino.getSelectedItem().toString()), comboOrigen.getSelectedItem().toString(), "", "", "", "");
+        Date fecha = new Date();
+        Timestamp fechaEnvio = new Timestamp(fecha.getTime());
+        Timestamp fechaRecepcion = new Timestamp(fecha.getTime()+2*24*60*60*1000);
+        Cliente remitente = new Cliente(); 
+        remitente.getPersona().setDocumento(campoDNIEmisor.getText());
+        Persona receptor = new Persona();
+        receptor.setDocumento(campoDNIReceptor.getText());
+        
+        nuevo.setAlamcenDestino(destino);
+        nuevo.setAlmacenOrigen(origen);
+        nuevo.setDescripcion(Descripcion);
+        nuevo.setEstado(0);
+        nuevo.setFechaEnvio(fechaEnvio);
+        nuevo.setFechaRecepcion(fechaRecepcion);
+        nuevo.setNumeroRastreo(campoDNIEmisor.getText()+campoDNIReceptor.getText());
+        nuevo.setRemitente(remitente);
+        nuevo.setReceptor(receptor);
+    }
+    
     private void registrarEnvioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEnvioBotonActionPerformed
         // TODO add your handling code here:
-        String ori=(String)this.comboOrigen.getSelectedItem();
-        String dest=(String)this.comboDestino.getSelectedItem();
-        int cantidad;
-        
-        int horaL;
-        int minL;
-        int diaL;
-        int mesL;
-        int anhoL;
+        try {
+            // TODO add your handling code here:
+            RegistrarEnvio(campoDescripcion1.getText());
+        } catch (InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
        //Pedido pd=new Pedido(ori,dest,cantidad,horaL,minL,diaL,mesL,anhoL);
        
     }//GEN-LAST:event_registrarEnvioBotonActionPerformed
 
     private void EncontrarCliente() throws InstantiationException, IllegalAccessException{
-        String DNI=this.campoDni.getText();
+        String DNI=this.campoDNIEmisor.getText();
 
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
         Persona nuevo = utilitarioPanelCrearEnvio.BuscarClienteRegistrado(DNI);
@@ -494,7 +521,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
             campoApellidoP.setText(nuevo.getApellidoP());
             campoApellidoM.setText(nuevo.getApellidoM());
             campoCorreo.setText(nuevo.getCorreo());
-            campoDni.setText(nuevo.getDocumento());
+            campoDNIEmisor.setText(nuevo.getDocumento());
         }else JOptionPane.showMessageDialog(null, "Cliente no se encuentra registrado");
         
     }
@@ -516,8 +543,11 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     private javax.swing.JTextField campoApellidoPRe;
     private javax.swing.JTextField campoCorreo;
     private javax.swing.JTextField campoCorreoRe;
-    private javax.swing.JTextField campoDni;
-    private javax.swing.JTextField campoDniRe;
+    private javax.swing.JTextField campoDNIEmisor;
+    private javax.swing.JTextField campoDNIReceptor;
+    private javax.swing.JTextField campoDescripcion1;
+    private javax.swing.JTextField campoDescripcion2;
+    private javax.swing.JTextField campoDescripcion3;
     private javax.swing.JTextField campoNombre;
     private javax.swing.JTextField campoNombreRe;
     private javax.swing.JComboBox<String> comboDestino;
@@ -549,9 +579,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
     private javax.swing.JButton registrarEnvioBoton;
     // End of variables declaration//GEN-END:variables
 }
