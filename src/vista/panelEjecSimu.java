@@ -11,6 +11,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,14 +19,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultCaret;
-
+import modelo.Cromosoma;
+import modelo.Gen;
+import modelo.Ruta;
+import modelo.Vuelo;
+import utilitario.funcionesAnimacionEjecSimu;
+import utilitario.funcionesBaseDeDatos;
+import utilitario.funcionesDibujoEjecSimu;
+import utilitario.funcionesHiloEjecSimu;
+import utilitario.funcionesVentanaPrincipal;
 /**
  *
  * @author FranciscoMartin
  */
 public class panelEjecSimu extends javax.swing.JPanel {
     public BufferedImage mapaFondo=null;
-     private hiloSimulacion simuHilo;
+    public funcionesDibujoEjecSimu Dib;
+    public ArrayList<funcionesDibujoEjecSimu> ADib=new ArrayList<funcionesDibujoEjecSimu>();    
+    public funcionesAnimacionEjecSimu Anim;
+    public String almacen;
+    public Cromosoma rutas;//contenedor de las rutas existentes
     //this.txtaLog
     //((DefaultCaret)  txtaLog.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     /**
@@ -33,35 +46,79 @@ public class panelEjecSimu extends javax.swing.JPanel {
      */
     
     public panelEjecSimu()  {
+       /////////////Cromosoma de prueba///////
+        Vuelo tmpV1=new Vuelo(0,0,0,0,"Lima","Sao Paulo");
+        Vuelo tmpV2=new Vuelo(0,0,0,0,"Sao Paulo","Chile");
+         Vuelo tmpV3=new Vuelo(0,0,0,0,"Lima","Chile");
+        Ruta tmpRuta1=new Ruta(tmpV1,0);
+        Ruta tmpRuta2=new Ruta(tmpV2,0);
+        Ruta tmpRuta3=new Ruta(tmpV3,0);
+        Gen tmpGen=new Gen();
+        Gen tmpGen2=new Gen();
+        Gen tmpGen3=new Gen();
+        tmpGen.setRuta(tmpRuta1);
+        tmpGen2.setRuta(tmpRuta2);
+        tmpGen3.setRuta(tmpRuta3);
+        rutas=new Cromosoma();
+        rutas.genes.add(tmpGen);
+        rutas.genes.add(tmpGen2);
+        rutas.genes.add(tmpGen3);
+        ///////////////////////////////////////
         initComponents();
-          try {                
+        int xIni,yIni,xFin,yFin,xInt,yInt;
+        String Destino,Inicio,Intermedio;
+        funcionesDibujoEjecSimu tmpDib;
+        try {                
           mapaFondo = ImageIO.read(new File("src/recursos/map.jpg"));
-       } catch (IOException ex) {
+        } catch (IOException ex) {
             System.out.println("error con imagen");
-       }
+        }
           
        JLabel picLabel = new JLabel(new ImageIcon(mapaFondo));
        
        this.setVisible(true);
        
-       
+       for(int i=0;i<(this.rutas.genes.size());i++){
+          ArrayList<Vuelo>tmpVuelo=this.rutas.genes.get(i).getRuta().getVuelos();
+          if(tmpVuelo.size()==1){ 
+            Destino=tmpVuelo.get(0).getDestino();
+            Inicio=tmpVuelo.get(0).getOrigen();
+          }else{
+            Destino=tmpVuelo.get(1).getDestino();
+            Inicio=tmpVuelo.get(0).getOrigen();
+            Intermedio=tmpVuelo.get(1).getOrigen();
+          }
+          xIni=this.getPosicionX(Inicio);
+          yIni=this.getPosicionY(Inicio);
+          xFin=this.getPosicionX(Destino);
+          yFin=this.getPosicionX(Destino);
+          System.out.print(xIni+" " +yIni+" " +xFin+" " +yFin);
+          System.out.println();
+          tmpDib=new funcionesDibujoEjecSimu(xIni,yIni,xFin,yFin,3);
+          ADib.add(tmpDib);
+       }
+       //Dib = new funcionesDibujoEjecSimu(175,300,227,227,3);
+       //Anim = new funcionesAnimacionEjecSimu(this, 20, Dib);
+       Anim = new funcionesAnimacionEjecSimu(this, 20, ADib);
     }
-     public void hiloSimu(){
-        actualizaDisplay();
-        int cambio=simuHilo.numero;
-        String str = "han pasado "+Integer.toString(cambio)  + ".\n";
-        jTextArea2.setText(str);
-        simuHilo.numero=simuHilo.numero-1;        
-        simuHilo = new hiloSimulacion(jTextArea2, this); simuHilo.start();
-
-    }   
-     private void advanceThread(){
-        if(simuHilo!=null && simuHilo.isAlive()){
-                synchronized(simuHilo.monitor){
-                simuHilo.monitor.notify();
-            }
-        }  
-    }
+     public int getPosicionX(String origen){
+           if(origen.compareTo("Lima")==0)
+                return 175;
+           if(origen.compareTo("Sao Paulo")==0)
+             return 227;
+           if(origen.compareTo("Chile")==0)
+            return 210;
+           return 0;
+     }
+     public int getPosicionY(String origen){
+          if(origen.compareTo("Lima")==0)
+            return 300;
+           if(origen.compareTo("Sao Paulo")==0)
+            return 227;
+           if(origen.compareTo("Chile")==0)
+            return 315;
+           return 0;
+     }
      public void actualizaDisplay(){
         revalidate();
         repaint();
@@ -87,14 +144,14 @@ public class panelEjecSimu extends javax.swing.JPanel {
         jTextArea2 = new javax.swing.JTextArea();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
-        jTextArea2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextArea2MouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTextArea2);
 
         javax.swing.GroupLayout panelLogLayout = new javax.swing.GroupLayout(panelLog);
@@ -126,10 +183,14 @@ public class panelEjecSimu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextArea2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextArea2MouseClicked
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        advanceThread();
-    }//GEN-LAST:event_jTextArea2MouseClicked
+        if(Anim.EstaCorriendo())
+                
+                Anim.Detener();
+        else
+                Anim.Iniciar();
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
