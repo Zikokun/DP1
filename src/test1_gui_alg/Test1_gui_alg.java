@@ -83,10 +83,13 @@ public class Test1_gui_alg {
                     Vuelo vuelo2=ciudadIntermedia.vuelos.get(j);
                     String destino2=vuelo2.getDestino();
                     tEspera=vuelo2.gethSalida()-vuelos.get(i).gethLlegada();
+                    int tMax=24;
+                    if(!ciudad.getContinente().equals(ciudades.get(destino2).getContinente())) tMax=48;
                     if(tEspera<0) tEspera+=24;
                     tiempoRuta=vuelos.get(i).getTiempo()+vuelo2.getTiempo()+tEspera;
-                    if (ciudad.getContinente().equals(ciudades.get(destino2).getContinente())) continue;
-                    if(tiempoRuta>48) continue;
+                    //if (ciudad.getContinente().equals(ciudades.get(destino2).getContinente())) continue;
+                    //if(tiempoRuta>48) continue;
+                    if(tiempoRuta>tMax) continue;
 //                    if (ciudad.getContinente().equals(ciudades.get(destino2).getContinente())&& tiempoRuta>24) continue;                    
 //                    if(!ciudad.getContinente().equals(ciudades.get(destino2).getContinente())&& tiempoRuta>48) continue; // si se demora más de 48 horas, no tomar en cuenta
                     if(!ciudad.rutas.containsKey(destino2)){ // si todavia no tiene ninguna ruta ese destino
