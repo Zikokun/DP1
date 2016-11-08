@@ -38,6 +38,8 @@ public class Test1_gui_alg {
         ArrayList<Vuelo> vuelos=new ArrayList<>();
         ArrayList<Pedido> pedidos=new ArrayList<>();
         
+        //lector.leerPaquetesArchivos("src/recursos",pedidos);
+        
         //lector.leerAeropuertosArchivos("src/recursos/plan_vuelo.txt");
         //lector.leerVuelosArchivos("src/recursos/plan_vuelo.txt");
         

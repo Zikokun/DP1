@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import static constantes.constantesGenerales.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,6 +56,62 @@ public class Lectura {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private List<Pedido> leerPaquetesDeAeropuerto(String rutaArchivosPaquetes){
+        String linea;
+        List<Pedido> lstPedido = new ArrayList<Pedido>();
+        try {
+            BufferedReader buffer = new BufferedReader(new FileReader(rutaArchivosPaquetes));
+            try {
+                while ((linea = buffer.readLine()) != null) {
+                    String origen = rutaArchivosPaquetes.substring((rutaArchivosPaquetes.length() - 8 ),(rutaArchivosPaquetes.length() - 4 + 1));
+                    String codigoPaquete = linea.substring(0, 9);
+                    int anho = Integer.parseInt(linea.substring(9,13));
+                    int mes = Integer.parseInt(linea.substring(13,15));
+                    int dia = Integer.parseInt(linea.substring(15,17));
+                    int hora = Integer.parseInt(linea.substring(17,19));
+                    int min = Integer.parseInt(linea.substring(20,22));
+                    String destino = linea.substring(22,26);
+                    
+                    Pedido pedido = new Pedido();
+                    pedido.setAño(anho);
+                    pedido.setDestino(destino);
+                    pedido.setDia(dia);
+                    pedido.setHora(hora);
+                    pedido.setMin(min);
+                    pedido.setOrigen(origen);
+                    pedido.setNumeroRastreo(codigoPaquete);
+                    
+                    lstPedido.add(pedido);
+                }
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lstPedido;
+    }
+    
+    public void leerPaquetesArchivos(String rutaArchivosPaquetesDirectorio,List<Pedido>  lstPedido){
+        
+        File carpeta = new File(rutaArchivosPaquetesDirectorio);
+        File[] listaDeArchivos = carpeta.listFiles();
+        String nombreCarpeta = "";
+        
+        for(int i = 0; i < listaDeArchivos.length; i++){
+            if(listaDeArchivos[i].isFile()){
+                nombreCarpeta = listaDeArchivos[i].getName();
+                System.out.println(nombreCarpeta);
+                String nombreArchivo = nombreCarpeta.substring(0,4);
+                if(nombreArchivo.equals(NOMBRE_ARCH)){
+                    lstPedido.addAll(leerPaquetesDeAeropuerto(rutaArchivosPaquetesDirectorio + "/" + nombreCarpeta));
+                }
+            }
+        }
+        System.out.println("La longitud fue de " + lstPedido.size());
     }
     
     public void leerVuelosArchivos(String rutaArchivosVuelos) throws InstantiationException, IllegalAccessException{

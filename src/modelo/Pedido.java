@@ -19,6 +19,7 @@ public class Pedido {
     private int mes;
     private int año;
     private int diaSemana;
+    private String numeroRastreo;
     
     Pedido(){
         origen="";
@@ -170,6 +171,20 @@ public class Pedido {
      */
     public void setDiaSemana(int diaSemana) {
         this.diaSemana = diaSemana;
+    }
+
+    /**
+     * @return the numeroRastreo
+     */
+    public String getNumeroRastreo() {
+        return numeroRastreo;
+    }
+
+    /**
+     * @param numeroRastreo the numeroRastreo to set
+     */
+    public void setNumeroRastreo(String numeroRastreo) {
+        this.numeroRastreo = numeroRastreo;
     }
     
     

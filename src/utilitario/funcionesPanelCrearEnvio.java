@@ -36,7 +36,7 @@ public class funcionesPanelCrearEnvio {
         String[] datosAlmacen = new String[10];
         int cont=0;
         
-        sqlBuscarAlmacenes = "SELECT ubicacion " + " FROM `almacen` ";
+        sqlBuscarAlmacenes = "SELECT ubicacion " + " FROM `almacen`;";
         
         try {
             Statement st = conexion.createStatement();
