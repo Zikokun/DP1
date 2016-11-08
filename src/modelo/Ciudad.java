@@ -52,7 +52,7 @@ public class Ciudad {
                 capTiempoAux.put(llave, capacidadTotal);
                 String llave2=dias[i]+"-"+j+":01";
                 capTiempo.put(llave2,capacidadTotal);
-                capTiempoAux.put(llave, capacidadTotal);
+                capTiempoAux.put(llave2, capacidadTotal);
             }
         }
     }
@@ -63,8 +63,10 @@ public class Ciudad {
             for(int j=0; j<24; j++){
                 String llave=dias[i]+"-"+j+":00";
                 capTiempo.put(llave,capacidadTotal);
+                capTiempoAux.put(llave, capacidadTotal);
                 String llave2=dias[i]+"-"+j+":01";
                 capTiempo.put(llave2,capacidadTotal);
+                capTiempoAux.put(llave2, capacidadTotal);
             }
         }
     }
@@ -80,7 +82,7 @@ public class Ciudad {
         } 
     }
     
-    public void copiarACap(){
+    public void copiarDesdeCapAux(){
        for(int i=0; i<7; i++){
             for(int j=0; j<24; j++){
                 String llave=dias[i]+"-"+j+":00";

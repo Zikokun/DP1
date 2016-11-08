@@ -172,7 +172,7 @@ public class Genetico {
                     }
                     
                     hSalida=ruta.getVuelos().get(0).gethSalida();
-                    //copiarCapsVuelosYAlmacenes(vuelos,ciudades);//actualizar capacidades con los nuevos paquetes enviados
+                    copiarCapsVuelosYAlmacenes(vuelos,ciudades);//actualizar capacidades con los nuevos paquetes enviados
                     /*
                     La ruta solo se debe elegir si cumple con las condiciones de tiempo
                     de lo contrario se prueba con otra ruta, por ahora debido a que el archivo
@@ -209,7 +209,12 @@ public class Genetico {
     }
     
     public void copiarCapsVuelosYAlmacenes(ArrayList<Vuelo> vuelos,TreeMap<String,Ciudad> ciudades){
-        
+        for(Vuelo item:vuelos){
+            item.copiarDesdeCapAux();
+        }
+        for(Ciudad ciudad : ciudades.values()){
+            ciudad.copiarDesdeCapAux();
+        }
     }
     
     public int verificarCapsAvion(Ruta ruta,int diaP,int horaP, int minP){
