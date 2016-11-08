@@ -82,11 +82,13 @@ public class Test1_gui_alg {
                 for(int j=0;j<ciudadIntermedia.vuelos.size();j++){
                     Vuelo vuelo2=ciudadIntermedia.vuelos.get(j);
                     String destino2=vuelo2.getDestino();
-                    if (ciudad.getContinente().equals(ciudades.get(destino2).getContinente())) continue;
                     tEspera=vuelo2.gethSalida()-vuelos.get(i).gethLlegada();
                     if(tEspera<0) tEspera+=24;
                     tiempoRuta=vuelos.get(i).getTiempo()+vuelo2.getTiempo()+tEspera;
-                    if(tiempoRuta>48) continue; // si se demora más de 48 horas, no tomar en cuenta
+                    if (ciudad.getContinente().equals(ciudades.get(destino2).getContinente())) continue;
+                    if(tiempoRuta>48) continue;
+//                    if (ciudad.getContinente().equals(ciudades.get(destino2).getContinente())&& tiempoRuta>24) continue;                    
+//                    if(!ciudad.getContinente().equals(ciudades.get(destino2).getContinente())&& tiempoRuta>48) continue; // si se demora más de 48 horas, no tomar en cuenta
                     if(!ciudad.rutas.containsKey(destino2)){ // si todavia no tiene ninguna ruta ese destino
                         ArrayList<Ruta> rutas= new ArrayList<>();
                         Ruta ruta=new Ruta(vuelos.get(i),vuelo2,tiempoRuta);

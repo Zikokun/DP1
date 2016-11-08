@@ -83,10 +83,6 @@ public class Genetico {
             Ruta rutasPacki=mejorCrom.genes.get(i).ruta;
             
             System.out.print("Paquete "+i+":");
-            //Aeropuerto aeroPackO=rutasPacki.vuelos.get(0).getAeroOrig(); 
-            //Aeropuerto aeroPackF=rutasPacki.vuelos.get(0).getAeroFin();
-            //aeroPackO.setCantEspacioUsado(aeroPackO.getCantEspacioUsado()+1);// asigno espacio usado
-            //aeroPackF.setCantEspacioUsado(aeroPackF.getCantEspacioUsado()+1);
             for(int j=0;j<rutasPacki.getVuelos().size();j++){
                 Vuelo vuelo= rutasPacki.getVuelos().get(j);
                 System.out.print(vuelo.getOrigen()+"-"+vuelo.getDestino()+"//");
@@ -172,6 +168,7 @@ public class Genetico {
                     }
                     
                     hSalida=ruta.getVuelos().get(0).gethSalida();
+                    if(hSalida<hPedido ||(hSalida==hPedido && mPedido!=0)) hSalida+=24;
                     copiarCapsVuelosYAlmacenes(vuelos,ciudades);//actualizar capacidades con los nuevos paquetes enviados
                     /*
                     La ruta solo se debe elegir si cumple con las condiciones de tiempo
