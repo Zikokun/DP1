@@ -6,6 +6,7 @@
 package modelo;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,9 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utilitario.funcionesInicializarBaseDatos;
 
 /**
  *
@@ -52,7 +56,48 @@ public class Lectura {
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void leerPaquetesArchivos(){
+        
+    }
+    
+    public void leerAeropuertosArchivos(String rutaArchivosAeropuertos) throws InstantiationException, IllegalAccessException{
+        /*File carpeta = new File(rutaArchivos);
+        File[] listaDeArchivos = carpeta.listFiles();
+        String nombreCarpeta = "";
+        for(int i = 0; i < listaDeArchivos.length; i++){
+            if(listaDeArchivos[i].isFile()){
+                nombreCarpeta = listaDeArchivos[i].getName();
+                System.out.println(nombreCarpeta);
+            }
+        }*/
+        String linea;
+        String[] palabras;
+        ArrayList<String> listaAlmacenes = new ArrayList<String>();
+        
+        try {
+            BufferedReader buffer = new BufferedReader(new FileReader(rutaArchivosAeropuertos));
+            try {
+                while ((linea = buffer.readLine()) != null) {
+                    palabras = linea.trim().split("-");
+                    listaAlmacenes.add(palabras[0]);
+                    listaAlmacenes.add(palabras[1]);
+                }
+                HashSet<String> hashSetAeropuertos = new HashSet<String>(listaAlmacenes);
+                listaAlmacenes.clear();
+                listaAlmacenes.addAll(hashSetAeropuertos);
 
+                funcionesInicializarBaseDatos fInicializarBaseDatos = new funcionesInicializarBaseDatos();
+                fInicializarBaseDatos.insertarAlmacenes(listaAlmacenes);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void leerAeropuertos(String archAeropuertos, TreeMap<String, Ciudad> aeropuertos) {
         String linea;
         String[] valor;

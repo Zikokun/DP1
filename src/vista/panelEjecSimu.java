@@ -34,17 +34,15 @@ public class panelEjecSimu extends javax.swing.JPanel {
     
     public panelEjecSimu()  {
         initComponents();
-          try {                
-          mapaFondo = ImageIO.read(new File("src/recursos/map.jpg"));
-       } catch (IOException ex) {
+        try {                
+            mapaFondo = ImageIO.read(new File("src/recursos/map.jpg"));
+        } catch (IOException ex) {
             System.out.println("error con imagen");
-       }
+        }
           
-       JLabel picLabel = new JLabel(new ImageIcon(mapaFondo));
+        JLabel picLabel = new JLabel(new ImageIcon(mapaFondo));
        
-       this.setVisible(true);
-       
-       
+        this.setVisible(true);
     }
      public void hiloSimu(){
         actualizaDisplay();
@@ -53,9 +51,9 @@ public class panelEjecSimu extends javax.swing.JPanel {
         jTextArea2.setText(str);
         simuHilo.numero=simuHilo.numero-1;        
         simuHilo = new hiloSimulacion(jTextArea2, this); simuHilo.start();
-
     }   
-     private void advanceThread(){
+     
+    private void advanceThread(){
         if(simuHilo!=null && simuHilo.isAlive()){
                 synchronized(simuHilo.monitor){
                 simuHilo.monitor.notify();

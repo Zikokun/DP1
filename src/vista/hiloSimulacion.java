@@ -15,18 +15,20 @@ public class hiloSimulacion extends Thread {
     
     private final JTextArea txta;
     private final panelEjecSimu simu;
-     public final Object monitor = new Object();
-     public  int numero;
-     public hiloSimulacion(JTextArea txta, panelEjecSimu simu){
+    public final Object monitor = new Object();
+    public  int numero;
+    
+    public hiloSimulacion(JTextArea txta, panelEjecSimu simu){
         this.txta = txta;
         this.simu = simu;
         this.numero=100;
-     }
-     @Override
+    }
+    
+    @Override
     public void run() {
-        
         simu.hiloSimu();
     }
+    
     public void escribeTexto(String str){
         txta.setText(txta.getText() + str + "\n");
         simu.actualizaDisplay();

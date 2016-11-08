@@ -13,4 +13,6 @@ public class constantesGenerales {
     public static String ESTADO_PAQUETE_NO_VALIDO = "noValidoEstadoPaquete";
     public static int PRIMERA_COLUMNA_PAQUETE = 0;
     public static int DISTINGUIDOR = -1;
+    public static int CAPACIDAD_MAX_ALMACEN = 600;
+    public static int CAPACIDAD_MIN_ALMACEN = 0;
 }
