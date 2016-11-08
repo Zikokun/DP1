@@ -42,7 +42,7 @@ public class Test1_gui_alg {
         //lector.leerVuelosArchivos("src/recursos/plan_vuelo.txt");
         
         lector.leerArchivos("src/recursos/_aeropuertos.OACI.txt", "src/recursos/_plan_vuelo.txt",
-                "src/recursos/_pedidos_04-10-2016.txt", "src/recursos/_husos_horarios.txt", vuelos, ciudades, pedidos);
+                "src/recursos/_pedidos_07-11-2016.txt", "src/recursos/_husos_horarios.txt", vuelos, ciudades, pedidos);
         asignarTipoVuelo(vuelos,ciudades);
         generarRutas(ciudades);
 //        for(Pedido item:pedidos)
