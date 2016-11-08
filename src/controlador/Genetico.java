@@ -29,21 +29,22 @@ public class Genetico {
     private String []diasSemana={"Sab","Dom","Lun","Mar","Mie","Jue","Vie"};
     private ArrayList<Ruta> universoRutas= new ArrayList<>();
     private ArrayList<Cromosoma> cromosomas=new ArrayList<>();
+    Cromosoma mejorCrom=new Cromosoma();
     
     public Genetico(){
         
     }
     
     public void ejecutar(TreeMap<String,Ciudad> aeropuertos, ArrayList<Vuelo> vuelos, ArrayList<Pedido> pedidos,int hora, int dia){
-        int fitnessTotal=generarPoblacion(pedidos,aeropuertos);//poblacion incicial
+        int fitnessTotal=generarPoblacion(pedidos,aeropuertos,vuelos);//poblacion incicial
         System.out.println("fitness Total: "+fitnessTotal);
         reproduccion(fitnessTotal);
         horaSist=hora;
         diaSist=dia;        
     }
-    
+       
     public void reproduccion(int fitnessTotal){
-        Cromosoma mejorCrom=new Cromosoma();
+        //Cromosoma mejorCrom=new Cromosoma();
         mejorCrom.fitness=0;
         for(int i=0;i<maxGeneraciones;i++){
             int auxFitnessTotal=0;
@@ -127,9 +128,11 @@ public class Genetico {
         return hijo;
     }
     
-    public int generarPoblacion(ArrayList<Pedido> pedidos,TreeMap<String,Ciudad> ciudades){
+    public int generarPoblacion(ArrayList<Pedido> pedidos,TreeMap<String,Ciudad> ciudades,ArrayList<Vuelo> vuelos){
+        //System.out.println("En generar Poblacion");
         int fitnessTotal=0; //servira en el momento de escoger el padre y madre
         for(int i=0; i<maxPoblacion;i++){ //generamos cromosomas
+            // System.out.println("En generar Poblacion");
             Cromosoma crom= new Cromosoma();
             /*Un cromosoma tiene tanto genes como paquetes (un pedido consta de 0 o muchos paquetes)
                 existen ya que cada gen representa la ruta que tomara el paquete
@@ -144,6 +147,7 @@ public class Genetico {
                 if (ciudades.get(origen).getContinente().equals(ciudades.get(destino).getContinente())) tiempoMax=24; //si estan en el mismo continente, el maximo es de 24 horas
                 int hPedido=pedActual.getHora();
                 int mPedido=pedActual.getMin();
+                int dPedido=pedActual.getDia();
                 int tTotal=50;
                 /*
                 A partir de aqui se considera que un pedido puede tener varios paquetes,
@@ -152,6 +156,10 @@ public class Genetico {
                 */
                 for(int h=0;h<pedActual.getCant();h++){ //por paquete se genera un alelo
                     Ruta ruta=rutasOF.get(ran.nextInt(rutasOF.size())); //escogemos una ruta aleatoriamente
+                    //verificamos si hay capacidad en el avion con esa ruta
+//                    while(verificarCapsAvion(ruta,dPedido,hPedido,mPedido)!=1){
+//                        
+//                    }
                     int hSalida=ruta.getVuelos().get(0).gethSalida();
                     if(hSalida<hPedido ||(hSalida==hPedido && mPedido!=0)) hSalida+=24;
                     /*
@@ -172,10 +180,13 @@ public class Genetico {
                     gen.setTiempo((hSalida-hPedido+ruta.getTiempo())*60-mPedido); //el tiempo se toma en minutos
                     gen.setPedido(pedActual);
                     //de acuerdo a la ruta escogida, se debe actualizar las capacidades de los almacenes
-                    actualizarCaps(gen,pedActual.getDiaSemana(),pedActual.getHora(),pedActual.getMin());
+                    actualizarCaps(ruta,pedActual.getDiaSemana(),pedActual.getHora(),pedActual.getMin());
                     crom.genes.add(gen); //se ha generado aleatoriamente su ruta
                 }
                 
+            }
+            for(Vuelo vuelo:vuelos){ //Es un nuevo cromosoma asi que inicializamos los vuelos a su maxima capacidad
+                vuelo.setearCaps();
             }
             reiniciarCapsCiudades(ciudades);//regresar las ciudades a su capacidad COMPLETA porque se comenzara de nuevo para el siguiente cromosoma
             int fitness=calcFitness(crom);
@@ -188,24 +199,47 @@ public class Genetico {
     
     public int verificarCapsAvion(Ruta ruta,int diaP,int horaP, int minP){
         ArrayList<Vuelo> vuelos=ruta.getVuelos();
-        for(Vuelo item:vuelos){
-            int hSalida=item.gethSalida();
+        int diaLlegadaEscala=0;
+        for(int i=0;i<vuelos.size();i++){
+            Vuelo vueloActual=vuelos.get(i);
+            int hSalida=vueloActual.gethSalida();
             int espacioLibre=0,dia;
-            item.copiarCaps();
-            if(hSalida<horaP || (hSalida==horaP&&minP!=0)){ //el paquete se va a en el vuelo del dia siguiente
-                dia=(diaP+1)%7;
-                espacioLibre=item.getCapTiempoAux().get(dia)-1;
-            }else if(hSalida>horaP||(hSalida==horaP&&minP==0)){// el paquete se va el mismo dia que llega
-                dia=diaP;   
-                espacioLibre=item.getCapTiempoAux().get(dia)-1;
+            vueloActual.copiarACapAux();
+            if(i==0){
+                if(hSalida<horaP || (hSalida==horaP&&minP!=0)){ //el paquete se va a en el vuelo del dia siguiente
+                    dia=(diaP+1)%7;
+                    espacioLibre=vueloActual.getCapTiempoAux().get(dia)-1;
+                    vueloActual.getCapTiempoAux().set(dia, espacioLibre);
+                    diaLlegadaEscala=dia;
+                }else if(hSalida>horaP||(hSalida==horaP&&minP==0)){// el paquete se va el mismo dia que llega
+                    dia=diaP;   
+                    espacioLibre=vueloActual.getCapTiempoAux().get(dia)-1;
+                    vueloActual.getCapTiempoAux().set(dia, espacioLibre);
+                    diaLlegadaEscala=dia;
+                }
+                if (espacioLibre<0)return 0;
             }
-            if (espacioLibre<0)return 0;
+            if(i==1){
+                int horaL=vuelos.get(0).gethLlegada(),minL=vuelos.get(0).getmLlegada(),diaL;
+                int diasTranscurridos=diasTrans(vuelos.get(0));
+                diaLlegadaEscala+=diasTranscurridos;
+                if(hSalida<horaL || (hSalida==horaL&&minL!=0)){ //el paquete se va a en el vuelo del dia siguiente
+                    dia=(diaLlegadaEscala+1)%7;
+                    espacioLibre=vueloActual.getCapTiempoAux().get(dia)-1;
+                    vueloActual.getCapTiempoAux().set(dia, espacioLibre);
+                }else if(hSalida>horaL||(hSalida==horaL&&minL==0)){// el paquete se va el mismo dia que llega
+                    dia=diaLlegadaEscala;   
+                    espacioLibre=vueloActual.getCapTiempoAux().get(dia)-1;
+                    vueloActual.getCapTiempoAux().set(dia, espacioLibre);
+                }
+                if (espacioLibre<0)return 0;
+            }            
         }
         return 1;
     }
     
-    public void actualizarCaps(Gen gen,int diaP,int horaP, int minP){  //esta es hora y min del pedido////// dia-hora:00 / dia-hora:01
-        Ruta ruta= gen.getRuta();
+    public void actualizarCaps(Ruta ruta,int diaP,int horaP, int minP){  //esta es hora y min del pedido////// dia-hora:00 / dia-hora:01
+        //System.out.println("En actualizarCaps");
         int diaK=diaP;
         int cant=ruta.getVuelos().size();
         for(int i=0;i<cant;i++){
@@ -215,9 +249,9 @@ public class Genetico {
             int hSalida=vuelo.gethSalida();
             int hLlegada=vuelo.gethLlegada();
             int horaKey;
-            
             //registramos su ingreso por primera vez
             if(i==0){ 
+                ciudadOrig.copiarACapAux();
                 //si la hora de salida ya paso, hay que esperar hasta el dia siguiente
                 if(hSalida<horaP ||(hSalida==horaP && minP!=0)) hSalida+=24;
                 int primeraVez=1;
@@ -228,17 +262,18 @@ public class Genetico {
                     diaK=diaK%7; //mantener el rango de los 7 dias (circular)
                     if(primeraVez==0){//si el paquete no acaba de llegar o si ha llegado en una hora exacta
                         String key=diasSemana[diaK]+"-"+horaKey+":00";
-                        ciudadOrig.capTiempo.put(key,ciudadOrig.capTiempo.get(key)-1);//un espacio menos disponible
+                        ciudadOrig.capTiempoAux.put(key,ciudadOrig.capTiempoAux.get(key)-1);//un espacio menos disponible
                     }
                     else{primeraVez=0;}
                     if(hora!=hSalida){ //el paquete todavia se va a quedar ahi por una hora mass
                         String key2=diasSemana[diaK]+"-"+horaKey+":01";
-                        ciudadOrig.capTiempo.put(key2, ciudadOrig.capTiempo.get(key2)-1);
+                        ciudadOrig.capTiempoAux.put(key2, ciudadOrig.capTiempoAux.get(key2)-1);
                     }
                 }
             }
             //registramos su escala si la hubiera
             if(i==1){
+                ciudadOrig.copiarACapAux();
                 int hLlegadaEscala=ruta.getVuelos().get(0).gethLlegada();
                 int hSalidaDeOrigen=ruta.getVuelos().get(0).gethSalida();
                 int diasTrans=diasTrans(ruta.getVuelos().get(0));
@@ -252,7 +287,7 @@ public class Genetico {
                     ciudadOrig.capTiempo.put(key, ciudadOrig.capTiempo.get(key)-1);
                     if(hora!=hSalida){
                         String key2=diasSemana[diaK]+"-"+horaKey+":01";
-                        ciudadOrig.capTiempo.put(key2, ciudadOrig.capTiempo.get(key2)-1);
+                        ciudadOrig.capTiempoAux.put(key2, ciudadOrig.capTiempoAux.get(key2)-1);
                     }
                 }
                 
@@ -261,12 +296,13 @@ public class Genetico {
             //registramos fin del destino de paquete
             
             if(i==ruta.getVuelos().size()-1){
+                ciudadFin.copiarACapAux();
                 int diasTrans=(hSalida+ruta.getVuelos().get(i).getTiempo()+
                          ruta.getVuelos().get(i).getAeroFin().huso
                          -ruta.getVuelos().get(i).getAeroOrig().huso)/24;
                 diaK=(diaK+diasTrans)%7;//se determina que dia llego a la ciudad escala
                 String key=diasSemana[diaK]+"-"+hLlegada+":00";
-                ciudadFin.capTiempo.put(key,ciudadFin.capTiempo.get(key)-1);
+                ciudadFin.capTiempoAux.put(key,ciudadFin.capTiempoAux.get(key)-1);
             }
             
         }

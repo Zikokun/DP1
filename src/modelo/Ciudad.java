@@ -26,6 +26,7 @@ public class Ciudad {
     public ArrayList<Vuelo> vuelos = new ArrayList<>(); //Lista de vuelos que salen de esta ciudad
     public HashMap<String,ArrayList<Ruta>> rutas= new HashMap<>(); // llave es el codigo de la ciudad destino, valor es las rutas posibles
     public HashMap<String, Integer> capTiempo= new HashMap<>(); // capacidades en el tiempo, key es : dia-hora:00 / dia-hora:01 
+    public HashMap<String, Integer> capTiempoAux= new HashMap<>();
     
     public Ciudad(){
         id=-1;
@@ -48,8 +49,10 @@ public class Ciudad {
             for(int j=0; j<24; j++){
                 String llave=dias[i]+"-"+j+":00";
                 capTiempo.put(llave,capacidadTotal);
+                capTiempoAux.put(llave, capacidadTotal);
                 String llave2=dias[i]+"-"+j+":01";
                 capTiempo.put(llave2,capacidadTotal);
+                capTiempoAux.put(llave, capacidadTotal);
             }
         }
     }
@@ -64,6 +67,28 @@ public class Ciudad {
                 capTiempo.put(llave2,capacidadTotal);
             }
         }
+    }
+    
+    public void copiarACapAux(){
+       for(int i=0; i<7; i++){
+            for(int j=0; j<24; j++){
+                String llave=dias[i]+"-"+j+":00";
+                capTiempoAux.put(llave,capTiempo.get(llave));
+                String llave2=dias[i]+"-"+j+":01";
+                capTiempoAux.put(llave2,capTiempo.get(llave2));
+            }
+        } 
+    }
+    
+    public void copiarACap(){
+       for(int i=0; i<7; i++){
+            for(int j=0; j<24; j++){
+                String llave=dias[i]+"-"+j+":00";
+                capTiempo.put(llave,capTiempoAux.get(llave));
+                String llave2=dias[i]+"-"+j+":01";
+                capTiempo.put(llave2,capTiempoAux .get(llave2));
+            }
+        } 
     }
     
     public void print(){

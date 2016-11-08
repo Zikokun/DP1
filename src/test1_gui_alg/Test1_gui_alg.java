@@ -38,9 +38,9 @@ public class Test1_gui_alg {
         ArrayList<Vuelo> vuelos=new ArrayList<>();
         ArrayList<Pedido> pedidos=new ArrayList<>();
         
-        lector.leerAeropuertosArchivos("src/recursos/plan_vuelo.txt");
+        //lector.leerAeropuertosArchivos("src/recursos/plan_vuelo.txt");
         
-        /*lector.leerArchivos("src/recursos/_aeropuertos.OACI.txt", "src/recursos/_plan_vuelo.txt",
+        lector.leerArchivos("src/recursos/_aeropuertos.OACI.txt", "src/recursos/_plan_vuelo.txt",
                 "src/recursos/_pedidos_04-10-2016.txt", "src/recursos/_husos_horarios.txt", vuelos, ciudades, pedidos);
         asignarTipoVuelo(vuelos,ciudades);
         generarRutas(ciudades);
@@ -52,7 +52,7 @@ public class Test1_gui_alg {
         dia=calendario.get(Calendar.DAY_OF_WEEK);
         
         Genetico algoritmo=new Genetico();
-        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia);*/
+        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia);
     }
     
     public static void generarRutas(TreeMap<String,Ciudad> ciudades){

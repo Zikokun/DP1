@@ -48,9 +48,23 @@ public class Vuelo {
         }
     }
     
-    public void copiarCaps(){
+    public void copiarACapAux(){
         for(int i=0;i<getCapTiempo().size();i++){
             getCapTiempoAux().set(i, getCapTiempo().get(i));
+        }
+    }
+    
+    public void copiarDesdeCapAux(){
+        for(int i=0;i<getCapTiempo().size();i++){
+            getCapTiempo().set(i, getCapTiempoAux().get(i));
+        }
+    }
+    
+    public void setearCaps(){
+        //inicializar capacidades en el tiempo
+        for (int i=1; i<8; i++){ //los 7 dias de la semana
+            capTiempo.add(capacidad);
+            capTiempoAux.add(capacidad);
         }
     }
     
