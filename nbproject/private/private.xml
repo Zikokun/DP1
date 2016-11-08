@@ -5,17 +5,18 @@
         <group>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/utilitario/funcionesVentanaPrincipal.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/constantes/constantesEstadoCliente.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/test1_gui_alg/Test1_gui_alg.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/panelDetallePaquete.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/escogerArchivo.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/PanelCrearEnvio.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/constantes/constantesVentanaPrincipal.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/utilitario/funcionesBaseDeDatos.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/VentanaPrincipal.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/utilitario/funcionesInicializarBaseDatos.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/panelPaqueteBusqueda.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/Nv.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/panelMantUsuario.java</file>
-            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/PanelSim.java</file>
-            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/constantes/constantesEstadoAdministradorRiesgos.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/modelo/Lectura.java</file>
         </group>
     </open-files>
 </project-private>

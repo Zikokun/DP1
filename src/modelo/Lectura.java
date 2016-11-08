@@ -57,8 +57,28 @@ public class Lectura {
         }
     }
     
-    public void leerPaquetesArchivos(){
+    public void leerVuelosArchivos(String rutaArchivosVuelos) throws InstantiationException, IllegalAccessException{
+        String linea;
+        String[] palabras;
+        ArrayList<String[]> lstPlanesDeVuelo = new ArrayList<String[]>();
         
+        try {
+            BufferedReader buffer = new BufferedReader(new FileReader(rutaArchivosVuelos));
+            try {
+                while ((linea = buffer.readLine()) != null) {
+                    palabras = linea.trim().split("-");
+                    lstPlanesDeVuelo.add(palabras);
+                }
+                
+                funcionesInicializarBaseDatos fInicializarBaseDatos = new funcionesInicializarBaseDatos();
+                fInicializarBaseDatos.insertarVuelos(lstPlanesDeVuelo);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void leerAeropuertosArchivos(String rutaArchivosAeropuertos) throws InstantiationException, IllegalAccessException{

@@ -15,4 +15,6 @@ public class constantesGenerales {
     public static int DISTINGUIDOR = -1;
     public static int CAPACIDAD_MAX_ALMACEN = 600;
     public static int CAPACIDAD_MIN_ALMACEN = 0;
+    public static int CAPACIDAD_MAX_VUELO = 200;
+    public static int CAPACIDAD_MIN_VUELO = 0;
 }
