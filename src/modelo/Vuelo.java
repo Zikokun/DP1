@@ -22,7 +22,7 @@ public class Vuelo {
     private ArrayList<Integer> capTiempo = new ArrayList<>(); // capacidades en el tiempo
     private ArrayList<Integer> capTiempoAux = new ArrayList<>(); //copia de capacidades en el tiempo
             
-    Vuelo(){
+    public Vuelo(){
         hSalida = 0;
         mSalida = 0;
         hLlegada = 0;
@@ -33,7 +33,7 @@ public class Vuelo {
         tiempo = 0;
     }
     
-    Vuelo(int hSal,int mSal, int hLleg, int mLleg,String orig, String dest){
+    public Vuelo(int hSal,int mSal, int hLleg, int mLleg,String orig, String dest){
         hSalida=hSal;
         mSalida=mSal;
         hLlegada=hLleg;

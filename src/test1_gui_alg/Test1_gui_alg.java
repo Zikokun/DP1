@@ -25,10 +25,10 @@ public class Test1_gui_alg {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InstantiationException, IllegalAccessException {
-        //Nv nv= new Nv();
-        //nv.setVisible(true);
+        Nv nv= new Nv();
+        nv.setVisible(true);
         
-        principal();
+        //principal();
     }
     
     public static void principal() throws InstantiationException, IllegalAccessException{
