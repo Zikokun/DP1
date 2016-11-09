@@ -78,6 +78,26 @@ public class funcionesPanelCrearEnvio {
         return nuevo;
     }
     
+    public int GetComboCiudad(String NombreCiudad) throws InstantiationException, IllegalAccessException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        System.out.println(cc);
+        Connection conexion = cc.conexion();//null
+        int id=0;
+        
+        String sqlBuscarCiudad = "SELECT * FROM `almacen` WHERE Ubicacion = '"+ NombreCiudad + "'";
+        try {
+            Statement st = conexion.createStatement();
+            ResultSet resultadoBuscar = st.executeQuery(sqlBuscarCiudad);
+            
+            while(resultadoBuscar!=null && resultadoBuscar.next()){
+                id = resultadoBuscar.getInt("idAlmacen");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+    
     public String CrearEnvio(Paquete nuevo) throws InstantiationException, IllegalAccessException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         System.out.println(cc);
@@ -89,8 +109,8 @@ public class funcionesPanelCrearEnvio {
             PreparedStatement sqlCrearEnvio = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             
             sqlCrearEnvio.setString(1, nuevo.getNumeroRastreo());
-            sqlCrearEnvio.setInt(2, Integer.parseInt(nuevo.getAlmacenOrigen().getCodAeropuerto()));
-            sqlCrearEnvio.setInt(3, Integer.parseInt(nuevo.getAlamcenDestino().getCodAeropuerto()));
+            sqlCrearEnvio.setInt(2, nuevo.getAlmacenOrigen().getId());
+            sqlCrearEnvio.setInt(3, nuevo.getAlamcenDestino().getId());
             Timestamp fechaE = new Timestamp(nuevo.getFechaEnvio().getTime());
             sqlCrearEnvio.setTimestamp(4, fechaE);
             Timestamp fechaR = new Timestamp(nuevo.getFechaRecepcion().getTime());

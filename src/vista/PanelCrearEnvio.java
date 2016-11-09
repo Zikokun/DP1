@@ -476,13 +476,18 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     private void RegistrarEnvio(String Descripcion) throws InstantiationException, IllegalAccessException{
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
         Paquete nuevo = new Paquete();
-        Ciudad origen = new Ciudad(Integer.parseInt(comboOrigen.getSelectedItem().toString()), comboOrigen.getSelectedItem().toString(), "", "", "", "");
-        Ciudad destino = new Ciudad(Integer.parseInt(comboDestino.getSelectedItem().toString()), comboOrigen.getSelectedItem().toString(), "", "", "", "");
+        String COri = comboOrigen.getSelectedItem().toString();
+        Ciudad origen = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(COri), comboOrigen.getSelectedItem().toString(), "", "", "", "");
+        String CDes = comboDestino.getSelectedItem().toString();
+        Ciudad destino = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(CDes), comboOrigen.getSelectedItem().toString(), "", "", "", "");
+        
         Date fecha = new Date();
         Timestamp fechaEnvio = new Timestamp(fecha.getTime());
         Timestamp fechaRecepcion = new Timestamp(fecha.getTime()+2*24*60*60*1000);
         Cliente remitente = new Cliente(); 
-        remitente.getPersona().setDocumento(campoDNIEmisor.getText());
+        Persona person = new Persona();
+        person.setDocumento(campoDNIEmisor.getText());
+        remitente.setPersona(person);
         Persona receptor = new Persona();
         receptor.setDocumento(campoDNIReceptor.getText());
         
@@ -495,13 +500,18 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         nuevo.setNumeroRastreo(campoDNIEmisor.getText()+campoDNIReceptor.getText());
         nuevo.setRemitente(remitente);
         nuevo.setReceptor(receptor);
+        
+        utilitarioPanelCrearEnvio.CrearEnvio(nuevo);
+        
     }
     
     private void registrarEnvioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEnvioBotonActionPerformed
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            RegistrarEnvio(campoDescripcion1.getText());
+            if(campoDescripcion1.getText()!="") RegistrarEnvio(campoDescripcion1.getText());
+            if(campoDescripcion2.getText()!="") RegistrarEnvio(campoDescripcion2.getText());
+            if(campoDescripcion3.getText()!="") RegistrarEnvio(campoDescripcion3.getText());
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
         }

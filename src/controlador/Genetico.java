@@ -40,12 +40,12 @@ public class Genetico {
         int fitnessTotal=generarPoblacion(pedidos,aeropuertos,vuelos);//poblacion incicial
         System.out.println("fitness Total: "+fitnessTotal);
         this.mensaje = "";
-        reproduccion(fitnessTotal);
+        mensaje = reproduccion(fitnessTotal);
         horaSist=hora;
         diaSist=dia;        
     }
        
-    public void reproduccion(int fitnessTotal){
+    public String reproduccion(int fitnessTotal){
         //Cromosoma mejorCrom=new Cromosoma();
         mejorCrom.fitness=0;
         for(int i=0;i<maxGeneraciones;i++){
@@ -84,19 +84,20 @@ public class Genetico {
             
             Ruta rutasPacki=mejorCrom.genes.get(i).ruta;
             
-            System.out.print("Paquete "+i+":");
+            //System.out.print("Paquete "+i+":");
             mensaje = "Paquete "+i+":";
             for(int j=0;j<rutasPacki.getVuelos().size();j++){
                 Vuelo vuelo= rutasPacki.getVuelos().get(j);
-                System.out.print(vuelo.getOrigen()+"-"+vuelo.getDestino()+"//");
+                //System.out.print(vuelo.getOrigen()+"-"+vuelo.getDestino()+"//");
                 mensaje+=vuelo.getOrigen()+"-"+vuelo.getDestino()+"//";
             }
-            System.out.println("------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas");
+            //System.out.println("------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas");
             mensaje+="------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas\n";
             tiempoTotal+=mejorCrom.genes.get(i).tiempo;
         }
-        System.out.println("Tiempo total de entrega de paquetes: "+tiempoTotal);
-        
+        //System.out.println("Tiempo total de entrega de paquetes: "+tiempoTotal+"\n");
+        mensaje+="Tiempo total de entrega de paquetes: "+tiempoTotal+"\n";
+        return mensaje;
     }
     
     public void mutacion(Cromosoma crom){

@@ -56,7 +56,7 @@ public class Test1_gui_alg {
         dia=calendario.get(Calendar.DAY_OF_WEEK);
         
         Genetico algoritmo=new Genetico();
-        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia,mensaje);
+        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
         return mensaje;
     }
     
