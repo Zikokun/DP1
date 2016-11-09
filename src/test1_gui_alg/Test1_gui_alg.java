@@ -20,18 +20,19 @@ import vista.VentanaPrincipal;
  * @author alulab
  */
 public class Test1_gui_alg {
-
+   
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InstantiationException, IllegalAccessException {
+        //String mensaje = principal();
+        //System.out.println(mensaje);
         Nv nv= new Nv();
         nv.setVisible(true);
-        
-        //principal();
     }
     
-    public static void principal() throws InstantiationException, IllegalAccessException{
+    public static String principal() throws InstantiationException, IllegalAccessException{
+        String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();
         TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
@@ -55,7 +56,8 @@ public class Test1_gui_alg {
         dia=calendario.get(Calendar.DAY_OF_WEEK);
         
         Genetico algoritmo=new Genetico();
-        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia);
+        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia,mensaje);
+        return mensaje;
     }
     
     public static void generarRutas(TreeMap<String,Ciudad> ciudades){

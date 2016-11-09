@@ -31,14 +31,15 @@ public class Genetico {
     private ArrayList<Cromosoma> cromosomas=new ArrayList<>();
     Cromosoma mejorCrom=new Cromosoma();
     int maxIntentos=10;
-    
+    private String mensaje;
     public Genetico(){
         
     }
     
-    public void ejecutar(TreeMap<String,Ciudad> aeropuertos, ArrayList<Vuelo> vuelos, ArrayList<Pedido> pedidos,int hora, int dia){
+    public void ejecutar(TreeMap<String,Ciudad> aeropuertos, ArrayList<Vuelo> vuelos, ArrayList<Pedido> pedidos,int hora, int dia, String mensaje){
         int fitnessTotal=generarPoblacion(pedidos,aeropuertos,vuelos);//poblacion incicial
         System.out.println("fitness Total: "+fitnessTotal);
+        this.mensaje = "";
         reproduccion(fitnessTotal);
         horaSist=hora;
         diaSist=dia;        
@@ -80,16 +81,19 @@ public class Genetico {
         
         int tiempoTotal=0;
         for(int i=0;i<mejorCrom.genes.size();i++){
+            
             Ruta rutasPacki=mejorCrom.genes.get(i).ruta;
             
             System.out.print("Paquete "+i+":");
+            mensaje = "Paquete "+i+":";
             for(int j=0;j<rutasPacki.getVuelos().size();j++){
                 Vuelo vuelo= rutasPacki.getVuelos().get(j);
                 System.out.print(vuelo.getOrigen()+"-"+vuelo.getDestino()+"//");
+                mensaje+=vuelo.getOrigen()+"-"+vuelo.getDestino()+"//";
             }
             System.out.println("------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas");
+            mensaje+="------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas\n";
             tiempoTotal+=mejorCrom.genes.get(i).tiempo;
-            
         }
         System.out.println("Tiempo total de entrega de paquetes: "+tiempoTotal);
         

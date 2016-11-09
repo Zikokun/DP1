@@ -48,6 +48,8 @@ public class Nv extends javax.swing.JFrame {
         camporContrasenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         pnlFondo.setLayout(new java.awt.BorderLayout());
 

@@ -23,6 +23,7 @@ import modelo.Cromosoma;
 import modelo.Gen;
 import modelo.Ruta;
 import modelo.Vuelo;
+import static test1_gui_alg.Test1_gui_alg.principal;
 import utilitario.funcionesAnimacionEjecSimu;
 import utilitario.funcionesBaseDeDatos;
 import utilitario.funcionesDibujoEjecSimu;
@@ -141,7 +142,7 @@ public class panelEjecSimu extends javax.swing.JPanel {
 
         panelLog = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        logMensajesPanel = new javax.swing.JTextArea();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -150,9 +151,9 @@ public class panelEjecSimu extends javax.swing.JPanel {
             }
         });
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane1.setViewportView(jTextArea2);
+        logMensajesPanel.setColumns(20);
+        logMensajesPanel.setRows(5);
+        jScrollPane1.setViewportView(logMensajesPanel);
 
         javax.swing.GroupLayout panelLogLayout = new javax.swing.GroupLayout(panelLog);
         panelLog.setLayout(panelLogLayout);
@@ -185,17 +186,27 @@ public class panelEjecSimu extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        if(Anim.EstaCorriendo())
-                
+            String mensaje = "";
+                try {
+                    mensaje = principal();
+                    System.out.println("JL"+mensaje);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(panelEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(panelEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                this.logMensajesPanel.setText(mensaje);
+            if(Anim.EstaCorriendo()){
+                //this.logMensajesPanel.repaint();
                 Anim.Detener();
-        else
+            }else
                 Anim.Iniciar();
     }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea logMensajesPanel;
     private javax.swing.JPanel panelLog;
     // End of variables declaration//GEN-END:variables
 }
