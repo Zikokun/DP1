@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.Date;
@@ -98,12 +99,27 @@ public class funcionesPanelCrearEnvio {
         return id;
     }
     
-    public String CrearEnvio(Paquete nuevo) throws InstantiationException, IllegalAccessException{
+    public String CrearEnvio(Paquete nuevo) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         System.out.println(cc);
         Connection conexion = cc.conexion();//null
         String cadena="";
         int llaveGeneradaPersona = -1;
+        
+        Persona Aux = new Persona();
+        Aux = BuscarClienteRegistrado(nuevo.getRemitente().getPersona().getDocumento());
+        if(Aux.getDocumento().equals("")){
+            funcionesPanelMantUsuario utilitarioPanelMantUsuario = new funcionesPanelMantUsuario();
+            Aux = nuevo.getRemitente().getPersona();
+            utilitarioPanelMantUsuario.RegistrarUsuario(Aux, TIPO_CLIENTE);
+        }  
+        Persona Aux2 = new Persona();
+        Aux2 = BuscarClienteRegistrado(nuevo.getReceptor().getDocumento());
+        if(Aux2.getDocumento().equals("")){
+            funcionesPanelMantUsuario utilitarioPanelMantUsuario = new funcionesPanelMantUsuario();
+            Aux2 = nuevo.getReceptor();
+            utilitarioPanelMantUsuario.RegistrarUsuario(Aux2, TIPO_CLIENTE);
+        }  
         
         try {
             PreparedStatement sqlCrearEnvio = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);

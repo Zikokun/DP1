@@ -5,7 +5,9 @@
  */
 package vista;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -473,7 +475,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void RegistrarEnvio(String Descripcion) throws InstantiationException, IllegalAccessException{
+    private void RegistrarEnvio(String Descripcion, int i) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
         Paquete nuevo = new Paquete();
         String COri = comboOrigen.getSelectedItem().toString();
@@ -487,9 +489,19 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         Cliente remitente = new Cliente(); 
         Persona person = new Persona();
         person.setDocumento(campoDNIEmisor.getText());
+        person.setNombre(campoNombre.getText());
+        person.setApellidoP(campoApellidoP.getText());
+        person.setApellidoM(campoApellidoM.getText());
+        person.setCorreo(campoCorreo.getText());
+        person.setFechaNac("24-12-2000");
         remitente.setPersona(person);
         Persona receptor = new Persona();
         receptor.setDocumento(campoDNIReceptor.getText());
+        receptor.setNombre(campoNombreRe.getText());
+        receptor.setApellidoP(campoApellidoPRe.getText());
+        receptor.setApellidoM(campoApellidoMRe.getText());
+        receptor.setCorreo(campoCorreoRe.getText());
+        receptor.setFechaNac("24-12-2000");
         
         nuevo.setAlamcenDestino(destino);
         nuevo.setAlmacenOrigen(origen);
@@ -497,7 +509,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         nuevo.setEstado(0);
         nuevo.setFechaEnvio(fechaEnvio);
         nuevo.setFechaRecepcion(fechaRecepcion);
-        nuevo.setNumeroRastreo(campoDNIEmisor.getText()+campoDNIReceptor.getText());
+        nuevo.setNumeroRastreo(campoDNIEmisor.getText()+campoDNIReceptor.getText()+i);
         nuevo.setRemitente(remitente);
         nuevo.setReceptor(receptor);
         
@@ -509,12 +521,16 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            if(campoDescripcion1.getText()!="") RegistrarEnvio(campoDescripcion1.getText());
-            if(campoDescripcion2.getText()!="") RegistrarEnvio(campoDescripcion2.getText());
-            if(campoDescripcion3.getText()!="") RegistrarEnvio(campoDescripcion3.getText());
+            if(campoDescripcion1.getText()!="") RegistrarEnvio(campoDescripcion1.getText(),1);
+            if(campoDescripcion2.getText()!="") RegistrarEnvio(campoDescripcion2.getText(),2);
+            if(campoDescripcion3.getText()!="") RegistrarEnvio(campoDescripcion3.getText(),3);
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (SQLException | ParseException ex) {
+           Logger.getLogger(PanelCrearEnvio.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       //Pedido pd=new Pedido(ori,dest,cantidad,horaL,minL,diaL,mesL,anhoL);
+       
         
        //Pedido pd=new Pedido(ori,dest,cantidad,horaL,minL,diaL,mesL,anhoL);
        
