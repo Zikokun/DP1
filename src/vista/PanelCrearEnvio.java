@@ -104,7 +104,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
         registrarEnvioBoton = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(193, 189, 189));
@@ -324,15 +323,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jLabel30.setText("3");
 
-        jButton5.setText("Agregar Filas");
-        jButton5.setToolTipText("");
-        jButton5.setActionCommand("AgregarFilas");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -353,17 +343,13 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addContainerGap(402, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addGap(20, 20, 20))))
+                        .addGap(20, 415, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(jButton5))
+                .addGap(25, 25, 25)
+                .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -484,11 +470,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoDescripcion1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void RegistrarEnvio(String Descripcion, int i) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+    private void RegistrarEnvio(String Descripcion) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
         Paquete nuevo = new Paquete();
         String COri = comboOrigen.getSelectedItem().toString();
@@ -522,7 +504,8 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         nuevo.setEstado(0);
         nuevo.setFechaEnvio(fechaEnvio);
         nuevo.setFechaRecepcion(fechaRecepcion);
-        nuevo.setNumeroRastreo(campoDNIEmisor.getText()+campoDNIReceptor.getText()+i);
+        int numeroRastreo = utilitarioPanelCrearEnvio.GetLastNumeroRastreo()+1;
+        nuevo.setNumeroRastreo(Integer.toString(numeroRastreo));
         nuevo.setRemitente(remitente);
         nuevo.setReceptor(receptor);
         
@@ -536,9 +519,9 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            if(!campoDescripcion1.getText().isEmpty()) RegistrarEnvio(campoDescripcion1.getText(),1);
-            if(!campoDescripcion2.getText().isEmpty()) RegistrarEnvio(campoDescripcion2.getText(),2);
-            if(!campoDescripcion3.getText().isEmpty()) RegistrarEnvio(campoDescripcion3.getText(),3);
+            if(!campoDescripcion1.getText().isEmpty()) RegistrarEnvio(campoDescripcion1.getText());
+            if(!campoDescripcion2.getText().isEmpty()) RegistrarEnvio(campoDescripcion2.getText());
+            if(!campoDescripcion3.getText().isEmpty()) RegistrarEnvio(campoDescripcion3.getText());
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException | ParseException ex) {
@@ -594,7 +577,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboDestino;
     private javax.swing.JComboBox<String> comboOrigen;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

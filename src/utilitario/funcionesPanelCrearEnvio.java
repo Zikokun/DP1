@@ -101,6 +101,26 @@ public class funcionesPanelCrearEnvio {
         return id;
     }
     
+    public int GetLastNumeroRastreo() throws InstantiationException, IllegalAccessException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        System.out.println(cc);
+        Connection conexion = cc.conexion();//null
+        int id=0;
+        
+        String sqlBuscarCiudad = "SELECT MAX(numeroRastreo) FROM `paquete`";
+        try {
+            Statement st = conexion.createStatement();
+            ResultSet resultadoBuscar = st.executeQuery(sqlBuscarCiudad);
+            
+            while(resultadoBuscar!=null && resultadoBuscar.next()){
+                id = resultadoBuscar.getInt("NumeroRastreo");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+    
     public String CrearEnvio(Paquete nuevo) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         System.out.println(cc);
