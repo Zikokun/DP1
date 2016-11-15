@@ -52,6 +52,8 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         campoDNIReceptor.setText("72029100");
         
         campoDescripcion1.setText("Paquete frágil");
+        
+        comboOrigen.setSelectedIndex(18);
     }
 
     /**

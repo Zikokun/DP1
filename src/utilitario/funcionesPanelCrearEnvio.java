@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +54,7 @@ public class funcionesPanelCrearEnvio {
         } catch (SQLException ex) {
             Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //datosAlmacen.sort();
+        Collections.sort(datosAlmacen);
         return datosAlmacen;
     }
     
