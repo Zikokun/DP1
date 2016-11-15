@@ -50,6 +50,8 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         campoApellidoMRe.setText("Góngora");
         campoCorreoRe.setText("angela.l@correo.com");
         campoDNIReceptor.setText("72029100");
+        
+        campoDescripcion1.setText("Paquete frágil");
     }
 
     /**
@@ -526,15 +528,17 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         
         utilitarioPanelCrearEnvio.CrearEnvio(nuevo);
         
+        JOptionPane.showMessageDialog(this, "Paquete registrado", "Confirmación de registro", JOptionPane.INFORMATION_MESSAGE);
+        
     }
     
     private void registrarEnvioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEnvioBotonActionPerformed
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            if(campoDescripcion1.getText()!="") RegistrarEnvio(campoDescripcion1.getText(),1);
-            if(campoDescripcion2.getText()!="") RegistrarEnvio(campoDescripcion2.getText(),2);
-            if(campoDescripcion3.getText()!="") RegistrarEnvio(campoDescripcion3.getText(),3);
+            if(!campoDescripcion1.getText().isEmpty()) RegistrarEnvio(campoDescripcion1.getText(),1);
+            if(!campoDescripcion2.getText().isEmpty()) RegistrarEnvio(campoDescripcion2.getText(),2);
+            if(!campoDescripcion3.getText().isEmpty()) RegistrarEnvio(campoDescripcion3.getText(),3);
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException | ParseException ex) {

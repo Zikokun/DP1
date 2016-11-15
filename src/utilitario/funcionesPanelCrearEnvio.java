@@ -45,7 +45,7 @@ public class funcionesPanelCrearEnvio {
             ResultSet resultadoBuscarAlmacen = st.executeQuery(sqlBuscarAlmacenes);
             //System.out.println(resultadoBuscarAlmacen.toString());
             while(resultadoBuscarAlmacen!=null && resultadoBuscarAlmacen.next()){
-                System.out.println(resultadoBuscarAlmacen.getString("ubicacion"));
+                //System.out.println(resultadoBuscarAlmacen.getString("ubicacion"));
                 datosAlmacen.add(resultadoBuscarAlmacen.getString("ubicacion"));
                 cont++;
             }
@@ -53,7 +53,7 @@ public class funcionesPanelCrearEnvio {
         } catch (SQLException ex) {
             Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        //datosAlmacen.sort();
         return datosAlmacen;
     }
     

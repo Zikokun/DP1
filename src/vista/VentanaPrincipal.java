@@ -146,6 +146,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuSim = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(778, 900));
 
         labelBienvenido.setText("Bienvenido !");
 
