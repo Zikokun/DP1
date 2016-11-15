@@ -107,7 +107,7 @@ public class funcionesPanelCrearEnvio {
         Connection conexion = cc.conexion();//null
         int id=0;
         
-        String sqlBuscarCiudad = "SELECT MAX(numeroRastreo) FROM `paquete`";
+        String sqlBuscarCiudad = "SELECT MAX(numeroRastreo) as NumeroRastreo FROM `paquete`";
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscar = st.executeQuery(sqlBuscarCiudad);
