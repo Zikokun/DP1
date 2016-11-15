@@ -472,49 +472,95 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoDescripcion1ActionPerformed
 
+    private int CamposObligatorios() throws InstantiationException, IllegalAccessException{
+        int cont=0;
+        if(campoDNIEmisor.getText().isEmpty()&& cont==0) {
+            JOptionPane.showMessageDialog(this, "Ingresar el DNI del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        if(campoDNIReceptor.getText().isEmpty() && cont==0){
+            JOptionPane.showMessageDialog(this, "Ingresar el DNI del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        if(campoNombre.getText().isEmpty() && cont==0) {
+            JOptionPane.showMessageDialog(this, "Ingresar el Nombre del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        if(campoApellidoP.getText().isEmpty()&& cont==0) {
+            JOptionPane.showMessageDialog(this, "Ingresar el Apellido Paterno del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        if(campoApellidoM.getText().isEmpty()&& cont==0) {
+            JOptionPane.showMessageDialog(this, "Ingresar el Apellido Materno del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        if(campoCorreo.getText().isEmpty()&& cont==0) {
+            JOptionPane.showMessageDialog(this, "Ingresar el Correo del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        if(campoNombreRe.getText().isEmpty()&& cont==0) {
+            JOptionPane.showMessageDialog(this, "Ingresar el Nombre del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        if(campoApellidoPRe.getText().isEmpty()&& cont==0) {
+            JOptionPane.showMessageDialog(this, "Ingresar el Apellido Paterno del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        if(campoApellidoMRe.getText().isEmpty()&& cont==0) {
+            JOptionPane.showMessageDialog(this, "Ingresar el Apellido Materno del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        if(campoCorreoRe.getText().isEmpty()&& cont==0) {
+            JOptionPane.showMessageDialog(this, "Ingresar el Correo del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            cont++;
+        }
+        return cont;
+    }
+    
     private void RegistrarEnvio(String Descripcion) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-        funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
-        Paquete nuevo = new Paquete();
-        String COri = comboOrigen.getSelectedItem().toString();
-        Ciudad origen = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(COri), comboOrigen.getSelectedItem().toString(), "", "", "", "");
-        String CDes = comboDestino.getSelectedItem().toString();
-        Ciudad destino = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(CDes), comboOrigen.getSelectedItem().toString(), "", "", "", "");
-        
-        Date fecha = new Date();
-        Timestamp fechaEnvio = new Timestamp(fecha.getTime());
-        Timestamp fechaRecepcion = new Timestamp(fecha.getTime()+2*24*60*60*1000);
-        Cliente remitente = new Cliente(); 
-        Persona person = new Persona();
-        person.setDocumento(campoDNIEmisor.getText());
-        person.setNombre(campoNombre.getText());
-        person.setApellidoP(campoApellidoP.getText());
-        person.setApellidoM(campoApellidoM.getText());
-        person.setCorreo(campoCorreo.getText());
-        person.setFechaNac("24-12-2000");
-        remitente.setPersona(person);
-        Persona receptor = new Persona();
-        receptor.setDocumento(campoDNIReceptor.getText());
-        receptor.setNombre(campoNombreRe.getText());
-        receptor.setApellidoP(campoApellidoPRe.getText());
-        receptor.setApellidoM(campoApellidoMRe.getText());
-        receptor.setCorreo(campoCorreoRe.getText());
-        receptor.setFechaNac("24-12-2000");
-        
-        nuevo.setAlamcenDestino(destino);
-        nuevo.setAlmacenOrigen(origen);
-        nuevo.setDescripcion(Descripcion);
-        nuevo.setEstado(0);
-        nuevo.setFechaEnvio(fechaEnvio);
-        nuevo.setFechaRecepcion(fechaRecepcion);
-        int numeroRastreo = utilitarioPanelCrearEnvio.GetLastNumeroRastreo()+1;
-        nuevo.setNumeroRastreo(Integer.toString(numeroRastreo));
-        nuevo.setRemitente(remitente);
-        nuevo.setReceptor(receptor);
-        
-        utilitarioPanelCrearEnvio.CrearEnvio(nuevo);
-        
-        JOptionPane.showMessageDialog(this, "Paquete registrado", "Confirmación de registro", JOptionPane.INFORMATION_MESSAGE);
-        
+        if(CamposObligatorios() == 0) {
+            funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
+            Paquete nuevo = new Paquete();
+            String COri = comboOrigen.getSelectedItem().toString();
+            Ciudad origen = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(COri), comboOrigen.getSelectedItem().toString(), "", "", "", "");
+            String CDes = comboDestino.getSelectedItem().toString();
+            Ciudad destino = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(CDes), comboOrigen.getSelectedItem().toString(), "", "", "", "");
+
+            Date fecha = new Date();
+            Timestamp fechaEnvio = new Timestamp(fecha.getTime());
+            Timestamp fechaRecepcion = new Timestamp(fecha.getTime() + 2 * 24 * 60 * 60 * 1000);
+            Cliente remitente = new Cliente();
+            Persona person = new Persona();
+            person.setDocumento(campoDNIEmisor.getText());
+            person.setNombre(campoNombre.getText());
+            person.setApellidoP(campoApellidoP.getText());
+            person.setApellidoM(campoApellidoM.getText());
+            person.setCorreo(campoCorreo.getText());
+            person.setFechaNac("24-12-2000");
+            remitente.setPersona(person);
+            Persona receptor = new Persona();
+            receptor.setDocumento(campoDNIReceptor.getText());
+            receptor.setNombre(campoNombreRe.getText());
+            receptor.setApellidoP(campoApellidoPRe.getText());
+            receptor.setApellidoM(campoApellidoMRe.getText());
+            receptor.setCorreo(campoCorreoRe.getText());
+            receptor.setFechaNac("24-12-2000");
+
+            nuevo.setAlamcenDestino(destino);
+            nuevo.setAlmacenOrigen(origen);
+            nuevo.setDescripcion(Descripcion);
+            nuevo.setEstado(0);
+            nuevo.setFechaEnvio(fechaEnvio);
+            nuevo.setFechaRecepcion(fechaRecepcion);
+            int numeroRastreo = utilitarioPanelCrearEnvio.GetLastNumeroRastreo() + 1;
+            nuevo.setNumeroRastreo(Integer.toString(numeroRastreo));
+            nuevo.setRemitente(remitente);
+            nuevo.setReceptor(receptor);
+
+            utilitarioPanelCrearEnvio.CrearEnvio(nuevo);
+
+            JOptionPane.showMessageDialog(this, "Paquete registrado", "Confirmación de registro", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
     
     private void registrarEnvioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEnvioBotonActionPerformed
@@ -522,6 +568,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         try {
             // TODO add your handling code here:
             if(!campoDescripcion1.getText().isEmpty()) RegistrarEnvio(campoDescripcion1.getText());
+            else JOptionPane.showMessageDialog(this, "Ingresar Descripción del Paquete", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
             if(!campoDescripcion2.getText().isEmpty()) RegistrarEnvio(campoDescripcion2.getText());
             if(!campoDescripcion3.getText().isEmpty()) RegistrarEnvio(campoDescripcion3.getText());
         } catch (InstantiationException | IllegalAccessException ex) {
