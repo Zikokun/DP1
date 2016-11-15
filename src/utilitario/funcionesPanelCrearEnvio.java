@@ -18,6 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,12 +30,12 @@ import modelo.Persona;
  * @author FranciscoMartin
  */
 public class funcionesPanelCrearEnvio {
-    public String[] devolverDatosAlmacenes() throws InstantiationException, IllegalAccessException{
+    public ArrayList<String> devolverDatosAlmacenes() throws InstantiationException, IllegalAccessException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
         
         String sqlBuscarAlmacenes = "";
-        String[] datosAlmacen = new String[10];
+        ArrayList<String> datosAlmacen = new ArrayList<>();
         int cont=0;
         
         sqlBuscarAlmacenes = "SELECT ubicacion " + " FROM `almacen`;";
@@ -42,9 +43,10 @@ public class funcionesPanelCrearEnvio {
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscarAlmacen = st.executeQuery(sqlBuscarAlmacenes);
-            
+            //System.out.println(resultadoBuscarAlmacen.toString());
             while(resultadoBuscarAlmacen!=null && resultadoBuscarAlmacen.next()){
-                datosAlmacen[cont] = resultadoBuscarAlmacen.getString(1); //Ciudad(ubicacion)
+                System.out.println(resultadoBuscarAlmacen.getString("ubicacion"));
+                datosAlmacen.add(resultadoBuscarAlmacen.getString("ubicacion"));
                 cont++;
             }
                         

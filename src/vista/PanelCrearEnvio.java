@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,13 +33,23 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
    public PanelCrearEnvio() throws InstantiationException, IllegalAccessException {
         initComponents();
         funcionesPanelCrearEnvio funcionesMantAlmacen = new funcionesPanelCrearEnvio();
-        String[] datosAlmacen = new String[1000];
-        datosAlmacen = funcionesMantAlmacen.devolverDatosAlmacenes();
-        int cantidad=datosAlmacen.length;
+        ArrayList<String> datosAlmacen = new ArrayList<>(funcionesMantAlmacen.devolverDatosAlmacenes());
+        int cantidad=datosAlmacen.size();
         for(int i=0;i<cantidad;i++){
-            this.comboDestino.addItem(datosAlmacen[i]);
-            this.comboOrigen.addItem(datosAlmacen[i]);
+            this.comboDestino.addItem(datosAlmacen.get(i));
+            this.comboOrigen.addItem(datosAlmacen.get(i));
         }
+        campoNombre.setText("Julian");
+        campoApellidoP.setText("Muñoz");
+        campoApellidoM.setText("Patrón");
+        campoCorreo.setText("julian.m@correo.com");
+        campoDNIEmisor.setText("73951963");
+        
+        campoNombreRe.setText("Angela");
+        campoApellidoPRe.setText("Linares");
+        campoApellidoMRe.setText("Góngora");
+        campoCorreoRe.setText("angela.l@correo.com");
+        campoDNIReceptor.setText("72029100");
     }
 
     /**
