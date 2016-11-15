@@ -111,9 +111,11 @@ public class funcionesPanelCrearEnvio {
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscar = st.executeQuery(sqlBuscarCiudad);
-            
             while(resultadoBuscar!=null && resultadoBuscar.next()){
                 id = resultadoBuscar.getInt("NumeroRastreo");
+                if(resultadoBuscar.wasNull()){
+                    id = 100000000;
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
