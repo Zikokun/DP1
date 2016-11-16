@@ -147,7 +147,28 @@ public class funcionesPanelCrearEnvio {
         }  
         
         try {
-            PreparedStatement sqlCrearEnvio = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            String sqlBuscarIDPersona = " SELECT M.idPersona " +
+                                        " FROM persona M " +
+                                        " WHERE M.DNI = '"+ nuevo.getReceptor().getDocumento() +"';";
+            Integer idPersona =-1;
+            Statement st = conexion.createStatement();
+            ResultSet resultadoBuscarReceptor = st.executeQuery(sqlBuscarIDPersona);
+            while(resultadoBuscarReceptor!=null && resultadoBuscarReceptor.next()){
+                idPersona = resultadoBuscarReceptor.getInt(1);
+            }
+            
+            String sqlBuscarIDRemitente = " SELECT C.idCliente " +
+                                          " FROM persona P, cliente C " +
+                                          " WHERE P.DNI = '" + nuevo.getRemitente().getPersona().getDocumento() + "' AND P.idPersona = C.Persona_idPersona;";
+            
+            Integer idCliente = -1;
+            Statement st2 = conexion.createStatement();
+            ResultSet resultadoBuscarRemitente = st2.executeQuery(sqlBuscarIDRemitente);
+            while(resultadoBuscarRemitente!=null && resultadoBuscarRemitente.next()){
+                idCliente = resultadoBuscarRemitente.getInt(1);
+            }
+            
+            PreparedStatement sqlCrearEnvio = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,?,?,?,?,?,NULL,NULL)",PreparedStatement.RETURN_GENERATED_KEYS);
             
             sqlCrearEnvio.setString(1, nuevo.getNumeroRastreo());
             sqlCrearEnvio.setInt(2, nuevo.getAlmacenOrigen().getId());
@@ -158,8 +179,8 @@ public class funcionesPanelCrearEnvio {
             sqlCrearEnvio.setTimestamp(5, fechaR);
             sqlCrearEnvio.setString(6, nuevo.getDescripcion());
             sqlCrearEnvio.setInt(7, nuevo.getEstado());
-            sqlCrearEnvio.setString(8, nuevo.getRemitente().getPersona().getDocumento());
-            sqlCrearEnvio.setString(9, nuevo.getReceptor().getDocumento());
+            sqlCrearEnvio.setInt(8, idCliente);
+            sqlCrearEnvio.setInt(9, idPersona);
             int rows = sqlCrearEnvio.executeUpdate();
             
             ResultSet rs = sqlCrearEnvio.getGeneratedKeys();
