@@ -55,14 +55,14 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        campoNumeroRastreo = new javax.swing.JTextField();
+        botonRastrearNumeroRastreo = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        campoDNIRemitente = new javax.swing.JTextField();
+        botonRastrearRemitente = new javax.swing.JButton();
 
         paquetesTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,7 +100,12 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
 
         jLabel10.setText("Nro de rastreo:");
 
-        jButton5.setText("Rastrear");
+        botonRastrearNumeroRastreo.setText("Rastrear");
+        botonRastrearNumeroRastreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonRastrearNumeroRastreoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -112,8 +117,8 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton5))
+                        .addComponent(campoNumeroRastreo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonRastrearNumeroRastreo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -122,9 +127,9 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoNumeroRastreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(botonRastrearNumeroRastreo)
                 .addContainerGap())
         );
 
@@ -159,7 +164,7 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
 
         jLabel7.setText("DNI del remitente:");
 
-        jButton2.setText("Rastrear");
+        botonRastrearRemitente.setText("Rastrear");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -171,8 +176,8 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2))
+                        .addComponent(campoDNIRemitente, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonRastrearRemitente))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -181,9 +186,9 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoDNIRemitente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(botonRastrearRemitente)
                 .addContainerGap())
         );
 
@@ -266,10 +271,31 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_paquetesTablaMouseClicked
 
+    private void botonRastrearNumeroRastreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRastrearNumeroRastreoMouseClicked
+        // TODO add your handling code here:
+        String sNumeroRastreo = this.campoNumeroRastreo.getText();
+        funcionesPanelPaqueteBusqueda funcionPanPaqBus = new funcionesPanelPaqueteBusqueda();
+        
+        List<Paquete> lstPaquetes = null ;
+        try {
+            lstPaquetes = funcionPanPaqBus.devolverPaquetesAsociadosNumeroRastreo(usuario,contrasenha,tipoUsuario,sNumeroRastreo);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(panelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(panelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        List<String[]> listadoPaquetes = funcionPanPaqBus.transformarListadoPaquetes(lstPaquetes);
+        
+        funcionPanPaqBus.mostrarPaquetes(listadoPaquetes,this.paquetesTabla);
+    }//GEN-LAST:event_botonRastrearNumeroRastreoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton botonRastrearNumeroRastreo;
+    private javax.swing.JButton botonRastrearRemitente;
+    private javax.swing.JTextField campoDNIRemitente;
+    private javax.swing.JTextField campoNumeroRastreo;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -279,8 +305,6 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTable paquetesTabla;
     // End of variables declaration//GEN-END:variables
 

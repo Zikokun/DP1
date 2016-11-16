@@ -42,6 +42,72 @@ public class funcionesPanelPaqueteBusqueda {
         return c[estadoPaquete].getDetalle();
     }
     
+    public List<Paquete> devolverPaquetesAsociadosNumeroRastreo(String usuario, String contrasenha, String tipoUsuario, String sNumeroRastreoBuscar) throws InstantiationException, IllegalAccessException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+            
+        String sqlBuscarPaquetes = "";
+        String nombreUsuario = " AND U.nombreUsuario = '" + usuario + "' ";
+        String numRastreo = " AND P.numeroRastreo = '" + sNumeroRastreoBuscar + "' ";
+        List<Paquete> lstPaquetes = new ArrayList<>();
+            
+        if(tipoUsuario.equals(TIPO_OPERARIO)) nombreUsuario = "";
+        if(sNumeroRastreoBuscar.equals("")) numRastreo = "";
+        
+        sqlBuscarPaquetes = " SELECT P.numeroRastreo, P.estado, U.nombreUsuario, M.Nombres, M.ApellidoPaterno , A.ubicacion, B.ubicacion, P.descripcion " +
+                " FROM cliente C, usuario U, paquete P, almacen A, almacen B, persona M " +
+                " WHERE P.Cliente_idCliente = C.idCliente AND C.Usuario_idUsuario = U.idUsuario " + nombreUsuario + numRastreo
+                + " AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND M.idPersona = P.Persona_idPersona; ";
+        
+        try {   
+            Statement st = conexion.createStatement();
+            ResultSet resultadoBuscarPaquetes = st.executeQuery(sqlBuscarPaquetes);
+            
+            while(resultadoBuscarPaquetes!=null && resultadoBuscarPaquetes.next()){
+                Paquete paquete = new Paquete();
+                Ciudad ciudadOrigen = new Ciudad();
+                Ciudad ciudadDestino = new Ciudad();
+                Cliente remitente = new Cliente();
+                Persona personaRemi = new Persona();
+                Persona receptor = new Persona();
+                
+                String sNumeroRastreo = resultadoBuscarPaquetes.getString(1);
+                int estado = resultadoBuscarPaquetes.getInt(2);
+                String sNombreUsuario = resultadoBuscarPaquetes.getString(3);
+                String sNombre = resultadoBuscarPaquetes.getString(4);
+                String sApellidoPaterno = resultadoBuscarPaquetes.getString(5);
+                String sUbicacionOrigen = resultadoBuscarPaquetes.getString(6);
+                String sUbicacionDestino = resultadoBuscarPaquetes.getString(7);
+                String sDescripcion = resultadoBuscarPaquetes.getString(8);
+                
+                paquete.setNumeroRastreo(sNumeroRastreo);
+                paquete.setEstado(estado);
+                
+                personaRemi.setUsuario(sNombreUsuario);
+                remitente.setPersona(personaRemi);
+                paquete.setRemitente(remitente);
+                
+                receptor.setNombre(sNombre);
+                receptor.setApellidoP(sApellidoPaterno);
+                paquete.setReceptor(receptor);
+                
+                ciudadOrigen.setCiudad(sUbicacionOrigen);
+                paquete.setAlmacenOrigen(ciudadOrigen);
+                
+                ciudadDestino.setCiudad(sUbicacionDestino);
+                paquete.setAlamcenDestino(ciudadDestino);
+                
+                paquete.setDescripcion(sDescripcion);
+                
+                lstPaquetes.add(paquete);
+                        
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesPanelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lstPaquetes;
+    }
+    
     public List<Paquete> devolverPaquetesAsociados(String usuario, String contrasenha, String tipoUsuario) throws InstantiationException, IllegalAccessException{
         
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
@@ -134,10 +200,20 @@ public class funcionesPanelPaqueteBusqueda {
         return datos;
     }    
     
+    private void limpiarJTABLE(JTable tablaPaquetes){
+         DefaultTableModel modelo=(DefaultTableModel) tablaPaquetes.getModel();
+        for (int i = 0; i < tablaPaquetes.getRowCount(); i++) {
+           modelo.removeRow(i);
+           i-=1;
+       }
+    }
+    
     public void mostrarPaquetes(List<String[]> listadoPaquetes, JTable tablaPaquetes){
         
-        tablaPaquetes.setDefaultRenderer(Object.class, new render());
+        limpiarJTABLE(tablaPaquetes);
         
+        tablaPaquetes.setDefaultRenderer(Object.class, new render());
+                
         DefaultTableModel modelo=(DefaultTableModel) tablaPaquetes.getModel();
 
         for(int i = 0; i < listadoPaquetes.size(); i++){
