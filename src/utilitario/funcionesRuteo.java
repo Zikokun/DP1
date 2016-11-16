@@ -5,14 +5,27 @@
  */
 package utilitario;
 
+import static constantes.constantesVentanaPrincipal.TIPO_OPERARIO;
 import controlador.Genetico;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Ciudad;
+import modelo.Cliente;
 import modelo.Cromosoma;
+import modelo.Gen;
 import modelo.Lectura;
+import modelo.Paquete;
 import modelo.Pedido;
+import modelo.Persona;
 import modelo.Ruta;
 import modelo.Vuelo;
 import static test1_gui_alg.Test1_gui_alg.asignarTipoVuelo;
@@ -23,26 +36,76 @@ import static test1_gui_alg.Test1_gui_alg.generarRutas;
  * @author Vivian
  */
 public class funcionesRuteo {
-    
-    public Cromosoma ruteoPedidosManual(){
+    int primeraVez=1;
+    public Cromosoma ruteoPedidosManual() throws InstantiationException, IllegalAccessException{
         String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();
         TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
         ArrayList<Vuelo> vuelos=new ArrayList<>();
-        ArrayList<Pedido> pedidos=new ArrayList<>();
-        Cromosoma solucion=new Cromosoma();
-        lector.leerArchivos("src/recursos/_aeropuertos.OACI.txt", "src/recursos/_plan_vuelo.txt",
-                "src/recursos/_pedidos_07-11-2016.txt", "src/recursos/_husos_horarios.txt", vuelos, ciudades, pedidos);
-        asignarTipoVuelo(vuelos,ciudades);
-        generarRutas(ciudades);
+        ArrayList<Pedido> pedidos=devolverPedidosTotal();
+        
+        if(primeraVez==1){
+            lector.leerSinPedidos("src/recursos/_aeropuertos.OACI.txt", "src/recursos/_plan_vuelo.txt",
+                "src/recursos/_husos_horarios.txt", vuelos, ciudades);
+            asignarTipoVuelo(vuelos,ciudades);
+            generarRutas(ciudades);            
+            primeraVez=0;
+        }
+        
         Calendar calendario=Calendar.getInstance();
         hora=calendario.get(Calendar.HOUR_OF_DAY);
         dia=calendario.get(Calendar.DAY_OF_WEEK);
         
         Genetico algoritmo=new Genetico();
         algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
+        Cromosoma solucion=algoritmo.getMejorCrom();
+        System.out.println("HOla");
+        ArrayList<Gen> genes=solucion.genes;
+        for(Gen item: genes){
+            item.getRuta().print();
+        }
         return solucion;
+    }
+    
+    public ArrayList<Pedido> devolverPedidosTotal()throws InstantiationException, IllegalAccessException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+            
+        String sqlBuscarPaquetes = "";
+        ArrayList<Pedido> lstPaquetes = new ArrayList<>();
+            
+        sqlBuscarPaquetes = " SELECT A.codCiudad,B.codCiudad, P.fechaRecepcion\n" +
+                                "FROM paquete P, almacen A, almacen B\n" +
+                                    "WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen;";
+        
+        try {   
+            Statement st = conexion.createStatement();
+            ResultSet resultadoBuscarPaquetes = st.executeQuery(sqlBuscarPaquetes);
+            
+            while(resultadoBuscarPaquetes!=null && resultadoBuscarPaquetes.next()){
+
+                String origen = resultadoBuscarPaquetes.getString(1);
+                String destino = resultadoBuscarPaquetes.getString(2);
+                Date fecha = resultadoBuscarPaquetes.getDate(3);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(fecha);  
+                int hora = cal.get(Calendar.HOUR_OF_DAY);
+                int min=cal.get(Calendar.MINUTE);
+                int dia=cal.get(Calendar.DAY_OF_MONTH);
+                int mes=cal.get(Calendar.MONTH);
+                int año=cal.get(Calendar.YEAR);
+                int diaSem=cal.get(Calendar.DAY_OF_WEEK);
+                Pedido ped = new Pedido(origen,destino,1,hora,min,dia,mes,año);
+                ped.setDiaSemana(diaSem);
+                lstPaquetes.add(ped);
+                
+                        
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesPanelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lstPaquetes;
     }
     
     public static void generarRutas(TreeMap<String,Ciudad> ciudades){

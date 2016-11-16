@@ -165,6 +165,11 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
         jLabel7.setText("DNI del remitente:");
 
         botonRastrearRemitente.setText("Rastrear");
+        botonRastrearRemitente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonRastrearRemitenteMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -289,6 +294,25 @@ public class panelPaqueteBusqueda extends javax.swing.JPanel {
         
         funcionPanPaqBus.mostrarPaquetes(listadoPaquetes,this.paquetesTabla);
     }//GEN-LAST:event_botonRastrearNumeroRastreoMouseClicked
+
+    private void botonRastrearRemitenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRastrearRemitenteMouseClicked
+        // TODO add your handling code here:
+        String sDNI = this.campoDNIRemitente.getText();
+        funcionesPanelPaqueteBusqueda funcionPanPaqBus = new funcionesPanelPaqueteBusqueda();
+        
+        List<Paquete> lstPaquetes = null ;
+        try {
+            lstPaquetes = funcionPanPaqBus.devolverPaquetesAsociadosDNI(usuario,contrasenha,tipoUsuario,sDNI);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(panelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(panelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        List<String[]> listadoPaquetes = funcionPanPaqBus.transformarListadoPaquetes(lstPaquetes);
+        
+        funcionPanPaqBus.mostrarPaquetes(listadoPaquetes,this.paquetesTabla);
+    }//GEN-LAST:event_botonRastrearRemitenteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

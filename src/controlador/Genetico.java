@@ -29,7 +29,7 @@ public class Genetico {
     private String []diasSemana={"Sab","Dom","Lun","Mar","Mie","Jue","Vie"};
     private ArrayList<Ruta> universoRutas= new ArrayList<>();
     private ArrayList<Cromosoma> cromosomas=new ArrayList<>();
-    Cromosoma mejorCrom=new Cromosoma();
+    private Cromosoma mejorCrom=new Cromosoma();
     int maxIntentos=10;
     private String mensaje;
     public Genetico(){
@@ -67,7 +67,7 @@ public class Genetico {
                 Cromosoma hijo= crossover(cromosomas.get(--encPadre),cromosomas.get(--encMadre),cromosomas.get(0).genes.size());
                 mutacion(hijo);
                 hijo.fitness=calcFitness(hijo);
-                if(hijo.fitness>mejorCrom.fitness)mejorCrom=hijo;
+                if(hijo.fitness>getMejorCrom().fitness)mejorCrom=hijo;
                 auxFitnessTotal+=hijo.fitness;
                 descendencia.add(hijo);
             }
@@ -80,9 +80,9 @@ public class Genetico {
         }
         
         int tiempoTotal=0;
-        for(int i=0;i<mejorCrom.genes.size();i++){
+        for(int i=0;i<getMejorCrom().genes.size();i++){
             
-            Ruta rutasPacki=mejorCrom.genes.get(i).ruta;
+            Ruta rutasPacki=getMejorCrom().genes.get(i).ruta;
             
             //System.out.print("Paquete "+i+":");
             mensaje = "Paquete "+i+":";
@@ -92,8 +92,8 @@ public class Genetico {
                 mensaje+=vuelo.getOrigen()+"-"+vuelo.getDestino()+"//";
             }
             //System.out.println("------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas");
-            mensaje+="------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas\n";
-            tiempoTotal+=mejorCrom.genes.get(i).tiempo;
+            mensaje+="------Tiempo: "+getMejorCrom().genes.get(i).tiempo/60+" horas\n";
+            tiempoTotal+=getMejorCrom().genes.get(i).tiempo;
         }
         //System.out.println("Tiempo total de entrega de paquetes: "+tiempoTotal+"\n");
         mensaje+="Tiempo total de entrega de paquetes: "+tiempoTotal+"\n";
@@ -368,5 +368,12 @@ public class Genetico {
         //48 porque es el mayor tiempo que se puede demorar,a mayor fitness es una mejor solucion
         fitness=48*60-tiempoTotal/crom.genes.size();
         return fitness;
+    }
+
+    /**
+     * @return the mejorCrom
+     */
+    public Cromosoma getMejorCrom() {
+        return mejorCrom;
     }
 }
