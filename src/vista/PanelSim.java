@@ -18,6 +18,7 @@ public class PanelSim extends javax.swing.JPanel {
     /**
      * Creates new form PanelSim
      */
+    public int tipoSim;
     public PanelSim() {
         initComponents();
         
@@ -32,33 +33,13 @@ public class PanelSim extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        textFieldPedidos = new javax.swing.JTextField();
-        buttonExaminar = new java.awt.Button();
         jLabel2 = new javax.swing.JLabel();
-        spinnerVelocidad = new javax.swing.JSpinner();
         buttonEmpezar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Data de pedidos:");
-
-        textFieldPedidos.setText("jTextField1");
-        textFieldPedidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldPedidosActionPerformed(evt);
-            }
-        });
-
-        buttonExaminar.setLabel("Examinar");
-        buttonExaminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExaminarActionPerformed(evt);
-            }
-        });
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Velocidad de simulación: ");
+        jLabel2.setText("Tipo de simulación: ");
 
         buttonEmpezar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonEmpezar.setText("Empezar Simulación");
@@ -70,6 +51,8 @@ public class PanelSim extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Microsoft YaHei", 0, 24)); // NOI18N
         jLabel3.setText("Parámetros iniciales de Simulación");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Operacion 3 dias", "Simulacion" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -83,57 +66,39 @@ public class PanelSim extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(171, 171, 171)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textFieldPedidos)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(61, 61, 61)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonExaminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinnerVelocidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel2)
+                        .addGap(91, 91, 91)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(249, 249, 249)
                         .addComponent(buttonEmpezar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(98, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(buttonExaminar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(spinnerVelocidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                .addGap(121, 121, 121)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addComponent(buttonEmpezar)
                 .addGap(97, 97, 97))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textFieldPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPedidosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldPedidosActionPerformed
-
-    private void buttonExaminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExaminarActionPerformed
-        // TODO add your handling code here:
-        escogerArchivo fs=new escogerArchivo();
-        fs.setVisible(true);
-    }//GEN-LAST:event_buttonExaminarActionPerformed
-
     private void buttonEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEmpezarActionPerformed
         // TODO add your handling code here:
+        if(this.jComboBox1.getSelectedIndex()==0)
+            tipoSim=0;
+        else 
+            tipoSim=1;
         VentanaPrincipal topFrame = (VentanaPrincipal) SwingUtilities.getWindowAncestor(this);
         topFrame.remove(topFrame.pnlFrente);
         topFrame.pnlFondo.removeAll();
-        panelEjecSimu pse=new panelEjecSimu();
+        panelEjecSimu pse=new panelEjecSimu(tipoSim);
         topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
         this.setVisible(false);
         topFrame.revalidate();
@@ -143,11 +108,8 @@ public class PanelSim extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEmpezar;
-    private java.awt.Button buttonExaminar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JSpinner spinnerVelocidad;
-    private javax.swing.JTextField textFieldPedidos;
     // End of variables declaration//GEN-END:variables
 }

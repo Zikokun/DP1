@@ -46,25 +46,46 @@ public class panelEjecSimu extends javax.swing.JPanel {
      * Creates new form panelEjecSimu
      */
     
-    public panelEjecSimu()  {
-       /////////////Cromosoma de prueba///////
-        Vuelo tmpV1=new Vuelo(0,0,0,0,"Lima","Sao Paulo");
-        Vuelo tmpV2=new Vuelo(0,0,0,0,"Sao Paulo","Chile");
-         Vuelo tmpV3=new Vuelo(0,0,0,0,"Lima","Chile");
-        Ruta tmpRuta1=new Ruta(tmpV1,0);
-        Ruta tmpRuta2=new Ruta(tmpV2,0);
-        Ruta tmpRuta3=new Ruta(tmpV3,0);
-        Gen tmpGen=new Gen();
-        Gen tmpGen2=new Gen();
-        Gen tmpGen3=new Gen();
-        tmpGen.setRuta(tmpRuta1);
-        tmpGen2.setRuta(tmpRuta2);
-        tmpGen3.setRuta(tmpRuta3);
-        rutas=new Cromosoma();
-        rutas.genes.add(tmpGen);
-        rutas.genes.add(tmpGen2);
-        rutas.genes.add(tmpGen3);
-        ///////////////////////////////////////
+    public panelEjecSimu(int tipo)  {
+      if(tipo==0){
+            /////////////Cromosoma de prueba///////
+            Vuelo tmpV1=new Vuelo(0,0,0,0,"Lima","Sao Paulo");
+            Vuelo tmpV2=new Vuelo(0,0,0,0,"Sao Paulo","Chile");
+             Vuelo tmpV3=new Vuelo(0,0,0,0,"Lima","Chile");
+            Ruta tmpRuta1=new Ruta(tmpV1,0);
+            Ruta tmpRuta2=new Ruta(tmpV2,0);
+            Ruta tmpRuta3=new Ruta(tmpV3,0);
+            Gen tmpGen=new Gen();
+            Gen tmpGen2=new Gen();
+            Gen tmpGen3=new Gen();
+            tmpGen.setRuta(tmpRuta1);
+            tmpGen2.setRuta(tmpRuta2);
+            tmpGen3.setRuta(tmpRuta3);
+            rutas=new Cromosoma();
+            rutas.genes.add(tmpGen);
+            rutas.genes.add(tmpGen2);
+            rutas.genes.add(tmpGen3);
+            ///////////////////////////////////////
+      }else{
+            /////////////Cromosoma de prueba///////
+          Vuelo tmpV1=new Vuelo(0,0,0,0,"Sao Paulo","Lima");
+          Vuelo tmpV2=new Vuelo(0,0,0,0,"Chile","Sao Paulo");
+           Vuelo tmpV3=new Vuelo(0,0,0,0,"Chile","Lima");
+          Ruta tmpRuta1=new Ruta(tmpV1,0);
+          Ruta tmpRuta2=new Ruta(tmpV2,0);
+          Ruta tmpRuta3=new Ruta(tmpV3,0);
+          Gen tmpGen=new Gen();
+          Gen tmpGen2=new Gen();
+          Gen tmpGen3=new Gen();
+          tmpGen.setRuta(tmpRuta1);
+          tmpGen2.setRuta(tmpRuta2);
+          tmpGen3.setRuta(tmpRuta3);
+          rutas=new Cromosoma();
+          rutas.genes.add(tmpGen);
+          rutas.genes.add(tmpGen2);
+          rutas.genes.add(tmpGen3);
+          ///////////////////////////////////////
+      }
         initComponents();
         int xIni,yIni,xFin,yFin,xInt,yInt;
         String Destino,Inicio,Intermedio;
@@ -104,20 +125,20 @@ public class panelEjecSimu extends javax.swing.JPanel {
     }
      public int getPosicionX(String origen){
            if(origen.compareTo("Lima")==0)
-                return 175;
+                return 190;
            if(origen.compareTo("Sao Paulo")==0)
-             return 227;
+             return 195;
            if(origen.compareTo("Chile")==0)
             return 210;
            return 0;
      }
      public int getPosicionY(String origen){
           if(origen.compareTo("Lima")==0)
-            return 300;
+            return 450;
            if(origen.compareTo("Sao Paulo")==0)
-            return 227;
+            return 500;
            if(origen.compareTo("Chile")==0)
-            return 315;
+            return 450;
            return 0;
      }
      public void actualizaDisplay(){
@@ -186,16 +207,16 @@ public class panelEjecSimu extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-            String mensaje = "";
-                try {
-                    mensaje = principal();
-                    System.out.println("JL"+mensaje);
-                } catch (InstantiationException ex) {
-                    Logger.getLogger(panelEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(panelEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                this.logMensajesPanel.setText(mensaje);
+//            String mensaje = "";
+//                try {
+//                    mensaje = principal();
+//                    System.out.println("JL"+mensaje);
+//                } catch (InstantiationException ex) {
+//                    Logger.getLogger(panelEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (IllegalAccessException ex) {
+//                    Logger.getLogger(panelEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                this.logMensajesPanel.setText(mensaje);
             if(Anim.EstaCorriendo()){
                 //this.logMensajesPanel.repaint();
                 Anim.Detener();

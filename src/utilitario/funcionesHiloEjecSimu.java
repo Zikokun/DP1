@@ -46,7 +46,7 @@ public class funcionesHiloEjecSimu extends Thread{
                                 g.setColor(colorFondo);
                                 //Panel.repaint();
 				for(int i=0;i<(ADib.size());i++){
-                                    ADib.get(i).Dibujar(g);
+                                    ADib.get(i).Dibujar(Panel,g);
                                 }
 				// Dibujo en la nueva posicion
 				for(int i=0;i<(ADib.size());i++){
@@ -58,7 +58,7 @@ public class funcionesHiloEjecSimu extends Thread{
                                 }
 				g.setColor(Color.GREEN);
 				for(int i=0;i<(ADib.size());i++){
-                                    ADib.get(i).Dibujar(g);
+                                    ADib.get(i).Dibujar(Panel,g);
                                 }
 				// Espero
 				Thread.sleep(IntervaloTiempo);

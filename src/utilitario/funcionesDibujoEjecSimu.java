@@ -6,11 +6,15 @@
 package utilitario;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 /**
  *
@@ -24,7 +28,15 @@ public class funcionesDibujoEjecSimu {
 	private int DespX, DespY;
         private int difX,difY;
         private int delta;
+        private BufferedImage img;
+        private JLabel imgLabel;
 	public funcionesDibujoEjecSimu(int InicioX,  int InicioY,int LimX, int LimY, int Radio) {
+             try {
+                img =ImageIO.read(new File("src/recursos/avion.png"));
+            } catch (IOException ex) {
+                Logger.getLogger(funcionesDibujoEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             imgLabel=new JLabel(new ImageIcon(getImg()));
 		CentroX = InicioX;
 		CentroY = InicioY;
 		this.LimX = LimX;
@@ -81,8 +93,12 @@ public class funcionesDibujoEjecSimu {
                     
                 }
 	}
-	public void Dibujar(Graphics g) {
-		g.drawOval((int)(getCentroX() - Radio), (int)(getCentroY() - Radio), (int)(2 * Radio), (int)(2 * Radio));
+	public void Dibujar(JPanel pnl,Graphics g) {
+                this.getImgLabel().setLocation(getCentroX(), getCentroY());
+                this.getImgLabel().setVisible(true);
+                pnl.add(this.imgLabel);
+                g.drawImage(getImg(), getCentroX(), getCentroY(), null);
+		//g.drawOval((int)(getCentroX() - Radio), (int)(getCentroY() - Radio), (int)(2 * Radio), (int)(2 * Radio));
 	}
 
     /**
@@ -164,5 +180,32 @@ public class funcionesDibujoEjecSimu {
         }
         
         return datosAlmacen;
+    }
+    /**
+     * @return the img
+     */
+    public BufferedImage getImg() {
+        return img;
+    }
+
+    /**
+     * @param img the img to set
+     */
+    public void setImg(BufferedImage img) {
+        this.img = img;
+    }
+
+    /**
+     * @return the imgLabel
+     */
+    public JLabel getImgLabel() {
+        return imgLabel;
+    }
+
+    /**
+     * @param imgLabel the imgLabel to set
+     */
+    public void setImgLabel(JLabel imgLabel) {
+        this.imgLabel = imgLabel;
     }
 }
