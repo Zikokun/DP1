@@ -87,7 +87,7 @@ public class funcionesRuteo {
 
                 String origen = resultadoBuscarPaquetes.getString(1);
                 String destino = resultadoBuscarPaquetes.getString(2);
-                Date fecha = resultadoBuscarPaquetes.getDate(3);
+                Date fecha = (Date) resultadoBuscarPaquetes.getObject(3);
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(fecha);  
                 int hora = cal.get(Calendar.HOUR_OF_DAY);
