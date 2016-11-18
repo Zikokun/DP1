@@ -53,7 +53,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         
         campoDescripcion1.setText("Paquete frágil");
         
-        comboOrigen.setSelectedIndex(18);
+        //comboOrigen.setSelectedIndex(18);
     }
 
     /**

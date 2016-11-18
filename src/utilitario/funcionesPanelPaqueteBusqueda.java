@@ -54,7 +54,7 @@ public class funcionesPanelPaqueteBusqueda {
         if(tipoUsuario.equals(TIPO_OPERARIO)) nombreUsuario = "";
         if(sNumeroRastreoBuscar.equals("")) numRastreo = "";
         
-        sqlBuscarPaquetes = " SELECT P.numeroRastreo, P.estado, U.nombreUsuario, M.Nombres, M.ApellidoPaterno , A.ubicacion, B.ubicacion, P.descripcion " +
+        sqlBuscarPaquetes = " SELECT P.numeroRastreo, P.estado, U.nombreUsuario, M.Nombres, M.ApellidoPaterno , A.ubicacion, B.ubicacion, P.descripcion, M.DNI " +
                 " FROM cliente C, usuario U, paquete P, almacen A, almacen B, persona M " +
                 " WHERE P.Cliente_idCliente = C.idCliente AND C.Usuario_idUsuario = U.idUsuario " + nombreUsuario + numRastreo
                 + " AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND M.idPersona = P.Persona_idPersona; ";
@@ -120,7 +120,7 @@ public class funcionesPanelPaqueteBusqueda {
         if(tipoUsuario.equals(TIPO_OPERARIO)) nombreUsuario = "";
         if(sDNI.equals("")) numDNI = "";
         
-        sqlBuscarPaquetes = " SELECT P.numeroRastreo, P.estado, U.nombreUsuario, M.Nombres, M.ApellidoPaterno , A.ubicacion, B.ubicacion, P.descripcion " +
+        sqlBuscarPaquetes = " SELECT P.numeroRastreo, P.estado, U.nombreUsuario, M.Nombres, M.ApellidoPaterno , A.ubicacion, B.ubicacion, P.descripcion, M.DNI" +
                 " FROM cliente C, usuario U, paquete P, almacen A, almacen B, persona M " +
                 " WHERE P.Cliente_idCliente = C.idCliente AND C.Usuario_idUsuario = U.idUsuario " + nombreUsuario + numDNI
                 + " AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND M.idPersona = P.Persona_idPersona; ";
@@ -185,7 +185,7 @@ public class funcionesPanelPaqueteBusqueda {
             
         if(tipoUsuario.equals(TIPO_OPERARIO)) nombreUsuario = "";
             
-        sqlBuscarPaquetes = " SELECT P.numeroRastreo, P.estado, U.nombreUsuario, M.Nombres, M.ApellidoPaterno , A.ubicacion, B.ubicacion, P.descripcion " +
+        sqlBuscarPaquetes = " SELECT P.numeroRastreo, P.estado, U.nombreUsuario, M.Nombres, M.ApellidoPaterno , A.ubicacion, B.ubicacion, P.descripcion, M.DNI " +
                 " FROM cliente C, usuario U, paquete P, almacen A, almacen B, persona M " +
                 " WHERE P.Cliente_idCliente = C.idCliente AND C.Usuario_idUsuario = U.idUsuario " +  nombreUsuario
                 + " AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND M.idPersona = P.Persona_idPersona; ";
@@ -210,15 +210,18 @@ public class funcionesPanelPaqueteBusqueda {
                 String sUbicacionOrigen = resultadoBuscarPaquetes.getString(6);
                 String sUbicacionDestino = resultadoBuscarPaquetes.getString(7);
                 String sDescripcion = resultadoBuscarPaquetes.getString(8);
+                String sDNI = resultadoBuscarPaquetes.getString(9);
                 
                 paquete.setNumeroRastreo(sNumeroRastreo);
                 paquete.setEstado(estado);
                 
                 personaRemi.setUsuario(sNombreUsuario);
+                //personaRemi.setDocumento(sDNI);
                 remitente.setPersona(personaRemi);
                 paquete.setRemitente(remitente);
                 
                 receptor.setNombre(sNombre);
+                receptor.setDocumento(sDNI);
                 receptor.setApellidoP(sApellidoPaterno);
                 paquete.setReceptor(receptor);
                 
@@ -243,26 +246,27 @@ public class funcionesPanelPaqueteBusqueda {
         List<String[]> lstPaquetes = new ArrayList<>();
         
         for(int i = 0; i < listadoPaquetes.size(); i++){
-            String[] datosPaquete = new String[6];
+            String[] datosPaquete = new String[7];
             Paquete paquete = listadoPaquetes.get(i);
             datosPaquete[0] = paquete.getNumeroRastreo();
             datosPaquete[1] = devolverEstadoPaquete(paquete.getEstado());
-            datosPaquete[2] = paquete.getReceptor().getNombre() + " " + paquete.getReceptor().getApellidoP();
-            datosPaquete[3] = paquete.getAlmacenOrigen().getCiudad();
-            datosPaquete[4] = paquete.getAlamcenDestino().getCiudad();
-            datosPaquete[5] = paquete.getDescripcion();
+            datosPaquete[2] = paquete.getReceptor().getDocumento();
+            datosPaquete[3] = paquete.getReceptor().getNombre() + " " + paquete.getReceptor().getApellidoP();
+            datosPaquete[4] = paquete.getAlmacenOrigen().getCiudad();
+            datosPaquete[5] = paquete.getAlamcenDestino().getCiudad();
+            datosPaquete[6] = paquete.getDescripcion();
             lstPaquetes.add(datosPaquete);
         }
         return lstPaquetes;
     }
     
     public Object[] listadoMasBotonDetalle(String[] datosPaquetes){
-        Object datos[] = new Object[7];
+        Object datos[] = new Object[8];
 
         for(int i = 0; i < datosPaquetes.length; i++){
             datos[i] = datosPaquetes[i]; 
         }
-        datos[6] = new JButton("Ver Detalle");
+        datos[7] = new JButton("Ver Detalle");
         return datos;
     }    
     
