@@ -36,7 +36,7 @@ public class Ruta {
 //           System.out.print(vuelos.get(i).getAeroOrig().getCodAeropuerto()+"-"+
 //                            vuelos.get(i).getAeroFin().getCodAeropuerto()+"/");
         }
-        System.out.println("Tiempo. "+getTiempo());
+        System.out.println("Tiempo ruta: "+getTiempo());
     }
 
     /**

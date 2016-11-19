@@ -66,11 +66,11 @@ public class funcionesRuteo {
         Genetico algoritmo=new Genetico();
         algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
         Cromosoma solucion=algoritmo.getMejorCrom();
-        System.out.println("HOla");
+        //System.out.println("HOla");
         ArrayList<Gen> genes=solucion.genes;
         for(Gen item: genes){
             item.getRuta().print();
-            System.out.println("Tiempo Total: "+item.tiempo);
+            System.out.println("Tiempo Total: "+item.tiempo/60+" horas");
         }
         return solucion;
     }
