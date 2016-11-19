@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/panelEjecSimu.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/mapa/Mapa.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/panelMantUsuario.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/panelDetallePaquete.java</file>
             <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/vista/PanelSim.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/utilitario/funcionesPanelDetallePaquete.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/constantes/constantesGenerales.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/utilitario/funcionesMapa.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/utilitario/funcionesPanelCrearEnvio.java</file>
+            <file>file:/C:/Users/gerson/Documents/NetBeansProjects/DP1/src/utilitario/funcionesBaseDeDatos.java</file>
         </group>
     </open-files>
 </project-private>

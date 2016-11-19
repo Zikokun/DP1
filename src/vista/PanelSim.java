@@ -6,11 +6,12 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import mapa.Mapa;
 import processing.core.PApplet;
-
+import de.fhpotsdam.unfolding.marker.Marker;
 /**
  *
  * @author a20125540
@@ -21,6 +22,7 @@ public class PanelSim extends javax.swing.JPanel {
      * Creates new form PanelSim
      */
     public int tipoSim;
+    public static PApplet simulacion;
     public PanelSim() {
         initComponents();
         
@@ -104,6 +106,7 @@ public class PanelSim extends javax.swing.JPanel {
         //topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
         
         PApplet mapa = new Mapa();
+        this.setSimulacion(mapa);
         topFrame.pnlFondo.add(mapa);
         mapa.init();
                 
@@ -119,4 +122,18 @@ public class PanelSim extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the simulacion
+     */
+    public PApplet getSimulacion() {
+        return simulacion;
+    }
+
+    /**
+     * @param simulacion the simulacion to set
+     */
+    public void setSimulacion(PApplet simulacion) {
+        this.simulacion = simulacion;
+    }
 }

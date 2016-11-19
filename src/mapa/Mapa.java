@@ -5,6 +5,7 @@
  */
 package mapa;
 
+import static constantes.constantesGenerales.*;
 import de.fhpotsdam.unfolding.*;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
@@ -18,19 +19,21 @@ import java.nio.file.Files;
 import org.apache.logging.log4j.core.jackson.SimpleMessageDeserializer;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.providers.*;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import utilitario.funcionesMapa;
 
 /**
  *
  * @author gerson
  */
 public class Mapa extends PApplet{
-    
     UnfoldingMap mapDay;
-    //UnfoldingMap mapNight;
     Integrator blendIntegrator = new Integrator(255);
-    
-    UnfoldingMap map;
+    private List<Object[]> listaPaquetesRutas;
+
     Location berlinLocation = new Location(52.5, 13.4);
     Location dublinLocation = new Location(53.35, -6.26);
     Location casa = new Location(-12.11493,-77.01182);
@@ -59,15 +62,15 @@ public class Mapa extends PApplet{
         mapDay.panTo(new Location(49.6f, 9.4f));
 
         //Agregar marcadores
-        SimplePointMarker casaMarcador = new SimplePointMarker(casa);
+        /*SimplePointMarker casaMarcador = new SimplePointMarker(casa);
         casaMarcador.setColor(color(255, 0, 0, 100));
         mapDay.addMarker(casaMarcador);
         
         SimplePointMarker casaSaoPaulo = new SimplePointMarker(saopaulo);
         casaMarcador.setColor(color(0, 255, 0, 100));
-        mapDay.addMarker(casaSaoPaulo);
+        mapDay.addMarker(casaSaoPaulo);*/
         
-        MapUtils.createDefaultEventDispatcher(this, mapDay/*, mapNight*/);
+        MapUtils.createDefaultEventDispatcher(this, mapDay);
     }
     
     public void pasoDeDias() {
@@ -96,13 +99,88 @@ public class Mapa extends PApplet{
         marker.setLocation(nuevaLocacion);
     }
     
+       
+    private void inicializacionMarcadores() throws InstantiationException, IllegalAccessException, SQLException{
+        contador++;
+        if (contador % 100 == 0) {
+            blendIntegrator.target(255);
+        }
+        if (contador % 200 == 0) {
+            blendIntegrator.target(120);
+        }
+        
+        funcionesMapa fMapa = new funcionesMapa();
+        List<Object[]> lisPaquetesRutas = fMapa.devolverDetallePaquete();
+        this.listaPaquetesRutas = lisPaquetesRutas;
+        
+        mapDay.getMarkers().clear();
+        
+        for(int i = 0; i < lisPaquetesRutas.size(); i++){
+            Object[] ruta = lisPaquetesRutas.get(i);
+            float longuitud = (float)ruta[1];
+            float latitud = (float)ruta[2];
+            
+            if(longuitud == 0 && latitud == 0){
+                longuitud = (float)ruta[3];
+                latitud = (float)ruta[4];
+            }
+            
+            Location ubicacion = new Location(longuitud,latitud);
+            SimplePointMarker ubicacionMarcador = new SimplePointMarker(ubicacion);
+            ubicacionMarcador.setColor(color(255, 0, 0, 100));
+            mapDay.addMarker(ubicacionMarcador);
+        }
+    }
+    
+    private void cambiarLonguitudYLatitudActuales(){
+        List<Object[]> lisPaquetesRutas = this.listaPaquetesRutas;
+        for(int i = 0; i < lisPaquetesRutas.size(); i++){
+            Object[] ruta = lisPaquetesRutas.get(i);
+            float longuitudActual = (float)ruta[1];
+            float latitudActual = (float)ruta[2];
+            
+            float diferenciaLonguitud = (float)ruta[3] - (float)ruta[5];
+            float diferenciaLatitud = (float)ruta[4] - (float)ruta[6];
+            
+            Marker marker = mapDay.getMarkers().get(i);
+            Location actualLocacion = marker.getLocation();
+            float nuevaLonguitud = longuitudActual +  diferenciaLonguitud*FACTOR_INCREMENTO;
+            float nuevaLatitud = latitudActual +  diferenciaLatitud*FACTOR_INCREMENTO;
+            actualLocacion.setLat(nuevaLatitud);
+            actualLocacion.setLon(nuevaLonguitud);
+            Location nuevaLocacion = actualLocacion;
+            marker.setLocation(nuevaLocacion);
+            
+            this.listaPaquetesRutas.get(i)[1] = nuevaLonguitud;
+            this.listaPaquetesRutas.get(i)[2] = nuevaLatitud;
+        }
+    }
+    
+    private void insertarCoordenadasTablas() throws InstantiationException, IllegalAccessException, SQLException{
+        List<Object[]> lisPaquetesRutas = this.listaPaquetesRutas;
+        
+        funcionesMapa fMapa = new funcionesMapa();
+        fMapa.insertarLonguitudYLatitudActualizados(lisPaquetesRutas);
+    }
+    
     public void draw() {
         blendIntegrator.update();
         mapDay.draw();
         tint(255, blendIntegrator.value);
-        //mapNight.draw();
-        pasoDeDias();
-        // blendIntegrator.target(255);
+        try {
+            //mapNight.draw();
+            //pasoDeDias();
+            // blendIntegrator.target(255);
+            inicializacionMarcadores();
+            cambiarLonguitudYLatitudActuales();
+            insertarCoordenadasTablas();
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void mouseReleased() {
@@ -110,4 +188,19 @@ public class Mapa extends PApplet{
         Ani.from(this, (float) 1.5, "x", mouseX, Ani.QUINT_IN_OUT);
         Ani.from(this, (float) 1.5, "y", mouseY, Ani.QUINT_IN_OUT);
     }
+    
+    /**
+     * @return the listaPaquetesRutas
+     */
+    public List<Object[]> getListaPaquetesRutas() {
+        return listaPaquetesRutas;
+    }
+
+    /**
+     * @param listaPaquetesRutas the listaPaquetesRutas to set
+     */
+    public void setListaPaquetesRutas(List<Object[]> listaPaquetesRutas) {
+        this.listaPaquetesRutas = listaPaquetesRutas;
+    }
+
 }

@@ -168,7 +168,7 @@ public class funcionesPanelCrearEnvio {
                 idCliente = resultadoBuscarRemitente.getInt(1);
             }
             
-            PreparedStatement sqlCrearEnvio = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement sqlCrearEnvio = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,?,?,?,?,?,0,0)",PreparedStatement.RETURN_GENERATED_KEYS);
             
             sqlCrearEnvio.setString(1, nuevo.getNumeroRastreo());
             sqlCrearEnvio.setInt(2, nuevo.getAlmacenOrigen().getId());
