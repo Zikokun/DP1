@@ -143,7 +143,8 @@ public class Genetico {
                 Pedido pedActual=pedidos.get(j);
                 String origen=pedActual.getOrigen();
                 String destino=pedActual.getDestino();
-                ArrayList<Ruta> rutasOF=ciudades.get(origen).rutas.get(destino);//Lista de todas las posibles rutas cone se origen y destino
+               // System.out.println("Origen: "+origen+" Destino: "+destino);
+                ArrayList<Ruta> rutasOF=ciudades.get(origen).rutas.get(destino);//Lista de todas las posibles rutas con su origen y destino
                 Random ran=new Random();//Un random para escoger un ruta(solucion) aleatoria
                 int tiempoMax=48; //tiempo maximo(horas) para envios entre continentes
                 if (ciudades.get(origen).getContinente().equals(ciudades.get(destino).getContinente())) tiempoMax=24; //si estan en el mismo continente, el maximo es de 24 horas
@@ -169,29 +170,23 @@ public class Genetico {
                             k<maxIntentos)
                             {
                         ruta=rutasOF.get(ran.nextInt(rutasOF.size())); //escogemos otra ruta aleatoriamente
+                        hSalida=ruta.getVuelos().get(0).gethSalida();
+                        if(hSalida<hPedido ||(hSalida==hPedido && mPedido!=0)) hSalida+=24;
+                        tiempTotal=(hSalida-hPedido+ruta.getTiempo())*60-mPedido;
                         k++;
                     }
                     
                     hSalida=ruta.getVuelos().get(0).gethSalida();
+                    System.out.println("Hora Salida Vuelo: "+hSalida);
                     if(hSalida<hPedido ||(hSalida==hPedido && mPedido!=0)) hSalida+=24;
                     copiarCapsVuelosYAlmacenes(vuelos,ciudades);//actualizar capacidades con los nuevos paquetes enviados
-                    /*
-                    La ruta solo se debe elegir si cumple con las condiciones de tiempo
-                    de lo contrario se prueba con otra ruta, por ahora debido a que el archivo
-                    de pedidos que se esta utilizando tiene pedido "imposibles" de cumplir,toda
-                    esta parte ha quedado comentada
-                    */
-//                    while(tTotal>tiempoMax){//condicion de negocio : tiempo maximo
-//                        ruta=rutasOF.get(ran.nextInt(rutasOF.size()));
-//                        int hSalida=ruta.getVuelos().get(0).gethSalida();
-//                        if(hSalida<hPedido) hSalida+=24;
-//                        tTotal=hSalida-hPedido+ruta.getTiempo();
-//                    }
-                    
+                   
                     Gen gen=new Gen();
                     gen.setRuta(ruta);
+                    System.out.println("hSalida: "+hSalida+" hPedido: "+hPedido+"mPedido: "+mPedido+" tiempoRuta: "+ruta.getTiempo());
                     gen.setTiempo((hSalida-hPedido+ruta.getTiempo())*60-mPedido); //el tiempo se toma en minutos
                     gen.setPedido(pedActual);
+                    System.out.println("Tiempo Gen "+i+"."+j+" :"+gen.tiempo);
                     //de acuerdo a la ruta escogida, se debe actualizar las capacidades de los almacenes
                     
                     crom.genes.add(gen); //se ha generado aleatoriamente su ruta
@@ -203,6 +198,7 @@ public class Genetico {
             }
             reiniciarCapsCiudades(ciudades);//regresar las ciudades a su capacidad COMPLETA porque se comenzara de nuevo para el siguiente cromosoma
             int fitness=calcFitness(crom);
+            System.out.println("Fitness Crom "+ i+" :"+fitness);
             fitnessTotal+=fitness;
             crom.fitness=fitness;
             cromosomas.add(crom);
