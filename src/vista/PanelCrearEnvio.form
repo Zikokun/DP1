@@ -241,6 +241,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="campoDNIEmisor">
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoDNIKeyTyped"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboDestino">
                   <Properties>
@@ -271,6 +274,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campoApellidoP">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
@@ -278,6 +284,12 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campoNombre">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoNombreKeyTyped"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
@@ -285,8 +297,14 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campoApellidoM">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campoCorreo">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel17">
                   <Properties>
@@ -358,14 +376,6 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="campoApellidoMRe" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
-                                      <Component id="campoApellidoPRe" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
-                                      <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="campoNombreRe" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
                                       <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -376,8 +386,13 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="campoApellidoMRe" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
+                                      <Component id="campoApellidoPRe" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
+                                      <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -426,6 +441,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="campoDNIReceptor">
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoDNIKeyTyped"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboOrigen">
                   <Properties>

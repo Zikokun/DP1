@@ -132,7 +132,31 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         jLabel3.setText("Apellido Materno");
 
+        nombreCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoKeyTyped(evt);
+            }
+        });
+
+        apellidoPaternoCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoKeyTyped(evt);
+            }
+        });
+
+        apellidoMaternoCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoKeyTyped(evt);
+            }
+        });
+
         jLabel4.setText("Fecha de nacimiento");
+
+        fechaNacimientoCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NumeroCampoKeyPressed(evt);
+            }
+        });
 
         jLabel5.setText("Tipo usuario");
 
@@ -145,11 +169,29 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         jLabel7.setText("Direccion");
 
+        direccionCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NumeroCampoKeyPressed(evt);
+            }
+        });
+
         jLabel8.setText("Correo");
+
+        correoCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NumeroCampoKeyPressed(evt);
+            }
+        });
 
         jLabel9.setText("Documento de identidad");
 
         docIdentidadComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "LE", "CE" }));
+
+        docIdentidadCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NumeroCampoKeyPressed(evt);
+            }
+        });
 
         botonRegistrar.setText("Registrar");
         botonRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +202,19 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         jLabel10.setText("Usuario");
 
+        usuarioCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CampoKeyTyped(evt);
+            }
+        });
+
         jLabel11.setText("Contraseña");
+
+        contrasenhaCampo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NumeroCampoKeyPressed(evt);
+            }
+        });
 
         regresarBoton.setText("Regresar");
         regresarBoton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -318,6 +372,43 @@ public class panelMantUsuario extends javax.swing.JPanel {
         VentanaPrincipal.pnlFondo.revalidate();
         VentanaPrincipal.pnlFondo.repaint();
     }//GEN-LAST:event_regresarBotonMouseClicked
+
+    private void CampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoKeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(apellidoMaternoCampo.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(apellidoPaternoCampo.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(usuarioCampo.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(nombreCampo.getText().length()>=30) {  
+            evt.consume();
+        }
+    }//GEN-LAST:event_CampoKeyTyped
+
+    private void NumeroCampoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NumeroCampoKeyPressed
+        if(docIdentidadCampo.getText().length()>=8) {  
+            evt.consume();
+        }
+        if(fechaNacimientoCampo.getText().length()>=10) {  
+            evt.consume();
+        }
+        if(contrasenhaCampo.getText().length()>=8) {  
+            evt.consume();
+        }
+        if(correoCampo.getText().length()>=10) {  
+            evt.consume();
+        }
+        if(direccionCampo.getText().length()>=8) {  
+            evt.consume();
+        }
+    }//GEN-LAST:event_NumeroCampoKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

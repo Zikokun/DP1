@@ -70,7 +70,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         campoDNIEmisor = new javax.swing.JTextField();
-        comboDestino = new javax.swing.JComboBox<String>();
+        comboDestino = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -87,7 +87,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         campoDNIReceptor = new javax.swing.JTextField();
-        comboOrigen = new javax.swing.JComboBox<String>();
+        comboOrigen = new javax.swing.JComboBox<>();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -114,6 +114,12 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        campoDNIEmisor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoDNIKeyTyped(evt);
+            }
+        });
+
         comboDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboDestinoActionPerformed(evt);
@@ -126,9 +132,22 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jLabel14.setText("Nombre del destinatario: *");
 
+        campoApellidoP.setEnabled(false);
+
         jLabel15.setText("Apellido Paterno del destinatario: *");
 
+        campoNombre.setEnabled(false);
+        campoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoNombreKeyTyped(evt);
+            }
+        });
+
         jLabel16.setText("Apellido Materno del destinatario: *");
+
+        campoApellidoM.setEnabled(false);
+
+        campoCorreo.setEnabled(false);
 
         jLabel17.setText("Correo electrónico del destinatario: *");
 
@@ -236,6 +255,12 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        campoDNIReceptor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoDNIKeyTyped(evt);
+            }
+        });
+
         comboOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboOrigenActionPerformed(evt);
@@ -276,12 +301,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoApellidoMRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoApellidoPRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoNombreRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel21))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
@@ -290,7 +309,11 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                             .addComponent(jLabel24))
                         .addGap(25, 25, 25))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel23)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoApellidoMRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoApellidoPRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -475,46 +498,57 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
     private int CamposObligatorios() throws InstantiationException, IllegalAccessException{
         int cont=0;
-        if(campoDNIEmisor.getText().isEmpty()&& cont==0) {
-            JOptionPane.showMessageDialog(this, "Ingresar el DNI del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        String cadena="Ingresar el";
+        if(campoDNIEmisor.getText().isEmpty()) {
+            cadena+= " DNI del Emisor";
             cont++;
         }
-        if(campoDNIReceptor.getText().isEmpty() && cont==0){
-            JOptionPane.showMessageDialog(this, "Ingresar el DNI del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(campoDNIReceptor.getText().isEmpty()){
+            if(cont>1) cadena+=" -";
+            cadena+= " DNI del Receptor";
             cont++;
         }
-        if(campoNombre.getText().isEmpty() && cont==0) {
-            JOptionPane.showMessageDialog(this, "Ingresar el Nombre del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(campoNombre.getText().isEmpty()) {
+            if(cont>1) cadena+=" -";
+            cadena+= " Ingresar el Nombre del Emisor";
             cont++;
         }
-        if(campoApellidoP.getText().isEmpty()&& cont==0) {
-            JOptionPane.showMessageDialog(this, "Ingresar el Apellido Paterno del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(campoApellidoP.getText().isEmpty()) {
+            if(cont>1) cadena+=" -";
+            cadena+= " Apellido Paterno del Emisor";
             cont++;
         }
-        if(campoApellidoM.getText().isEmpty()&& cont==0) {
-            JOptionPane.showMessageDialog(this, "Ingresar el Apellido Materno del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(campoApellidoM.getText().isEmpty()) {
+            if(cont>1) cadena+=" -";
+            cadena+= " Apellido Materno del Emisor";
             cont++;
         }
-        if(campoCorreo.getText().isEmpty()&& cont==0) {
-            JOptionPane.showMessageDialog(this, "Ingresar el Correo del Emisor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(campoCorreo.getText().isEmpty()) {
+            if(cont>1) cadena+=" -";
+            cadena+= " Correo del Emisor";
             cont++;
         }
-        if(campoNombreRe.getText().isEmpty()&& cont==0) {
-            JOptionPane.showMessageDialog(this, "Ingresar el Nombre del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(campoNombreRe.getText().isEmpty()) {
+            if(cont>1) cadena+=" -";
+            cadena+= " Nombre del Receptor";
             cont++;
         }
-        if(campoApellidoPRe.getText().isEmpty()&& cont==0) {
-            JOptionPane.showMessageDialog(this, "Ingresar el Apellido Paterno del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(campoApellidoPRe.getText().isEmpty()) {
+            if(cont>1) cadena+=" -";
+            cadena+= " Apellido Paterno del Receptor";
             cont++;
         }
-        if(campoApellidoMRe.getText().isEmpty()&& cont==0) {
-            JOptionPane.showMessageDialog(this, "Ingresar el Apellido Materno del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(campoApellidoMRe.getText().isEmpty()) {
+            if(cont>1) cadena+=" -";
+            cadena+= " Apellido Materno del Receptor";
             cont++;
         }
-        if(campoCorreoRe.getText().isEmpty()&& cont==0) {
-            JOptionPane.showMessageDialog(this, "Ingresar el Correo del Receptor", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(campoCorreoRe.getText().isEmpty()) {
+            if(cont>1) cadena+=" -";
+            cadena+= " Correo del Receptor";
             cont++;
         }
+        if(cont>1)JOptionPane.showMessageDialog(this, cadena, "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
         return cont;
     }
     
@@ -608,6 +642,55 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
             Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void campoDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDNIKeyTyped
+        if(campoDNIEmisor.getText().length()>=8) {  
+            evt.consume();
+        }
+        if(campoDNIReceptor.getText().length()>=8) {  
+            evt.consume();
+        }
+        if(campoCorreo.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(campoCorreoRe.getText().length()>=30) {  
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoDNIKeyTyped
+
+    private void campoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreKeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(campoApellidoM.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(campoApellidoMRe.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(campoApellidoP.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(campoApellidoPRe.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(campoNombre.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(campoNombreRe.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(campoDescripcion1.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(campoDescripcion2.getText().length()>=30) {  
+            evt.consume();
+        }
+        if(campoDescripcion3.getText().length()>=30) {  
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
