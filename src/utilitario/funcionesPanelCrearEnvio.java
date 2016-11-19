@@ -126,7 +126,7 @@ public class funcionesPanelCrearEnvio {
     
     public String CrearEnvio(Paquete nuevo) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
-        System.out.println(cc);
+        //System.out.println(cc);
         Connection conexion = cc.conexion();//null
         String cadena="";
         int llaveGeneradaPersona = -1;
