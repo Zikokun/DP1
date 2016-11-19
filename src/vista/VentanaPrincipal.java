@@ -8,6 +8,7 @@ package vista;
 import static constantes.constantesGenerales.*;
 import static constantes.constantesVentanaPrincipal.*;
 import java.awt.BorderLayout;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ import utilitario.funcionesVentanaPrincipal;
 import utilitario.funcionesVentanaPrincipal.*;
 
 import javax.swing.Timer;
+import utilitario.funcionesRuteo;
  
 
 /**
@@ -31,6 +33,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private String usuario;
     private String contrasenha;
     public funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
+    public funcionesRuteo enrutador = new funcionesRuteo();
+    
     public VentanaPrincipal(){
         initComponents();
         this.setLocationRelativeTo(null);
@@ -142,6 +146,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuEnvio = new javax.swing.JMenu();
         envoRegEnvio = new javax.swing.JMenuItem();
         envioVisualizarHistorial = new javax.swing.JMenuItem();
+        rutearPaq = new javax.swing.JMenuItem();
         menuRastreo = new javax.swing.JMenu();
         menuSim = new javax.swing.JMenu();
 
@@ -153,7 +158,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelOpciones.setText("Opciones");
 
         labelCerrarSesion.setText("Cerrar Sesión");
-        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         labelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelCerrarSesionMouseClicked(evt);
@@ -217,6 +222,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         menuEnvio.add(envioVisualizarHistorial);
+
+        rutearPaq.setText("Rutear Paquetes");
+        rutearPaq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rutearPaqActionPerformed(evt);
+            }
+        });
+        menuEnvio.add(rutearPaq);
 
         barraMenu.add(menuEnvio);
 
@@ -394,6 +407,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menuMiCuentaMouseClicked
 
+    private void rutearPaqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rutearPaqActionPerformed
+        try {
+            // TODO add your handling code here:
+            enrutador.ruteoPedidosManual();
+        } catch (InstantiationException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_rutearPaqActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -441,6 +467,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuSim;
     public static javax.swing.JPanel pnlFondo;
     public static javax.swing.JPanel pnlFrente;
+    private javax.swing.JMenuItem rutearPaq;
     // End of variables declaration//GEN-END:variables
 
     public String getUsuario() {

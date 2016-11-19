@@ -7,6 +7,12 @@ package utilitario;
 
 import static constantes.constantesVentanaPrincipal.TIPO_OPERARIO;
 import controlador.Genetico;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +43,7 @@ import static test1_gui_alg.Test1_gui_alg.generarRutas;
  */
 public class funcionesRuteo {
     int primeraVez=1;
-    public Cromosoma ruteoPedidosManual() throws InstantiationException, IllegalAccessException{
+    public Cromosoma ruteoPedidosManual() throws InstantiationException, IllegalAccessException, IOException{
         String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();
@@ -64,6 +70,7 @@ public class funcionesRuteo {
         ArrayList<Gen> genes=solucion.genes;
         for(Gen item: genes){
             item.getRuta().print();
+            System.out.println("Tiempo Total: "+item.tiempo);
         }
         return solucion;
     }
@@ -108,9 +115,14 @@ public class funcionesRuteo {
         return lstPaquetes;
     }
     
-    public static void generarRutas(TreeMap<String,Ciudad> ciudades){
+    public static void generarRutas(TreeMap<String,Ciudad> ciudades) throws FileNotFoundException, IOException{
         int tEspera;
         int tiempoRuta;
+//        File fRutas = new File("Rutas.txt");
+//	FileOutputStream fOut = new FileOutputStream(fRutas);
+//        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fOut));
+//        bw.write("Todas las rutas");bw.newLine();
+//        System.out.println("Cant ciudades: "+ciudades.size());
         for(Ciudad ciudad: ciudades.values()){
             ArrayList<Vuelo>vuelos=ciudad.vuelos;
             int cantVuelos=vuelos.size();
@@ -120,13 +132,16 @@ public class funcionesRuteo {
                    ArrayList<Ruta> rutas=new ArrayList<>();
                    rutas.add(new Ruta(vuelos.get(i),vuelos.get(i).getTiempo()));
                    ciudad.rutas.put(destino, rutas);
+                    //bw.write(ciudad.getCodAeropuerto()+"-"+destino);
+                    //bw.newLine();
                 }
                 else{
                     ArrayList<Ruta> rutas=ciudad.rutas.get(destino);
                     rutas.add(new Ruta(vuelos.get(i),vuelos.get(i).getTiempo()));
                     ciudad.rutas.put(destino, rutas);
+                     //bw.write(ciudad.getCodAeropuerto()+"-"+destino);
+                     //bw.newLine();
                 }
-                
                 //caso con escala
                 Ciudad ciudadIntermedia=vuelos.get(i).getAeroFin();
                 for(int j=0;j<ciudadIntermedia.vuelos.size();j++){
@@ -147,17 +162,23 @@ public class funcionesRuteo {
                         Ruta ruta=new Ruta(vuelos.get(i),vuelo2,tiempoRuta);
                         rutas.add(ruta);
                         ciudad.rutas.put(destino2, rutas);
+                        //bw.write(ciudad.getCodAeropuerto()+"-"+destino+"-"+destino2);
+                        //bw.newLine();
                     }
                     else{
                         ArrayList<Ruta> rutas=ciudad.rutas.get(destino2);
                         Ruta ruta=new Ruta(vuelos.get(i),vuelo2,tiempoRuta);
                         rutas.add(ruta);
                         ciudad.rutas.put(destino2,rutas);
+                        //bw.write(ciudad.getCodAeropuerto()+"-"+destino+"-"+destino2);
+                        //bw.newLine();
                     }
                     //System.out.println(tiempoRuta);
+                    
                 }
             }
-        }        
+        }  
+        //bw.close();
     }
     
     public static void asignarTipoVuelo(ArrayList<Vuelo> vuelos, TreeMap<String, Ciudad> ciudades){
