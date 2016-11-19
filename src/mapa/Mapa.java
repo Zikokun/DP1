@@ -71,34 +71,7 @@ public class Mapa extends PApplet{
         mapDay.addMarker(casaSaoPaulo);*/
         
         MapUtils.createDefaultEventDispatcher(this, mapDay);
-    }
-    
-    public void pasoDeDias() {
-        contador++;
-        if (contador % 100 == 0) {
-            blendIntegrator.target(255);
-        }
-        if (contador % 200 == 0) {
-            blendIntegrator.target(120);
-        }
-        
-        Marker marker = mapDay.getMarkers().get(0);
-        Location actualLocacion = marker.getLocation();
-        float latitudActual = actualLocacion.getLat();
-        float nuevaLat =  (latitudActual + 0.5f);
-        actualLocacion.setLat(nuevaLat);
-        Location nuevaLocacion = actualLocacion;
-        marker.setLocation(nuevaLocacion);
-        
-        marker = mapDay.getMarkers().get(1);
-        actualLocacion = marker.getLocation();
-        float longActual = actualLocacion.getLon();
-        float nuevaLong = longActual + 0.5f;
-        actualLocacion.setLon(nuevaLong);
-        nuevaLocacion = actualLocacion;
-        marker.setLocation(nuevaLocacion);
-    }
-    
+    } 
        
     private void inicializacionMarcadores() throws InstantiationException, IllegalAccessException, SQLException{
         contador++;
@@ -124,12 +97,48 @@ public class Mapa extends PApplet{
                 longuitud = (float)ruta[3];
                 latitud = (float)ruta[4];
             }
-            
+            ruta[1] = longuitud;
+            ruta[2] = latitud;
+                
             Location ubicacion = new Location(longuitud,latitud);
             SimplePointMarker ubicacionMarcador = new SimplePointMarker(ubicacion);
             ubicacionMarcador.setColor(color(255, 0, 0, 100));
             mapDay.addMarker(ubicacionMarcador);
         }
+    }
+    
+    private boolean llegoPuntoFinal(float diferenciaLonguitud, float diferenciaLatitud, Object[] ruta){
+        boolean llegoDestino = false;
+        boolean llegoDestinoLonguitud = false;
+        boolean llegoDestinoLatitud = false;
+        
+        /*System.out.println("Posicion actual: " + (float)ruta[1] + " - " + (float)ruta[2] + " Diferencia: " + diferenciaLonguitud + " " + diferenciaLatitud);
+        System.out.println("Posicion Origen: " + (float)ruta[3] + " - " + (float)ruta[4]+ " Diferencia: " + diferenciaLonguitud + " " + diferenciaLatitud);
+        System.out.println("Posicion Destino: " + (float)ruta[5] + " - " + (float)ruta[6]+ " Diferencia: " + diferenciaLonguitud + " " + diferenciaLatitud);*/
+       
+        if(diferenciaLonguitud > 0){
+            if((float)ruta[1] > (float)ruta[5]){
+                llegoDestinoLonguitud = true;
+            }
+        }else{
+            if((float)ruta[1] < (float)ruta[5]){
+                llegoDestinoLonguitud = true;
+            }
+        }
+        
+        if(diferenciaLatitud > 0){
+            if((float)ruta[2] > (float)ruta[6]){
+                llegoDestinoLatitud = true;
+            }
+        }else{
+            if((float)ruta[2] < (float)ruta[6]){
+                llegoDestinoLatitud = true;
+            }
+        }
+        
+        llegoDestino = llegoDestinoLonguitud || llegoDestinoLatitud;
+        
+        return llegoDestino;
     }
     
     private void cambiarLonguitudYLatitudActuales(){
@@ -139,18 +148,24 @@ public class Mapa extends PApplet{
             float longuitudActual = (float)ruta[1];
             float latitudActual = (float)ruta[2];
             
-            float diferenciaLonguitud = (float)ruta[3] - (float)ruta[5];
-            float diferenciaLatitud = (float)ruta[4] - (float)ruta[6];
+            float diferenciaLonguitud = (float)ruta[5] - (float)ruta[3];
+            float diferenciaLatitud = (float)ruta[6] - (float)ruta[4];
+
+            float hipotenusa = (float) Math.sqrt((diferenciaLonguitud*diferenciaLonguitud) + (diferenciaLatitud*diferenciaLatitud));
             
             Marker marker = mapDay.getMarkers().get(i);
             Location actualLocacion = marker.getLocation();
-            float nuevaLonguitud = longuitudActual +  diferenciaLonguitud*FACTOR_INCREMENTO;
-            float nuevaLatitud = latitudActual +  diferenciaLatitud*FACTOR_INCREMENTO;
+            
+            int factorDecremento = 1;
+            if(llegoPuntoFinal(diferenciaLonguitud, diferenciaLatitud, ruta)) factorDecremento = 0;
+            
+            float nuevaLonguitud = longuitudActual + (diferenciaLonguitud/abs(diferenciaLonguitud)*(abs(diferenciaLonguitud)/hipotenusa)) * FACTOR_INCREMENTO * factorDecremento; //tangente
+            float nuevaLatitud = latitudActual + (diferenciaLatitud/abs(diferenciaLatitud) * (abs(diferenciaLatitud)/hipotenusa)) * FACTOR_INCREMENTO * factorDecremento; //tangente
             actualLocacion.setLat(nuevaLatitud);
             actualLocacion.setLon(nuevaLonguitud);
             Location nuevaLocacion = actualLocacion;
-            marker.setLocation(nuevaLocacion);
-            
+            mapDay.getMarkers().get(i).setLocation(nuevaLocacion);
+
             this.listaPaquetesRutas.get(i)[1] = nuevaLonguitud;
             this.listaPaquetesRutas.get(i)[2] = nuevaLatitud;
         }
@@ -168,9 +183,6 @@ public class Mapa extends PApplet{
         mapDay.draw();
         tint(255, blendIntegrator.value);
         try {
-            //mapNight.draw();
-            //pasoDeDias();
-            // blendIntegrator.target(255);
             inicializacionMarcadores();
             cambiarLonguitudYLatitudActuales();
             insertarCoordenadasTablas();

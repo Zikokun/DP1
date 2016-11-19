@@ -18,5 +18,5 @@ public class constantesGenerales {
     public static int CAPACIDAD_MAX_VUELO = 200;
     public static int CAPACIDAD_MIN_VUELO = 0;
     public static String NOMBRE_ARCH = "arch";
-    public static float FACTOR_INCREMENTO = 0.01f;
+    public static float FACTOR_INCREMENTO = 0.1f;
 }
