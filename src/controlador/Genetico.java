@@ -30,7 +30,7 @@ public class Genetico {
     private ArrayList<Ruta> universoRutas= new ArrayList<>();
     private ArrayList<Cromosoma> cromosomas=new ArrayList<>();
     private Cromosoma mejorCrom=new Cromosoma();
-    int maxIntentos=10;
+    int maxIntentos=50;
     private String mensaje;
     public Genetico(){
         
@@ -84,18 +84,18 @@ public class Genetico {
             
             Ruta rutasPacki=getMejorCrom().genes.get(i).ruta;
             
-            //System.out.print("Paquete "+i+":");
+            System.out.print("Paquete "+i+":");
             mensaje = "Paquete "+i+":";
             for(int j=0;j<rutasPacki.getVuelos().size();j++){
                 Vuelo vuelo= rutasPacki.getVuelos().get(j);
-                //System.out.print(vuelo.getOrigen()+"-"+vuelo.getDestino()+"//");
+                System.out.print(vuelo.getOrigen()+"-"+vuelo.getDestino()+"//");
                 mensaje+=vuelo.getOrigen()+"-"+vuelo.getDestino()+"//";
             }
-            //System.out.println("------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas");
+            System.out.println("------Tiempo: "+mejorCrom.genes.get(i).tiempo/60+" horas");
             mensaje+="------Tiempo: "+getMejorCrom().genes.get(i).tiempo/60+" horas\n";
             tiempoTotal+=getMejorCrom().genes.get(i).tiempo;
         }
-        //System.out.println("Tiempo total de entrega de paquetes: "+tiempoTotal+"\n");
+        System.out.println("Tiempo total de entrega de paquetes: "+tiempoTotal+"\n");
         mensaje+="Tiempo total de entrega de paquetes: "+tiempoTotal+"\n";
         return mensaje;
     }
@@ -177,16 +177,16 @@ public class Genetico {
                     }
                     
                     hSalida=ruta.getVuelos().get(0).gethSalida();
-                    System.out.println("Hora Salida Vuelo: "+hSalida);
+                    //System.out.println("Hora Salida Vuelo: "+hSalida);
                     if(hSalida<hPedido ||(hSalida==hPedido && mPedido!=0)) hSalida+=24;
                     copiarCapsVuelosYAlmacenes(vuelos,ciudades);//actualizar capacidades con los nuevos paquetes enviados
                    
                     Gen gen=new Gen();
                     gen.setRuta(ruta);
-                    System.out.println("hSalida: "+hSalida+" hPedido: "+hPedido+"mPedido: "+mPedido+" tiempoRuta: "+ruta.getTiempo());
+                    //System.out.println("hSalida: "+hSalida+" hPedido: "+hPedido+"mPedido: "+mPedido+" tiempoRuta: "+ruta.getTiempo());
                     gen.setTiempo((hSalida-hPedido+ruta.getTiempo())*60-mPedido); //el tiempo se toma en minutos
                     gen.setPedido(pedActual);
-                    System.out.println("Tiempo Gen "+i+"."+j+" :"+gen.tiempo);
+                    //System.out.println("Tiempo Gen "+i+"."+j+" :"+gen.tiempo);
                     //de acuerdo a la ruta escogida, se debe actualizar las capacidades de los almacenes
                     
                     crom.genes.add(gen); //se ha generado aleatoriamente su ruta
@@ -198,7 +198,7 @@ public class Genetico {
             }
             reiniciarCapsCiudades(ciudades);//regresar las ciudades a su capacidad COMPLETA porque se comenzara de nuevo para el siguiente cromosoma
             int fitness=calcFitness(crom);
-            System.out.println("Fitness Crom "+ i+" :"+fitness);
+            //System.out.println("Fitness Crom "+ i+" :"+fitness);
             fitnessTotal+=fitness;
             crom.fitness=fitness;
             cromosomas.add(crom);
