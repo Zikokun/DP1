@@ -319,7 +319,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Object[] opciones={"Sí","No"};
         int respuesta=JOptionPane.showOptionDialog(this,"¿Estás seguro que deseas cerrar sesión?", "Cerrar Sesión",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
         if(respuesta==JOptionPane.YES_OPTION){ 
-            PanelSim.simulacion.stop();
+            if(PanelSim.simulacion!=null)
+                PanelSim.simulacion.stop();
             this.setVisible(false);
             this.dispose();
             Nv login=new Nv();
