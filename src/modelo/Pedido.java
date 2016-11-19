@@ -12,6 +12,7 @@ package modelo;
 public class Pedido {
     private String origen;
     private String destino;
+    private int idPedido;
     private int cant; //cantidad de paquetes en un pedido
     private int hora;
     private int min;
@@ -185,6 +186,20 @@ public class Pedido {
      */
     public void setNumeroRastreo(String numeroRastreo) {
         this.numeroRastreo = numeroRastreo;
+    }
+
+    /**
+     * @return the idPedido
+     */
+    public int getIdPedido() {
+        return idPedido;
+    }
+
+    /**
+     * @param idPedido the idPedido to set
+     */
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
     }
     
     

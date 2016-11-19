@@ -10,6 +10,7 @@ import static constantes.constantesVentanaPrincipal.*;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -418,6 +419,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         } catch (IllegalAccessException ex) {
             Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rutearPaqActionPerformed

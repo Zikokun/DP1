@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,7 +44,7 @@ import static test1_gui_alg.Test1_gui_alg.generarRutas;
  */
 public class funcionesRuteo {
     int primeraVez=1;
-    public Cromosoma ruteoPedidosManual() throws InstantiationException, IllegalAccessException, IOException{
+    public Cromosoma ruteoPedidosManual() throws InstantiationException, IllegalAccessException, IOException, SQLException{
         String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();
@@ -66,6 +67,7 @@ public class funcionesRuteo {
         Genetico algoritmo=new Genetico();
         algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
         Cromosoma solucion=algoritmo.getMejorCrom();
+        asignarRutasBD(solucion);
         //System.out.println("HOla");
         ArrayList<Gen> genes=solucion.genes;
         for(Gen item: genes){
@@ -75,6 +77,18 @@ public class funcionesRuteo {
         return solucion;
     }
     
+    public void asignarRutasBD(Cromosoma solucion) throws InstantiationException, IllegalAccessException, SQLException{
+        ArrayList<Gen> genes=solucion.genes;
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+        PreparedStatement sqlCrearRuta; 
+        //Statement st = conexion.createStatement();
+        for(Gen item: genes){
+            sqlCrearRuta=conexion.prepareStatement("INSERT INTO avion_has_paquete VALUES (NULL,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            sqlCrearRuta.setInt(1,item.pedido.getIdPedido());
+        }
+    }
+    
     public ArrayList<Pedido> devolverPedidosTotal()throws InstantiationException, IllegalAccessException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
@@ -82,7 +96,7 @@ public class funcionesRuteo {
         String sqlBuscarPaquetes = "";
         ArrayList<Pedido> lstPaquetes = new ArrayList<>();
             
-        sqlBuscarPaquetes = " SELECT A.codCiudad,B.codCiudad, P.fechaRecepcion\n" +
+        sqlBuscarPaquetes = " SELECT A.codCiudad,B.codCiudad, P.fechaRecepcion, P.idPaquete\n" +
                                 "FROM paquete P, almacen A, almacen B\n" +
                                     "WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen;";
         
@@ -105,6 +119,7 @@ public class funcionesRuteo {
                 int diaSem=cal.get(Calendar.DAY_OF_WEEK);
                 Pedido ped = new Pedido(origen,destino,1,hora,min,dia,mes,año);
                 ped.setDiaSemana(diaSem);
+                ped.setIdPedido(resultadoBuscarPaquetes.getInt(4));
                 lstPaquetes.add(ped);
                 
                         
