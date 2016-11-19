@@ -271,7 +271,7 @@ public class funcionesPanelPaqueteBusqueda {
     }    
     
     private void limpiarJTABLE(JTable tablaPaquetes){
-         DefaultTableModel modelo=(DefaultTableModel) tablaPaquetes.getModel();
+        DefaultTableModel modelo=(DefaultTableModel) tablaPaquetes.getModel();
         for (int i = 0; i < tablaPaquetes.getRowCount(); i++) {
            modelo.removeRow(i);
            i-=1;

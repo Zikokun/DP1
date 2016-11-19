@@ -8,6 +8,8 @@ package vista;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import mapa.Mapa;
+import processing.core.PApplet;
 
 /**
  *
@@ -98,8 +100,13 @@ public class PanelSim extends javax.swing.JPanel {
         VentanaPrincipal topFrame = (VentanaPrincipal) SwingUtilities.getWindowAncestor(this);
         topFrame.remove(topFrame.pnlFrente);
         topFrame.pnlFondo.removeAll();
-        panelEjecSimu pse=new panelEjecSimu(tipoSim);
-        topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
+        //panelEjecSimu pse=new panelEjecSimu(tipoSim);
+        //topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
+        
+        PApplet mapa = new Mapa();
+        topFrame.pnlFondo.add(mapa);
+        mapa.init();
+                
         this.setVisible(false);
         topFrame.revalidate();
         topFrame.repaint();

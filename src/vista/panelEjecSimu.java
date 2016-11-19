@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultCaret;
+import mapa.Mapa;
 import modelo.Cromosoma;
 import modelo.Gen;
 import modelo.Ruta;
@@ -97,6 +98,10 @@ public class panelEjecSimu extends javax.swing.JPanel {
         }
           
         JLabel picLabel = new JLabel(new ImageIcon(mapaFondo));
+        //JLabel picLabel = new JLabel();
+        Mapa mapa = new Mapa();
+        picLabel.add(mapa);
+        mapa.init();
        
        this.setVisible(true);
        
@@ -149,7 +154,7 @@ public class panelEjecSimu extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
             
-            g.drawImage(mapaFondo, 0, 0, this.getWidth()-this.panelLog.getWidth(), this.getHeight(), this);
+            //g.drawImage(mapaFondo, 0, 0, this.getWidth()-this.panelLog.getWidth(), this.getHeight(), this);
     }
     
     /**
