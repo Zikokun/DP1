@@ -19,4 +19,7 @@ public class constantesGenerales {
     public static int CAPACIDAD_MIN_VUELO = 0;
     public static String NOMBRE_ARCH = "arch";
     public static float FACTOR_INCREMENTO = 0.1f;
+    public static int FACTOR_TIEMPO_NORMAL = 1; //representa 38 min en simulacion
+    public static int UN_MINUTO = 60; //representan 60 seg
+    public static int UNA_HORA = 24; //Representa una hora
 }

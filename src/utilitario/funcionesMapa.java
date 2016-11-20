@@ -12,8 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +25,32 @@ import java.util.logging.Logger;
  * @author gerson
  */
 public class funcionesMapa {
+    public int devolverHoraInicial() throws InstantiationException, IllegalAccessException{
+        int horaInicial = -1;
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+        
+        String sqlBuscarMenorHoraLlegada = " SELECT MIN(horaSalida) " +
+                                           " FROM vuelo; ";
+        try {
+            Statement st = conexion.createStatement();
+            ResultSet resultadoMenorHoraLlegada = st.executeQuery(sqlBuscarMenorHoraLlegada);
+            
+            while(resultadoMenorHoraLlegada!=null && resultadoMenorHoraLlegada.next()){
+                Time horaSalida = (Time) resultadoMenorHoraLlegada.getObject(1);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(horaSalida);
+                int horaS = cal.get(Calendar.HOUR_OF_DAY);
+                int minS = cal.get(Calendar.MINUTE);
+
+                horaInicial = horaS;
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(funcionesPanelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return horaInicial;
+    }
+    
     public List<Object[]> devolverDetallePaquete() throws InstantiationException, IllegalAccessException, SQLException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();

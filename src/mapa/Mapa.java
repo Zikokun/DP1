@@ -26,6 +26,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilitario.funcionesMapa;
+import vista.VentanaPrincipal;
 
 /**
  *
@@ -33,36 +34,39 @@ import utilitario.funcionesMapa;
  */
 public class Mapa extends PApplet{
     UnfoldingMap mapDay;
+    
     Integrator blendIntegrator = new Integrator(255);
     private List<Object[]> listaPaquetesRutas;
-
-    Location berlinLocation = new Location(52.5, 13.4);
-    Location dublinLocation = new Location(53.35, -6.26);
-    Location casa = new Location(-12.11493,-77.01182);
-    Location saopaulo = new Location( -23.5475000,-46.6361100);
     
     int contador = 99;
-    
-    float x = (float) 52.5;
-    float y = (float) 13.4;
+    int horaInicial = 0;
+    int minutoIncial = 0;
     
     public void setup() {
-        size(800, 600);        
-        
-        smooth();
-
-        Ani.init(this);
-        
-        mapDay = new UnfoldingMap(this, new Microsoft.AerialProvider());
-        mapDay.setZoomRange(2, 2);
-        mapDay.zoomTo(5);
-        
-        mapDay.setZoomRange(1, 3);
-        mapDay.zoomToLevel(3);
-        
-        mapDay.panTo(new Location(49.6f, 9.4f));
-        
-        MapUtils.createDefaultEventDispatcher(this, mapDay);
+        try {
+            size(800, 600);
+            funcionesMapa fMapa = new funcionesMapa();
+            horaInicial = fMapa.devolverHoraInicial();
+            
+            smooth();
+            
+            Ani.init(this);
+            
+            mapDay = new UnfoldingMap(this, new Microsoft.AerialProvider());
+            mapDay.setZoomRange(2, 2);
+            mapDay.zoomTo(5);
+            
+            mapDay.setZoomRange(1, 3);
+            mapDay.zoomToLevel(3);
+            
+            mapDay.panTo(new Location(49.6f, 9.4f));
+            
+            MapUtils.createDefaultEventDispatcher(this, mapDay);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
        
     private int obtenerColorAleatorio(){
@@ -179,12 +183,53 @@ public class Mapa extends PApplet{
         fMapa.insertarLonguitudYLatitudActualizados(lisPaquetesRutas);
     }
     
+    private void cambiarReloj(){
+        /*if(minutoIncial == 59){
+            if (horaInicial == 23) {
+                horaInicial = 0;
+            } else {
+                horaInicial++;
+            }
+            minutoIncial = 0;
+        }else{
+            minutoIncial++;
+        }*/
+        
+        if(minutoIncial + FACTOR_TIEMPO_NORMAL > 59){
+            int minAgregar = minutoIncial + FACTOR_TIEMPO_NORMAL - UN_MINUTO;
+            int horasAgregar = minAgregar / UN_MINUTO;
+            int minSobrantesAgregar = minAgregar % UN_MINUTO;
+            
+            minutoIncial = minSobrantesAgregar;
+            
+            if(horasAgregar + horaInicial > 24){
+                int horaAdicional = horasAgregar + horaInicial - UNA_HORA;
+                int horaAgregarAdicional = horaAdicional % UNA_HORA;
+                horaInicial = horaAgregarAdicional;
+            }else horaInicial++;
+        }else minutoIncial+= FACTOR_TIEMPO_NORMAL;
+        
+        String sHor = "";
+        String sMin = "";
+        
+        if(minutoIncial < 10) sMin = "0" + String.valueOf(minutoIncial);
+        else sMin = String.valueOf(minutoIncial);
+        
+        if(horaInicial < 0) sHor = "0" + String.valueOf(horaInicial);
+        else sHor = String.valueOf(horaInicial);
+        
+        String sTiempo = sHor + ":" + sMin;
+        
+        VentanaPrincipal.labelMostrarTiempoReal.setText(sTiempo);
+    }
+    
     public void draw() {
         blendIntegrator.update();
         mapDay.draw();
         tint(255, blendIntegrator.value);
         try {
             inicializacionMarcadores();
+            cambiarReloj();
             cambiarLonguitudYLatitudActuales();
             insertarCoordenadasTablas();
         } catch (InstantiationException ex) {

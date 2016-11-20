@@ -13,7 +13,8 @@ public enum constanteEstadoPaquete {
     SIN_ENVIAR ("Paquete sin Enviar"),
     EN_VUELO ("Paquete en vuelo"), 
     EN_ALMACEN ("Paquete en alamcen"), 
-    ENTREGADO ("Paquete entregado");
+    ENTREGADO ("Paquete entregado"),
+    SIN_ENVIAR_SIN_RUTA("Paquete sin Enviar y sin ruta asignada");
     
     private final String detalle;
 
