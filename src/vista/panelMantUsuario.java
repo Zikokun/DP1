@@ -86,7 +86,6 @@ public class panelMantUsuario extends javax.swing.JPanel {
         this.usuario = usuario;
         this.contrasenha = contrasenha;
         this.tipoUsuario = tipoUsuario;
-        System.out.println(this.tipoUsuario);
         initComponents();
         this.setVisible(true);
         String[] datosUsuario = new String[10];

@@ -14,6 +14,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenu;
+import vista.PanelSim;
+import vista.VentanaPrincipal;
 
 /**
  *
@@ -23,6 +25,14 @@ public class funcionesVentanaPrincipal {
     public void esconderMenu(JMenu menu){
         menu.setEnabled(false);
         menu.setVisible(false);
+    }
+    
+    public void terminarSimulacion(){
+        if (PanelSim.simulacion != null) {
+            PanelSim.simulacion.stop();
+        }
+        VentanaPrincipal.labelMostrarTiempoReal.setText("");
+        VentanaPrincipal.labelMostrarTiempoReal.setVisible(false);
     }
     
     public String devolverTipoUsuario(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{

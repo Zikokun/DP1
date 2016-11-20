@@ -140,6 +140,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelCerrarSesion = new javax.swing.JLabel();
         pnlFondo = new javax.swing.JPanel();
         pnlFrente = new javax.swing.JPanel();
+        labelMostrarTiempoReal = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         menuMiCuenta = new javax.swing.JMenu();
         menuMant = new javax.swing.JMenu();
@@ -153,6 +154,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(778, 900));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         labelBienvenido.setText("Bienvenido !");
 
@@ -263,31 +269,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(labelMostrarTiempoReal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 567, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 588, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelBienvenido)
-                                .addGap(29, 29, 29))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelOpciones)
-                                .addGap(26, 26, 26)
-                                .addComponent(labelCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(19, 19, 19))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(labelBienvenido)
+                        .addGap(29, 29, 29))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelOpciones)
+                        .addGap(26, 26, 26)
+                        .addComponent(labelCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelBienvenido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelOpciones)
-                    .addComponent(labelCerrarSesion))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelBienvenido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelOpciones)
+                            .addComponent(labelCerrarSesion)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(labelMostrarTiempoReal)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -298,6 +309,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void mantUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantUsuarioActionPerformed
         // TODO add your handling code here:
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion();
         this.remove(pnlFrente);
         pnlFondo.removeAll();
         panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario,DISTINGUIDOR);
@@ -307,6 +320,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void mantUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantUsuarioMouseClicked
         // TODO add your handling code here:
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion();
         this.remove(pnlFrente);
         panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario,DISTINGUIDOR);
         pnlFondo.add(pmu,BorderLayout.CENTER);
@@ -320,8 +335,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Object[] opciones={"Sí","No"};
         int respuesta=JOptionPane.showOptionDialog(this,"¿Estás seguro que deseas cerrar sesión?", "Cerrar Sesión",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
         if(respuesta==JOptionPane.YES_OPTION){ 
-            if(PanelSim.simulacion!=null)
-                PanelSim.simulacion.stop();
+            funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+            fVentanaPrincipal.terminarSimulacion();
             this.setVisible(false);
             this.dispose();
             Nv login=new Nv();
@@ -331,6 +346,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuRastreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRastreoMouseClicked
         // TODO add your handling code here:
+        if(PanelSim.simulacion!=null)
+                PanelSim.simulacion.stop();
         if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
@@ -342,6 +359,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuRastreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRastreoActionPerformed
         // TODO add your handling code here:
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion();
         if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
@@ -353,6 +372,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSimActionPerformed
         // TODO add your handling code here:
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion();
         if(tipoUsuario.equals(TIPO_ADMIN)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
@@ -364,6 +385,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void envoRegEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoRegEnvioActionPerformed
         // TODO add your handling code here:
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion(); 
         if(tipoUsuario.equals(TIPO_OPERARIO)){
          this.remove(pnlFrente);
          pnlFondo.removeAll();
@@ -381,6 +404,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_envoRegEnvioActionPerformed
 
     private void envioVisualizarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioVisualizarHistorialActionPerformed
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion();
         if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
             try {
                 this.remove(pnlFrente);
@@ -398,6 +423,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuMiCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMiCuentaMouseClicked
         try {
+            funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+            fVentanaPrincipal.terminarSimulacion();
             this.remove(pnlFrente);
             pnlFondo.removeAll();
             panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario);
@@ -411,6 +438,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuMiCuentaMouseClicked
 
     private void rutearPaqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rutearPaqActionPerformed
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion();
         try {
             // TODO add your handling code here:
             enrutador.ruteoPedidosManual();
@@ -424,6 +453,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rutearPaqActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion();
+    }//GEN-LAST:event_formWindowClosed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -463,6 +498,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem envoRegEnvio;
     public javax.swing.JLabel labelBienvenido;
     public javax.swing.JLabel labelCerrarSesion;
+    public static javax.swing.JLabel labelMostrarTiempoReal;
     public javax.swing.JLabel labelOpciones;
     private javax.swing.JMenuItem mantUsuario;
     private javax.swing.JMenu menuEnvio;
