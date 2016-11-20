@@ -82,7 +82,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         campoCorreo = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        registrarEnvioBoton = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -107,6 +106,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
+        registrarEnvioBoton = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(193, 189, 189));
 
@@ -116,7 +116,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         campoDNIEmisor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                campoDNIKeyTyped(evt);
+                campoDNIEmisorKeyTyped(evt);
             }
         });
 
@@ -132,11 +132,14 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jLabel14.setText("Nombre del destinatario: *");
 
-        campoApellidoP.setEnabled(false);
+        campoApellidoP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoApellidoPKeyTyped(evt);
+            }
+        });
 
         jLabel15.setText("Apellido Paterno del destinatario: *");
 
-        campoNombre.setEnabled(false);
         campoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 campoNombreKeyTyped(evt);
@@ -145,9 +148,17 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jLabel16.setText("Apellido Materno del destinatario: *");
 
-        campoApellidoM.setEnabled(false);
+        campoApellidoM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoApellidoMKeyTyped(evt);
+            }
+        });
 
-        campoCorreo.setEnabled(false);
+        campoCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoCorreoKeyTyped(evt);
+            }
+        });
 
         jLabel17.setText("Correo electrónico del destinatario: *");
 
@@ -155,15 +166,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        registrarEnvioBoton.setText("Registrar Envio");
-        registrarEnvioBoton.setToolTipText("");
-        registrarEnvioBoton.setActionCommand("RegistrarEnvio");
-        registrarEnvioBoton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registrarEnvioBotonActionPerformed(evt);
             }
         });
 
@@ -194,7 +196,6 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)
-                            .addComponent(campoApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -204,10 +205,11 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(registrarEnvioBoton)
-                                .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(25, 25, 25))))
+                            .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(campoApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,22 +232,17 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campoDNIEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoDNIEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(registrarEnvioBoton)))
+                        .addComponent(campoApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -257,7 +254,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         campoDNIReceptor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                campoDNIKeyTyped(evt);
+                campoDNIReceptorKeyTyped(evt);
             }
         });
 
@@ -273,9 +270,33 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jLabel21.setText("Nombre del remitente: *");
 
+        campoApellidoPRe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoApellidoPReKeyTyped(evt);
+            }
+        });
+
         jLabel22.setText("Apellido Paterno del remitente: *");
 
+        campoNombreRe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoNombreReKeyTyped(evt);
+            }
+        });
+
         jLabel23.setText("Apellido Materno del remitente: *");
+
+        campoApellidoMRe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoApellidoMReKeyTyped(evt);
+            }
+        });
+
+        campoCorreoRe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoCorreoReKeyTyped(evt);
+            }
+        });
 
         jLabel24.setText("Correo electrónico del remitente: *");
 
@@ -310,10 +331,12 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addGap(25, 25, 25))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoApellidoMRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoApellidoPRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22)
                             .addComponent(jLabel23))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(campoApellidoMRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -357,14 +380,40 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 campoDescripcion1ActionPerformed(evt);
             }
         });
+        campoDescripcion1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoDescripcion1KeyTyped(evt);
+            }
+        });
 
         jLabel27.setText("Descripción del envio: *");
+
+        campoDescripcion3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoDescripcion3KeyTyped(evt);
+            }
+        });
+
+        campoDescripcion2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoDescripcion2KeyTyped(evt);
+            }
+        });
 
         jLabel28.setText("1");
 
         jLabel29.setText("2");
 
         jLabel30.setText("3");
+
+        registrarEnvioBoton.setText("Registrar Envio");
+        registrarEnvioBoton.setToolTipText("");
+        registrarEnvioBoton.setActionCommand("RegistrarEnvio");
+        registrarEnvioBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarEnvioBotonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -382,15 +431,21 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoDescripcion3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoDescripcion2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel27))
-                .addContainerGap(402, Short.MAX_VALUE))
+                            .addComponent(campoDescripcion2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(402, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(registrarEnvioBoton)
+                        .addGap(54, 54, 54))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel27)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(registrarEnvioBoton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -475,7 +530,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 763, Short.MAX_VALUE)
+            .addGap(0, 832, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -498,103 +553,97 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
     private int CamposObligatorios() throws InstantiationException, IllegalAccessException{
         int cont=0;
-        String cadena="Ingresar el";
+        String cadena="Ingresar el:";
         if(campoDNIEmisor.getText().isEmpty()) {
-            cadena+= " DNI del Emisor";
+            cadena+= "\n DNI del Emisor";
             cont++;
         }
         if(campoDNIReceptor.getText().isEmpty()){
-            if(cont>1) cadena+=" -";
-            cadena+= " DNI del Receptor";
+            cadena+= "\n DNI del Receptor";
             cont++;
         }
         if(campoNombre.getText().isEmpty()) {
-            if(cont>1) cadena+=" -";
-            cadena+= " Ingresar el Nombre del Emisor";
+            cadena+= "\n Nombre del Emisor";
             cont++;
         }
         if(campoApellidoP.getText().isEmpty()) {
-            if(cont>1) cadena+=" -";
-            cadena+= " Apellido Paterno del Emisor";
+            cadena+= "\n Apellido Paterno del Emisor";
             cont++;
         }
         if(campoApellidoM.getText().isEmpty()) {
-            if(cont>1) cadena+=" -";
-            cadena+= " Apellido Materno del Emisor";
+            cadena+= "\n Apellido Materno del Emisor";
             cont++;
         }
         if(campoCorreo.getText().isEmpty()) {
-            if(cont>1) cadena+=" -";
-            cadena+= " Correo del Emisor";
+            cadena+= "\n Correo del Emisor";
             cont++;
         }
         if(campoNombreRe.getText().isEmpty()) {
-            if(cont>1) cadena+=" -";
-            cadena+= " Nombre del Receptor";
+            cadena+= "\n Nombre del Receptor";
             cont++;
         }
         if(campoApellidoPRe.getText().isEmpty()) {
-            if(cont>1) cadena+=" -";
-            cadena+= " Apellido Paterno del Receptor";
+            cadena+= "\n Apellido Paterno del Receptor";
             cont++;
         }
         if(campoApellidoMRe.getText().isEmpty()) {
-            if(cont>1) cadena+=" -";
-            cadena+= " Apellido Materno del Receptor";
+            cadena+= "\n Apellido Materno del Receptor";
             cont++;
         }
         if(campoCorreoRe.getText().isEmpty()) {
-            if(cont>1) cadena+=" -";
-            cadena+= " Correo del Receptor";
+            cadena+= "\n Correo del Receptor";
             cont++;
         }
-        if(cont>1)JOptionPane.showMessageDialog(this, cadena, "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        if(cont>0)JOptionPane.showMessageDialog(this, cadena, "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
         return cont;
     }
     
     private void RegistrarEnvio(String Descripcion) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         if(CamposObligatorios() == 0) {
-            funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
-            Paquete nuevo = new Paquete();
-            String COri = comboOrigen.getSelectedItem().toString();
-            Ciudad origen = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(COri), comboOrigen.getSelectedItem().toString(), "", "", "", "");
-            String CDes = comboDestino.getSelectedItem().toString();
-            Ciudad destino = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(CDes), comboOrigen.getSelectedItem().toString(), "", "", "", "");
+            if (CompararDatosCliente() == 0) {
+                funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
+                Paquete nuevo = new Paquete();
+                String COri = comboOrigen.getSelectedItem().toString();
+                Ciudad origen = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(COri), comboOrigen.getSelectedItem().toString(), "", "", "", "");
+                String CDes = comboDestino.getSelectedItem().toString();
+                Ciudad destino = new Ciudad(utilitarioPanelCrearEnvio.GetComboCiudad(CDes), comboOrigen.getSelectedItem().toString(), "", "", "", "");
 
-            Date fecha = new Date();
-            Timestamp fechaEnvio = new Timestamp(fecha.getTime());
-            Timestamp fechaRecepcion = new Timestamp(fecha.getTime() + 2 * 24 * 60 * 60 * 1000);
-            Cliente remitente = new Cliente();
-            Persona person = new Persona();
-            person.setDocumento(campoDNIEmisor.getText());
-            person.setNombre(campoNombre.getText());
-            person.setApellidoP(campoApellidoP.getText());
-            person.setApellidoM(campoApellidoM.getText());
-            person.setCorreo(campoCorreo.getText());
-            person.setFechaNac("24-12-2000");
-            remitente.setPersona(person);
-            Persona receptor = new Persona();
-            receptor.setDocumento(campoDNIReceptor.getText());
-            receptor.setNombre(campoNombreRe.getText());
-            receptor.setApellidoP(campoApellidoPRe.getText());
-            receptor.setApellidoM(campoApellidoMRe.getText());
-            receptor.setCorreo(campoCorreoRe.getText());
-            receptor.setFechaNac("24-12-2000");
+                Date fecha = new Date();
+                Timestamp fechaEnvio = new Timestamp(fecha.getTime());
+                Timestamp fechaRecepcion = new Timestamp(fecha.getTime() + 2 * 24 * 60 * 60 * 1000);
+                Cliente remitente = new Cliente();
+                Persona person = new Persona();
+                person.setDocumento(campoDNIEmisor.getText());
+                person.setNombre(campoNombre.getText());
+                person.setApellidoP(campoApellidoP.getText());
+                person.setApellidoM(campoApellidoM.getText());
+                person.setCorreo(campoCorreo.getText());
+                person.setFechaNac("24-12-2000");
+                remitente.setPersona(person);
+                Persona receptor = new Persona();
+                receptor.setDocumento(campoDNIReceptor.getText());
+                receptor.setNombre(campoNombreRe.getText());
+                receptor.setApellidoP(campoApellidoPRe.getText());
+                receptor.setApellidoM(campoApellidoMRe.getText());
+                receptor.setCorreo(campoCorreoRe.getText());
+                receptor.setFechaNac("24-12-2000");
 
-            nuevo.setAlamcenDestino(destino);
-            nuevo.setAlmacenOrigen(origen);
-            nuevo.setDescripcion(Descripcion);
-            nuevo.setEstado(0);
-            nuevo.setFechaEnvio(fechaEnvio);
-            nuevo.setFechaRecepcion(fechaRecepcion);
-            int numeroRastreo = utilitarioPanelCrearEnvio.GetLastNumeroRastreo() + 1;
-            nuevo.setNumeroRastreo(Integer.toString(numeroRastreo));
-            nuevo.setRemitente(remitente);
-            nuevo.setReceptor(receptor);
+                nuevo.setAlamcenDestino(destino);
+                nuevo.setAlmacenOrigen(origen);
+                nuevo.setDescripcion(Descripcion);
+                nuevo.setEstado(0);
+                nuevo.setFechaEnvio(fechaEnvio);
+                nuevo.setFechaRecepcion(fechaRecepcion);
+                int numeroRastreo = utilitarioPanelCrearEnvio.GetLastNumeroRastreo() + 1;
+                nuevo.setNumeroRastreo(Integer.toString(numeroRastreo));
+                nuevo.setRemitente(remitente);
+                nuevo.setReceptor(receptor);
 
-            utilitarioPanelCrearEnvio.CrearEnvio(nuevo);
+                utilitarioPanelCrearEnvio.CrearEnvio(nuevo);
 
-            JOptionPane.showMessageDialog(this, "Paquete registrado", "Confirmación de registro", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Paquete registrado", "Confirmación de registro", JOptionPane.INFORMATION_MESSAGE);
+                EncontrarCliente();
+            }
         }
     }
     
@@ -618,9 +667,26 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
        
     }//GEN-LAST:event_registrarEnvioBotonActionPerformed
 
-    private void EncontrarCliente() throws InstantiationException, IllegalAccessException{
+     private int CompararDatosCliente() throws InstantiationException, IllegalAccessException{
         String DNI=this.campoDNIEmisor.getText();
+        int i=0;
+        funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
+        Persona nuevo = utilitarioPanelCrearEnvio.BuscarClienteRegistrado(DNI);
 
+        if(!nuevo.getDocumento().equals("")){
+            if(!campoNombre.getText().equals(nuevo.getNombre())) i++;
+            if(!campoApellidoP.getText().equals(nuevo.getApellidoP())) i++;
+            if(!campoApellidoM.getText().equals(nuevo.getApellidoM())) i++;
+            if(!campoCorreo.getText().equals(nuevo.getCorreo())) i++;
+            if(!campoDNIEmisor.getText().equals(nuevo.getDocumento())) i++;
+        }
+        if(i>0) JOptionPane.showMessageDialog(null, "Datos no coinciden con base de datos");
+        return i;
+    }
+    
+    private int EncontrarCliente() throws InstantiationException, IllegalAccessException{
+        String DNI=this.campoDNIEmisor.getText();
+        int i=0;
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
         Persona nuevo = utilitarioPanelCrearEnvio.BuscarClienteRegistrado(DNI);
 
@@ -630,8 +696,9 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
             campoApellidoM.setText(nuevo.getApellidoM());
             campoCorreo.setText(nuevo.getCorreo());
             campoDNIEmisor.setText(nuevo.getDocumento());
+            i++;
         }else JOptionPane.showMessageDialog(null, "Cliente no se encuentra registrado");
-        
+        return i;
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -643,54 +710,119 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void campoDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDNIKeyTyped
-        if(campoDNIEmisor.getText().length()>=8) {  
-            evt.consume();
-        }
+    private void campoDNIReceptorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDNIReceptorKeyTyped
         if(campoDNIReceptor.getText().length()>=8) {  
             evt.consume();
         }
-        if(campoCorreo.getText().length()>=30) {  
+    }//GEN-LAST:event_campoDNIReceptorKeyTyped
+
+    private void campoDNIEmisorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDNIEmisorKeyTyped
+        if(campoDNIEmisor.getText().length()>=8) {  
             evt.consume();
         }
-        if(campoCorreoRe.getText().length()>=30) {  
-            evt.consume();
-        }
-    }//GEN-LAST:event_campoDNIKeyTyped
+    }//GEN-LAST:event_campoDNIEmisorKeyTyped
 
     private void campoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreKeyTyped
         char key = evt.getKeyChar();
         if(Character.isDigit(key)){
             evt.consume();
         }
-        if(campoApellidoM.getText().length()>=30) {  
-            evt.consume();
-        }
-        if(campoApellidoMRe.getText().length()>=30) {  
-            evt.consume();
-        }
-        if(campoApellidoP.getText().length()>=30) {  
-            evt.consume();
-        }
-        if(campoApellidoPRe.getText().length()>=30) {  
-            evt.consume();
-        }
-        if(campoNombre.getText().length()>=30) {  
-            evt.consume();
-        }
-        if(campoNombreRe.getText().length()>=30) {  
-            evt.consume();
-        }
-        if(campoDescripcion1.getText().length()>=30) {  
-            evt.consume();
-        }
-        if(campoDescripcion2.getText().length()>=30) {  
-            evt.consume();
-        }
-        if(campoDescripcion3.getText().length()>=30) {  
+        if(campoNombre.getText().length()>=30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoNombreKeyTyped
+
+    private void campoApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoPKeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(campoApellidoP.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoApellidoPKeyTyped
+
+    private void campoApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoMKeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(campoApellidoM.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoApellidoMKeyTyped
+
+    private void campoCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCorreoKeyTyped
+        if(campoCorreo.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoCorreoKeyTyped
+
+    private void campoNombreReKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreReKeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(campoNombreRe.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoNombreReKeyTyped
+
+    private void campoApellidoPReKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoPReKeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(campoApellidoPRe.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoApellidoPReKeyTyped
+
+    private void campoApellidoMReKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoMReKeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(campoApellidoMRe.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoApellidoMReKeyTyped
+
+    private void campoCorreoReKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCorreoReKeyTyped
+        if(campoCorreoRe.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoCorreoReKeyTyped
+
+    private void campoDescripcion1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDescripcion1KeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(campoDescripcion1.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoDescripcion1KeyTyped
+
+    private void campoDescripcion2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDescripcion2KeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(campoDescripcion2.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoDescripcion2KeyTyped
+
+    private void campoDescripcion3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDescripcion3KeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(campoDescripcion3.getText().length()>=30) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoDescripcion3KeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

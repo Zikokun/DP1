@@ -37,6 +37,49 @@ public class panelMantUsuario extends javax.swing.JPanel {
         initComponents();
         this.setVisible(true);
     }
+    
+    private int CamposObligatorios() throws InstantiationException, IllegalAccessException{
+        int cont=0;
+        String cadena="Ingresar el:";
+        if(nombreCampo.getText().isEmpty()) {
+            cadena+= "\n Contraseña";
+            cont++;
+        }
+        if(apellidoPaternoCampo.getText().isEmpty()) {
+            cadena+= "\n Apellido Paterno";
+            cont++;
+        }
+        if(apellidoMaternoCampo.getText().isEmpty()){
+            cadena+= "\n Apellido Materno";
+            cont++;
+        }
+        if(fechaNacimientoCampo.getText().isEmpty()) {
+            cadena+= "\n Fecha de Nacimiento";
+            cont++;
+        }
+        if(direccionCampo.getText().isEmpty()) {
+            cadena+= "\n Dirección";
+            cont++;
+        }
+        if(correoCampo.getText().isEmpty()) {
+            cadena+= "\n Correo";
+            cont++;
+        }
+        if(docIdentidadCampo.getText().isEmpty()) {
+            cadena+= "\n Documento de Identidad";
+            cont++;
+        }
+        if(usuarioCampo.getText().isEmpty()) {
+            cadena+= "\n Nombre de Usuario";
+            cont++;
+        }
+        if(contrasenhaCampo.getText().isEmpty()) {
+            cadena+= "\n Contraseña";
+            cont++;
+        }
+        if(cont>0)JOptionPane.showMessageDialog(this, cadena, "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        return cont;
+    }
 
     public panelMantUsuario(String usuario, String contrasenha,String tipoUsuario) throws InstantiationException, IllegalAccessException {
                 
@@ -134,19 +177,19 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         nombreCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                CampoKeyTyped(evt);
+                nombreCampoKeyTyped(evt);
             }
         });
 
         apellidoPaternoCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                CampoKeyTyped(evt);
+                apellidoPaternoCampoKeyTyped(evt);
             }
         });
 
         apellidoMaternoCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                CampoKeyTyped(evt);
+                apellidoMaternoCampoKeyTyped(evt);
             }
         });
 
@@ -154,7 +197,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         fechaNacimientoCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                NumeroCampoKeyPressed(evt);
+                fechaNacimientoCampoKeyTyped(evt);
             }
         });
 
@@ -171,7 +214,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         direccionCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                NumeroCampoKeyPressed(evt);
+                direccionCampoKeyTyped(evt);
             }
         });
 
@@ -179,7 +222,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         correoCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                NumeroCampoKeyPressed(evt);
+                correoCampoKeyTyped(evt);
             }
         });
 
@@ -189,7 +232,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         docIdentidadCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                NumeroCampoKeyPressed(evt);
+                docIdentidadCampoKeyTyped(evt);
             }
         });
 
@@ -204,7 +247,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         usuarioCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                CampoKeyTyped(evt);
+                usuarioCampoKeyTyped(evt);
             }
         });
 
@@ -212,7 +255,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         contrasenhaCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                NumeroCampoKeyPressed(evt);
+                contrasenhaCampoKeyTyped(evt);
             }
         });
 
@@ -332,32 +375,40 @@ public class panelMantUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_tipoUsuarioComboBoxActionPerformed
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
-        String nombre = nombreCampo.getText();
-        String apellidoP = apellidoPaternoCampo.getText();
-        String apellidoM = apellidoMaternoCampo.getText();
-        String fechaNac = fechaNacimientoCampo.getText();
-        String direccion = direccionCampo.getText();
-        String correo = correoCampo.getText();
-        String documento = docIdentidadCampo.getText();
-        String usuario = usuarioCampo.getText();
-        String contrasenhia = contrasenhaCampo.getText();
-        
-        String tipoUsuario = (String)this.tipoUsuarioComboBox.getSelectedItem();
-        String tipoDocumento = "DNI";
-        
-        Persona usuarioNuevo = new Persona(nombre,apellidoP,apellidoM,fechaNac,direccion,correo,documento,usuario,contrasenhia);
-        
-        funcionesPanelMantUsuario utilitarioMantenimientos = new funcionesPanelMantUsuario();
         try {
-            String mensaje = utilitarioMantenimientos.RegistrarUsuario(usuarioNuevo,tipoUsuario);
-            JOptionPane.showMessageDialog(null, mensaje);
-        }catch (SQLException ex) {
-                Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (InstantiationException ex) {
+            if (CamposObligatorios() == 0) {
+                String nombre = nombreCampo.getText();
+                String apellidoP = apellidoPaternoCampo.getText();
+                String apellidoM = apellidoMaternoCampo.getText();
+                String fechaNac = fechaNacimientoCampo.getText();
+                String direccion = direccionCampo.getText();
+                String correo = correoCampo.getText();
+                String documento = docIdentidadCampo.getText();
+                String usuario = usuarioCampo.getText();
+                String contrasenhia = contrasenhaCampo.getText();
+                
+                String tipoUsuario = (String) this.tipoUsuarioComboBox.getSelectedItem();
+                String tipoDocumento = "DNI";
+                
+                Persona usuarioNuevo = new Persona(nombre, apellidoP, apellidoM, fechaNac, direccion, correo, documento, usuario, contrasenhia);
+                
+                funcionesPanelMantUsuario utilitarioMantenimientos = new funcionesPanelMantUsuario();
+                try {
+                    String mensaje = utilitarioMantenimientos.RegistrarUsuario(usuarioNuevo, tipoUsuario);
+                    JOptionPane.showMessageDialog(null, mensaje);
+                } catch (SQLException ex) {
+                    Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (InstantiationException ex) {
             Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (IllegalAccessException ex) {
-                Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (IllegalAccessException ex) {
             Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
@@ -373,7 +424,27 @@ public class panelMantUsuario extends javax.swing.JPanel {
         VentanaPrincipal.pnlFondo.repaint();
     }//GEN-LAST:event_regresarBotonMouseClicked
 
-    private void CampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CampoKeyTyped
+    private void nombreCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreCampoKeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(nombreCampo.getText().length()>=30) {  
+            evt.consume();
+        }
+    }//GEN-LAST:event_nombreCampoKeyTyped
+
+    private void apellidoPaternoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellidoPaternoCampoKeyTyped
+        char key = evt.getKeyChar();
+        if(Character.isDigit(key)){
+            evt.consume();
+        }
+        if(apellidoPaternoCampo.getText().length()>=30) {  
+            evt.consume();
+        }
+    }//GEN-LAST:event_apellidoPaternoCampoKeyTyped
+
+    private void apellidoMaternoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellidoMaternoCampoKeyTyped
         char key = evt.getKeyChar();
         if(Character.isDigit(key)){
             evt.consume();
@@ -381,34 +452,43 @@ public class panelMantUsuario extends javax.swing.JPanel {
         if(apellidoMaternoCampo.getText().length()>=30) {  
             evt.consume();
         }
-        if(apellidoPaternoCampo.getText().length()>=30) {  
-            evt.consume();
-        }
+    }//GEN-LAST:event_apellidoMaternoCampoKeyTyped
+
+    private void usuarioCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioCampoKeyTyped
         if(usuarioCampo.getText().length()>=30) {  
             evt.consume();
         }
-        if(nombreCampo.getText().length()>=30) {  
-            evt.consume();
-        }
-    }//GEN-LAST:event_CampoKeyTyped
+    }//GEN-LAST:event_usuarioCampoKeyTyped
 
-    private void NumeroCampoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NumeroCampoKeyPressed
+    private void docIdentidadCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_docIdentidadCampoKeyTyped
         if(docIdentidadCampo.getText().length()>=8) {  
             evt.consume();
         }
+    }//GEN-LAST:event_docIdentidadCampoKeyTyped
+
+    private void fechaNacimientoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaNacimientoCampoKeyTyped
         if(fechaNacimientoCampo.getText().length()>=10) {  
             evt.consume();
         }
-        if(contrasenhaCampo.getText().length()>=8) {  
-            evt.consume();
-        }
-        if(correoCampo.getText().length()>=10) {  
-            evt.consume();
-        }
+    }//GEN-LAST:event_fechaNacimientoCampoKeyTyped
+
+    private void direccionCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionCampoKeyTyped
         if(direccionCampo.getText().length()>=8) {  
             evt.consume();
         }
-    }//GEN-LAST:event_NumeroCampoKeyPressed
+    }//GEN-LAST:event_direccionCampoKeyTyped
+
+    private void contrasenhaCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contrasenhaCampoKeyTyped
+        if(contrasenhaCampo.getText().length()>=8) {  
+            evt.consume();
+        }
+    }//GEN-LAST:event_contrasenhaCampoKeyTyped
+
+    private void correoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoCampoKeyTyped
+        if(correoCampo.getText().length()>=10) {  
+            evt.consume();
+        }
+    }//GEN-LAST:event_correoCampoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

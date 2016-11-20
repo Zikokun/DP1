@@ -200,4 +200,37 @@ public class funcionesPanelCrearEnvio {
         }
         return cadena;
     }
+    
+    public String CrearEnvioExponencial(int IDO, int IDD, String rastreo) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        //System.out.println(cc);
+        Connection conexion = cc.conexion();//null
+        String cadena="";
+        int llaveGeneradaPersona = -1;
+        
+        try {
+            PreparedStatement sqlCrearEnvio = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,?,?,?,?,?,0,0)",PreparedStatement.RETURN_GENERATED_KEYS);
+            Date date= new Date();
+	 long time = date.getTime();
+	 Timestamp ts = new Timestamp(time);
+            sqlCrearEnvio.setString(1, rastreo);
+            sqlCrearEnvio.setInt(2, IDO);
+            sqlCrearEnvio.setInt(3, IDD);
+            sqlCrearEnvio.setTimestamp(4, ts);
+            sqlCrearEnvio.setTimestamp(5, ts);
+            sqlCrearEnvio.setString(6,"");
+            sqlCrearEnvio.setInt(7, 0);
+            sqlCrearEnvio.setInt(8, 00000000);
+            sqlCrearEnvio.setInt(9, 00000000);
+            int rows = sqlCrearEnvio.executeUpdate();
+            
+            ResultSet rs = sqlCrearEnvio.getGeneratedKeys();
+            if (rs != null && rs.next()) {
+                llaveGeneradaPersona = rs.getInt(1);
+            }            
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, "Error al registrar un usuario", ex);
+        }
+        return cadena;
+    }
 }
