@@ -60,14 +60,60 @@ public class funcionesMapa {
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
         
-        for(int i = 0; i < listaRutasActualizadas.size(); i++){
-            int idPaquete = (Integer)listaRutasActualizadas.get(i)[0];
-            float longuitudActual = (float)listaRutasActualizadas.get(i)[1];
-            float latitudActual = (float)listaRutasActualizadas.get(i)[2];
+        try {
+            for(int i = 0; i < listaRutasActualizadas.size(); i++){
+                int idPaquete = (Integer)listaRutasActualizadas.get(i)[0];
+                float longuitudActual = (float)listaRutasActualizadas.get(i)[1];
+                float latitudActual = (float)listaRutasActualizadas.get(i)[2];
 
-            PreparedStatement sqlActualizarLongYLatActuales = conexion.prepareStatement(" UPDATE `paquete` SET `longuitud`='" + longuitudActual + "', `latitud`='" + latitudActual + "' WHERE `idPaquete`='"+ idPaquete +"'; ");
-            int rows = sqlActualizarLongYLatActuales.executeUpdate();
+                float longuitudDestino = (float)listaRutasActualizadas.get(i)[5];
+                float latitudDestino = (float)listaRutasActualizadas.get(i)[6];
+
+                //Cambio posición actual del paquete
+                PreparedStatement sqlActualizarLongYLatActuales = conexion.prepareStatement(" UPDATE `paquete` SET `longuitud`='" + longuitudActual + "', `latitud`='" + latitudActual + "' WHERE `idPaquete`='"+ idPaquete +"'; ");
+                int rows = sqlActualizarLongYLatActuales.executeUpdate();
+
+                //Verifico si el avion ya llegó a su destino
+                if (((longuitudActual <= longuitudDestino + 0.2f) && (longuitudActual >= longuitudDestino - 0.2f))
+                        || ((latitudActual <= latitudDestino + 0.2f) && (latitudActual >= latitudDestino - 0.2f))) { //Se llego a su destino, se trabaj asi por que son float
+                    String sqlBuscarActual = "SELECT Avion_idAvion, Paquete_idPaquete " +
+                                             " FROM avion_has_paquete " +
+                                             " WHERE estado = " + ACTIVO.ordinal() + " AND Paquete_idPaquete = " + idPaquete +"; ";
+
+                    Statement st = conexion.createStatement();
+                    ResultSet resultadoBuscarActuales = st.executeQuery(sqlBuscarActual);
+
+                    while(resultadoBuscarActuales!=null && resultadoBuscarActuales.next()){ //Si no entra es por que ya llego a su ruta final
+                        int idVueloActual = resultadoBuscarActuales.getInt(1);
+                        int idPaqueteActual = resultadoBuscarActuales.getInt(2);
+                        
+                        String sqlBuscarSiguientes = " SELECT M.Avion_idAvion, M.Paquete_idPaquete " +
+                                                     " FROM avion_has_paquete M, vuelo W " +
+                                                     " WHERE M.Paquete_idPaquete = " + idPaquete + " AND M.estado = " + INACTIVO.ordinal() + " AND " + 
+                                                     " M.Avion_idAvion = W.idVuelo AND W.idLugarOrigen = (SELECT V.idLugarDestino " +
+                                                                                                   " FROM avion_has_paquete H, vuelo V " +
+                                                                                                   " WHERE H.Paquete_idPaquete = " + idPaquete + " AND H.Avion_idAvion = V.idVuelo AND H.estado = " + ACTIVO.ordinal() +");";
+                        
+                        Statement stBuscarSiguiente = conexion.createStatement();
+                        ResultSet resultadoBuscarSiguientes = stBuscarSiguiente.executeQuery(sqlBuscarSiguientes);
+                        
+                        while(resultadoBuscarSiguientes!=null && resultadoBuscarSiguientes.next()){ //Si no entra era poe que es su destino final, si entra es por que hay mas rutas aun
+                            int idVueloSiguiente = resultadoBuscarSiguientes.getInt(1);
+                            int idPaqueteSiguiente = resultadoBuscarSiguientes.getInt(2);
+                            
+                            PreparedStatement sqlVueloSiguiente = conexion.prepareStatement(" UPDATE `avion_has_paquete` SET `estado`='" + ACTIVO.ordinal() +"' WHERE `Avion_idAvion`='" + idVueloSiguiente + "' and `Paquete_idPaquete`='" + idPaqueteSiguiente + "'; ");
+                            int rowsVueloSiguiente = sqlVueloSiguiente.executeUpdate();
+                        }
+                        
+                        PreparedStatement sqlVueloActual = conexion.prepareStatement(" UPDATE `avion_has_paquete` SET `estado`='" + INACTIVO.ordinal() +"' WHERE `Avion_idAvion`='" + idVueloActual + "' and `Paquete_idPaquete`='" + idPaqueteActual + "'; ");
+                        int rowsVueloActual = sqlVueloActual.executeUpdate();
+                    }
+                }
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(funcionesPanelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         conexion.close();
     }
 }

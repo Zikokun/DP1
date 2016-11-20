@@ -19,8 +19,10 @@ import java.nio.file.Files;
 import org.apache.logging.log4j.core.jackson.SimpleMessageDeserializer;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.providers.*;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilitario.funcionesMapa;
@@ -51,7 +53,6 @@ public class Mapa extends PApplet{
 
         Ani.init(this);
         
-        //mapDay = new UnfoldingMap(this,new OpenStreetMap.OpenStreetMapProvider());
         mapDay = new UnfoldingMap(this, new Microsoft.AerialProvider());
         mapDay.setZoomRange(2, 2);
         mapDay.zoomTo(5);
@@ -60,19 +61,20 @@ public class Mapa extends PApplet{
         mapDay.zoomToLevel(3);
         
         mapDay.panTo(new Location(49.6f, 9.4f));
-
-        //Agregar marcadores
-        /*SimplePointMarker casaMarcador = new SimplePointMarker(casa);
-        casaMarcador.setColor(color(255, 0, 0, 100));
-        mapDay.addMarker(casaMarcador);
-        
-        SimplePointMarker casaSaoPaulo = new SimplePointMarker(saopaulo);
-        casaMarcador.setColor(color(0, 255, 0, 100));
-        mapDay.addMarker(casaSaoPaulo);*/
         
         MapUtils.createDefaultEventDispatcher(this, mapDay);
     } 
        
+    private int obtenerColorAleatorio(){
+        Random rand = new Random();
+        float r = (float) (rand.nextFloat() / 2f + 0.5);
+        float g = (float) (rand.nextFloat() / 2f + 0.5);
+        float b = (float) (rand.nextFloat() / 2f + 0.5);
+
+        int randomColor = Color.HSBtoRGB(r, g, b);
+        return randomColor;
+    }
+    
     private void inicializacionMarcadores() throws InstantiationException, IllegalAccessException, SQLException{
         contador++;
         if (contador % 100 == 0) {
@@ -92,17 +94,20 @@ public class Mapa extends PApplet{
             Object[] ruta = lisPaquetesRutas.get(i);
             float longuitud = (float)ruta[1];
             float latitud = (float)ruta[2];
+            boolean esPrimeraVezVuelo = false;
             
             if(longuitud == 0 && latitud == 0){
                 longuitud = (float)ruta[3];
                 latitud = (float)ruta[4];
+                esPrimeraVezVuelo = true;
             }
             ruta[1] = longuitud;
             ruta[2] = latitud;
                 
             Location ubicacion = new Location(longuitud,latitud);
             SimplePointMarker ubicacionMarcador = new SimplePointMarker(ubicacion);
-            ubicacionMarcador.setColor(color(255, 0, 0, 100));
+            //ubicacionMarcador.setColor(color(255, 0, 0, 100));
+            if(esPrimeraVezVuelo) ubicacionMarcador.setColor(obtenerColorAleatorio());
             mapDay.addMarker(ubicacionMarcador);
         }
     }
@@ -112,10 +117,6 @@ public class Mapa extends PApplet{
         boolean llegoDestinoLonguitud = false;
         boolean llegoDestinoLatitud = false;
         
-        /*System.out.println("Posicion actual: " + (float)ruta[1] + " - " + (float)ruta[2] + " Diferencia: " + diferenciaLonguitud + " " + diferenciaLatitud);
-        System.out.println("Posicion Origen: " + (float)ruta[3] + " - " + (float)ruta[4]+ " Diferencia: " + diferenciaLonguitud + " " + diferenciaLatitud);
-        System.out.println("Posicion Destino: " + (float)ruta[5] + " - " + (float)ruta[6]+ " Diferencia: " + diferenciaLonguitud + " " + diferenciaLatitud);*/
-       
         if(diferenciaLonguitud > 0){
             if((float)ruta[1] > (float)ruta[5]){
                 llegoDestinoLonguitud = true;
@@ -168,7 +169,7 @@ public class Mapa extends PApplet{
 
             this.listaPaquetesRutas.get(i)[1] = nuevaLonguitud;
             this.listaPaquetesRutas.get(i)[2] = nuevaLatitud;
-        }
+        } 
     }
     
     private void insertarCoordenadasTablas() throws InstantiationException, IllegalAccessException, SQLException{
@@ -200,17 +201,11 @@ public class Mapa extends PApplet{
         Ani.from(this, (float) 1.5, "x", mouseX, Ani.QUINT_IN_OUT);
         Ani.from(this, (float) 1.5, "y", mouseY, Ani.QUINT_IN_OUT);
     }
-    
-    /**
-     * @return the listaPaquetesRutas
-     */
+
     public List<Object[]> getListaPaquetesRutas() {
         return listaPaquetesRutas;
     }
 
-    /**
-     * @param listaPaquetesRutas the listaPaquetesRutas to set
-     */
     public void setListaPaquetesRutas(List<Object[]> listaPaquetesRutas) {
         this.listaPaquetesRutas = listaPaquetesRutas;
     }
