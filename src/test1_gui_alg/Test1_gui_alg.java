@@ -30,9 +30,9 @@ public class Test1_gui_alg {
         //System.out.println(mensaje);
 //        funcionesPanelSimulacion func=new funcionesPanelSimulacion();
 //        func.calculaRegExp(nombArch);
-         Lectura.leerArchPedidos();
-        //Nv nv= new Nv();
-        //nv.setVisible(true);
+         //Lectura.leerArchPedidos();
+        Nv nv= new Nv();
+        nv.setVisible(true);
     }
     
     public static String principal() throws InstantiationException, IllegalAccessException{
