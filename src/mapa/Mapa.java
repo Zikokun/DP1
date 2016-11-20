@@ -47,7 +47,7 @@ public class Mapa extends PApplet{
             size(800, 600);
             funcionesMapa fMapa = new funcionesMapa();
             horaInicial = fMapa.devolverHoraInicial();
-            
+            VentanaPrincipal.labelMostrarTiempoReal.setVisible(true);
             smooth();
             
             Ani.init(this);

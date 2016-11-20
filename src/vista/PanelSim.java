@@ -25,7 +25,6 @@ public class PanelSim extends javax.swing.JPanel {
     public static PApplet simulacion;
     public PanelSim() {
         initComponents();
-        
     }
 
     /**
