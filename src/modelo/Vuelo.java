@@ -8,6 +8,7 @@ package modelo;
 import java.util.ArrayList;
 
 public class Vuelo {
+    private int idVuelo;
     private int hSalida;
     private int mSalida;
     private int hLlegada;
@@ -16,7 +17,7 @@ public class Vuelo {
     private String destino;
     private String tipoVuelo;
     private int tiempo;
-    private int capacidad=250;
+    private int capacidad=200;
     private Ciudad aeroOrig;
     private Ciudad aeroFin;
     private ArrayList<Integer> capTiempo = new ArrayList<>(); // capacidades en el tiempo
@@ -174,5 +175,19 @@ public class Vuelo {
 
     public void setCapTiempoAux(ArrayList<Integer> capTiempoAux) {
         this.capTiempoAux = capTiempoAux;
+    }
+
+    /**
+     * @return the idVuelo
+     */
+    public int getIdVuelo() {
+        return idVuelo;
+    }
+
+    /**
+     * @param idVuelo the idVuelo to set
+     */
+    public void setIdVuelo(int idVuelo) {
+        this.idVuelo = idVuelo;
     }
 }

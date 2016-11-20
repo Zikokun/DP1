@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,17 +45,22 @@ import static test1_gui_alg.Test1_gui_alg.generarRutas;
  */
 public class funcionesRuteo {
     int primeraVez=1;
+    ArrayList<Vuelo> vuelos=new ArrayList<>();
+    TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
+    
     public Cromosoma ruteoPedidosManual() throws InstantiationException, IllegalAccessException, IOException, SQLException{
         String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();
-        TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
-        ArrayList<Vuelo> vuelos=new ArrayList<>();
+        //TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
+        //ArrayList<Vuelo> vuelos=new ArrayList<>();
+        
         ArrayList<Pedido> pedidos=devolverPedidosTotal();
         
         if(primeraVez==1){
-            lector.leerSinPedidos("src/recursos/_aeropuertos.OACI.txt", "src/recursos/_plan_vuelo.txt",
-                "src/recursos/_husos_horarios.txt", vuelos, ciudades);
+            lector.leerSinPedidosYVuelos("src/recursos/_aeropuertos.OACI.txt", 
+                "src/recursos/_husos_horarios.txt", ciudades);
+            vuelos=devolverVuelosTotal();
             asignarTipoVuelo(vuelos,ciudades);
             generarRutas(ciudades);            
             primeraVez=0;
@@ -84,9 +90,60 @@ public class funcionesRuteo {
         PreparedStatement sqlCrearRuta; 
         //Statement st = conexion.createStatement();
         for(Gen item: genes){
-            sqlCrearRuta=conexion.prepareStatement("INSERT INTO avion_has_paquete VALUES (NULL,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
-            sqlCrearRuta.setInt(1,item.pedido.getIdPedido());
+            ArrayList<Vuelo> vuelos=item.getRuta().getVuelos();
+            int cantVuelos=vuelos.size();
+            int codPed=item.pedido.getIdPedido();   
+            for(int i=0;i<cantVuelos;i++){
+                sqlCrearRuta=conexion.prepareStatement("INSERT INTO avion_has_paquete VALUES (?,?,NULL,NULL,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+                sqlCrearRuta.setInt(1,vuelos.get(i).getIdVuelo());
+                sqlCrearRuta.setInt(2,codPed);
+                if(i==0) sqlCrearRuta.setInt(3,0);
+                else sqlCrearRuta.setInt(3,1);
+                sqlCrearRuta.executeUpdate();
+            }
+            
         }
+    }
+    
+    public ArrayList<Vuelo> devolverVuelosTotal() throws InstantiationException, IllegalAccessException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+            
+        String sqlBuscarVuelos = "";
+        ArrayList<Vuelo> lstVuelos = new ArrayList<>();
+        
+        sqlBuscarVuelos="SELECT V.idVuelo, A.codCiudad, B.codCiudad, V.horaSalida, V.horaLlegada\n" +
+                        "FROM vuelo V, almacen A, almacen B\n" +
+                        "WHERE  V.idLugarOrigen=A.idAlmacen AND V.idLugarDestino=B.idAlmacen\n" +
+                        "ORDER BY V.idVuelo;";
+        Statement st;
+        try {
+            st = conexion.createStatement();
+            ResultSet resultadoBuscarVuelos = st.executeQuery(sqlBuscarVuelos);
+            while(resultadoBuscarVuelos!=null && resultadoBuscarVuelos.next()){
+                
+                int codVuelo=resultadoBuscarVuelos.getInt(1);
+                String origen = resultadoBuscarVuelos.getString(2);
+                String destino = resultadoBuscarVuelos.getString(3);
+                Time horaSalida = (Time) resultadoBuscarVuelos.getObject(4);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(horaSalida);  
+                int horaS = cal.get(Calendar.HOUR_OF_DAY);
+                int minS=cal.get(Calendar.MINUTE);
+                Time horaLlegada=(Time) resultadoBuscarVuelos.getObject(5);
+                cal.setTime(horaLlegada);
+                int horaL = cal.get(Calendar.HOUR_OF_DAY);
+                int minL=cal.get(Calendar.MINUTE);
+                Vuelo vuel = new Vuelo(horaS, minS, horaL, minL, origen, destino);
+                vuel.setIdVuelo(codVuelo);
+                lstVuelos.add(vuel);
+                //System.out.println(codVuelo+"-"+origen+"-"+destino+"-"+horaS+":"+minS+"-"+horaL+":"+minL);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesRuteo.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        return lstVuelos;
     }
     
     public ArrayList<Pedido> devolverPedidosTotal()throws InstantiationException, IllegalAccessException{

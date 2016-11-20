@@ -38,10 +38,8 @@ public class Lectura {
         leerHusos(archHusos, aeropuertos);
     }
 
-    public void leerSinPedidos(String archAeropuertos, String archVuelos, String archHusos,
-            ArrayList<Vuelo> vuelos, TreeMap<String, Ciudad> aeropuertos){
+    public void leerSinPedidosYVuelos(String archAeropuertos, String archHusos, TreeMap<String, Ciudad> aeropuertos){
         leerAeropuertos(archAeropuertos, aeropuertos);
-        leerVuelos(archVuelos, vuelos);
         leerHusos(archHusos, aeropuertos);
     }
     
