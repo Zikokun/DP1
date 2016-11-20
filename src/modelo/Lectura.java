@@ -22,6 +22,7 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilitario.funcionesInicializarBaseDatos;
+import utilitario.funcionesPanelSimulacion;
 
 /**
  *
@@ -295,5 +296,146 @@ public class Lectura {
         } catch (ParseException ex) {
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+        public static String[] leeCodAero(){
+        String linea;
+        
+        String[] aeropuertos=new String[40];
+        String[] valor;
+        String continente = "";
+        String codAeropuerto;
+        int cont=0;
+        
+        try {
+            BufferedReader bufer = new BufferedReader(new FileReader("src/recursos/_aeropuertos.OACI.txt"));
+            while ((linea = bufer.readLine()) != null) {
+                if (linea.contains("America del Sur")) {
+                    continente = "America del Sur";
+                    break;
+                }
+            }
+            while ((linea = bufer.readLine()) != null) {
+                if (linea.contains("Europa")) {
+                    continente = "Europa";
+                    continue;
+                }
+                valor = linea.trim().split("\t");
+                if (valor[0].isEmpty()) {
+                    continue;
+                }
+                codAeropuerto = valor[1];
+                
+                aeropuertos[cont]=codAeropuerto;
+                cont++;
+            }
+            bufer.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int i=0;
+        
+       
+        return aeropuertos;
+    }
+            public static void leerArchPedidos(){
+        String linea;
+        String[] valor;
+        String origen, destino;
+        int cant;
+        int hora, min;
+        int dia, mes, año;
+         BufferedReader bufer;
+         String[] aeropuertos = null;
+         double[][] arrCoefReg = null;
+         funcionesPanelSimulacion func= new funcionesPanelSimulacion();
+         //lee aeropuertos
+            aeropuertos=leeCodAero();
+         //
+          
+         for(int i=0;i<aeropuertos.length;i++){
+            String nombre="src/recursos/arch_";
+            nombre=nombre.concat(aeropuertos[i]);
+            nombre=nombre.concat(".txt");
+            func.calculaRegExp(nombre);
+            //arrCoefReg[i]=leerPedidoxAeropuertoD(nombre);
+            
+           
+        }
+    }
+    public static double[] leerPedidoxAeropuerto(String archPedidos){
+        String linea;
+        String[] valor;
+        String origen, destino;
+        int cant;
+        int hora, min;
+        int dia, mes, año;
+        double[] intArr={0,0,0,0,0,0,0,0,0,0,0,0};
+        double[] intArrD=new double[312];
+        for(int i=0;i<312;i++)
+            intArrD[i]=0.0;
+        
+        BufferedReader bufer;
+        try {
+            bufer = new BufferedReader(new FileReader(archPedidos));
+            while((linea=bufer.readLine())!= null){
+           
+                valor=linea.trim().split(":");
+                if(valor[0].isEmpty())
+                    continue;
+                mes=Integer.parseInt(valor[0].substring(13, 15));
+                //dia=Integer.parseInt(valor[0].substring(15, 17));
+                //System.out.println(mes);
+               // System.out.println(dia);
+                //int pos=(dia-1)+((mes-1)*26);
+                //intArrD[pos]+=1;
+                intArr[mes-1]+=1;
+                
+            }
+            bufer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return intArr;
+    }
+    public static double[] leerPedidoxAeropuertoD(String archPedidos){
+        String linea;
+        String[] valor;
+        String origen, destino;
+        int cant;
+        int hora, min;
+        int dia, mes, año;
+        double[] intArr={0,0,0,0,0,0,0,0,0,0,0,0};
+        double[] intArrD=new double[312];
+        for(int i=0;i<312;i++)
+            intArrD[i]=0.0;
+        
+        BufferedReader bufer;
+        try {
+            bufer = new BufferedReader(new FileReader(archPedidos));
+            while((linea=bufer.readLine())!= null){
+           
+                valor=linea.trim().split(":");
+                if(valor[0].isEmpty())
+                    continue;
+                mes=Integer.parseInt(valor[0].substring(13, 15));
+                dia=Integer.parseInt(valor[0].substring(15, 17));
+                //System.out.println(mes);
+               // System.out.println(dia);
+                int pos=(dia-1)+((mes-1)*26);
+                intArrD[pos]+=1;
+                
+            }
+            bufer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return intArrD;
     }
 }
