@@ -336,7 +336,7 @@ public class Lectura {
        
         return aeropuertos;
     }
-            public static void leerArchPedidos(){
+    public static void leerArchPedidos(){
         String linea;
         String[] valor;
         String origen, destino;
@@ -399,6 +399,97 @@ public class Lectura {
         
         return intArr;
     }
+    public static double[] leerPedidoxAeropuerto_full(String archPedidos){
+        String linea;
+        String[] valor;
+        String[] valor2;
+        String[] valor3;
+        String nombreArchPed;
+        String origen, destino;
+        int cant;
+        int hora, min;
+        int dia, mes, año;
+        double[] intArr={0,0,0,0,0,0,0,0,0,0,0,0};
+        double[] intArrD=new double[312];
+        for(int i=0;i<312;i++)
+            intArrD[i]=0.0;
+        
+        BufferedReader bufer,bufer3;
+        try {
+            bufer = new BufferedReader(new FileReader(archPedidos));
+            while((linea=bufer.readLine())!= null){
+           
+                valor=linea.trim().split(":");
+                if(valor[0].isEmpty())
+                    continue;
+                mes=Integer.parseInt(valor[0].substring(13, 15));
+                //dia=Integer.parseInt(valor[0].substring(15, 17));
+                //System.out.println(mes);
+               // System.out.println(dia);
+                //int pos=(dia-1)+((mes-1)*26);
+                //intArrD[pos]+=1;
+                intArr[mes-1]+=1;
+                
+            }
+            bufer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /////////////////////////////////////////////////////
+        String aux[]=archPedidos.split("_");
+        nombreArchPed="src/recursos/dest_"+aux[1];
+        /////////////////////////////////////////////////////
+        BufferedReader bufer2;
+        try {
+            bufer2 = new BufferedReader(new FileReader(archPedidos));
+            while((linea=bufer2.readLine())!= null){
+           
+                valor2=linea.trim().split(":");
+                if(valor2[0].isEmpty())
+                    continue;
+                mes=Integer.parseInt(valor2[0].substring(13, 15));
+                //dia=Integer.parseInt(valor[0].substring(15, 17));
+                //System.out.println(mes);
+               // System.out.println(dia);
+                //int pos=(dia-1)+((mes-1)*26);
+                //intArrD[pos]+=1;
+                intArr[mes-1]+=1;
+                
+            }
+            bufer2.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ////////////////////////////////////////////////////////////////
+        String archPaquetes="src/recursos/paquetes_vuelos.txt";
+        ////////////////////////////////////////////////////////////////
+        try {
+            bufer3 = new BufferedReader(new FileReader(archPaquetes));
+            while((linea=bufer3.readLine())!= null){
+           
+                valor3=linea.trim().split("-");
+                if(valor3[0].isEmpty())
+                    continue;
+                if(aux[1].equals(valor3[2])){
+                    mes=Integer.parseInt(valor3[1].substring(4, 6));
+                    //dia=Integer.parseInt(valor3[1].substring(6, 8));
+                    //System.out.println(mes);
+                   // System.out.println(dia);
+                    intArr[mes-1]+=1;
+                }
+            }
+            bufer3.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return intArr;
+    }
     public static double[] leerPedidoxAeropuertoD(String archPedidos){
         String linea;
         String[] valor;
@@ -434,6 +525,95 @@ public class Lectura {
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        return intArrD;
+    }
+     public static double[] leerPedidoxAeropuertoD_full(String archPedidos){
+        String linea;
+        String[] valor;
+        String[] valor2;
+        String[] valor3;
+        String nombreArchPed;
+        int cant;
+        int hora, min;
+        int dia, mes, año;
+        double[] intArr={0,0,0,0,0,0,0,0,0,0,0,0};
+        double[] intArrD=new double[312];
+        for(int i=0;i<312;i++)
+            intArrD[i]=0.0;
+        
+        BufferedReader bufer,bufer2,bufer3;
+        try {
+            bufer = new BufferedReader(new FileReader(archPedidos));
+            while((linea=bufer.readLine())!= null){
+           
+                valor=linea.trim().split(":");
+                if(valor[0].isEmpty())
+                    continue;
+                mes=Integer.parseInt(valor[0].substring(13, 15));
+                dia=Integer.parseInt(valor[0].substring(15, 17));
+                //System.out.println(mes);
+               // System.out.println(dia);
+                int pos=(dia-1)+((mes-1)*26);
+                intArrD[pos]+=1;
+                
+            }
+            bufer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /////cambiar el nombre para acceder a otro archivo de donde se sacaran datos////
+        String aux[]=archPedidos.split("_");
+        nombreArchPed="src/recursos/dest_"+aux[1];
+        
+        ////////////
+        try {
+            bufer2 = new BufferedReader(new FileReader(nombreArchPed));
+            while((linea=bufer2.readLine())!= null){
+           
+                valor2=linea.trim().split(":");
+                if(valor2[0].isEmpty())
+                    continue;
+                mes=Integer.parseInt(valor2[0].substring(13, 15));
+                dia=Integer.parseInt(valor2[0].substring(15, 17));
+                //System.out.println(mes);
+               // System.out.println(dia);
+                int pos=(dia-1)+((mes-1)*26);
+                intArrD[pos]+=1;
+                
+            }
+            bufer2.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ////////////////////////////////////////////////////////////////
+        String archPaquetes="src/recursos/paquetes_vuelos.txt";
+        ////////////////////////////////////////////////////////////////
+        try {
+            bufer3 = new BufferedReader(new FileReader(archPaquetes));
+            while((linea=bufer3.readLine())!= null){
+           
+                valor3=linea.trim().split("-");
+                if(valor3[0].isEmpty())
+                    continue;
+                if(aux[1].equals(valor3[2])){
+                    mes=Integer.parseInt(valor3[1].substring(4, 6));
+                    dia=Integer.parseInt(valor3[1].substring(6, 8));
+                    //System.out.println(mes);
+                   // System.out.println(dia);
+                    int pos=(dia-1)+((mes-1)*26);
+                    intArrD[pos]+=1;
+                }
+            }
+            bufer3.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return intArrD;
     }
 }

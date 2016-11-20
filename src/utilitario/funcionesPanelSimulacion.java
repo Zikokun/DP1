@@ -37,11 +37,20 @@ public class funcionesPanelSimulacion {
             for(int i=0;i<312;i++){
                 yValuesD[i]=i+1;
             }
-            int flagDia=0;
-            if(flagDia==1)
-                intArr=Lectura.leerPedidoxAeropuertoD(nombArch);
+            int flagDia=constantes.constantesGenerales.SIMULACION_POR_DIA;
+            int flagArch=constantes.constantesGenerales.LECTURA_TOTAL_ARCH;
+            if(flagDia==1){
+                if(flagArch==1)
+                    intArr=Lectura.leerPedidoxAeropuertoD_full(nombArch);
                 else
-                intArr=Lectura.leerPedidoxAeropuerto(nombArch);
+                    intArr=Lectura.leerPedidoxAeropuertoD(nombArch);
+            }else{
+                if(flagArch==1)
+                    intArr=Lectura.leerPedidoxAeropuerto_full(nombArch);
+                else
+                     intArr=Lectura.leerPedidoxAeropuerto(nombArch);
+                
+            }
                results=new double[2];
    //            funcionesRegresionExp regExp=new funcionesRegresionExp(intArr,yValues);
    //            results=regExp.calcExpValores();
@@ -69,7 +78,6 @@ public class funcionesPanelSimulacion {
             for(int i=0;i<312;i++){
                 yValuesD[i]=i+1;
             }
-            int flagDia=0;
             funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
             
                 Connection conexion = cc.conexion();
@@ -95,10 +103,20 @@ public class funcionesPanelSimulacion {
         } catch (SQLException ex) {
             Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-            if(flagDia==1)
-                intArr=Lectura.leerPedidoxAeropuertoD(nombArch);
+            int flagDia=constantes.constantesGenerales.SIMULACION_POR_DIA;
+            int flagArch=constantes.constantesGenerales.LECTURA_TOTAL_ARCH;
+            if(flagDia==1){
+                if(flagArch==1)
+                    intArr=Lectura.leerPedidoxAeropuertoD_full(nombArch);
                 else
-                intArr=Lectura.leerPedidoxAeropuerto(nombArch);
+                    intArr=Lectura.leerPedidoxAeropuertoD(nombArch);
+            }else{
+                if(flagArch==1)
+                    intArr=Lectura.leerPedidoxAeropuerto_full(nombArch);
+                else
+                     intArr=Lectura.leerPedidoxAeropuerto(nombArch);
+                
+            }
                results=new double[2];
    //            funcionesRegresionExp regExp=new funcionesRegresionExp(intArr,yValues);
    //            results=regExp.calcExpValores();

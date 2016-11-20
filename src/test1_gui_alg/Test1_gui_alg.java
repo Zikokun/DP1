@@ -13,6 +13,7 @@ import modelo.Lectura;
 import modelo.Pedido;
 import modelo.Ruta;
 import modelo.Vuelo;
+import utilitario.funcionesPanelSimulacion;
 import vista.Nv;
 import vista.VentanaPrincipal;
 /**
@@ -27,8 +28,11 @@ public class Test1_gui_alg {
     public static void main(String[] args) throws InstantiationException, IllegalAccessException {
         //String mensaje = principal();
         //System.out.println(mensaje);
-        Nv nv= new Nv();
-        nv.setVisible(true);
+//        funcionesPanelSimulacion func=new funcionesPanelSimulacion();
+//        func.calculaRegExp(nombArch);
+         Lectura.leerArchPedidos();
+        //Nv nv= new Nv();
+        //nv.setVisible(true);
     }
     
     public static String principal() throws InstantiationException, IllegalAccessException{
