@@ -21,7 +21,6 @@ public class constantesGenerales {
     public static float FACTOR_INCREMENTO = 0.1f;
     public static int SIMULACION_POR_DIA=1;
     public static int LECTURA_TOTAL_ARCH=0;
-    
     public static int FACTOR_TIEMPO_NORMAL = 1; //representa 38 min en simulacion
     public static int UN_MINUTO = 60; //representan 60 seg
     public static int UNA_HORA = 24; //Representa una hora

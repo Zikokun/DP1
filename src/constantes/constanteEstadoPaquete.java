@@ -14,7 +14,9 @@ public enum constanteEstadoPaquete {
     EN_VUELO ("Paquete en vuelo"), 
     EN_ALMACEN ("Paquete en alamcen"), 
     ENTREGADO ("Paquete entregado"),
-    SIN_ENVIAR_SIN_RUTA("Paquete sin Enviar y sin ruta asignada");
+    SIN_ENVIAR_SIN_RUTA("Paquete sin Enviar y sin ruta asignada"),
+    CON_TRES_DIAS("Paquete para simulación de tres dias"),
+    SIMULACION_SIN_TRES_DIAS("Paquete para simulación de tres dias");
     
     private final String detalle;
 
