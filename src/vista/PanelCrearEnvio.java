@@ -711,12 +711,20 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void campoDNIReceptorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDNIReceptorKeyTyped
+        char key = evt.getKeyChar();
+        if(!Character.isDigit(key)){
+            evt.consume();
+        }
         if(campoDNIReceptor.getText().length()>=8) {  
             evt.consume();
         }
     }//GEN-LAST:event_campoDNIReceptorKeyTyped
 
     private void campoDNIEmisorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDNIEmisorKeyTyped
+        char key = evt.getKeyChar();
+        if(!Character.isDigit(key)){
+            evt.consume();
+        }
         if(campoDNIEmisor.getText().length()>=8) {  
             evt.consume();
         }

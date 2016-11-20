@@ -303,13 +303,15 @@ public class panelMantUsuario extends javax.swing.JPanel {
                                 .addComponent(regresarBoton))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombreCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(44, 44, 44)
+                            .addComponent(jLabel1)
+                            .addComponent(nombreCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(apellidoPaternoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 53, Short.MAX_VALUE))
+                            .addComponent(apellidoPaternoCampo))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(apellidoMaternoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
@@ -454,37 +456,45 @@ public class panelMantUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_apellidoMaternoCampoKeyTyped
 
     private void usuarioCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioCampoKeyTyped
-        if(usuarioCampo.getText().length()>=30) {  
+        if(usuarioCampo.getText().length()>=15) {  
             evt.consume();
         }
     }//GEN-LAST:event_usuarioCampoKeyTyped
 
     private void docIdentidadCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_docIdentidadCampoKeyTyped
+        char key = evt.getKeyChar();
+        if(!Character.isDigit(key)){
+            evt.consume();
+        }
         if(docIdentidadCampo.getText().length()>=8) {  
             evt.consume();
         }
     }//GEN-LAST:event_docIdentidadCampoKeyTyped
 
     private void fechaNacimientoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaNacimientoCampoKeyTyped
+        char key = evt.getKeyChar();
+        if(!Character.isDigit(key)&&key!='-'){
+            evt.consume();
+        }
         if(fechaNacimientoCampo.getText().length()>=10) {  
             evt.consume();
         }
     }//GEN-LAST:event_fechaNacimientoCampoKeyTyped
 
     private void direccionCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionCampoKeyTyped
-        if(direccionCampo.getText().length()>=8) {  
+        if(direccionCampo.getText().length()>=30) {  
             evt.consume();
         }
     }//GEN-LAST:event_direccionCampoKeyTyped
 
     private void contrasenhaCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contrasenhaCampoKeyTyped
-        if(contrasenhaCampo.getText().length()>=8) {  
+        if(contrasenhaCampo.getText().length()>=15) {  
             evt.consume();
         }
     }//GEN-LAST:event_contrasenhaCampoKeyTyped
 
     private void correoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoCampoKeyTyped
-        if(correoCampo.getText().length()>=10) {  
+        if(correoCampo.getText().length()>=30) {  
             evt.consume();
         }
     }//GEN-LAST:event_correoCampoKeyTyped
