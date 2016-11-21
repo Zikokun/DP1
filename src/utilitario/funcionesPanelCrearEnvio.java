@@ -220,8 +220,8 @@ public class funcionesPanelCrearEnvio {
             sqlCrearEnvio.setTimestamp(5, ts);
             sqlCrearEnvio.setString(6,"");
             sqlCrearEnvio.setInt(7, 0);
-            sqlCrearEnvio.setInt(8, 00000000);
-            sqlCrearEnvio.setInt(9, 00000000);
+            sqlCrearEnvio.setInt(8, 1);
+            sqlCrearEnvio.setInt(9, 1);
             int rows = sqlCrearEnvio.executeUpdate();
             
             ResultSet rs = sqlCrearEnvio.getGeneratedKeys();

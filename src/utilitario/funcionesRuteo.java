@@ -5,6 +5,7 @@
  */
 package utilitario;
 
+import static constantes.constanteEstadoPaquete.*;
 import static constantes.constantesVentanaPrincipal.TIPO_OPERARIO;
 import controlador.Genetico;
 import java.io.BufferedWriter;
@@ -103,7 +104,9 @@ public class funcionesRuteo {
                 else sqlCrearRuta.setInt(3,1);
                 sqlCrearRuta.executeUpdate();
             }
-            
+            //Cambio estado actual del paquete
+            PreparedStatement sqlActualizarEstado = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + SIN_ENVIAR_CON_RUTA.ordinal()+ "' WHERE `idPaquete`='"+ codPed +"'; ");
+            sqlActualizarEstado.executeUpdate();
         }
     }
     
@@ -195,11 +198,11 @@ public class funcionesRuteo {
         int i=0,j=0;
         Collection<Ciudad> listaCiudades=ciudades.values();
         for(Ciudad ciudad : listaCiudades) {
-            System.out.println("Ciudad "+i+": "+ciudad.getCiudad()); i++;
+            //System.out.println("Ciudad "+i+": "+ciudad.getCiudad()); i++;
             j=0;
             for(Ciudad ciudFin: listaCiudades){
                 if (ciudFin==ciudad) continue;
-                System.out.println("  a Ciudad"+j+": "+ciudFin.getCiudad());
+                //System.out.println("  a Ciudad"+j+": "+ciudFin.getCiudad());
                 int tMax=48; //maximo de horas
                 if(ciudFin.getContinente().equals(ciudad.getContinente())) tMax=24;
                 ArrayList<Ruta> rutas=encuentraRutas(ciudad,ciudFin.getCodAeropuerto(),tMax);
