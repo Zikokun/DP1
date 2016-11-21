@@ -37,6 +37,20 @@ import vista.VentanaPrincipal;
  * @author gerson
  */
 public class Mapa extends PApplet{
+
+    /**
+     * @return the fechaInicial
+     */
+    public static Date getFechaInicial() {
+        return fechaInicial;
+    }
+
+    /**
+     * @param aFechaInicial the fechaInicial to set
+     */
+    public static void setFechaInicial(Date aFechaInicial) {
+        fechaInicial = aFechaInicial;
+    }
     UnfoldingMap mapDay;
     
     Integrator blendIntegrator = new Integrator(255);
@@ -46,7 +60,7 @@ public class Mapa extends PApplet{
     int horaInicial = 0;
     int minutoIncial = 0;
     
-    Date fechaInicial = null;
+    private static Date fechaInicial = null;
     
     public void setup() {
         try {
@@ -54,7 +68,7 @@ public class Mapa extends PApplet{
             funcionesMapa fMapa = new funcionesMapa();
             horaInicial = fMapa.devolverHoraInicial();
             
-            fechaInicial = fMapa.devolverFechaInicio();
+            setFechaInicial(fMapa.devolverFechaInicio());
             
             VentanaPrincipal.labelMostrarTiempoReal.setVisible(true);
             smooth();
@@ -119,8 +133,8 @@ public class Mapa extends PApplet{
                 
             Location ubicacion = new Location(longuitud,latitud);
             SimplePointMarker ubicacionMarcador = new SimplePointMarker(ubicacion);
-            //ubicacionMarcador.setColor(color(255, 0, 0, 100));
-            if(esPrimeraVezVuelo) ubicacionMarcador.setColor(obtenerColorAleatorio());
+            ubicacionMarcador.setColor(color(255, 0, 0, 100));
+            //if(esPrimeraVezVuelo) ubicacionMarcador.setColor(obtenerColorAleatorio());
             mapDay.addMarker(ubicacionMarcador);
         }
     }
@@ -194,12 +208,12 @@ public class Mapa extends PApplet{
     
     private void cambiarFecha(){
         Calendar calendario = Calendar.getInstance();
-        calendario.setTime(fechaInicial); 
+        calendario.setTime(getFechaInicial()); 
         calendario.set(Calendar.MINUTE, calendario.get(Calendar.MINUTE) + FACTOR_TIEMPO_NORMAL);
-        fechaInicial = calendario.getTime();
+        setFechaInicial(calendario.getTime());
         
         DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm"); //("yyyy-MM-dd HH:mm:ss");
-        String sTiempo = fecha.format(fechaInicial);
+        String sTiempo = fecha.format(getFechaInicial());
         VentanaPrincipal.labelMostrarTiempoReal.setText(sTiempo);
     }
     

@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mapa.Mapa;
 
 /**
  *
@@ -80,10 +83,12 @@ public class funcionesMapa {
         Connection conexion = cc.conexion();
         
         List<Object[]> lstPaquetes = new ArrayList<Object[]>();
+        DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //("yyyy-MM-dd HH:mm:ss");
+        String sTiempo = fecha.format(Mapa.getFechaInicial());
         
         String SqlBuscarRutasPaquetes = " SELECT H.Paquete_idPaquete, P.longuitud, P.latitud, A.longuitud, A.latitud, B.longuitud , B.latitud " +
                                         " FROM avion_has_paquete H, vuelo V, almacen A, almacen B, paquete P " +
-                                        " WHERE H.estado = " + ACTIVO.ordinal() + " AND H.Avion_idAvion = V.idVuelo AND V.idLugarOrigen = A.idAlmacen AND V.idLugarDestino = B.idAlmacen AND P.idPaquete = H.Paquete_idPaquete ";
+                                        " WHERE H.estado = " + ACTIVO.ordinal() + " AND '" + sTiempo + "' > H.horaSalida AND H.Avion_idAvion = V.idVuelo AND V.idLugarOrigen = A.idAlmacen AND V.idLugarDestino = B.idAlmacen AND P.idPaquete = H.Paquete_idPaquete ";
         
         try {
             Statement st = conexion.createStatement();
