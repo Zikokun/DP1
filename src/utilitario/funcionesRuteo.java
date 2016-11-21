@@ -50,14 +50,14 @@ public class funcionesRuteo {
     ArrayList<Vuelo> vuelos=new ArrayList<>();
     TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
     
-    public Cromosoma ruteoPedidosManual() throws InstantiationException, IllegalAccessException, IOException, SQLException{
+    public Cromosoma ruteoPedidosManual(Integer estadoPedido) throws InstantiationException, IllegalAccessException, IOException, SQLException{
         String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();
         //TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
         //ArrayList<Vuelo> vuelos=new ArrayList<>();
         
-        ArrayList<Pedido> pedidos=devolverPedidosTotal();
+        ArrayList<Pedido> pedidos=devolverPedidosTotal(estadoPedido);
         
         if(primeraVez==1){
             lector.leerSinPedidosYVuelos("src/recursos/_aeropuertos.OACI.txt", 
@@ -151,7 +151,7 @@ public class funcionesRuteo {
         return lstVuelos;
     }
     
-    public ArrayList<Pedido> devolverPedidosTotal()throws InstantiationException, IllegalAccessException{
+    public ArrayList<Pedido> devolverPedidosTotal(Integer estadoPedido)throws InstantiationException, IllegalAccessException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
             
@@ -159,8 +159,8 @@ public class funcionesRuteo {
         ArrayList<Pedido> lstPaquetes = new ArrayList<>();
             
         sqlBuscarPaquetes = " SELECT A.codCiudad,B.codCiudad, P.fechaRecepcion, P.idPaquete\n" +
-                                "FROM paquete P, almacen A, almacen B\n" +
-                                    "WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen;";
+                            "FROM paquete P, almacen A, almacen B\n" +
+                            "WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND estado="+estadoPedido+";";
         
         try {   
             Statement st = conexion.createStatement();

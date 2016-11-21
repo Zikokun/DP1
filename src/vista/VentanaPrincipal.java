@@ -5,6 +5,7 @@
  */
 package vista;
 
+import static constantes.constanteEstadoPaquete.*;
 import static constantes.constantesGenerales.*;
 import static constantes.constantesVentanaPrincipal.*;
 import java.awt.BorderLayout;
@@ -165,7 +166,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelOpciones.setText("Opciones");
 
         labelCerrarSesion.setText("Cerrar Sesión");
-        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         labelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelCerrarSesionMouseClicked(evt);
@@ -442,7 +443,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         fVentanaPrincipal.terminarSimulacion();
         try {
             // TODO add your handling code here:
-            enrutador.ruteoPedidosManual();
+            enrutador.ruteoPedidosManual(SIN_ENVIAR.ordinal());
         } catch (InstantiationException ex) {
             Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
