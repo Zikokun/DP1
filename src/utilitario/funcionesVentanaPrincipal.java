@@ -5,6 +5,7 @@
  */
 package utilitario;
 
+import static constantes.constantesGenerales.*;
 import constantes.constantesVentanaPrincipal;
 import static constantes.constantesVentanaPrincipal.*;
 import java.sql.Connection;
@@ -14,6 +15,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenu;
+import mapa.Mapa;
+import static mapa.Mapa.mostrarBotonPausa;
 import vista.PanelSim;
 import vista.VentanaPrincipal;
 
@@ -27,12 +30,27 @@ public class funcionesVentanaPrincipal {
         menu.setVisible(false);
     }
     
+    public void pausarSimulacion(){
+        if (PanelSim.simulacion != null) {
+            PanelSim.simulacion.stop();
+        }
+    }
+    
+    public void continuarSimulacion(){
+        if (PanelSim.simulacion != null) {
+            System.out.println("GG");
+            PanelSim.simulacion.resume();
+        }
+    }
+    
     public void terminarSimulacion(){
         if (PanelSim.simulacion != null) {
             PanelSim.simulacion.stop();
         }
         VentanaPrincipal.labelMostrarTiempoReal.setText("");
         VentanaPrincipal.labelMostrarTiempoReal.setVisible(false);
+        VentanaPrincipal.botonPausa.setVisible(false);
+        Mapa.mostrarBotonPausa = BOTON_PAUSA_NOVISIBLE;
     }
     
     public String devolverTipoUsuario(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{

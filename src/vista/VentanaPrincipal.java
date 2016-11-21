@@ -22,6 +22,8 @@ import utilitario.funcionesVentanaPrincipal;
 import utilitario.funcionesVentanaPrincipal.*;
 
 import javax.swing.Timer;
+import mapa.Mapa;
+import static mapa.Mapa.fueApretado;
 import utilitario.funcionesRuteo;
  
 
@@ -102,6 +104,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(!tipoUsuario.equals(USUARIO_NO_VALIDO)){
             mensajeBien="Bienvenido " + usuario +" !";
             initComponents();
+            botonPausa.setVisible(false);
             this.setLocationRelativeTo(null);
             labelBienvenido.setText(mensajeBien);
             pnlFrente.setVisible(false);
@@ -142,6 +145,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pnlFondo = new javax.swing.JPanel();
         pnlFrente = new javax.swing.JPanel();
         labelMostrarTiempoReal = new javax.swing.JLabel();
+        botonPausa = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuMiCuenta = new javax.swing.JMenu();
         menuMant = new javax.swing.JMenu();
@@ -166,7 +170,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelOpciones.setText("Opciones");
 
         labelCerrarSesion.setText("Cerrar Sesión");
-        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(0));
         labelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelCerrarSesionMouseClicked(evt);
@@ -187,6 +191,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         pnlFondo.add(pnlFrente, java.awt.BorderLayout.CENTER);
+
+        botonPausa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPausaActionPerformed(evt);
+            }
+        });
 
         menuMiCuenta.setText("Mi Cuenta");
         menuMiCuenta.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,16 +285,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(labelMostrarTiempoReal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 567, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelBienvenido)
-                        .addGap(29, 29, 29))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelOpciones)
-                        .addGap(26, 26, 26)
-                        .addComponent(labelCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 659, Short.MAX_VALUE)
+                .addComponent(labelBienvenido)
+                .addGap(29, 29, 29))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(261, 261, 261)
+                .addComponent(botonPausa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelOpciones)
+                .addGap(26, 26, 26)
+                .addComponent(labelCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,12 +307,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelOpciones)
-                            .addComponent(labelCerrarSesion)))
+                            .addComponent(labelCerrarSesion)
+                            .addComponent(botonPausa)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(labelMostrarTiempoReal)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -347,8 +359,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void menuRastreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRastreoMouseClicked
         // TODO add your handling code here:
-        if(PanelSim.simulacion!=null)
-                PanelSim.simulacion.stop();
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion();
         if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
@@ -461,6 +473,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         fVentanaPrincipal.terminarSimulacion();
     }//GEN-LAST:event_formWindowClosed
 
+    private void botonPausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPausaActionPerformed
+        // TODO add your handling code here:
+        if(Mapa.fueApretado == BOTON_PAUSA_NO_APRETADO){ //Continua
+            Mapa.fueApretado = BOTON_PAUSA_APRETADO;
+            VentanaPrincipal.botonPausa.setText(TEXTO_CONTINUAR);
+            //funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+            //fVentanaPrincipal.pausarSimulacion();
+        }else{ //Se descontinua la pausa
+            Mapa.fueApretado = BOTON_PAUSA_NO_APRETADO;
+            VentanaPrincipal.botonPausa.setText(TEXTO_PAUSAR);
+            //funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+            //fVentanaPrincipal.continuarSimulacion();
+        }
+    }//GEN-LAST:event_botonPausaActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -495,6 +522,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuBar barraMenu;
+    public static javax.swing.JButton botonPausa;
     private javax.swing.JMenuItem envioVisualizarHistorial;
     private javax.swing.JMenuItem envoRegEnvio;
     public javax.swing.JLabel labelBienvenido;

@@ -61,9 +61,17 @@ public class Mapa extends PApplet{
     int minutoIncial = 0;
     
     private static Date fechaInicial = null;
+    public static int mostrarBotonPausa;
+    public static int fueApretado;
     
     public void setup() {
         try {
+            mostrarBotonPausa = BOTON_PAUSA_VISIBLE;
+            fueApretado = BOTON_PAUSA_NO_APRETADO;
+            
+            if(fueApretado == BOTON_PAUSA_NO_APRETADO) VentanaPrincipal.botonPausa.setText(TEXTO_PAUSAR);
+            if(mostrarBotonPausa == BOTON_PAUSA_VISIBLE) VentanaPrincipal.botonPausa.setVisible(true);
+            
             size(800, 600);
             funcionesMapa fMapa = new funcionesMapa();
             horaInicial = fMapa.devolverHoraInicial();
@@ -264,9 +272,11 @@ public class Mapa extends PApplet{
         try {
             inicializacionMarcadores();
             //cambiarReloj();
-            cambiarFecha();
-            cambiarLonguitudYLatitudActuales();
-            insertarCoordenadasTablas();
+            if(fueApretado == BOTON_PAUSA_NO_APRETADO){
+                cambiarFecha();
+                cambiarLonguitudYLatitudActuales();
+                insertarCoordenadasTablas();
+            }
         } catch (InstantiationException ex) {
             Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {

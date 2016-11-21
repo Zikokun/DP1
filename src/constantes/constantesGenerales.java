@@ -24,4 +24,10 @@ public class constantesGenerales {
     public static int FACTOR_TIEMPO_NORMAL = 1; //representa 38 min en simulacion
     public static int UN_MINUTO = 60; //representan 60 seg
     public static int UNA_HORA = 24; //Representa una hora
+    public static int BOTON_PAUSA_NOVISIBLE = 0;
+    public static int BOTON_PAUSA_VISIBLE = 1;
+    public static int BOTON_PAUSA_APRETADO = 0;
+    public static int BOTON_PAUSA_NO_APRETADO = 1;
+    public static String TEXTO_PAUSAR = "PAUSAR";
+    public static String TEXTO_CONTINUAR = "CONTINUAR";
 }
