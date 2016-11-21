@@ -16,6 +16,7 @@ import java.sql.Time;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,29 @@ import java.util.logging.Logger;
  * @author gerson
  */
 public class funcionesMapa {
+    public Date devolverFechaInicio() throws InstantiationException, IllegalAccessException{
+        Date fechaInicio = null;
+        
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+        
+        String sqlBuscarMenorFecha = " SELECT MIN(fechaEnvio) " +
+                                           " FROM paquete; ";
+        
+        try {
+            Statement st = conexion.createStatement();
+            ResultSet resultadoMenorFecha = st.executeQuery(sqlBuscarMenorFecha);
+            
+            
+            while(resultadoMenorFecha!=null && resultadoMenorFecha.next()){
+                fechaInicio = (Date)resultadoMenorFecha.getObject(1);
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(funcionesPanelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return fechaInicio;
+    }  
     public int devolverHoraInicial() throws InstantiationException, IllegalAccessException{
         int horaInicial = -1;
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();

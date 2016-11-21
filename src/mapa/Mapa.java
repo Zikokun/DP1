@@ -21,6 +21,10 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.providers.*;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -42,11 +46,16 @@ public class Mapa extends PApplet{
     int horaInicial = 0;
     int minutoIncial = 0;
     
+    Date fechaInicial = null;
+    
     public void setup() {
         try {
             size(800, 600);
             funcionesMapa fMapa = new funcionesMapa();
             horaInicial = fMapa.devolverHoraInicial();
+            
+            fechaInicial = fMapa.devolverFechaInicio();
+            
             VentanaPrincipal.labelMostrarTiempoReal.setVisible(true);
             smooth();
             
@@ -183,6 +192,17 @@ public class Mapa extends PApplet{
         fMapa.insertarLonguitudYLatitudActualizados(lisPaquetesRutas);
     }
     
+    private void cambiarFecha(){
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(fechaInicial); 
+        calendario.set(Calendar.MINUTE, calendario.get(Calendar.MINUTE) + FACTOR_TIEMPO_NORMAL);
+        fechaInicial = calendario.getTime();
+        
+        DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm"); //("yyyy-MM-dd HH:mm:ss");
+        String sTiempo = fecha.format(fechaInicial);
+        VentanaPrincipal.labelMostrarTiempoReal.setText(sTiempo);
+    }
+    
     private void cambiarReloj(){
         /*if(minutoIncial == 59){
             if (horaInicial == 23) {
@@ -219,7 +239,7 @@ public class Mapa extends PApplet{
         else sHor = String.valueOf(horaInicial);
         
         String sTiempo = sHor + ":" + sMin;
-        
+                
         VentanaPrincipal.labelMostrarTiempoReal.setText(sTiempo);
     }
     
@@ -229,7 +249,8 @@ public class Mapa extends PApplet{
         tint(255, blendIntegrator.value);
         try {
             inicializacionMarcadores();
-            cambiarReloj();
+            //cambiarReloj();
+            cambiarFecha();
             cambiarLonguitudYLatitudActuales();
             insertarCoordenadasTablas();
         } catch (InstantiationException ex) {
