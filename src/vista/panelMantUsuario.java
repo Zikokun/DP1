@@ -40,7 +40,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
     
     private int CamposObligatorios() throws InstantiationException, IllegalAccessException{
         int cont=0;
-        String cadena="Ingresar el:";
+        String cadena="Ingresar:";
         if(nombreCampo.getText().isEmpty()) {
             cadena+= "\n Contraseña";
             cont++;

@@ -553,7 +553,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
     private int CamposObligatorios() throws InstantiationException, IllegalAccessException{
         int cont=0;
-        String cadena="Ingresar el:";
+        String cadena="Ingresar:";
         if(campoDNIEmisor.getText().isEmpty()) {
             cadena+= "\n DNI del Emisor";
             cont++;
