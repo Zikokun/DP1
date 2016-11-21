@@ -32,19 +32,25 @@ import java.util.Random;
 //2.71828
 
 public class FuncionExponencial {
-    public void CalcularFuncion(double X, double Y, double Z) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+    public int CalcularFuncion(double X, double Y, double Z, int tipo, int vuelta) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         double value;
-        int i=1, j=0, number=0, rastreo=0;
+        int i=vuelta, j=0, number=0, rastreo=0, cont=0, limite;
+        if(tipo==0) limite=3;
+        else limite=10;
         Random r = new Random();
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
-        while(true){
-            value = X * exp(Y*i);
-            for(j=0;j<(int) Math.round(value);j++){
-                number = r.nextInt(43);
+        for(cont=0;cont<limite;cont++){
+            double e=exp(Y*i);
+            value =(int) Math.round( X * exp(Y*i));
+            for(j=0;j<value;j++){
+                number = r.nextInt(39)+4;
                 rastreo = utilitarioPanelCrearEnvio.GetLastNumeroRastreo() + 1;
-                utilitarioPanelCrearEnvio.CrearEnvioExponencial((int) Math.round(Z), number, Integer.toString(rastreo));
+                //String cadena = utilitarioPanelCrearEnvio.CrearEnvioExponencial((int) Math.round(Z), number, Integer.toString(rastreo), tipo, i);
+                //System.out.println(j + " - " + cadena);
             }
+            System.out.println("vuelta: (" +vuelta + ") " + i + "  --  paquetes: " + value + " limite (" + limite + ")");
             i++;
         }
+        return i;
     }
 }

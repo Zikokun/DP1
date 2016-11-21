@@ -5,6 +5,11 @@
  */
 package test1_gui_alg;
 import controlador.Genetico;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TreeMap;
@@ -13,6 +18,8 @@ import modelo.Lectura;
 import modelo.Pedido;
 import modelo.Ruta;
 import modelo.Vuelo;
+import utilitario.FuncionExponencial;
+import utilitario.funcionesBaseDeDatos;
 import utilitario.funcionesPanelSimulacion;
 import vista.Nv;
 import vista.VentanaPrincipal;
@@ -25,14 +32,41 @@ public class Test1_gui_alg {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException, ParseException {
         //String mensaje = principal();
         //System.out.println(mensaje);
 //        funcionesPanelSimulacion func=new funcionesPanelSimulacion();
 //        func.calculaRegExp(nombArch);
          //Lectura.leerArchPedidos();
-        Nv nv= new Nv();
-        nv.setVisible(true);
+        funcionesPanelSimulacion func = new funcionesPanelSimulacion();
+        String nombArch = "src/recursos/arch_";
+        int contBD = 4;
+        int contador=0;
+        for (contBD = 4; contBD < 44; contBD++) {
+            funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+            Connection conexion = cc.conexion();//null
+
+            String origen = "";
+            String sqlBuscarCiudad = "SELECT codCiudad FROM `almacen` WHERE idAlmacen = '" + contBD + "'";
+            try {
+                Statement st = conexion.createStatement();
+                ResultSet resultadoBuscar = st.executeQuery(sqlBuscarCiudad);
+
+                while (resultadoBuscar != null && resultadoBuscar.next()) {
+                    origen = resultadoBuscar.getString("codCiudad");
+                }
+                String NombreCompleto = nombArch + origen + ".txt";
+                System.out.println("archivo: " + NombreCompleto);
+                double[] resp=new double[3];
+                resp = func.calculaRegExpD(NombreCompleto);
+
+                FuncionExponencial funcion = new FuncionExponencial();
+                contador = funcion.CalcularFuncion(resp[0], resp[1], resp[2],0,0);//tipo, vuelta
+            } catch (SQLException ex) {
+            }
+        }
+        //Nv nv= new Nv();
+        //nv.setVisible(true);
     }
     
     public static String principal() throws InstantiationException, IllegalAccessException{

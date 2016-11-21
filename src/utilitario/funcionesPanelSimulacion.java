@@ -70,7 +70,7 @@ public class funcionesPanelSimulacion {
            System.out.println("funcion: "+"y="+results[0]+"*e^("+results[1]+"*x)");
         }
         
-        public double[] calculaRegExpD(String nombArch) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+       public double[] calculaRegExpD(String nombArch) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
             double[] resp=new double[3];
             int id=0; 
             double[] intArr,results = null;
@@ -132,8 +132,6 @@ public class funcionesPanelSimulacion {
           resp[0]=results[0];
           resp[1]=results[1];
           resp[2]=(double)id;
-          FuncionExponencial funcion = new FuncionExponencial();
-          funcion.CalcularFuncion(resp[0], resp[1], resp[2]);
           return resp;
         }
 }
