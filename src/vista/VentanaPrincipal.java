@@ -265,6 +265,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barraMenu.add(menuRastreo);
 
         menuSim.setText("Simulación");
+        menuSim.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuSimMouseClicked(evt);
+            }
+        });
         menuSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuSimActionPerformed(evt);
@@ -487,6 +492,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             //fVentanaPrincipal.continuarSimulacion();
         }
     }//GEN-LAST:event_botonPausaActionPerformed
+
+    private void menuSimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSimMouseClicked
+        // TODO add your handling code here:
+        funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
+        fVentanaPrincipal.terminarSimulacion();
+        if(tipoUsuario.equals(TIPO_ADMIN)){
+            this.remove(pnlFrente);
+            pnlFondo.removeAll();
+            PanelSim ps=new PanelSim();
+            pnlFondo.add(ps,BorderLayout.CENTER);
+            this.revalidate();
+        }
+    }//GEN-LAST:event_menuSimMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
