@@ -127,6 +127,7 @@ public class funcionesRuteo {
         ArrayList<Vuelo> vuelos=gen.getRuta().getVuelos();
         Calendar fechaRecepcion= Calendar.getInstance();
         fechaRecepcion.set(pedido.getAño(), pedido.getMes(), pedido.getDia(), pedido.getHora(), pedido.getMin());
+        System.out.println("Fecha Recepcion: "+fechaRecepcion.getTime());
         int cantVuelos=vuelos.size();
         int horaP=pedido.getHora();
         int minP=pedido.getMin(); 
@@ -136,10 +137,14 @@ public class funcionesRuteo {
             int minutosEspera;
             int husoO=vuelo.getAeroOrig().huso;
             int husoF=vuelo.getAeroFin().huso;
-            if(hSalida<horaP ||(hSalida==horaP && minP!=0)) hSalida+=24;    
-            minutosEspera=(hSalida-horaP)*60-minP;
-            fechaRecepcion.add(Calendar.MINUTE, minutosEspera);// hora salida del origen
+            if(hSalida<horaP ||(hSalida==horaP && minP!=0))fechaRecepcion.add(Calendar.DAY_OF_MONTH, 1);//sale al dia siguiente    
+            // seteamos hora salida del origen
+            fechaRecepcion.set(Calendar.HOUR_OF_DAY, hSalida);
+            fechaRecepcion.set(Calendar.MINUTE, 0);
+            fechaRecepcion.set(Calendar.SECOND, 0);
+            //se agrega a la lista de horas de salida
             horasSalidas.add(i,fechaRecepcion.getTime());
+            //setemos la hora de llegada al destino
             fechaRecepcion.add(Calendar.HOUR_OF_DAY, vuelo.getTiempo()+husoF-husoO);
             horasLlegadas.add(i,fechaRecepcion.getTime());
             horaP=fechaRecepcion.get(Calendar.HOUR_OF_DAY);
