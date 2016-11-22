@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -71,17 +72,20 @@ public class funcionesRuteo {
         Calendar calendario=Calendar.getInstance();
         hora=calendario.get(Calendar.HOUR_OF_DAY);
         dia=calendario.get(Calendar.DAY_OF_WEEK);
-        
-        Genetico algoritmo=new Genetico();
-        algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
-        Cromosoma solucion=algoritmo.getMejorCrom();
-        asignarRutasBD(solucion);
-        //System.out.println("HOla");
-        ArrayList<Gen> genes=solucion.genes;
-        for(Gen item: genes){
-            item.getRuta().print();
-            System.out.println("Tiempo Total: "+item.tiempo/60+" horas");
+        Cromosoma solucion=new Cromosoma();
+        if(pedidos.size()!=0){
+            Genetico algoritmo=new Genetico();
+            algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
+            solucion=algoritmo.getMejorCrom();
+            asignarRutasBD(solucion);
+            //System.out.println("HOla");
+            ArrayList<Gen> genes=solucion.genes;
+            for(Gen item: genes){
+                item.getRuta().print();
+                System.out.println("Tiempo Total: "+item.tiempo/60+" horas");
+            }
         }
+        else System.out.println("No hay paquetes para enrutar");
         return solucion;
     }
     
@@ -91,22 +95,55 @@ public class funcionesRuteo {
         Connection conexion = cc.conexion();
         PreparedStatement sqlCrearRuta; 
         //Statement st = conexion.createStatement();
+        ArrayList<Date> horasSalidas=new ArrayList<>();
+        ArrayList<Date> horasLlegadas=new ArrayList<>();
         for(Gen item: genes){
             ArrayList<Vuelo> vuelos=item.getRuta().getVuelos();
             int cantVuelos=vuelos.size();
-            int codPed=item.pedido.getIdPedido();   
+            int codPed=item.pedido.getIdPedido();  
+            calcularFechas(item,horasSalidas,horasLlegadas);
             for(int i=0;i<cantVuelos;i++){
-                sqlCrearRuta=conexion.prepareStatement("INSERT INTO avion_has_paquete VALUES (?,?,NULL,NULL,?)",PreparedStatement.RETURN_GENERATED_KEYS);
-                //System.out.println("ID VUelo: "+vuelos.get(i).getIdVuelo());
+                sqlCrearRuta=conexion.prepareStatement("INSERT INTO avion_has_paquete VALUES (?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+                System.out.println("Salida: "+horasSalidas.get(i));  
+                System.out.println("Llegada: "+horasLlegadas.get(i));                
                 sqlCrearRuta.setInt(1,vuelos.get(i).getIdVuelo());
                 sqlCrearRuta.setInt(2,codPed);
-                if(i==0) sqlCrearRuta.setInt(3,0);
-                else sqlCrearRuta.setInt(3,1);
+                Timestamp fechaL = new Timestamp(horasLlegadas.get(i).getTime());
+                sqlCrearRuta.setTimestamp(3, fechaL);
+                Timestamp fechaS = new Timestamp(horasSalidas.get(i).getTime());
+                sqlCrearRuta.setTimestamp(4, fechaS);
+                if(i==0) sqlCrearRuta.setInt(5,0);
+                else sqlCrearRuta.setInt(5,1);
                 sqlCrearRuta.executeUpdate();
             }
             //Cambio estado actual del paquete
             PreparedStatement sqlActualizarEstado = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + SIN_ENVIAR_CON_RUTA.ordinal()+ "' WHERE `idPaquete`='"+ codPed +"'; ");
             sqlActualizarEstado.executeUpdate();
+        }
+    }
+    
+    public void calcularFechas(Gen gen, ArrayList<Date> horasSalidas, ArrayList<Date> horasLlegadas){
+        Pedido pedido = gen.pedido;
+        ArrayList<Vuelo> vuelos=gen.getRuta().getVuelos();
+        Calendar fechaRecepcion= Calendar.getInstance();
+        fechaRecepcion.set(pedido.getAño(), pedido.getMes(), pedido.getDia(), pedido.getHora(), pedido.getMin());
+        int cantVuelos=vuelos.size();
+        int horaP=pedido.getHora();
+        int minP=pedido.getMin(); 
+        for (int i=0;i<cantVuelos;i++){
+            Vuelo vuelo=vuelos.get(i);
+            int hSalida=vuelo.gethSalida(); 
+            int minutosEspera;
+            int husoO=vuelo.getAeroOrig().huso;
+            int husoF=vuelo.getAeroFin().huso;
+            if(hSalida<horaP ||(hSalida==horaP && minP!=0)) hSalida+=24;    
+            minutosEspera=(hSalida-horaP)*60-minP;
+            fechaRecepcion.add(Calendar.MINUTE, minutosEspera);// hora salida del origen
+            horasSalidas.add(i,fechaRecepcion.getTime());
+            fechaRecepcion.add(Calendar.HOUR_OF_DAY, vuelo.getTiempo()+husoF-husoO);
+            horasLlegadas.add(i,fechaRecepcion.getTime());
+            horaP=fechaRecepcion.get(Calendar.HOUR_OF_DAY);
+            minP=fechaRecepcion.get(Calendar.MINUTE);
         }
     }
     
