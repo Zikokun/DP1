@@ -247,16 +247,16 @@ public class funcionesRuteo {
                 //System.out.println("  a Ciudad"+j+": "+ciudFin.getCiudad());
                 int tMax=48; //maximo de horas
                 if(ciudFin.getContinente().equals(ciudad.getContinente())) tMax=24;
-                ArrayList<Ruta> rutas=encuentraRutas(ciudad,ciudFin.getCodAeropuerto(),tMax);
+                ArrayList<Ruta> rutas=encuentraRutas(ciudad,ciudFin.getCodAeropuerto(),tMax,0);
                 if(rutas.size()>0) ciudad.rutas.put(ciudFin.getCodAeropuerto(), rutas);
                 j++;
             }
         }        
     } 
     
-        public static ArrayList<Ruta> encuentraRutas(Ciudad ciudOrigen, String ciudFinal,int tiempoDisp){
+    public static ArrayList<Ruta> encuentraRutas(Ciudad ciudOrigen, String ciudFinal,int tiempoDisp,int nivel){
         ArrayList<Ruta> rutas= new ArrayList<>();
-        if(tiempoDisp<=0) return rutas; // si ya no hay más tiempo no seguir más
+        if(tiempoDisp<=0 || nivel>=3) return rutas; // si ya no hay más tiempo no seguir más
         ArrayList<Vuelo>vuelos = ciudOrigen.vuelos;
         for(int i=0;i<vuelos.size();i++){
             //caso directo
@@ -266,33 +266,31 @@ public class funcionesRuteo {
                 if(vuelo.getTiempo()<=tiempoDisp) // si cumple la regla de negocio
                     rutas.add(new Ruta(vuelo,vuelo.getTiempo()));
             }
-            else{ //intento con escala
-                //System.out.println("TDisponible: "+tiempoDisp);
-                ArrayList<Ruta> rutasEscala=encuentraRutas(ciudadFinVuelo,ciudFinal
-                        ,tiempoDisp-vuelo.getTiempo());
-                int cantRutasEscala=rutasEscala.size();
-                for(int j=0;j<cantRutasEscala;j++){ //verificar que se cumple el tiempo(considerando espera) x ruta
-                    Ruta ruta =rutasEscala.get(j);
-                    int tEspera;
-                    int tEsperaTotal=0;
-                    int tVueloTotal=vuelo.getTiempo();
-                    int cantVuelos=ruta.getVuelos().size();
-                    for(int h=0;h<cantVuelos;h++){
-                        Vuelo vueloInt=ruta.getVuelos().get(h);
-                        if(h==0) tEspera=vueloInt.gethSalida()-vuelo.gethLlegada(); //para el primer vuelo
-                        else tEspera= vueloInt.gethSalida()-ruta.getVuelos().get(h-1).gethLlegada();
-                        if(tEspera<0) tEspera+=24;
-                        tEsperaTotal+=tEspera;
-                        tVueloTotal+=vueloInt.getTiempo();
-                    }
-                    int tTotal=tVueloTotal+tEsperaTotal;
-                    if(tTotal<=tiempoDisp) {
-                        ruta.getVuelos().add(0, vuelo);
-                        ruta.setTiempo(tTotal);
-                        rutas.add(ruta);
-                    }                  
-                    
+             //intento con escala
+            int nivel2=nivel+1; // nuevocambio
+            ArrayList<Ruta> rutasEscala=encuentraRutas(ciudadFinVuelo,ciudFinal,tiempoDisp-vuelo.getTiempo(),nivel2);
+            int cantRutasEscala=rutasEscala.size();
+            for(int j=0;j<cantRutasEscala;j++){ //verificar que se cumple el tiempo(considerando espera) x ruta
+                Ruta ruta =rutasEscala.get(j);
+                int tEspera;
+                int tEsperaTotal=0;
+                int tVueloTotal=vuelo.getTiempo();
+                int cantVuelos=ruta.getVuelos().size();
+                for(int h=0;h<cantVuelos;h++){
+                    Vuelo vueloInt=ruta.getVuelos().get(h);
+                    if(h==0) tEspera=vueloInt.gethSalida()-vuelo.gethLlegada(); //para el primer vuelo
+                    else tEspera= vueloInt.gethSalida()-ruta.getVuelos().get(h-1).gethLlegada();
+                    if(tEspera<0) tEspera+=24;
+                    tEsperaTotal+=tEspera;
+                    tVueloTotal+=vueloInt.getTiempo();
                 }
+                int tTotal=tVueloTotal+tEsperaTotal;
+                if(tTotal<=tiempoDisp) {
+                    ruta.getVuelos().add(0, vuelo);
+                    ruta.setTiempo(tTotal);
+                    rutas.add(ruta);
+                }                  
+
             }
         }      
         return rutas;
@@ -386,11 +384,11 @@ public class funcionesRuteo {
             //System.out.println(origen+"-"+destino+" Tiempo Vuelo: "+tiempoVuelo);
             if(ciudades.get(origen).getContinente().equals(ciudades.get(destino).getContinente())){
                 vuelos.get(i).setTipoVuelo("Continental");
-                vuelos.get(i).setTiempo(12);
+                vuelos.get(i).setTiempo(tiempoVuelo);
             }
             else{
                 vuelos.get(i).setTipoVuelo("Intercontinental");
-                vuelos.get(i).setTiempo(24);
+                vuelos.get(i).setTiempo(tiempoVuelo);
             }
             if(!ciudades.get(origen).vecinos.contains(destino)) 
                 ciudades.get(origen).vecinos.add(destino);//agrego vecinos
