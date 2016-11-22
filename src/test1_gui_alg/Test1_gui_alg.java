@@ -38,7 +38,7 @@ public class Test1_gui_alg {
 //        funcionesPanelSimulacion func=new funcionesPanelSimulacion();
 //        func.calculaRegExp(nombArch);
          //Lectura.leerArchPedidos();
-        funcionesPanelSimulacion func = new funcionesPanelSimulacion();
+       /* funcionesPanelSimulacion func = new funcionesPanelSimulacion();
         String nombArch = "src/recursos/arch_";
         int contBD = 4;
         int contador=0;
@@ -64,9 +64,9 @@ public class Test1_gui_alg {
                 contador = funcion.CalcularFuncion(resp[0], resp[1], resp[2],0,0);//tipo, vuelta
             } catch (SQLException ex) {
             }
-        }
-        //Nv nv= new Nv();
-        //nv.setVisible(true);
+        }*/
+        Nv nv= new Nv();
+        nv.setVisible(true);
     }
     
     public static String principal() throws InstantiationException, IllegalAccessException{

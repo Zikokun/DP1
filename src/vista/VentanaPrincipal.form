@@ -154,7 +154,7 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="pnlFondo" pref="408" max="32767" attributes="0"/>
+              <Component id="pnlFondo" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>

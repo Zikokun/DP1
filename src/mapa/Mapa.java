@@ -129,6 +129,7 @@ public class Mapa extends PApplet{
             Object[] ruta = lisPaquetesRutas.get(i);
             float longuitud = (float)ruta[1];
             float latitud = (float)ruta[2];
+            
             boolean esPrimeraVezVuelo = false;
             
             if(longuitud == 0 && latitud == 0){
@@ -136,10 +137,10 @@ public class Mapa extends PApplet{
                 latitud = (float)ruta[4];
                 esPrimeraVezVuelo = true;
             }
-            ruta[1] = longuitud;
-            ruta[2] = latitud;
+            lisPaquetesRutas.get(i)[1] = longuitud;
+            lisPaquetesRutas.get(i)[2] = latitud;
                 
-            Location ubicacion = new Location(longuitud,latitud);
+            Location ubicacion = new Location(latitud,longuitud);
             SimplePointMarker ubicacionMarcador = new SimplePointMarker(ubicacion);
             ubicacionMarcador.setColor(color(255, 0, 0, 100));
             //if(esPrimeraVezVuelo) ubicacionMarcador.setColor(obtenerColorAleatorio());
@@ -179,7 +180,7 @@ public class Mapa extends PApplet{
     
     private void cambiarLonguitudYLatitudActuales(){
         List<Object[]> lisPaquetesRutas = this.listaPaquetesRutas;
-        for(int i = 0; i < lisPaquetesRutas.size(); i++){
+        for(int i = 0; i < lisPaquetesRutas.size() && fueApretado == BOTON_PAUSA_NO_APRETADO; i++){
             Object[] ruta = lisPaquetesRutas.get(i);
             float longuitudActual = (float)ruta[1];
             float latitudActual = (float)ruta[2];
@@ -215,14 +216,16 @@ public class Mapa extends PApplet{
     }
     
     private void cambiarFecha(){
-        Calendar calendario = Calendar.getInstance();
-        calendario.setTime(getFechaInicial()); 
-        calendario.set(Calendar.MINUTE, calendario.get(Calendar.MINUTE) + FACTOR_TIEMPO_NORMAL);
-        setFechaInicial(calendario.getTime());
-        
-        DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm"); //("yyyy-MM-dd HH:mm:ss");
-        String sTiempo = fecha.format(getFechaInicial());
-        VentanaPrincipal.labelMostrarTiempoReal.setText(sTiempo);
+        if(fueApretado == BOTON_PAUSA_NO_APRETADO){
+            Calendar calendario = Calendar.getInstance();
+            calendario.setTime(getFechaInicial());
+            calendario.set(Calendar.MINUTE, calendario.get(Calendar.MINUTE) + FACTOR_TIEMPO_NORMAL);
+            setFechaInicial(calendario.getTime());
+
+            DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm"); //("yyyy-MM-dd HH:mm:ss");
+            String sTiempo = fecha.format(getFechaInicial());
+            VentanaPrincipal.labelMostrarTiempoReal.setText(sTiempo);    
+        }
     }
     
     private void cambiarReloj(){
@@ -272,11 +275,10 @@ public class Mapa extends PApplet{
         try {
             inicializacionMarcadores();
             //cambiarReloj();
-            if(fueApretado == BOTON_PAUSA_NO_APRETADO){
-                cambiarFecha();
-                cambiarLonguitudYLatitudActuales();
-                insertarCoordenadasTablas();
-            }
+            cambiarFecha();
+            cambiarLonguitudYLatitudActuales();
+            insertarCoordenadasTablas();
+            
         } catch (InstantiationException ex) {
             Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
