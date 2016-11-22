@@ -134,4 +134,34 @@ public class funcionesPanelSimulacion {
           resp[2]=(double)id;
           return resp;
         }
+       public void lectorPaquetesSimulacion(int tipo) throws InstantiationException, IllegalAccessException, ParseException{
+           
+            funcionesPanelSimulacion func = new funcionesPanelSimulacion();
+            String nombArch = "src/recursos/arch_";
+            int contBD = 4;
+            int contador=0;
+            for (contBD = 4; contBD < 44; contBD++) {
+                funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+                Connection conexion = cc.conexion();//null
+
+                String origen = "";
+                String sqlBuscarCiudad = "SELECT codCiudad FROM `almacen` WHERE idAlmacen = '" + contBD + "'";
+                try {
+                    Statement st = conexion.createStatement();
+                    ResultSet resultadoBuscar = st.executeQuery(sqlBuscarCiudad);
+
+                    while (resultadoBuscar != null && resultadoBuscar.next()) {
+                        origen = resultadoBuscar.getString("codCiudad");
+                    }
+                    String NombreCompleto = nombArch + origen + ".txt";
+                    System.out.println("archivo: " + NombreCompleto);
+                    double[] resp=new double[3];
+                    resp = func.calculaRegExpD(NombreCompleto);
+
+                    FuncionExponencial funcion = new FuncionExponencial();
+                    contador = funcion.CalcularFuncion(resp[0], resp[1], resp[2],tipo,0);//tipo, vuelta
+                } catch (SQLException ex) {
+                }
+            }
+       }
 }

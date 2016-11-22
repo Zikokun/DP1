@@ -19,6 +19,7 @@ import modelo.Pedido;
 import modelo.Ruta;
 import modelo.Vuelo;
 import utilitario.FuncionExponencial;
+import utilitario.funcionesAnimacionEjecSimu;
 import utilitario.funcionesBaseDeDatos;
 import utilitario.funcionesPanelSimulacion;
 import vista.Nv;
@@ -65,6 +66,9 @@ public class Test1_gui_alg {
             } catch (SQLException ex) {
             }
         }*/
+//        funcionesAnimacionEjecSimu PaqGen;
+//        PaqGen = new funcionesAnimacionEjecSimu(2000000,0);
+//        PaqGen.Iniciar();
         Nv nv= new Nv();
         nv.setVisible(true);
     }
