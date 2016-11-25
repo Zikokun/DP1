@@ -36,9 +36,9 @@ public class Test1_gui_alg {
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, ParseException {
         //String mensaje = principal();
         //System.out.println(mensaje);
-//        funcionesPanelSimulacion func=new funcionesPanelSimulacion();
-//        func.calculaRegExp(nombArch);
-         //Lectura.leerArchPedidos();
+         //       funcionesPanelSimulacion func=new funcionesPanelSimulacion();
+         //       func.calculaRegExp(nombArch);
+        //Lectura.leerArchPedidos();
        /* funcionesPanelSimulacion func = new funcionesPanelSimulacion();
         String nombArch = "src/recursos/arch_";
         int contBD = 4;
