@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.Persona;
+import utilitario.Correo;
+import utilitario.controladorCorreo;
 import utilitario.funcionesPanelMantUsuario;
 
 /**
@@ -24,7 +26,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
     private String usuario;
     private String contrasenha;
     private String tipoUsuario;
-    
+    Correo corr=new Correo();
     public panelMantUsuario() {
         initComponents();
         this.setVisible(true);
@@ -122,7 +124,17 @@ public class panelMantUsuario extends javax.swing.JPanel {
         funcionesMantUsuario.colocarComboBoxesComoNoEditable(this.tipoUsuarioComboBox);
         funcionesMantUsuario.colocarComboBoxesComoNoEditable(this.docIdentidadComboBox);
     }
-    
+    public void enviarCorreo(Persona nuevoUsuario){
+        corr.setContrasenha("dfcljwktcrnxqulr");
+        corr.setUsuarioCorreo("traslapack.packsis@gmail.com");
+        corr.setAsunto("Registros de usuario en PackSis");
+        corr.setMensaje("Se registro con los siguientes datos: usuario="+nuevoUsuario.getUsuario()+" contraseña="+nuevoUsuario.getContrasenhia()+".");
+        corr.setDestino(nuevoUsuario.getCorreo());
+        corr.setNombArch("logo.png");
+        corr.setRutaArch("src/recursos/logo.png");
+        controladorCorreo corrCor= new controladorCorreo();
+        corrCor.enviarCorreo(corr);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,7 +204,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setText("Fecha de nacimiento");
+        jLabel4.setText("Fecha de nacimiento(aaa-mm-dd)");
 
         fechaNacimientoCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -397,6 +409,9 @@ public class panelMantUsuario extends javax.swing.JPanel {
                 try {
                     String mensaje = utilitarioMantenimientos.RegistrarUsuario(usuarioNuevo, tipoUsuario);
                     JOptionPane.showMessageDialog(null, mensaje);
+                    if(mensaje.equals("Usuario insertado con éxito")){
+                        enviarCorreo(usuarioNuevo);
+                    }
                 } catch (SQLException ex) {
                     Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
@@ -406,6 +421,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
                 } catch (ParseException ex) {
                     Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
             }
         } catch (InstantiationException ex) {
             Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -413,7 +429,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
             Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
-
+    
     private void regresarBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarBotonMouseClicked
         VentanaPrincipal.pnlFondo.removeAll();
         
