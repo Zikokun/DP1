@@ -43,6 +43,7 @@ public class Vuelo {
         destino=dest;
         
         //inicializar capacidades en el tiempo
+        //0=Sab,1=Dom,2=Lun,3=Mar,4=Mie,5=Jue,6=Vie
         for (int i=1; i<8; i++){ //los 7 dias de la semana
             capTiempo.add(capacidad);
             capTiempoAux.add(capacidad);

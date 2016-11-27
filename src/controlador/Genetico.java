@@ -230,7 +230,7 @@ public class Genetico {
                     vueloActual.getCapTiempoAux().set(dia, espacioLibre);
                     diaLlegadaEscala=dia;
                 }else if(hSalida>horaP||(hSalida==horaP&&minP==0)){// el paquete se va el mismo dia que llega
-                    dia=diaP;   
+                    dia=diaP%7;   
                     espacioLibre=vueloActual.getCapTiempoAux().get(dia)-1;
                     vueloActual.getCapTiempoAux().set(dia, espacioLibre);
                     diaLlegadaEscala=dia;
@@ -246,7 +246,7 @@ public class Genetico {
                     espacioLibre=vueloActual.getCapTiempoAux().get(dia)-1;
                     vueloActual.getCapTiempoAux().set(dia, espacioLibre);
                 }else if(hSalida>horaL||(hSalida==horaL&&minL==0)){// el paquete se va el mismo dia que llega
-                    dia=diaLlegadaEscala;   
+                    dia=diaLlegadaEscala%7;   
                     espacioLibre=vueloActual.getCapTiempoAux().get(dia)-1;
                     vueloActual.getCapTiempoAux().set(dia, espacioLibre);
                 }
