@@ -97,11 +97,17 @@ public class panelEjecSimu extends javax.swing.JPanel {
             System.out.println("error con imagen");
         }
           
-        JLabel picLabel = new JLabel(new ImageIcon(mapaFondo));
+        /*JLabel picLabel = new JLabel(new ImageIcon(mapaFondo));
         //JLabel picLabel = new JLabel();
         Mapa mapa = new Mapa();
         picLabel.add(mapa);
-        mapa.init();
+        mapa.init();*/
+        //JLabel picLabel = new JLabel(new ImageIcon(mapaFondo));
+        //JLabel picLabel = new JLabel();
+        //Mapa mapa = new Mapa();
+        panelMapa.add(PanelSim.simulacion);
+        
+        //mapa.init();
        
        this.setVisible(true);
        
@@ -169,6 +175,7 @@ public class panelEjecSimu extends javax.swing.JPanel {
         panelLog = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         logMensajesPanel = new javax.swing.JTextArea();
+        panelMapa = new javax.swing.JPanel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,18 +201,32 @@ public class panelEjecSimu extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout panelMapaLayout = new javax.swing.GroupLayout(panelMapa);
+        panelMapa.setLayout(panelMapaLayout);
+        panelMapaLayout.setHorizontalGroup(
+            panelMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 499, Short.MAX_VALUE)
+        );
+        panelMapaLayout.setVerticalGroup(
+            panelMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 505, Short.MAX_VALUE)
+                .addComponent(panelMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -234,5 +255,6 @@ public class panelEjecSimu extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea logMensajesPanel;
     private javax.swing.JPanel panelLog;
+    private javax.swing.JPanel panelMapa;
     // End of variables declaration//GEN-END:variables
 }

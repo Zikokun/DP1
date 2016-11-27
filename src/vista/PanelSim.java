@@ -107,9 +107,12 @@ public class PanelSim extends javax.swing.JPanel {
         PApplet mapa = new Mapa();
         
         this.setSimulacion(mapa);
-        topFrame.pnlFondo.add(mapa);
+        //topFrame.pnlFondo.add(mapa);
         mapa.init();
-                
+        
+        panelEjecSimu pse=new panelEjecSimu(tipoSim);
+        topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
+        
         this.setVisible(false);
         topFrame.revalidate();
         topFrame.repaint();
