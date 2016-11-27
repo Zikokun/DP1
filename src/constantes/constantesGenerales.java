@@ -30,4 +30,5 @@ public class constantesGenerales {
     public static int BOTON_PAUSA_NO_APRETADO = 1;
     public static String TEXTO_PAUSAR = "PAUSAR";
     public static String TEXTO_CONTINUAR = "CONTINUAR";
+    public static int TIEMPO_ENTRE_RUTEO=120000;
 }

@@ -45,7 +45,7 @@ public class FuncionExponencial {
             for(j=0;j<value;j++){
                 number = r.nextInt(39)+4;
                 rastreo = utilitarioPanelCrearEnvio.GetLastNumeroRastreo() + 1;
-                //String cadena = utilitarioPanelCrearEnvio.CrearEnvioExponencial((int) Math.round(Z), number, Integer.toString(rastreo), tipo, i);
+                String cadena = utilitarioPanelCrearEnvio.CrearEnvioExponencial((int) Math.round(Z), number, Integer.toString(rastreo), tipo, i);
                 //System.out.println(j + " - " + cadena);
             }
             System.out.println("vuelta: (" +vuelta + ") " + i + "  --  paquetes: " + value + " limite (" + limite + ")");

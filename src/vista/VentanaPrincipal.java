@@ -24,6 +24,7 @@ import utilitario.funcionesVentanaPrincipal.*;
 import javax.swing.Timer;
 import mapa.Mapa;
 import static mapa.Mapa.fueApretado;
+import utilitario.funcionesControlHiloEjecRuteoPaquete;
 import utilitario.funcionesRuteo;
  
 
@@ -37,14 +38,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private String usuario;
     private String contrasenha;
     public funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
-    public funcionesRuteo enrutador = new funcionesRuteo();
-    
+    public  funcionesRuteo enrutador = new funcionesRuteo();
+    public  funcionesControlHiloEjecRuteoPaquete hilo;
     public VentanaPrincipal(){
         initComponents();
         this.setLocationRelativeTo(null);
     }
     public VentanaPrincipal(String type) {
         initComponents();
+       
         this.setLocationRelativeTo(null);
 
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
@@ -91,7 +93,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     public VentanaPrincipal(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
-        
+        hilo=new funcionesControlHiloEjecRuteoPaquete(this.enrutador);
+        hilo.Iniciar();
+        System.out.println("deberia haber iniciado...");
         String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(usuario, contrasenha);
         this.usuario = usuario;
         this.contrasenha = contrasenha;
@@ -355,6 +359,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(respuesta==JOptionPane.YES_OPTION){ 
             funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
             fVentanaPrincipal.terminarSimulacion();
+            hilo.Detener();
             this.setVisible(false);
             this.dispose();
             Nv login=new Nv();

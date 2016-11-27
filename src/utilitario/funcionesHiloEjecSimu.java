@@ -51,36 +51,7 @@ public class funcionesHiloEjecSimu extends Thread{
 		DebeDetenerse = true;
 	}
 	public void run() {
-//		Graphics g = Panel.getGraphics();
-//		Color colorFondo = new Color(205, 205, 205);
-//                
-//		try {
-//			while(!DebeDetenerse) {
-//				// Borro el anterior
-//				
-//                                g.setColor(colorFondo);
-//                                //Panel.repaint();
-//				for(int i=0;i<(ADib.size());i++){
-//                                    ADib.get(i).Dibujar(Panel,g);
-//                                }
-//				// Dibujo en la nueva posicion
-//				for(int i=0;i<(ADib.size());i++){
-//                                    ADib.get(i).Mover();
-//                                }
-//                                for(int i=0;i<(ADib.size());i++){
-//                                    if(ADib.get(i).getCentroX()==ADib.get(i).getLimX() && ADib.get(i).getCentroY()==ADib.get(i).getLimY())
-//                                       Detener();
-//                                }
-//				g.setColor(Color.GREEN);
-//				for(int i=0;i<(ADib.size());i++){
-//                                    ADib.get(i).Dibujar(Panel,g);
-//                                }
-//				// Espero
-//				Thread.sleep(IntervaloTiempo);
-//			}
-//		} catch(InterruptedException ex) {
-//		}
-//		g.dispose();
+
                 try{
                     while(!DebeDetenerse){
                         func.lectorPaquetesSimulacion(tipoSimu);
@@ -96,6 +67,6 @@ public class funcionesHiloEjecSimu extends Thread{
                 } catch(InterruptedException ex) {
 		} catch (InstantiationException | IllegalAccessException | ParseException | IOException | SQLException ex) {
                 Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                }
 	}
 }

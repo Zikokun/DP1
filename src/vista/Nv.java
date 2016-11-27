@@ -13,18 +13,20 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import utilitario.funcionesVentanaPrincipal;
-
+import utilitario.funcionesControlHiloEjecRuteoPaquete;
 /**
  *
  * @author a20090245
  */
 public class Nv extends javax.swing.JFrame {
-
+    
+    
     /**
      * Creates new form Nv
      */
     public Nv() {
         initComponents();
+        
         this.setLocationRelativeTo(null);
     }
 
