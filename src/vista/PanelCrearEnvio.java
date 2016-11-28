@@ -30,12 +30,25 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     /**
      * Creates new form PanelCrearEnvio
      */
-   public PanelCrearEnvio() throws InstantiationException, IllegalAccessException {
+    public PanelCrearEnvio() throws InstantiationException, IllegalAccessException {
         initComponents();
+        label1.setVisible(false);
+        label2.setVisible(false);
+        label3.setVisible(false);
+        label4.setVisible(false);
+        label5.setVisible(false);
+        label6.setVisible(false);
+        label7.setVisible(false);
+        label8.setVisible(false);
+        label9.setVisible(false);
+        label10.setVisible(false);
+        label11.setVisible(false);
+        label12.setVisible(false);
+        label13.setVisible(false);
         funcionesPanelCrearEnvio funcionesMantAlmacen = new funcionesPanelCrearEnvio();
         ArrayList<String> datosAlmacen = new ArrayList<>(funcionesMantAlmacen.devolverDatosAlmacenes());
-        int cantidad=datosAlmacen.size();
-        for(int i=0;i<cantidad;i++){
+        int cantidad = datosAlmacen.size();
+        for (int i = 0; i < cantidad; i++) {
             this.comboDestino.addItem(datosAlmacen.get(i));
             this.comboOrigen.addItem(datosAlmacen.get(i));
         }
@@ -44,15 +57,15 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         campoApellidoM.setText("Patrón");
         campoCorreo.setText("julian.m@correo.com");
         campoDNIEmisor.setText("73951963");
-        
+
         campoNombreRe.setText("Angela");
         campoApellidoPRe.setText("Linares");
         campoApellidoMRe.setText("Góngora");
         campoCorreoRe.setText("angela.l@correo.com");
         campoDNIReceptor.setText("72029100");
-        
+
         campoDescripcion1.setText("Paquete frágil");
-        
+
         //comboOrigen.setSelectedIndex(18);
     }
 
@@ -82,6 +95,11 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         campoCorreo = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        label1 = new javax.swing.JLabel();
+        label2 = new javax.swing.JLabel();
+        label3 = new javax.swing.JLabel();
+        label4 = new javax.swing.JLabel();
+        label9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -97,6 +115,11 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         campoApellidoMRe = new javax.swing.JTextField();
         campoCorreoRe = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
+        label5 = new javax.swing.JLabel();
+        label6 = new javax.swing.JLabel();
+        label7 = new javax.swing.JLabel();
+        label8 = new javax.swing.JLabel();
+        label10 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         campoDescripcion1 = new javax.swing.JTextField();
@@ -107,6 +130,9 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         registrarEnvioBoton = new javax.swing.JButton();
+        label11 = new javax.swing.JLabel();
+        label12 = new javax.swing.JLabel();
+        label13 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(193, 189, 189));
 
@@ -169,6 +195,31 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
             }
         });
 
+        label1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label1.setForeground(new java.awt.Color(255, 0, 0));
+        label1.setText("* Nombre obligatorio");
+        label1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label2.setForeground(new java.awt.Color(255, 0, 0));
+        label2.setText("* Apellido Paterno obligatorio");
+        label2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label3.setForeground(new java.awt.Color(255, 0, 0));
+        label3.setText("* Apellido Materno obligatorio");
+        label3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label4.setForeground(new java.awt.Color(255, 0, 0));
+        label4.setText("* Correo obligatorio");
+        label4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label9.setForeground(new java.awt.Color(255, 0, 0));
+        label9.setText("* Documento obligatorio");
+        label9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -189,27 +240,32 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addComponent(campoDNIEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(label9)))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)
-                            .addComponent(jLabel15))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel15)
+                            .addComponent(campoApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label3)
+                            .addComponent(label2))
+                        .addGap(0, 230, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                            .addComponent(jLabel14)
+                            .addComponent(label1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
-                            .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(campoApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(label4)
+                            .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,18 +273,26 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(4, 4, 4)
+                                .addComponent(comboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(4, 4, 4)
-                        .addComponent(comboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(label1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel17))
+                        .addGap(4, 4, 4)
+                        .addComponent(label4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addComponent(jLabel13))
@@ -236,13 +300,22 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoDNIEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(label2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -300,6 +373,31 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
         jLabel24.setText("Correo electrónico del remitente: *");
 
+        label5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label5.setForeground(new java.awt.Color(255, 0, 0));
+        label5.setText("* Nombre obligatorio");
+        label5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label6.setForeground(new java.awt.Color(255, 0, 0));
+        label6.setText("* Apellido Paterno obligatorio");
+        label6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label7.setForeground(new java.awt.Color(255, 0, 0));
+        label7.setText("* Apellido Materno obligatorio");
+        label7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label8.setForeground(new java.awt.Color(255, 0, 0));
+        label8.setText("* Correo obligatorio");
+        label8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label10.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label10.setForeground(new java.awt.Color(255, 0, 0));
+        label10.setText("* Documento obligatorio");
+        label10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -314,29 +412,31 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addComponent(comboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel20))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(campoDNIReceptor, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(campoDNIReceptor, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label10))))
                 .addGap(49, 49, 49)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
                             .addComponent(campoNombreRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                            .addComponent(label5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel24)
                             .addComponent(campoCorreoRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24))
-                        .addGap(25, 25, 25))
+                            .addComponent(label8))
+                        .addGap(21, 21, 21))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label7)
+                            .addComponent(label6)
+                            .addComponent(campoApellidoMRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoApellidoPRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22)
                             .addComponent(jLabel23))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(campoApellidoMRe, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -356,19 +456,29 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoCorreoRe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label5)
+                    .addComponent(label8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoDNIReceptor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoApellidoPRe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoApellidoPRe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDNIReceptor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label6)
+                    .addComponent(label10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoApellidoMRe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label7)
+                .addGap(38, 38, 38))
         );
 
         jLabel25.setText("2) ¿Qué va a enviar?");
@@ -415,6 +525,21 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
             }
         });
 
+        label11.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label11.setForeground(new java.awt.Color(255, 0, 0));
+        label11.setText("* Descripción obligatoria");
+        label11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label12.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label12.setForeground(new java.awt.Color(255, 0, 0));
+        label12.setText("* Descripción obligatoria");
+        label12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label13.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label13.setForeground(new java.awt.Color(255, 0, 0));
+        label13.setText("* Descripción obligatoria");
+        label13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -431,11 +556,14 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoDescripcion3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campoDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoDescripcion2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(402, Short.MAX_VALUE))
+                            .addComponent(campoDescripcion2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label11)
+                            .addComponent(label12)
+                            .addComponent(label13))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
                         .addComponent(registrarEnvioBoton)
                         .addGap(54, 54, 54))))
         );
@@ -450,31 +578,42 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoDescripcion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label12)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoDescripcion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel30))
-                .addGap(36, 36, 36))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label13)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel25)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(167, 167, 167))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,15 +622,15 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -501,11 +640,9 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -521,7 +658,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 677, Short.MAX_VALUE)
+            .addGap(0, 750, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -530,7 +667,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 832, Short.MAX_VALUE)
+            .addGap(0, 925, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -551,55 +688,85 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoDescripcion1ActionPerformed
 
-    private int CamposObligatorios() throws InstantiationException, IllegalAccessException{
-        int cont=0;
-        String cadena="Ingresar:";
-        if(campoDNIEmisor.getText().isEmpty()) {
-            cadena+= "\n DNI del Emisor";
+    private int CamposObligatorios() throws InstantiationException, IllegalAccessException {
+        int cont = 0;
+        String cadena = "Ingresar:";
+        if (campoDNIEmisor.getText().isEmpty()) {
+            cadena += "\n DNI del Emisor";
             cont++;
+            label9.setVisible(true);
+        } else {
+            label9.setVisible(false);
         }
-        if(campoDNIReceptor.getText().isEmpty()){
-            cadena+= "\n DNI del Receptor";
+        if (campoDNIReceptor.getText().isEmpty()) {
+            cadena += "\n DNI del Receptor";
             cont++;
+            label10.setVisible(true);
+        } else {
+            label10.setVisible(false);
         }
-        if(campoNombre.getText().isEmpty()) {
-            cadena+= "\n Nombre del Emisor";
+        if (campoNombre.getText().isEmpty()) {
+            cadena += "\n Nombre del Emisor";
             cont++;
+            label1.setVisible(true);
+        } else {
+            label1.setVisible(false);
         }
-        if(campoApellidoP.getText().isEmpty()) {
-            cadena+= "\n Apellido Paterno del Emisor";
+        if (campoApellidoP.getText().isEmpty()) {
+            cadena += "\n Apellido Paterno del Emisor";
             cont++;
+            label2.setVisible(true);
+        } else {
+            label2.setVisible(false);
         }
-        if(campoApellidoM.getText().isEmpty()) {
-            cadena+= "\n Apellido Materno del Emisor";
+        if (campoApellidoM.getText().isEmpty()) {
+            cadena += "\n Apellido Materno del Emisor";
             cont++;
+            label3.setVisible(true);
+        } else {
+            label3.setVisible(false);
         }
-        if(campoCorreo.getText().isEmpty()) {
-            cadena+= "\n Correo del Emisor";
+        if (campoCorreo.getText().isEmpty()) {
+            cadena += "\n Correo del Emisor";
             cont++;
+            label4.setVisible(true);
+        } else {
+            label4.setVisible(false);
         }
-        if(campoNombreRe.getText().isEmpty()) {
-            cadena+= "\n Nombre del Receptor";
+        if (campoNombreRe.getText().isEmpty()) {
+            cadena += "\n Nombre del Receptor";
             cont++;
+            label5.setVisible(true);
+        } else {
+            label5.setVisible(false);
         }
-        if(campoApellidoPRe.getText().isEmpty()) {
-            cadena+= "\n Apellido Paterno del Receptor";
+        if (campoApellidoPRe.getText().isEmpty()) {
+            cadena += "\n Apellido Paterno del Receptor";
             cont++;
+            label6.setVisible(true);
+        } else {
+            label6.setVisible(false);
         }
-        if(campoApellidoMRe.getText().isEmpty()) {
-            cadena+= "\n Apellido Materno del Receptor";
+        if (campoApellidoMRe.getText().isEmpty()) {
+            cadena += "\n Apellido Materno del Receptor";
             cont++;
+            label7.setVisible(true);
+        } else {
+            label7.setVisible(false);
         }
-        if(campoCorreoRe.getText().isEmpty()) {
-            cadena+= "\n Correo del Receptor";
+        if (campoCorreoRe.getText().isEmpty()) {
+            cadena += "\n Correo del Receptor";
             cont++;
+            label8.setVisible(true);
+        } else {
+            label8.setVisible(false);
         }
-        if(cont>0)JOptionPane.showMessageDialog(this, cadena, "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+        //if(cont>0)JOptionPane.showMessageDialog(this, cadena, "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
         return cont;
     }
-    
-    private void RegistrarEnvio(String Descripcion) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-        if(CamposObligatorios() == 0) {
+
+    private void RegistrarEnvio(String Descripcion) throws InstantiationException, IllegalAccessException, SQLException, ParseException {
+        if (CamposObligatorios() == 0) {
             if (CompararDatosCliente() == 0) {
                 funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
                 Paquete nuevo = new Paquete();
@@ -646,61 +813,89 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
             }
         }
     }
-    
+
     private void registrarEnvioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEnvioBotonActionPerformed
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            if(!campoDescripcion1.getText().isEmpty()) RegistrarEnvio(campoDescripcion1.getText());
-            else JOptionPane.showMessageDialog(this, "Ingresar Descripción del Paquete", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
-            if(!campoDescripcion2.getText().isEmpty()) RegistrarEnvio(campoDescripcion2.getText());
-            if(!campoDescripcion3.getText().isEmpty()) RegistrarEnvio(campoDescripcion3.getText());
+            if (!campoDescripcion1.getText().isEmpty()) {
+                RegistrarEnvio(campoDescripcion1.getText());
+                label11.setVisible(true);
+            } else {
+                label11.setVisible(false);
+            }
+            //else JOptionPane.showMessageDialog(this, "Ingresar Descripción del Paquete", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            if (!campoDescripcion2.getText().isEmpty()) {
+                RegistrarEnvio(campoDescripcion2.getText());
+                label12.setVisible(true);
+            } else {
+                label12.setVisible(false);
+            }
+            if (!campoDescripcion3.getText().isEmpty()) {
+                RegistrarEnvio(campoDescripcion3.getText());
+                label13.setVisible(true);
+            } else {
+                label13.setVisible(false);
+            }
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException | ParseException ex) {
-           Logger.getLogger(PanelCrearEnvio.class.getName()).log(Level.SEVERE, null, ex);
-       }
-       //Pedido pd=new Pedido(ori,dest,cantidad,horaL,minL,diaL,mesL,anhoL);
-       
-        
-       //Pedido pd=new Pedido(ori,dest,cantidad,horaL,minL,diaL,mesL,anhoL);
-       
+            Logger.getLogger(PanelCrearEnvio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Pedido pd=new Pedido(ori,dest,cantidad,horaL,minL,diaL,mesL,anhoL);
+
+        //Pedido pd=new Pedido(ori,dest,cantidad,horaL,minL,diaL,mesL,anhoL);
+
     }//GEN-LAST:event_registrarEnvioBotonActionPerformed
 
-     private int CompararDatosCliente() throws InstantiationException, IllegalAccessException{
-        String DNI=this.campoDNIEmisor.getText();
-        int i=0;
+    private int CompararDatosCliente() throws InstantiationException, IllegalAccessException {
+        String DNI = this.campoDNIEmisor.getText();
+        int i = 0;
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
         Persona nuevo = utilitarioPanelCrearEnvio.BuscarClienteRegistrado(DNI);
 
-        if(!nuevo.getDocumento().equals("")){
-            if(!campoNombre.getText().equals(nuevo.getNombre())) i++;
-            if(!campoApellidoP.getText().equals(nuevo.getApellidoP())) i++;
-            if(!campoApellidoM.getText().equals(nuevo.getApellidoM())) i++;
-            if(!campoCorreo.getText().equals(nuevo.getCorreo())) i++;
-            if(!campoDNIEmisor.getText().equals(nuevo.getDocumento())) i++;
+        if (!nuevo.getDocumento().equals("")) {
+            if (!campoNombre.getText().equals(nuevo.getNombre())) {
+                i++;
+            }
+            if (!campoApellidoP.getText().equals(nuevo.getApellidoP())) {
+                i++;
+            }
+            if (!campoApellidoM.getText().equals(nuevo.getApellidoM())) {
+                i++;
+            }
+            if (!campoCorreo.getText().equals(nuevo.getCorreo())) {
+                i++;
+            }
+            if (!campoDNIEmisor.getText().equals(nuevo.getDocumento())) {
+                i++;
+            }
         }
-        if(i>0) JOptionPane.showMessageDialog(null, "Datos no coinciden con base de datos");
+        if (i > 0) {
+            JOptionPane.showMessageDialog(null, "Datos no coinciden con base de datos");
+        }
         return i;
     }
-    
-    private int EncontrarCliente() throws InstantiationException, IllegalAccessException{
-        String DNI=this.campoDNIEmisor.getText();
-        int i=0;
+
+    private int EncontrarCliente() throws InstantiationException, IllegalAccessException {
+        String DNI = this.campoDNIEmisor.getText();
+        int i = 0;
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
         Persona nuevo = utilitarioPanelCrearEnvio.BuscarClienteRegistrado(DNI);
 
-        if(!nuevo.getDocumento().equals("")){
+        if (!nuevo.getDocumento().equals("")) {
             campoNombre.setText(nuevo.getNombre());
             campoApellidoP.setText(nuevo.getApellidoP());
             campoApellidoM.setText(nuevo.getApellidoM());
             campoCorreo.setText(nuevo.getCorreo());
             campoDNIEmisor.setText(nuevo.getDocumento());
             i++;
-        }else JOptionPane.showMessageDialog(null, "Cliente no se encuentra registrado");
+        } else {
+            JOptionPane.showMessageDialog(null, "Cliente no se encuentra registrado");
+        }
         return i;
     }
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
@@ -712,122 +907,122 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
     private void campoDNIReceptorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDNIReceptorKeyTyped
         char key = evt.getKeyChar();
-        if(!Character.isDigit(key)){
+        if (!Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoDNIReceptor.getText().length()>=8) {  
+        if (campoDNIReceptor.getText().length() >= 8) {
             evt.consume();
         }
     }//GEN-LAST:event_campoDNIReceptorKeyTyped
 
     private void campoDNIEmisorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDNIEmisorKeyTyped
         char key = evt.getKeyChar();
-        if(!Character.isDigit(key)){
+        if (!Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoDNIEmisor.getText().length()>=8) {  
+        if (campoDNIEmisor.getText().length() >= 8) {
             evt.consume();
         }
     }//GEN-LAST:event_campoDNIEmisorKeyTyped
 
     private void campoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreKeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoNombre.getText().length()>=30) {
+        if (campoNombre.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoNombreKeyTyped
 
     private void campoApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoPKeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoApellidoP.getText().length()>=30) {
+        if (campoApellidoP.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoApellidoPKeyTyped
 
     private void campoApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoMKeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoApellidoM.getText().length()>=30) {
+        if (campoApellidoM.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoApellidoMKeyTyped
 
     private void campoCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCorreoKeyTyped
-        if(campoCorreo.getText().length()>=30) {
+        if (campoCorreo.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoCorreoKeyTyped
 
     private void campoNombreReKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreReKeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoNombreRe.getText().length()>=30) {
+        if (campoNombreRe.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoNombreReKeyTyped
 
     private void campoApellidoPReKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoPReKeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoApellidoPRe.getText().length()>=30) {
+        if (campoApellidoPRe.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoApellidoPReKeyTyped
 
     private void campoApellidoMReKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoMReKeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoApellidoMRe.getText().length()>=30) {
+        if (campoApellidoMRe.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoApellidoMReKeyTyped
 
     private void campoCorreoReKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCorreoReKeyTyped
-        if(campoCorreoRe.getText().length()>=30) {
+        if (campoCorreoRe.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoCorreoReKeyTyped
 
     private void campoDescripcion1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDescripcion1KeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoDescripcion1.getText().length()>=30) {
+        if (campoDescripcion1.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoDescripcion1KeyTyped
 
     private void campoDescripcion2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDescripcion2KeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoDescripcion2.getText().length()>=30) {
+        if (campoDescripcion2.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoDescripcion2KeyTyped
 
     private void campoDescripcion3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoDescripcion3KeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(campoDescripcion3.getText().length()>=30) {
+        if (campoDescripcion3.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_campoDescripcion3KeyTyped
@@ -875,6 +1070,19 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label10;
+    private javax.swing.JLabel label11;
+    private javax.swing.JLabel label12;
+    private javax.swing.JLabel label13;
+    private javax.swing.JLabel label2;
+    private javax.swing.JLabel label3;
+    private javax.swing.JLabel label4;
+    private javax.swing.JLabel label5;
+    private javax.swing.JLabel label6;
+    private javax.swing.JLabel label7;
+    private javax.swing.JLabel label8;
+    private javax.swing.JLabel label9;
     private javax.swing.JButton registrarEnvioBoton;
     // End of variables declaration//GEN-END:variables
 }
