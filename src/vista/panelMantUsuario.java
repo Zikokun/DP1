@@ -23,75 +23,97 @@ import utilitario.funcionesPanelMantUsuario;
  * @author FranciscoMartin
  */
 public class panelMantUsuario extends javax.swing.JPanel {
+
     private String usuario;
     private String contrasenha;
     private String tipoUsuario;
-    Correo corr=new Correo();
+    Correo corr = new Correo();
+
     public panelMantUsuario() {
         initComponents();
         this.setVisible(true);
     }
-    
-    public panelMantUsuario(String usuario, String contrasenha,String tipoUsuario, int distinguidor) {
+
+    public panelMantUsuario(String usuario, String contrasenha, String tipoUsuario, int distinguidor) {
         this.usuario = usuario;
         this.contrasenha = contrasenha;
         this.tipoUsuario = tipoUsuario;
         initComponents();
         this.setVisible(true);
+        label1.setVisible(false);
+        label2.setVisible(false);
+        label3.setVisible(false);
+        label4.setVisible(false);
+        label5.setVisible(false);
+        label6.setVisible(false);
+        label7.setVisible(false);
+        label8.setVisible(false);
+        label9.setVisible(false);
     }
-    
-    private int CamposObligatorios() throws InstantiationException, IllegalAccessException{
-        int cont=0;
-        String cadena="Ingresar:";
-        if(nombreCampo.getText().isEmpty()) {
-            cadena+= "\n Contraseña";
+
+    private int CamposObligatorios() throws InstantiationException, IllegalAccessException {
+        int cont = 0;
+        String cadena = "Ingresar:";
+        if (nombreCampo.getText().isEmpty()) {
+            cadena += "\n Contraseña";
             cont++;
-        }
-        if(apellidoPaternoCampo.getText().isEmpty()) {
-            cadena+= "\n Apellido Paterno";
+            label1.setVisible(true);
+        }else {label1.setVisible(false);}
+        if (apellidoPaternoCampo.getText().isEmpty()) {
+            cadena += "\n Apellido Paterno";
             cont++;
-        }
-        if(apellidoMaternoCampo.getText().isEmpty()){
-            cadena+= "\n Apellido Materno";
+            label2.setVisible(true);
+        }else {label2.setVisible(false);}
+        if (apellidoMaternoCampo.getText().isEmpty()) {
+            cadena += "\n Apellido Materno";
             cont++;
-        }
-        if(fechaNacimientoCampo.getText().isEmpty()) {
-            cadena+= "\n Fecha de Nacimiento";
+            label3.setVisible(true);
+        }else {label3.setVisible(false);}
+        if (fechaNacimientoCampo.getText().isEmpty()) {
+            cadena += "\n Fecha de Nacimiento";
             cont++;
-        }
-        if(direccionCampo.getText().isEmpty()) {
-            cadena+= "\n Dirección";
+            label4.setVisible(true);
+        }else {label4.setVisible(false);}
+        if (direccionCampo.getText().isEmpty()) {
+            cadena += "\n Dirección";
             cont++;
-        }
-        if(correoCampo.getText().isEmpty()) {
-            cadena+= "\n Correo";
+            label5.setVisible(true);
+        }else {label5.setVisible(false);}
+        if (correoCampo.getText().isEmpty()) {
+            cadena += "\n Correo";
             cont++;
-        }
-        if(docIdentidadCampo.getText().isEmpty()) {
-            cadena+= "\n Documento de Identidad";
+            label6.setVisible(true);
+        }else {label6.setVisible(false);}
+        if (docIdentidadCampo.getText().isEmpty()) {
+            cadena += "\n Documento de Identidad";
             cont++;
-        }
-        if(usuarioCampo.getText().isEmpty()) {
-            cadena+= "\n Nombre de Usuario";
+            label7.setVisible(true);
+        }else {label7.setVisible(false);}
+        if (usuarioCampo.getText().isEmpty()) {
+            cadena += "\n Nombre de Usuario";
             cont++;
-        }
-        if(contrasenhaCampo.getText().isEmpty()) {
-            cadena+= "\n Contraseña";
+            label8.setVisible(true);
+        }else {label8.setVisible(false);}
+        if (contrasenhaCampo.getText().isEmpty()) {
+            cadena += "\n Contraseña";
             cont++;
+            label9.setVisible(true);
+        }else {label9.setVisible(false);}
+        if (cont > 0) {
+            //JOptionPane.showMessageDialog(this, cadena, "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
         }
-        if(cont>0)JOptionPane.showMessageDialog(this, cadena, "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
         return cont;
     }
 
-    public panelMantUsuario(String usuario, String contrasenha,String tipoUsuario) throws InstantiationException, IllegalAccessException {
-                
+    public panelMantUsuario(String usuario, String contrasenha, String tipoUsuario) throws InstantiationException, IllegalAccessException {
+
         this.usuario = usuario;
         this.contrasenha = contrasenha;
         this.tipoUsuario = tipoUsuario;
         initComponents();
         this.setVisible(true);
         String[] datosUsuario = new String[10];
-        
+
         funcionesPanelMantUsuario funcionesMantUsuario = new funcionesPanelMantUsuario();
 
         this.botonRegistrar.setVisible(false);
@@ -103,15 +125,18 @@ public class panelMantUsuario extends javax.swing.JPanel {
         this.direccionCampo.setText(datosUsuario[4]);
         this.correoCampo.setText(datosUsuario[5]);
         this.docIdentidadCampo.setText(datosUsuario[6]);
-            
-        if(datosUsuario[7].equals(TIPO_CLIENTE)) this.tipoUsuarioComboBox.setSelectedIndex(2);
-        else if(datosUsuario[7].equals(TIPO_ADMIN)) this.tipoUsuarioComboBox.setSelectedIndex(0);
-        else this.tipoUsuarioComboBox.setSelectedIndex(1); //Operario
-            
+
+        if (datosUsuario[7].equals(TIPO_CLIENTE)) {
+            this.tipoUsuarioComboBox.setSelectedIndex(2);
+        } else if (datosUsuario[7].equals(TIPO_ADMIN)) {
+            this.tipoUsuarioComboBox.setSelectedIndex(0);
+        } else {
+            this.tipoUsuarioComboBox.setSelectedIndex(1); //Operario
+        }
         this.docIdentidadComboBox.setSelectedIndex(0);
-            
+
         this.usuarioCampo.setText(datosUsuario[9]);
-            
+
         funcionesMantUsuario.colocarCampoComoNoEditable(this.nombreCampo);
         funcionesMantUsuario.colocarCampoComoNoEditable(this.apellidoPaternoCampo);
         funcionesMantUsuario.colocarCampoComoNoEditable(this.apellidoMaternoCampo);
@@ -120,21 +145,23 @@ public class panelMantUsuario extends javax.swing.JPanel {
         funcionesMantUsuario.colocarCampoComoNoEditable(this.correoCampo);
         funcionesMantUsuario.colocarCampoComoNoEditable(this.docIdentidadCampo);
         funcionesMantUsuario.colocarCampoComoNoEditable(this.usuarioCampo);
-            
+
         funcionesMantUsuario.colocarComboBoxesComoNoEditable(this.tipoUsuarioComboBox);
         funcionesMantUsuario.colocarComboBoxesComoNoEditable(this.docIdentidadComboBox);
     }
-    public void enviarCorreo(Persona nuevoUsuario){
+
+    public void enviarCorreo(Persona nuevoUsuario) {
         corr.setContrasenha("dfcljwktcrnxqulr");
         corr.setUsuarioCorreo("traslapack.packsis@gmail.com");
         corr.setAsunto("Registros de usuario en PackSis");
-        corr.setMensaje("Se registro con los siguientes datos: usuario="+nuevoUsuario.getUsuario()+" contraseña="+nuevoUsuario.getContrasenhia()+".");
+        corr.setMensaje("Se registro con los siguientes datos: usuario=" + nuevoUsuario.getUsuario() + " contraseña=" + nuevoUsuario.getContrasenhia() + ".");
         corr.setDestino(nuevoUsuario.getCorreo());
         corr.setNombArch("logo.png");
         corr.setRutaArch("src/recursos/logo.png");
-        controladorCorreo corrCor= new controladorCorreo();
+        controladorCorreo corrCor = new controladorCorreo();
         corrCor.enviarCorreo(corr);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,6 +198,15 @@ public class panelMantUsuario extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         contrasenhaCampo = new javax.swing.JTextField();
         regresarBoton = new javax.swing.JButton();
+        label1 = new javax.swing.JLabel();
+        label2 = new javax.swing.JLabel();
+        label3 = new javax.swing.JLabel();
+        label4 = new javax.swing.JLabel();
+        label5 = new javax.swing.JLabel();
+        label6 = new javax.swing.JLabel();
+        label7 = new javax.swing.JLabel();
+        label8 = new javax.swing.JLabel();
+        label9 = new javax.swing.JLabel();
 
         jTextField2.setText("jTextField2");
 
@@ -221,7 +257,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setText("Direccion");
+        jLabel7.setText("Dirección");
 
         direccionCampo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -277,62 +313,120 @@ public class panelMantUsuario extends javax.swing.JPanel {
             }
         });
 
+        label1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label1.setForeground(new java.awt.Color(255, 0, 0));
+        label1.setText("* Nombre obligatorio");
+        label1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label2.setForeground(new java.awt.Color(255, 0, 0));
+        label2.setText("* Apellido Paterno obligatorio");
+
+        label3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label3.setForeground(new java.awt.Color(255, 0, 0));
+        label3.setText("* Apellido Materno obligatorio");
+
+        label4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label4.setForeground(new java.awt.Color(255, 0, 0));
+        label4.setText("* Fecha de Nacimiento obligatoria");
+        label4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label5.setForeground(new java.awt.Color(255, 0, 0));
+        label5.setText("* Drección obligatoria");
+        label5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label6.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label6.setForeground(new java.awt.Color(255, 0, 0));
+        label6.setText("* Correo obligatorio");
+        label6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label7.setForeground(new java.awt.Color(255, 0, 0));
+        label7.setText("* Documento obligatorio");
+        label7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label8.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label8.setForeground(new java.awt.Color(255, 0, 0));
+        label8.setText("* Usuario obligatorio");
+        label8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        label9.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        label9.setForeground(new java.awt.Color(255, 0, 0));
+        label9.setText("* Contraseña obligatorio");
+        label9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(nombreCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(apellidoPaternoCampo)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(label2))
+                                .addGap(0, 29, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label3)
+                            .addComponent(apellidoMaternoCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                            .addComponent(jLabel3)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(tipoUsuarioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fechaNacimientoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label4)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(docIdentidadComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel10)
                                     .addComponent(usuarioCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel11)
-                                    .addComponent(contrasenhaCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addComponent(docIdentidadCampo)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(fechaNacimientoCampo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label7)
+                                    .addComponent(contrasenhaCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(docIdentidadCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel11))))
+                            .addComponent(jLabel9))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(correoCampo)
                             .addComponent(direccionCampo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(botonRegistrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(regresarBoton))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(nombreCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(0, 53, Short.MAX_VALUE))
-                            .addComponent(apellidoPaternoCampo))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(apellidoMaternoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
-                .addGap(14, 14, 14))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label6)
+                                    .addComponent(label5)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(label8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(label9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonRegistrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(regresarBoton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -342,7 +436,12 @@ public class panelMantUsuario extends javax.swing.JPanel {
                     .addComponent(nombreCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(apellidoPaternoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(apellidoMaternoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label1)
+                    .addComponent(label2)
+                    .addComponent(label3))
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -350,7 +449,11 @@ public class panelMantUsuario extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fechaNacimientoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(direccionCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label4)
+                    .addComponent(label5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel8))
@@ -358,28 +461,40 @@ public class panelMantUsuario extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tipoUsuarioComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(correoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(docIdentidadComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(docIdentidadCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonRegistrar)
-                            .addComponent(regresarBoton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label6))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(docIdentidadComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(docIdentidadCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label7)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(usuarioCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(contrasenhaCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonRegistrar)
+                            .addComponent(regresarBoton))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label8)
+                            .addComponent(label9))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -399,19 +514,24 @@ public class panelMantUsuario extends javax.swing.JPanel {
                 String documento = docIdentidadCampo.getText();
                 String usuario = usuarioCampo.getText();
                 String contrasenhia = contrasenhaCampo.getText();
-                
+
                 String tipoUsuario = (String) this.tipoUsuarioComboBox.getSelectedItem();
                 String tipoDocumento = "DNI";
-                
+
                 Persona usuarioNuevo = new Persona(nombre, apellidoP, apellidoM, fechaNac, direccion, correo, documento, usuario, contrasenhia);
-                
+                String mensaje="";
                 funcionesPanelMantUsuario utilitarioMantenimientos = new funcionesPanelMantUsuario();
                 try {
-                    String mensaje = utilitarioMantenimientos.RegistrarUsuario(usuarioNuevo, tipoUsuario);
-                    JOptionPane.showMessageDialog(null, mensaje);
-                    if(mensaje.equals("Usuario insertado con éxito")){
-                        enviarCorreo(usuarioNuevo);
+                    if ((mensaje=utilitarioMantenimientos.DuplicadoUsuario(usuario)) == "OK") {
+                        mensaje = utilitarioMantenimientos.RegistrarUsuario(usuarioNuevo, tipoUsuario);
+                        JOptionPane.showMessageDialog(null, mensaje);
+                        if (mensaje.equals("Usuario insertado con éxito")) {
+                            enviarCorreo(usuarioNuevo);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, mensaje);
                     }
+
                 } catch (SQLException ex) {
                     Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
@@ -421,7 +541,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
                 } catch (ParseException ex) {
                     Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
         } catch (InstantiationException ex) {
             Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -429,13 +549,13 @@ public class panelMantUsuario extends javax.swing.JPanel {
             Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonRegistrarActionPerformed
-    
+
     private void regresarBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarBotonMouseClicked
         VentanaPrincipal.pnlFondo.removeAll();
-        
-        if(tipoUsuario.equals(TIPO_ADMIN)){
-            PanelSim ps=new PanelSim();
-            VentanaPrincipal.pnlFondo.add(ps,BorderLayout.CENTER);
+
+        if (tipoUsuario.equals(TIPO_ADMIN)) {
+            PanelSim ps = new PanelSim();
+            VentanaPrincipal.pnlFondo.add(ps, BorderLayout.CENTER);
         }
         VentanaPrincipal.pnlFondo.revalidate();
         VentanaPrincipal.pnlFondo.repaint();
@@ -443,74 +563,74 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
     private void nombreCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreCampoKeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(nombreCampo.getText().length()>=30) {  
+        if (nombreCampo.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_nombreCampoKeyTyped
 
     private void apellidoPaternoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellidoPaternoCampoKeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(apellidoPaternoCampo.getText().length()>=30) {  
+        if (apellidoPaternoCampo.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_apellidoPaternoCampoKeyTyped
 
     private void apellidoMaternoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellidoMaternoCampoKeyTyped
         char key = evt.getKeyChar();
-        if(Character.isDigit(key)){
+        if (Character.isDigit(key)) {
             evt.consume();
         }
-        if(apellidoMaternoCampo.getText().length()>=30) {  
+        if (apellidoMaternoCampo.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_apellidoMaternoCampoKeyTyped
 
     private void usuarioCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioCampoKeyTyped
-        if(usuarioCampo.getText().length()>=15) {  
+        if (usuarioCampo.getText().length() >= 15) {
             evt.consume();
         }
     }//GEN-LAST:event_usuarioCampoKeyTyped
 
     private void docIdentidadCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_docIdentidadCampoKeyTyped
         char key = evt.getKeyChar();
-        if(!Character.isDigit(key)){
+        if (!Character.isDigit(key)) {
             evt.consume();
         }
-        if(docIdentidadCampo.getText().length()>=8) {  
+        if (docIdentidadCampo.getText().length() >= 8) {
             evt.consume();
         }
     }//GEN-LAST:event_docIdentidadCampoKeyTyped
 
     private void fechaNacimientoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaNacimientoCampoKeyTyped
         char key = evt.getKeyChar();
-        if(!Character.isDigit(key)&&key!='-'){
+        if (!Character.isDigit(key) && key != '-') {
             evt.consume();
         }
-        if(fechaNacimientoCampo.getText().length()>=10) {  
+        if (fechaNacimientoCampo.getText().length() >= 10) {
             evt.consume();
         }
     }//GEN-LAST:event_fechaNacimientoCampoKeyTyped
 
     private void direccionCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_direccionCampoKeyTyped
-        if(direccionCampo.getText().length()>=30) {  
+        if (direccionCampo.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_direccionCampoKeyTyped
 
     private void contrasenhaCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contrasenhaCampoKeyTyped
-        if(contrasenhaCampo.getText().length()>=15) {  
+        if (contrasenhaCampo.getText().length() >= 15) {
             evt.consume();
         }
     }//GEN-LAST:event_contrasenhaCampoKeyTyped
 
     private void correoCampoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoCampoKeyTyped
-        if(correoCampo.getText().length()>=30) {  
+        if (correoCampo.getText().length() >= 30) {
             evt.consume();
         }
     }//GEN-LAST:event_correoCampoKeyTyped
@@ -540,6 +660,15 @@ public class panelMantUsuario extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label2;
+    private javax.swing.JLabel label3;
+    private javax.swing.JLabel label4;
+    private javax.swing.JLabel label5;
+    private javax.swing.JLabel label6;
+    private javax.swing.JLabel label7;
+    private javax.swing.JLabel label8;
+    private javax.swing.JLabel label9;
     private javax.swing.JTextField nombreCampo;
     private javax.swing.JButton regresarBoton;
     private javax.swing.JComboBox<String> tipoUsuarioComboBox;

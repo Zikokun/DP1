@@ -88,6 +88,28 @@ public class funcionesPanelMantUsuario {
         comboBox.setEnabled(false);
     }
     
+    public String DuplicadoUsuario(String username) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        System.out.println(cc);
+        Connection conexion = cc.conexion();//null
+        String sqlBuscarPersona = "";
+        String cadena="OK";
+        int llaveGeneradaPersona = -1;
+        int llaveGeneradaUsuario = -1;
+        
+        sqlBuscarPersona = "SELECT * FROM usuario where nombreUsuario = '" + "';";        
+        try {
+            Statement st = conexion.createStatement();
+            ResultSet resultadoBuscar = st.executeQuery(sqlBuscarPersona);
+            while(resultadoBuscar!=null && resultadoBuscar.next()){
+                cadena = "Usuario '" + username + "' ya existe";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, "Error al registrar un usuario", ex);
+        }
+        return cadena;
+    }
+    
     public String RegistrarUsuario(Persona nuevoUsuario, String tipoUsuario) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         System.out.println(cc);
