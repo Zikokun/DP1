@@ -59,7 +59,7 @@ public class PanelSim extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Microsoft YaHei", 0, 24)); // NOI18N
         jLabel3.setText("Parámetros iniciales de Simulación");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simulacion tiempo Real", "Operacion 3 dias", "Simulacion", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simulacion tiempo Real", "Operacion 3 dias", "Simulacion total", " ", " " }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -100,25 +100,20 @@ public class PanelSim extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(this.jComboBox1.getSelectedIndex()==1){
             tipoSim=0;
+            System.out.println("asignado el valor 0 en tipoSim:"+tipoSim);
         }else{ 
             if(this.jComboBox1.getSelectedIndex()==2){
-            tipoSim=1;
+                tipoSim=1;
+                 System.out.println("asignado el valor  en tipoSim:"+tipoSim);
             }else{
                 if(this.jComboBox1.getSelectedIndex()==0)
                     tipoSim=2;
+                     System.out.println("asignado el valor 2 en tipoSim:"+tipoSim);
             }
         }
-        if(tipoSim==0){
+       
             
-        }else{
-            if(tipoSim==1){
-                hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
-                hilo.Iniciar();
-            }else{
-                hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
-                hilo.Iniciar();
-            }
-        }
+        
         VentanaPrincipal topFrame = (VentanaPrincipal) SwingUtilities.getWindowAncestor(this);
         topFrame.remove(topFrame.pnlFrente);
         topFrame.pnlFondo.removeAll();
@@ -137,7 +132,15 @@ public class PanelSim extends javax.swing.JPanel {
         this.setVisible(false);
         topFrame.revalidate();
         topFrame.repaint();
-        
+        if(tipoSim==0){
+                System.out.println("creando el hilo simu 3 dias");
+                hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
+                hilo.Iniciar();
+            }else{
+                hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
+                System.out.println("creando el hilo simu hasta que se caiga");
+                hilo.Iniciar();
+            }
     }//GEN-LAST:event_buttonEmpezarActionPerformed
 
 

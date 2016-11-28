@@ -47,11 +47,12 @@ public class funcionesAnimacionEjecSimu {
 		Hilo.Detener();
 	}
  	public boolean EstaCorriendo() {
- 		return (Hilo != null) || (Mapa.mostrarBotonPausa == BOTON_PAUSA_VISIBLE);
+ 		return (Hilo != null) ;
  	}
 	public void Iniciar() {
 		if(!EstaCorriendo()) {
 			Hilo = new funcionesHiloEjecSimu(IntervaloTiempo,tipoSimu);
+                         System.out.println("antes del start del hilo");
 			Hilo.start();
 		}
 	}

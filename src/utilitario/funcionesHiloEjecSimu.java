@@ -33,6 +33,7 @@ public class funcionesHiloEjecSimu extends Thread{
         private funcionesPanelSimulacion func = new funcionesPanelSimulacion();
         private funcionesRuteo funcR = new funcionesRuteo();
         private funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
+        private int detenerse;
         public funcionesHiloEjecSimu(JPanel Vent, int IntervaloTiempo, funcionesDibujoEjecSimu Dib) {
 		this.Panel = Vent;
 		this.IntervaloTiempo = IntervaloTiempo;
@@ -43,7 +44,7 @@ public class funcionesHiloEjecSimu extends Thread{
             this.DebeDetenerse = false;
             this.tipoSimu=tipoSimu;
             this.IntervaloTiempo = IntervaloTiempo;
-            this.cont=2;
+            detenerse = Mapa.mostrarBotonPausa;
         }
 	public funcionesHiloEjecSimu(JPanel Vent, int IntervaloTiempo, ArrayList<funcionesDibujoEjecSimu> Dib) {
 		this.Panel = Vent;
@@ -57,8 +58,11 @@ public class funcionesHiloEjecSimu extends Thread{
 	public void run() {
                 
                 try{
-                    while(Mapa.mostrarBotonPausa!=BOTON_PAUSA_NOVISIBLE){
-                        if(Mapa.fueApretado!=BOTON_PAUSA_APRETADO){
+                    System.out.println("Boton:"+BOTON_PAUSA_NOVISIBLE);
+                    while(detenerse != BOTON_PAUSA_NOVISIBLE){
+                         System.out.println("en bucle del hilo");
+                        if(BOTON_PAUSA_APRETADO!=1){
+                            System.out.println("dentro del if");
                             func.lectorPaquetesSimulacion(tipoSimu);
                             int estadoFinal;
                             int estadoInicial;
@@ -82,6 +86,7 @@ public class funcionesHiloEjecSimu extends Thread{
                         }
                         Thread.sleep(this.IntervaloTiempo);
                     }
+                    System.out.println("FUERA DEL WHILE");
                 } catch(InterruptedException ex) {
 		} catch (InstantiationException | IllegalAccessException | ParseException | IOException | SQLException ex) {
                 Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
