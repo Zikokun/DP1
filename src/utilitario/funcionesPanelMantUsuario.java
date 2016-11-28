@@ -97,12 +97,12 @@ public class funcionesPanelMantUsuario {
         int llaveGeneradaPersona = -1;
         int llaveGeneradaUsuario = -1;
         
-        sqlBuscarPersona = "SELECT * FROM usuario where nombreUsuario = '" + "';";        
+        sqlBuscarPersona = "SELECT * FROM usuario where nombreUsuario = '"  + username +  "';";        
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscar = st.executeQuery(sqlBuscarPersona);
             while(resultadoBuscar!=null && resultadoBuscar.next()){
-                cadena = "Usuario '" + username + "' ya existe";
+                cadena = "Usuario " + resultadoBuscar.getString("nombreUsuario") + " ya existe";
             }
         } catch (SQLException ex) {
             Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, "Error al registrar un usuario", ex);
