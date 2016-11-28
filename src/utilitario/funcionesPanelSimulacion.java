@@ -137,7 +137,7 @@ public class funcionesPanelSimulacion {
        public void lectorPaquetesSimulacion(int tipo) throws InstantiationException, IllegalAccessException, ParseException{
            
             funcionesPanelSimulacion func = new funcionesPanelSimulacion();
-            String nombArch = "src/recursos/arch_";
+            String nombArch = "/recursos/arch_";
             int contBD = 4;
             int contador=0;
             FuncionExponencial funcion = new FuncionExponencial();

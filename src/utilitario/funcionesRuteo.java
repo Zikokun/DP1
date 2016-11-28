@@ -62,8 +62,8 @@ public class funcionesRuteo {
         ArrayList<Pedido> pedidos=devolverPedidosTotal(estadoPedido);
         
         if(primeraVez==1){
-            lector.leerSinPedidosYVuelos("src/recursos/_aeropuertos.OACI.txt", 
-                "src/recursos/_husos_horarios.txt", ciudades);
+            lector.leerSinPedidosYVuelos("/recursos/_aeropuertos.OACI.txt", 
+                "/recursos/_husos_horarios.txt", ciudades);
             vuelos=devolverVuelosTotal();
             asignarTipoVuelo(vuelos,ciudades);
             generarRutas(ciudades);            

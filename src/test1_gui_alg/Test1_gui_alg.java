@@ -60,8 +60,8 @@ public class Test1_gui_alg {
         //lector.leerAeropuertosArchivos("src/recursos/plan_vuelo.txt");
         //lector.leerVuelosArchivos("src/recursos/plan_vuelo.txt");
         
-        lector.leerArchivos("src/recursos/_aeropuertos.OACI.txt", "src/recursos/_plan_vuelo.txt",
-                "src/recursos/_pedidos_07-11-2016.txt", "src/recursos/_husos_horarios.txt", vuelos, ciudades, pedidos);
+        lector.leerArchivos("/recursos/_aeropuertos.OACI.txt", "/recursos/_plan_vuelo.txt",
+                "/recursos/_pedidos_07-11-2016.txt", "/recursos/_husos_horarios.txt", vuelos, ciudades, pedidos);
         asignarTipoVuelo(vuelos,ciudades);
         generarRutas(ciudades);
 //        for(Pedido item:pedidos)
