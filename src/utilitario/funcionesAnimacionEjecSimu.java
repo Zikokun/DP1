@@ -4,10 +4,14 @@
  * and open the template in the editor.
  */
 package utilitario;
+import static constantes.constantesGenerales.BOTON_PAUSA_VISIBLE;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import mapa.Mapa;
+import static mapa.Mapa.mostrarBotonPausa;
+import vista.VentanaPrincipal;
 
 /**
  *
@@ -43,7 +47,7 @@ public class funcionesAnimacionEjecSimu {
 		Hilo.Detener();
 	}
  	public boolean EstaCorriendo() {
- 		return (Hilo != null);
+ 		return (Hilo != null) || (Mapa.mostrarBotonPausa == BOTON_PAUSA_VISIBLE);
  	}
 	public void Iniciar() {
 		if(!EstaCorriendo()) {
@@ -53,8 +57,8 @@ public class funcionesAnimacionEjecSimu {
 	}
 	public void Detener() {
 		if(EstaCorriendo()) {
-			Hilo.Detener();
-			try { Hilo.join(); } catch(InterruptedException ex) {}
+			//Hilo.Detener();
+			//try { Hilo.join(); } catch(InterruptedException ex) {}
 			Hilo = null;
 		}
   	}

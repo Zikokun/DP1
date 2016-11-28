@@ -5,6 +5,7 @@
  */
 package vista;
 
+import static constantes.constantesGenerales.*;
 import java.awt.BorderLayout;
 import java.util.List;
 import javax.swing.JFrame;
@@ -12,6 +13,7 @@ import javax.swing.SwingUtilities;
 import mapa.Mapa;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.marker.Marker;
+import utilitario.funcionesAnimacionEjecSimu;
 /**
  *
  * @author a20125540
@@ -23,6 +25,8 @@ public class PanelSim extends javax.swing.JPanel {
      */
     public static int tipoSim;
     public static PApplet simulacion;
+    public funcionesAnimacionEjecSimu hilo;
+    
     public PanelSim() {
         initComponents();
     }
@@ -55,7 +59,7 @@ public class PanelSim extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Microsoft YaHei", 0, 24)); // NOI18N
         jLabel3.setText("Parámetros iniciales de Simulación");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Operacion 3 dias", "Simulacion" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simulacion tiempo Real", "Operacion 3 dias", "Simulacion", " " }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -94,10 +98,27 @@ public class PanelSim extends javax.swing.JPanel {
 
     private void buttonEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEmpezarActionPerformed
         // TODO add your handling code here:
-        if(this.jComboBox1.getSelectedIndex()==0)
+        if(this.jComboBox1.getSelectedIndex()==1){
             tipoSim=0;
-        else 
+        }else{ 
+            if(this.jComboBox1.getSelectedIndex()==2){
             tipoSim=1;
+            }else{
+                if(this.jComboBox1.getSelectedIndex()==0)
+                    tipoSim=2;
+            }
+        }
+        if(tipoSim==0){
+            
+        }else{
+            if(tipoSim==1){
+                hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
+                hilo.Iniciar();
+            }else{
+                hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
+                hilo.Iniciar();
+            }
+        }
         VentanaPrincipal topFrame = (VentanaPrincipal) SwingUtilities.getWindowAncestor(this);
         topFrame.remove(topFrame.pnlFrente);
         topFrame.pnlFondo.removeAll();
@@ -116,6 +137,7 @@ public class PanelSim extends javax.swing.JPanel {
         this.setVisible(false);
         topFrame.revalidate();
         topFrame.repaint();
+        
     }//GEN-LAST:event_buttonEmpezarActionPerformed
 
 

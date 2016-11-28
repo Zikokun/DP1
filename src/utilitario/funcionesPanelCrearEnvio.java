@@ -224,9 +224,9 @@ public class funcionesPanelCrearEnvio {
             sqlCrearEnvio.setTimestamp(5, ts);
             sqlCrearEnvio.setString(6, "");
             if (tipo == 0) {
-                sqlCrearEnvio.setInt(7, CON_TRES_DIAS.ordinal());
+                sqlCrearEnvio.setInt(7, CON_TRES_DIAS_SIN_RUTA.ordinal());
             } else {
-                sqlCrearEnvio.setInt(7, SIMULACION_SIN_TRES_DIAS.ordinal());
+                sqlCrearEnvio.setInt(7, SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal());
             }
             sqlCrearEnvio.setInt(8, 1);
             sqlCrearEnvio.setInt(9, 1);

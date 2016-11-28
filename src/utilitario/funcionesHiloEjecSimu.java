@@ -5,6 +5,7 @@
  */
 package utilitario;
 import static constantes.constanteEstadoPaquete.*;
+import static constantes.constantesGenerales.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import mapa.Mapa;
 /**
  *
  * @author FranciscoMartin
@@ -30,6 +32,7 @@ public class funcionesHiloEjecSimu extends Thread{
 	private boolean DebeDetenerse;
         private funcionesPanelSimulacion func = new funcionesPanelSimulacion();
         private funcionesRuteo funcR = new funcionesRuteo();
+        private funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
         public funcionesHiloEjecSimu(JPanel Vent, int IntervaloTiempo, funcionesDibujoEjecSimu Dib) {
 		this.Panel = Vent;
 		this.IntervaloTiempo = IntervaloTiempo;
@@ -52,33 +55,31 @@ public class funcionesHiloEjecSimu extends Thread{
 		DebeDetenerse = true;
 	}
 	public void run() {
-
+                
                 try{
-                    while(!DebeDetenerse){
-                        func.lectorPaquetesSimulacion(tipoSimu);
-                        int estadoFinal;
-                        int estadoInicial;
-                        
-                        if(tipoSimu == 0){
-                            estadoInicial = SIN_ENVIAR.ordinal();
-                            estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
+                    while(Mapa.mostrarBotonPausa!=BOTON_PAUSA_NOVISIBLE){
+                        if(Mapa.fueApretado!=BOTON_PAUSA_APRETADO){
+                            func.lectorPaquetesSimulacion(tipoSimu);
+                            int estadoFinal;
+                            int estadoInicial;
+
+                            if(tipoSimu == 0){
+                                estadoInicial = SIN_ENVIAR.ordinal();
+                                estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
+                            }
+                            else if(tipoSimu == 1) {
+                                estadoFinal = CON_TRES_DIAS.ordinal();
+                                estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
+                            }
+                            else {
+                                estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
+                                estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
+                            }
+
+                            fps.lectorPaquetesSimulacion(0);
+                            funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
+
                         }
-                        else if(tipoSimu == 1) {
-                            estadoFinal = CON_TRES_DIAS.ordinal();
-                            estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
-                        }
-                        else {
-                            estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
-                            estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
-                        }
-                        
-                        funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
-                        //colapso=funcR.ruteoPedidosManual(tipoSimu);
-                        cont--;
-                        //if(colapso==1){
-                        if(cont==0)
-                            
-                            Detener();
                         Thread.sleep(this.IntervaloTiempo);
                     }
                 } catch(InterruptedException ex) {

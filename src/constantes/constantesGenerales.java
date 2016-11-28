@@ -31,7 +31,9 @@ public class constantesGenerales {
     public static String TEXTO_PAUSAR = "PAUSAR";
     public static String TEXTO_CONTINUAR = "CONTINUAR";
     public static int TIEMPO_ENTRE_RUTEO=120000;
-    public static int TIPO_SIMULACION_MANUAL = 0;
-    public static int TIPO_SIMULACION_TRES_DIAS = 1;
-    public static int TIPO_SIMULACION_HASTA_ENCONTRAR_ERROR = 2;
+    public static int TIPO_SIMULACION_MANUAL = 2;
+    public static int TIPO_SIMULACION_TRES_DIAS = 0;
+    public static int TIPO_SIMULACION_HASTA_ENCONTRAR_ERROR = 1;
+    public static int TIEMPO_ENTRE_RUTEO_SIMU_3=60000;
+    public static int TIEMPO_ENTRE_RUTEO_SIMU_NO_3=120000;
 }
