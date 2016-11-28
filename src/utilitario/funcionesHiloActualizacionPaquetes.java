@@ -6,20 +6,18 @@
 package utilitario;
 
 import static constantes.constanteEstadoPaquete.*;
-import constantes.constantesEstadoPaquetePorVuelo;
-import static constantes.constantesEstadoPaquetePorVuelo.*;
-import static constantes.constantesGenerales.*;
+import static constantes.constantesEstadoPaquetePorVuelo.ACTIVO;
+import static constantes.constantesEstadoPaquetePorVuelo.INACTIVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,91 +28,37 @@ import mapa.Mapa;
  *
  * @author gerson
  */
-public class funcionesMapa {
-    public Date devolverFechaInicio() throws InstantiationException, IllegalAccessException{
-        Date fechaInicio = null;
+public class funcionesHiloActualizacionPaquetes {
+    
+    public funcionesHiloActualizacionPaquetes(){
         
-        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
-        Connection conexion = cc.conexion();
-        
-        String sqlBuscarMenorFecha = " SELECT MIN(fechaEnvio) " +
-                                           " FROM paquete; ";
-        
-        try {
-            Statement st = conexion.createStatement();
-            ResultSet resultadoMenorFecha = st.executeQuery(sqlBuscarMenorFecha);
-            
-            
-            while(resultadoMenorFecha!=null && resultadoMenorFecha.next()){
-                fechaInicio = (Date)resultadoMenorFecha.getObject(1);
-            }
-        }catch (SQLException ex) {
-            Logger.getLogger(funcionesPanelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return fechaInicio;
-    }  
-    public int devolverHoraInicial() throws InstantiationException, IllegalAccessException{
-        int horaInicial = -1;
-        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
-        Connection conexion = cc.conexion();
-        
-        String sqlBuscarMenorHoraLlegada = " SELECT MIN(horaSalida) " +
-                                           " FROM vuelo; ";
-        try {
-            Statement st = conexion.createStatement();
-            ResultSet resultadoMenorHoraLlegada = st.executeQuery(sqlBuscarMenorHoraLlegada);
-            
-            while(resultadoMenorHoraLlegada!=null && resultadoMenorHoraLlegada.next()){
-                Time horaSalida = (Time) resultadoMenorHoraLlegada.getObject(1);
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(horaSalida);
-                int horaS = cal.get(Calendar.HOUR_OF_DAY);
-                int minS = cal.get(Calendar.MINUTE);
-
-                horaInicial = horaS;
-            }
-        }catch (SQLException ex) {
-            Logger.getLogger(funcionesPanelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return horaInicial;
     }
     
-    private String devolverStringSqlTipoSimulacion(int tipoSimulacion){
-        String sqlTipoSimulacion = "";
-        
-        if(tipoSimulacion == TIPO_SIMULACION_MANUAL){
-            sqlTipoSimulacion = " AND P.estado = " + SIN_ENVIAR.ordinal() + " ";
-        }else if(tipoSimulacion == TIPO_SIMULACION_TRES_DIAS){
-            sqlTipoSimulacion = " AND P.estado = " + CON_TRES_DIAS.ordinal() + " ";
-        }else {
-            sqlTipoSimulacion = " AND P.estado = " + SIMULACION_SIN_TRES_DIAS.ordinal() + " ";
-        }
-        
-        return sqlTipoSimulacion;
+    public void run() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
+        List<Object[]> lstDetallePaquetes = devolverDetallePaquete();
+        actualizarEstadoPaquetesYRutas(lstDetallePaquetes);
     }
     
-    public List<Object[]> devolverDetallePaquete(int tipoSimulacion) throws InstantiationException, IllegalAccessException, SQLException{
+    public List<Object[]> devolverDetallePaquete() throws InstantiationException, IllegalAccessException, SQLException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
         
-        String sqlTipoSimulacion = devolverStringSqlTipoSimulacion(tipoSimulacion);
+        DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date fechaActual = new Date();
+        String sTiempo = fecha.format(fechaActual);
         
         List<Object[]> lstPaquetes = new ArrayList<Object[]>();
-        DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //("yyyy-MM-dd HH:mm:ss");
-        String sTiempo = fecha.format(Mapa.getFechaInicial());
-        
-        String SqlBuscarRutasPaquetes = " SELECT H.Paquete_idPaquete, P.longuitud, P.latitud, A.longuitud, A.latitud, B.longuitud , B.latitud " +
+        String SqlBuscarRutasPaquetes = " SELECT H.Paquete_idPaquete, P.longuitud, P.latitud, A.longuitud, A.latitud, B.longuitud , B.latitud, P.estado, H.horaSalida, H.horaLlegada " +
                                         " FROM avion_has_paquete H, vuelo V, almacen A, almacen B, paquete P " +
                                         " WHERE H.estado = " + ACTIVO.ordinal() + " AND '" + sTiempo + "' > H.horaSalida AND H.Avion_idAvion = V.idVuelo AND V.idLugarOrigen = A.idAlmacen AND V.idLugarDestino = B.idAlmacen AND P.idPaquete = H.Paquete_idPaquete "
-                                        + sqlTipoSimulacion +";";
+                                      + " AND P.estado <> " + CON_TRES_DIAS.ordinal() + " AND P.estado <> " + SIMULACION_SIN_TRES_DIAS.ordinal();
         
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscarRutasPaquetes = st.executeQuery(SqlBuscarRutasPaquetes);
             
             while(resultadoBuscarRutasPaquetes!=null && resultadoBuscarRutasPaquetes.next()){
-                Object[] datosRuta = new Object[7];
+                Object[] datosRuta = new Object[10];
                 datosRuta[0] = resultadoBuscarRutasPaquetes.getInt(1);
                 datosRuta[1] = resultadoBuscarRutasPaquetes.getFloat(2);
                 datosRuta[2] = resultadoBuscarRutasPaquetes.getFloat(3);
@@ -122,6 +66,14 @@ public class funcionesMapa {
                 datosRuta[4] = resultadoBuscarRutasPaquetes.getFloat(5);
                 datosRuta[5] = resultadoBuscarRutasPaquetes.getFloat(6);
                 datosRuta[6] = resultadoBuscarRutasPaquetes.getFloat(7);
+                datosRuta[7] = resultadoBuscarRutasPaquetes.getInt(8);
+                
+                Date fechaSalida = (Date)resultadoBuscarRutasPaquetes.getObject(9); //FechaNacimiento
+                DateFormat fechaFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+                datosRuta[8] = fechaFormat.format(fechaSalida);
+                
+                Date fechaLlegada = (Date)resultadoBuscarRutasPaquetes.getObject(10); //FechaNacimiento
+                datosRuta[9] = fechaFormat.format(fechaLlegada);
                 
                 lstPaquetes.add(datosRuta);
             }
@@ -132,33 +84,28 @@ public class funcionesMapa {
         return lstPaquetes;
     }
     
-    public void insertarLonguitudYLatitudActualizados(List<Object[]> listaRutasActualizadas) throws InstantiationException, IllegalAccessException, SQLException{
+    public void actualizarEstadoPaquetesYRutas(List<Object[]> listaRutasActualizadas) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
         
         try {
             for(int i = 0; i < listaRutasActualizadas.size(); i++){
                 int idPaquete = (Integer)listaRutasActualizadas.get(i)[0];
-                float longuitudActual = (float)listaRutasActualizadas.get(i)[1];
-                float latitudActual = (float)listaRutasActualizadas.get(i)[2];
-
-                float longuitudDestino = (float)listaRutasActualizadas.get(i)[5];
-                float latitudDestino = (float)listaRutasActualizadas.get(i)[6];
-
-                //Cambio posición actual del paquete
-                PreparedStatement sqlActualizarLongYLatActuales = conexion.prepareStatement(" UPDATE `paquete` SET `longuitud`='" + longuitudActual + "', `latitud`='" + latitudActual + "' WHERE `idPaquete`='"+ idPaquete +"'; ");
-                int rows = sqlActualizarLongYLatActuales.executeUpdate();
-
-                //Verifico si el avion ya llegó a su destino
-                if (((longuitudActual <= longuitudDestino + 0.2f) && (longuitudActual >= longuitudDestino - 0.2f))
-                        || ((latitudActual <= latitudDestino + 0.2f) && (latitudActual >= latitudDestino - 0.2f))) { //Se llego a su destino, se trabaj asi por que son float
+                SimpleDateFormat formatoDeFechaNacimiento = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date fechaLlegadaAlmacen = formatoDeFechaNacimiento.parse((String)listaRutasActualizadas.get(i)[9]);
+                
+                DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date fechaActual = new Date();
+                String sTiempo = fecha.format(fechaActual);
+                
+                if(fechaLlegadaAlmacen.before(fechaActual)){//Se paso la fecha, cambia de ruta
                     String sqlBuscarActual = "SELECT Avion_idAvion, Paquete_idPaquete " +
                                              " FROM avion_has_paquete " +
                                              " WHERE estado = " + ACTIVO.ordinal() + " AND Paquete_idPaquete = " + idPaquete +"; ";
-
+                    
                     Statement st = conexion.createStatement();
                     ResultSet resultadoBuscarActuales = st.executeQuery(sqlBuscarActual);
-
+                    
                     while(resultadoBuscarActuales!=null && resultadoBuscarActuales.next()){ //Si no entra es por que ya llego a su ruta final
                         int idVueloActual = resultadoBuscarActuales.getInt(1);
                         int idPaqueteActual = resultadoBuscarActuales.getInt(2);

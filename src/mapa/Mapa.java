@@ -30,6 +30,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilitario.funcionesMapa;
+import vista.PanelSim;
 import vista.VentanaPrincipal;
 
 /**
@@ -120,7 +121,7 @@ public class Mapa extends PApplet{
         }
         
         funcionesMapa fMapa = new funcionesMapa();
-        List<Object[]> lisPaquetesRutas = fMapa.devolverDetallePaquete();
+        List<Object[]> lisPaquetesRutas = fMapa.devolverDetallePaquete(PanelSim.tipoSim);
         this.listaPaquetesRutas = lisPaquetesRutas;
         
         mapDay.getMarkers().clear();

@@ -21,7 +21,7 @@ public class PanelSim extends javax.swing.JPanel {
     /**
      * Creates new form PanelSim
      */
-    public int tipoSim;
+    public static int tipoSim;
     public static PApplet simulacion;
     public PanelSim() {
         initComponents();
