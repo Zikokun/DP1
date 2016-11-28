@@ -50,7 +50,7 @@ public class funcionesRuteo {
     int primeraVez=1;
     ArrayList<Vuelo> vuelos=new ArrayList<>();
     TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
-    
+    Correo corr = new Correo();
     public Cromosoma ruteoPedidosManual(Integer estadoPedido) throws InstantiationException, IllegalAccessException, IOException, SQLException{
         String mensaje = "";
         int hora,dia;
@@ -77,10 +77,11 @@ public class funcionesRuteo {
             Genetico algoritmo=new Genetico();
             algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
             solucion=algoritmo.getMejorCrom();
-            asignarRutasBD(solucion);
+            asignarRutasBD(solucion,estadoPedido);
             //System.out.println("HOla");
             ArrayList<Gen> genes=solucion.genes;
             for(Gen item: genes){
+                
                 item.getRuta().print();
                 System.out.println("Tiempo Total: "+item.tiempo/60+" horas");
             }
@@ -89,7 +90,7 @@ public class funcionesRuteo {
         return solucion;
     }
     
-    public void asignarRutasBD(Cromosoma solucion) throws InstantiationException, IllegalAccessException, SQLException{
+    public void asignarRutasBD(Cromosoma solucion,int estadoPedido) throws InstantiationException, IllegalAccessException, SQLException{
         ArrayList<Gen> genes=solucion.genes;
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
@@ -119,9 +120,52 @@ public class funcionesRuteo {
             //Cambio estado actual del paquete
             PreparedStatement sqlActualizarEstado = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + SIN_ENVIAR_CON_RUTA.ordinal()+ "' WHERE `idPaquete`='"+ codPed +"'; ");
             sqlActualizarEstado.executeUpdate();
+            //Genera correo de asignacion de ruta
+//            if(estadoPedido==0){
+//                 enviarCorreo(item.getPedido(),item.getRuta(),item.getTiempo());
+//            }
         }
     }
-    
+    public String buscaPersona(String numRas) throws InstantiationException, IllegalAccessException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+        String cadena="";
+        String sqlBuscarCorreo = "";
+        String numeroRastreo = " AND B.numeroRastreo = '" + numRas + "' ";
+        sqlBuscarCorreo = " SELECT P.CorreoElectronico, " +
+                " FROM persona P, paquete B " +
+                " WHERE P.idPersona = B.Persona_idPersona  " + numeroRastreo + ";";
+        try{
+        Statement st = conexion.createStatement();
+        ResultSet resultadoBuscarCorreo = st.executeQuery(sqlBuscarCorreo);
+        while(resultadoBuscarCorreo!=null && resultadoBuscarCorreo.next()){
+                cadena = "Usuario " + resultadoBuscarCorreo.getString("CorreoElectronico");
+                        
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesPanelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cadena;
+    }
+    public void enviarCorreo(Pedido itemP,Ruta itemR,int tiempo) {
+        try {
+            corr.setContrasenha("dfcljwktcrnxqulr");
+            corr.setUsuarioCorreo("traslapack.packsis@gmail.com");
+            corr.setAsunto("Enrutamiento de paquete N°"+itemP.getNumeroRastreo());
+            corr.setMensaje("Se registro la siguiente ruta: " + itemR.printS() + ".");
+            String numR=itemP.getNumeroRastreo();
+            String correoUsr=buscaPersona(numR);
+            corr.setDestino(correoUsr);
+            corr.setNombArch("logo.png");
+            corr.setRutaArch("src/recursos/logo.png");
+            controladorCorreo corrCor = new controladorCorreo();
+            corrCor.enviarCorreo(corr);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(funcionesRuteo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(funcionesRuteo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void calcularFechas(Gen gen, ArrayList<Date> horasSalidas, ArrayList<Date> horasLlegadas){
         Pedido pedido = gen.pedido;
         ArrayList<Vuelo> vuelos=gen.getRuta().getVuelos();

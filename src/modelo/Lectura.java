@@ -464,30 +464,30 @@ public class Lectura {
         } catch (IOException ex) {
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ////////////////////////////////////////////////////////////////
-        String archPaquetes="src/recursos/paquetes_vuelos.txt";
-        ////////////////////////////////////////////////////////////////
-        try {
-            bufer3 = new BufferedReader(new FileReader(archPaquetes));
-            while((linea=bufer3.readLine())!= null){
-           
-                valor3=linea.trim().split("-");
-                if(valor3[0].isEmpty())
-                    continue;
-                if(aux[1].equals(valor3[2])){
-                    mes=Integer.parseInt(valor3[1].substring(4, 6));
-                    //dia=Integer.parseInt(valor3[1].substring(6, 8));
-                    //System.out.println(mes);
-                   // System.out.println(dia);
-                    intArr[mes-1]+=1;
-                }
-            }
-            bufer3.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        ////////////////////////////////////////////////////////////////
+//        String archPaquetes="src/recursos/paquetes_vuelos.txt";
+//        ////////////////////////////////////////////////////////////////
+//        try {
+//            bufer3 = new BufferedReader(new FileReader(archPaquetes));
+//            while((linea=bufer3.readLine())!= null){
+//           
+//                valor3=linea.trim().split("-");
+//                if(valor3[0].isEmpty())
+//                    continue;
+//                if(aux[1].equals(valor3[2])){
+//                    mes=Integer.parseInt(valor3[1].substring(4, 6));
+//                    //dia=Integer.parseInt(valor3[1].substring(6, 8));
+//                    //System.out.println(mes);
+//                   // System.out.println(dia);
+//                    intArr[mes-1]+=1;
+//                }
+//            }
+//            bufer3.close();
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         return intArr;
     }
     public static double[] leerPedidoxAeropuertoD(String archPedidos){
@@ -589,31 +589,31 @@ public class Lectura {
         } catch (IOException ex) {
             Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ////////////////////////////////////////////////////////////////
-        String archPaquetes="src/recursos/paquetes_vuelos.txt";
-        ////////////////////////////////////////////////////////////////
-        try {
-            bufer3 = new BufferedReader(new FileReader(archPaquetes));
-            while((linea=bufer3.readLine())!= null){
-           
-                valor3=linea.trim().split("-");
-                if(valor3[0].isEmpty())
-                    continue;
-                if(aux[1].equals(valor3[2])){
-                    mes=Integer.parseInt(valor3[1].substring(4, 6));
-                    dia=Integer.parseInt(valor3[1].substring(6, 8));
-                    //System.out.println(mes);
-                   // System.out.println(dia);
-                    int pos=(dia-1)+((mes-1)*26);
-                    intArrD[pos]+=1;
-                }
-            }
-            bufer3.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        ////////////////////////////////////////////////////////////////
+//        String archPaquetes="src/recursos/paquetes_vuelos.txt";
+//        ////////////////////////////////////////////////////////////////
+//        try {
+//            bufer3 = new BufferedReader(new FileReader(archPaquetes));
+//            while((linea=bufer3.readLine())!= null){
+//           
+//                valor3=linea.trim().split("-");
+//                if(valor3[0].isEmpty())
+//                    continue;
+//                if(aux[1].equals(valor3[2])){
+//                    mes=Integer.parseInt(valor3[1].substring(4, 6));
+//                    dia=Integer.parseInt(valor3[1].substring(6, 8));
+//                    //System.out.println(mes);
+//                   // System.out.println(dia);
+//                    int pos=(dia-1)+((mes-1)*26);
+//                    intArrD[pos]+=1;
+//                }
+//            }
+//            bufer3.close();
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         return intArrD;
     }
 }

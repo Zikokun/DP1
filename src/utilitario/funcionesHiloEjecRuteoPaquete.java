@@ -32,9 +32,9 @@ public class funcionesHiloEjecRuteoPaquete extends Thread {
                 if(detenerse == BOTON_PAUSA_NOVISIBLE){
                     enrutador.ruteoPedidosManual(0);
                 }
-                System.out.println("enruto ..supuestamente");
+                
                 Thread.sleep(TIEMPO_ENTRE_RUTEO);
-                System.out.println("termino de esperar");
+                
                 detenerse = Mapa.mostrarBotonPausa; 
             }
         } catch(InterruptedException ex) {

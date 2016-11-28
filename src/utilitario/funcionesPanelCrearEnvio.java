@@ -111,7 +111,7 @@ public class funcionesPanelCrearEnvio {
         
         String sqlBuscarCiudad = "SELECT MAX(numeroRastreo) as NumeroRastreo FROM `paquete`";
         try {
-            Statement st = conexion.createStatement();
+             Statement st = conexion.createStatement();
             ResultSet resultadoBuscar = st.executeQuery(sqlBuscarCiudad);
             while(resultadoBuscar!=null && resultadoBuscar.next()){
                 id = resultadoBuscar.getInt("NumeroRastreo");
@@ -218,6 +218,7 @@ public class funcionesPanelCrearEnvio {
             sqlCrearEnvio.setInt(2, IDO);
             sqlCrearEnvio.setInt(3, IDD);
             sqlCrearEnvio.setTimestamp(4, ts);
+            
             sqlCrearEnvio.setTimestamp(5, ts);
             sqlCrearEnvio.setString(6, "");
             if (tipo == 0) {

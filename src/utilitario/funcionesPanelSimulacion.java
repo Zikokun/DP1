@@ -140,6 +140,7 @@ public class funcionesPanelSimulacion {
             String nombArch = "src/recursos/arch_";
             int contBD = 4;
             int contador=0;
+            FuncionExponencial funcion = new FuncionExponencial();
             for (contBD = 4; contBD < 44; contBD++) {
                 funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
                 Connection conexion = cc.conexion();//null
@@ -157,11 +158,12 @@ public class funcionesPanelSimulacion {
                     System.out.println("archivo: " + NombreCompleto);
                     double[] resp=new double[3];
                     resp = func.calculaRegExpD(NombreCompleto);
-
-                    FuncionExponencial funcion = new FuncionExponencial();
+                    //System.out.println("x="+resp[0]+" Y= "+resp[1]+" Id="+resp[2]);
+                   
                     contador = funcion.CalcularFuncion(resp[0], resp[1], resp[2],tipo,0);//tipo, vuelta
                 } catch (SQLException ex) {
                 }
             }
+            System.out.println("termino crear paquetes");
        }
 }

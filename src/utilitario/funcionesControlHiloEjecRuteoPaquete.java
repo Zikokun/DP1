@@ -14,9 +14,9 @@ public class funcionesControlHiloEjecRuteoPaquete {
     private funcionesRuteo enrutador;
     public funcionesControlHiloEjecRuteoPaquete(funcionesRuteo enrutador){
          this.enrutador=enrutador;
-         System.out.println("constructor del contro hilo");
+         
          Hilo= null;//new funcionesHiloEjecRuteoPaquete(enrutador);
-         if(Hilo == null) System.out.println("rd nulo .... ");
+         
     }
 
     public funcionesControlHiloEjecRuteoPaquete() {
@@ -29,18 +29,18 @@ public class funcionesControlHiloEjecRuteoPaquete {
  		return (Hilo != null);
  	}
 	public void Iniciar() {
-            System.out.println(EstaCorriendo());
+            
 		if(!EstaCorriendo()) {
 			Hilo = new funcionesHiloEjecRuteoPaquete(enrutador);
 			Hilo.start();
-                        System.out.println("Inicio El Hilo");
+                       
 		}
 	}
 	public void Detener() {
 		if(EstaCorriendo()) {
 			//try { Hilo.join(); } catch(InterruptedException ex) {}
 			Hilo = null;
-                        System.out.println("murio el hilo :V");
+                        
 		}
   	}
 }

@@ -73,7 +73,11 @@ public class Vuelo {
     public void print(){
         System.out.println(getOrigen()+"-"+getDestino()+"-"+getTiempo());
     }
-
+    public String printS(){
+        String salida="";
+        salida.concat(getOrigen()+"-"+getDestino()+"-"+getTiempo());
+        return salida;
+    }
     public int gethSalida() {
         return hSalida;
     }

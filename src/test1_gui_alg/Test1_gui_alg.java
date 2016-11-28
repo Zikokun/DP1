@@ -34,41 +34,9 @@ public class Test1_gui_alg {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, ParseException {
-        //String mensaje = principal();
-        //System.out.println(mensaje);
-         //       funcionesPanelSimulacion func=new funcionesPanelSimulacion();
-         //       func.calculaRegExp(nombArch);
-        //Lectura.leerArchPedidos();
-       /* funcionesPanelSimulacion func = new funcionesPanelSimulacion();
-        String nombArch = "src/recursos/arch_";
-        int contBD = 4;
-        int contador=0;
-        for (contBD = 4; contBD < 44; contBD++) {
-            funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
-            Connection conexion = cc.conexion();//null
-
-            String origen = "";
-            String sqlBuscarCiudad = "SELECT codCiudad FROM `almacen` WHERE idAlmacen = '" + contBD + "'";
-            try {
-                Statement st = conexion.createStatement();
-                ResultSet resultadoBuscar = st.executeQuery(sqlBuscarCiudad);
-
-                while (resultadoBuscar != null && resultadoBuscar.next()) {
-                    origen = resultadoBuscar.getString("codCiudad");
-                }
-                String NombreCompleto = nombArch + origen + ".txt";
-                System.out.println("archivo: " + NombreCompleto);
-                double[] resp=new double[3];
-                resp = func.calculaRegExpD(NombreCompleto);
-
-                FuncionExponencial funcion = new FuncionExponencial();
-                contador = funcion.CalcularFuncion(resp[0], resp[1], resp[2],0,0);//tipo, vuelta
-            } catch (SQLException ex) {
-            }
-        }*/
-//        funcionesAnimacionEjecSimu PaqGen;
-//        PaqGen = new funcionesAnimacionEjecSimu(2000000,0);
-//        PaqGen.Iniciar();
+        //funcionesPanelSimulacion func= new funcionesPanelSimulacion();
+       // func.lectorPaquetesSimulacion(0);
+        
         Nv nv= new Nv();
         nv.setVisible(true);
     }
