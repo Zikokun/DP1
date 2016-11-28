@@ -28,15 +28,27 @@ import mapa.Mapa;
  *
  * @author gerson
  */
-public class funcionesHiloActualizacionPaquetes {
+public class funcionesHiloActualizacionPaquetes extends Thread{
     
     public funcionesHiloActualizacionPaquetes(){
         
     }
     
-    public void run() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-        List<Object[]> lstDetallePaquetes = devolverDetallePaquete();
-        actualizarEstadoPaquetesYRutas(lstDetallePaquetes);
+    public void run(){
+        try {
+            while (true) {
+                List<Object[]> lstDetallePaquetes = devolverDetallePaquete();
+                actualizarEstadoPaquetesYRutas(lstDetallePaquetes);
+            }
+        } catch (InstantiationException ex) {
+            Logger.getLogger(funcionesHiloActualizacionPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(funcionesHiloActualizacionPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesHiloActualizacionPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(funcionesHiloActualizacionPaquetes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public List<Object[]> devolverDetallePaquete() throws InstantiationException, IllegalAccessException, SQLException{
@@ -51,7 +63,7 @@ public class funcionesHiloActualizacionPaquetes {
         String SqlBuscarRutasPaquetes = " SELECT H.Paquete_idPaquete, P.longuitud, P.latitud, A.longuitud, A.latitud, B.longuitud , B.latitud, P.estado, H.horaSalida, H.horaLlegada " +
                                         " FROM avion_has_paquete H, vuelo V, almacen A, almacen B, paquete P " +
                                         " WHERE H.estado = " + ACTIVO.ordinal() + " AND '" + sTiempo + "' > H.horaSalida AND H.Avion_idAvion = V.idVuelo AND V.idLugarOrigen = A.idAlmacen AND V.idLugarDestino = B.idAlmacen AND P.idPaquete = H.Paquete_idPaquete "
-                                      + " AND P.estado <> " + CON_TRES_DIAS.ordinal() + " AND P.estado <> " + SIMULACION_SIN_TRES_DIAS.ordinal();
+                                      + " AND P.estado = " + SIN_ENVIAR_CON_RUTA.ordinal();
         
         try {
             Statement st = conexion.createStatement();

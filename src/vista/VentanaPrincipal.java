@@ -24,6 +24,7 @@ import utilitario.funcionesVentanaPrincipal.*;
 import javax.swing.Timer;
 import mapa.Mapa;
 import static mapa.Mapa.fueApretado;
+import utilitario.funcionesControlHiloActualizacionPaquetes;
 import utilitario.funcionesControlHiloEjecRuteoPaquete;
 import utilitario.funcionesRuteo;
  
@@ -40,6 +41,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
     public  funcionesRuteo enrutador = new funcionesRuteo();
     public  funcionesControlHiloEjecRuteoPaquete hilo;
+    public funcionesControlHiloActualizacionPaquetes hiloActualizador;
     public VentanaPrincipal(){
         initComponents();
         this.setLocationRelativeTo(null);
@@ -95,6 +97,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
         hilo=new funcionesControlHiloEjecRuteoPaquete(this.enrutador);
         hilo.Iniciar();
+        hiloActualizador = new funcionesControlHiloActualizacionPaquetes();
+        hiloActualizador.Iniciar();
         
         String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(usuario, contrasenha);
         this.usuario = usuario;
@@ -174,7 +178,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelOpciones.setText("Opciones");
 
         labelCerrarSesion.setText("Cerrar Sesión");
-        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(0));
         labelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelCerrarSesionMouseClicked(evt);
