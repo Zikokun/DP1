@@ -159,8 +159,8 @@ public class funcionesPanelSimulacion {
                     double[] resp=new double[3];
                     resp = func.calculaRegExpD(NombreCompleto);
                     //System.out.println("x="+resp[0]+" Y= "+resp[1]+" Id="+resp[2]);
-                   
-                    contador = funcion.CalcularFuncion(resp[0], resp[1], resp[2],tipo,0);//tipo, vuelta
+                    
+                    contador = funcion.CalcularFuncion(resp[0], resp[1], resp[2],tipo,0);
                 } catch (SQLException ex) {
                 }
             }

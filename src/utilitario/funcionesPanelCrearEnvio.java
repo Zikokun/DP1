@@ -103,9 +103,9 @@ public class funcionesPanelCrearEnvio {
         return id;
     }
     
-    public int GetLastNumeroRastreo() throws InstantiationException, IllegalAccessException{
+    public int GetLastNumeroRastreo() throws InstantiationException, IllegalAccessException, SQLException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
-        System.out.println(cc);
+        //System.out.println(cc);
         Connection conexion = cc.conexion();//null
         int id=0;
         
@@ -122,6 +122,7 @@ public class funcionesPanelCrearEnvio {
         } catch (SQLException ex) {
             Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        conexion.close();
         return id;
     }
     
@@ -199,6 +200,7 @@ public class funcionesPanelCrearEnvio {
         } catch (SQLException ex) {
             Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, "Error al registrar un usuario", ex);
         }
+        conexion.close();
         return cadena;
     }
     
@@ -238,6 +240,7 @@ public class funcionesPanelCrearEnvio {
         } catch (SQLException ex) {
             Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, "Error al registrar un usuario", ex);
         }
+        conexion.close();
         return cadena;
     }
 }

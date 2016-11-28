@@ -40,14 +40,14 @@ public class FuncionExponencial {
         Random r = new Random();
         funcionesPanelCrearEnvio utilitarioPanelCrearEnvio = new funcionesPanelCrearEnvio();
         for(cont=0;cont<limite;cont++){
-            double e=exp(Y*i);
-            value =(int) Math.round( X * exp(Y*i));
+            double e=exp(Y*cont);
+            value =(int) Math.round( X * exp(Y*cont));
             rastreo = utilitarioPanelCrearEnvio.GetLastNumeroRastreo() + 1;
             for(j=0;j<value;j++){
                 number = r.nextInt(39)+4;
                 String cadena = utilitarioPanelCrearEnvio.CrearEnvioExponencial((int) Math.round(Z), number, Integer.toString(rastreo+j), tipo, i);
             }
-            
+            System.out.println("cantidad: " + value + " vuelta: " + cont);
             i++;
         }
         return i;

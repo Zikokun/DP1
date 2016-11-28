@@ -820,22 +820,22 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
             // TODO add your handling code here:
             if (!campoDescripcion1.getText().isEmpty()) {
                 RegistrarEnvio(campoDescripcion1.getText());
-                label11.setVisible(true);
-            } else {
                 label11.setVisible(false);
+            } else {
+                label11.setVisible(true);
             }
             //else JOptionPane.showMessageDialog(this, "Ingresar Descripción del Paquete", "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
             if (!campoDescripcion2.getText().isEmpty()) {
                 RegistrarEnvio(campoDescripcion2.getText());
-                label12.setVisible(true);
-            } else {
                 label12.setVisible(false);
+            } else {
+                label12.setVisible(true);
             }
             if (!campoDescripcion3.getText().isEmpty()) {
                 RegistrarEnvio(campoDescripcion3.getText());
-                label13.setVisible(true);
-            } else {
                 label13.setVisible(false);
+            } else {
+                label13.setVisible(true);
             }
         } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Nv.class.getName()).log(Level.SEVERE, null, ex);

@@ -13,6 +13,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Ciudad;
 import modelo.Lectura;
 import modelo.Pedido;
@@ -34,8 +36,12 @@ public class Test1_gui_alg {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, ParseException {
-        //funcionesPanelSimulacion func= new funcionesPanelSimulacion();
-       // func.lectorPaquetesSimulacion(0);
+        funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
+        try {
+            fps.lectorPaquetesSimulacion(0);
+        } catch (ParseException ex) {
+            Logger.getLogger(Test1_gui_alg.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         Nv nv= new Nv();
         nv.setVisible(true);
@@ -63,7 +69,7 @@ public class Test1_gui_alg {
 //        imprimirAeros(ciudades);
         Calendar calendario=Calendar.getInstance();
         hora=calendario.get(Calendar.HOUR_OF_DAY);
-        dia=calendario.get(Calendar.DAY_OF_WEEK);
+        dia=calendario.get(Calendar.DAY_OF_WEEK);  
         
         Genetico algoritmo=new Genetico();
         algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
