@@ -465,7 +465,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         fVentanaPrincipal.terminarSimulacion();
         try {
             // TODO add your handling code here:
-            enrutador.ruteoPedidosManual(SIN_ENVIAR.ordinal());
+            enrutador.ruteoPedidosManual(SIN_ENVIAR.ordinal(), SIN_ENVIAR_CON_RUTA.ordinal());
         } catch (InstantiationException ex) {
             Logger.getLogger(VentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package utilitario;
+import static constantes.constanteEstadoPaquete.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class funcionesHiloEjecSimu extends Thread{
                 try{
                     while(!DebeDetenerse){
                         func.lectorPaquetesSimulacion(tipoSimu);
-                        funcR.ruteoPedidosManual(tipoSimu);
+                        funcR.ruteoPedidosManual(tipoSimu,CON_TRES_DIAS.ordinal());
                         //colapso=funcR.ruteoPedidosManual(tipoSimu);
                         cont--;
                         //if(colapso==1){

@@ -5,6 +5,7 @@
  */
 package utilitario;
 
+import static constantes.constanteEstadoPaquete.*;
 import static constantes.constantesGenerales.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ public class funcionesHiloEjecRuteoPaquete extends Thread {
         try{
             while(true){
                 if(detenerse == BOTON_PAUSA_NOVISIBLE){
-                    enrutador.ruteoPedidosManual(0);
+                    enrutador.ruteoPedidosManual(0,SIN_ENVIAR_CON_RUTA.ordinal());
                 }
                 
                 Thread.sleep(TIEMPO_ENTRE_RUTEO);

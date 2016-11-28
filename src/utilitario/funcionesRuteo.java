@@ -51,7 +51,8 @@ public class funcionesRuteo {
     ArrayList<Vuelo> vuelos=new ArrayList<>();
     TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
     Correo corr = new Correo();
-    public Cromosoma ruteoPedidosManual(Integer estadoPedido) throws InstantiationException, IllegalAccessException, IOException, SQLException{
+    
+    public Cromosoma ruteoPedidosManual(Integer estadoPedido, Integer estadoFinal) throws InstantiationException, IllegalAccessException, IOException, SQLException{
         String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();
@@ -77,8 +78,7 @@ public class funcionesRuteo {
             Genetico algoritmo=new Genetico();
             algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
             solucion=algoritmo.getMejorCrom();
-            asignarRutasBD(solucion,estadoPedido);
-            //System.out.println("HOla");
+            asignarRutasBD(solucion,estadoFinal);
             ArrayList<Gen> genes=solucion.genes;
             for(Gen item: genes){
                 
@@ -90,7 +90,7 @@ public class funcionesRuteo {
         return solucion;
     }
     
-    public void asignarRutasBD(Cromosoma solucion,int estadoPedido) throws InstantiationException, IllegalAccessException, SQLException{
+    public void asignarRutasBD(Cromosoma solucion,int estadoFinal) throws InstantiationException, IllegalAccessException, SQLException{
         ArrayList<Gen> genes=solucion.genes;
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
@@ -118,7 +118,7 @@ public class funcionesRuteo {
                 sqlCrearRuta.executeUpdate();
             }
             //Cambio estado actual del paquete
-            PreparedStatement sqlActualizarEstado = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + SIN_ENVIAR_CON_RUTA.ordinal()+ "' WHERE `idPaquete`='"+ codPed +"'; ");
+            PreparedStatement sqlActualizarEstado = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + estadoFinal + "' WHERE `idPaquete`='"+ codPed +"'; ");
             sqlActualizarEstado.executeUpdate();
             //Genera correo de asignacion de ruta
 //            if(estadoPedido==0){
