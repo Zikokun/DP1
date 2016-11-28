@@ -56,7 +56,23 @@ public class funcionesHiloEjecSimu extends Thread{
                 try{
                     while(!DebeDetenerse){
                         func.lectorPaquetesSimulacion(tipoSimu);
-                        funcR.ruteoPedidosManual(tipoSimu,CON_TRES_DIAS.ordinal());
+                        int estadoFinal;
+                        int estadoInicial;
+                        
+                        if(tipoSimu == 0){
+                            estadoInicial = SIN_ENVIAR.ordinal();
+                            estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
+                        }
+                        else if(tipoSimu == 1) {
+                            estadoFinal = CON_TRES_DIAS.ordinal();
+                            estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
+                        }
+                        else {
+                            estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
+                            estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
+                        }
+                        
+                        funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
                         //colapso=funcR.ruteoPedidosManual(tipoSimu);
                         cont--;
                         //if(colapso==1){

@@ -16,7 +16,9 @@ public enum constanteEstadoPaquete {
     ENTREGADO ("Paquete entregado"),
     SIN_ENVIAR_CON_RUTA("Paquete sin enviar y con ruta asignada"),
     CON_TRES_DIAS("Paquete para simulación de tres dias"),
-    SIMULACION_SIN_TRES_DIAS("Paquete para simulación de cien dias");
+    SIMULACION_SIN_TRES_DIAS("Paquete para simulación de cien dias"),
+    CON_TRES_DIAS_SIN_RUTA("Paquete sin ruta para simulacion con simulacion de 3 dias"),
+    SIMULACION_SIN_TRES_DIAS_SIN_RUTA("Paquete sin ruta para simulacion sin simulacion de 3 dias");
     
     private final String detalle;
 
