@@ -125,7 +125,7 @@ public class funcionesHiloActualizacionPaquetes extends Thread{
                         String sqlBuscarSiguientes = " SELECT M.Avion_idAvion, M.Paquete_idPaquete " +
                                                      " FROM avion_has_paquete M, vuelo W " +
                                                      " WHERE M.Paquete_idPaquete = " + idPaquete + " AND M.estado = " + INACTIVO.ordinal() + " AND " + 
-                                                     " M.Avion_idAvion = W.idVuelo AND W.idLugarOrigen = (SELECT V.idLugarDestino " +
+                                                     " M.Avion_idAvion = W.idVuelo AND W.idLugarOrigen IN (SELECT V.idLugarDestino " +
                                                                                                    " FROM avion_has_paquete H, vuelo V " +
                                                                                                    " WHERE H.Paquete_idPaquete = " + idPaquete + " AND H.Avion_idAvion = V.idVuelo AND H.estado = " + ACTIVO.ordinal() +");";
                         
