@@ -95,17 +95,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     public VentanaPrincipal(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
-        hilo=new funcionesControlHiloEjecRuteoPaquete(this.enrutador);
-        hilo.Iniciar();
-        hiloActualizador = new funcionesControlHiloActualizacionPaquetes();
-        hiloActualizador.Iniciar();
+        
         
         String tipo = utilitarioVentanaPrincial.devolverTipoUsuario(usuario, contrasenha);
         this.usuario = usuario;
         this.contrasenha = contrasenha;
         this.tipoUsuario = tipo;
         String mensajeBien = "";
-        
+        if(!this.tipoUsuario.equals(TIPO_ADMIN)){
+            hilo=new funcionesControlHiloEjecRuteoPaquete(this.enrutador);
+            hilo.Iniciar();
+            hiloActualizador = new funcionesControlHiloActualizacionPaquetes();
+            hiloActualizador.Iniciar();
+        }
         this.setUsuario(usuario);
         this.setContrasenha(contrasenha);
         

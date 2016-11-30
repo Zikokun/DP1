@@ -13,7 +13,11 @@ import javax.swing.SwingUtilities;
 import mapa.Mapa;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.marker.Marker;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilitario.funcionesAnimacionEjecSimu;
+import utilitario.funcionesPanelSimulacion;
 /**
  *
  * @author a20125540
@@ -26,7 +30,7 @@ public class PanelSim extends javax.swing.JPanel {
     public static int tipoSim;
     public static PApplet simulacion;
     public funcionesAnimacionEjecSimu hilo;
-    
+     private funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
     public PanelSim() {
         initComponents();
     }
@@ -95,25 +99,35 @@ public class PanelSim extends javax.swing.JPanel {
                 .addGap(97, 97, 97))
         );
     }// </editor-fold>//GEN-END:initComponents
+       
 
     private void buttonEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEmpezarActionPerformed
         // TODO add your handling code here:
         if(this.jComboBox1.getSelectedIndex()==1){
             tipoSim=0;
             System.out.println("asignado el valor 0 en tipoSim:"+tipoSim);
+            
+            try {
+                fps.lectorPaquetesSimulacion(0);
+            } catch (InstantiationException ex) {
+                Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("paquetes creados para simu 3 dias");
         }else{ 
             if(this.jComboBox1.getSelectedIndex()==2){
                 tipoSim=1;
                  System.out.println("asignado el valor  en tipoSim:"+tipoSim);
+                 
             }else{
                 if(this.jComboBox1.getSelectedIndex()==0)
                     tipoSim=2;
                      System.out.println("asignado el valor 2 en tipoSim:"+tipoSim);
             }
         }
-       
-            
-        
         VentanaPrincipal topFrame = (VentanaPrincipal) SwingUtilities.getWindowAncestor(this);
         topFrame.remove(topFrame.pnlFrente);
         topFrame.pnlFondo.removeAll();
@@ -133,9 +147,13 @@ public class PanelSim extends javax.swing.JPanel {
         topFrame.revalidate();
         topFrame.repaint();
         if(tipoSim==0){
+           
                 System.out.println("creando el hilo simu 3 dias");
+                
+                
                 hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
                 hilo.Iniciar();
+            
             }else{
                 hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
                 System.out.println("creando el hilo simu hasta que se caiga");

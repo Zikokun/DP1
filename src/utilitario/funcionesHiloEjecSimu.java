@@ -34,6 +34,7 @@ public class funcionesHiloEjecSimu extends Thread{
         private funcionesRuteo funcR = new funcionesRuteo();
         private funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
         private int detenerse;
+        
         public funcionesHiloEjecSimu(JPanel Vent, int IntervaloTiempo, funcionesDibujoEjecSimu Dib) {
 		this.Panel = Vent;
 		this.IntervaloTiempo = IntervaloTiempo;
@@ -63,15 +64,15 @@ public class funcionesHiloEjecSimu extends Thread{
                          System.out.println("en bucle del hilo");
                         if(BOTON_PAUSA_APRETADO!=1){
                             System.out.println("dentro del if");
-                            func.lectorPaquetesSimulacion(tipoSimu);
+                            //func.lectorPaquetesSimulacion(tipoSimu);
                             int estadoFinal;
                             int estadoInicial;
 
-                            if(tipoSimu == 0){
+                            if(tipoSimu == 2){
                                 estadoInicial = SIN_ENVIAR.ordinal();
                                 estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
                             }
-                            else if(tipoSimu == 1) {
+                            else if(tipoSimu == 0) {
                                 estadoFinal = CON_TRES_DIAS.ordinal();
                                 estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
                             }
@@ -80,7 +81,7 @@ public class funcionesHiloEjecSimu extends Thread{
                                 estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
                             }
 
-                            fps.lectorPaquetesSimulacion(0);
+                            //fps.lectorPaquetesSimulacion(0);
                             funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
 
                         }
@@ -88,7 +89,7 @@ public class funcionesHiloEjecSimu extends Thread{
                     }
                     System.out.println("FUERA DEL WHILE");
                 } catch(InterruptedException ex) {
-		} catch (InstantiationException | IllegalAccessException | ParseException | IOException | SQLException ex) {
+		} catch (InstantiationException | IllegalAccessException | IOException | SQLException ex) {
                 Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
                 }
 	}
