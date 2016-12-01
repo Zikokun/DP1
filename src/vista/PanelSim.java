@@ -104,7 +104,7 @@ public class PanelSim extends javax.swing.JPanel {
     private void buttonEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEmpezarActionPerformed
         // TODO add your handling code here:
         if(this.jComboBox1.getSelectedIndex()==1){
-            tipoSim=0;
+            tipoSim=0;//simulacion para 3 dias
             System.out.println("asignado el valor 0 en tipoSim:"+tipoSim);
             
             try {
@@ -119,12 +119,12 @@ public class PanelSim extends javax.swing.JPanel {
             System.out.println("paquetes creados para simu 3 dias");
         }else{ 
             if(this.jComboBox1.getSelectedIndex()==2){
-                tipoSim=1;
+                tipoSim=1;//simulacion para mas de tres dias
                  System.out.println("asignado el valor  en tipoSim:"+tipoSim);
                  
             }else{
                 if(this.jComboBox1.getSelectedIndex()==0)
-                    tipoSim=2;
+                    tipoSim=2;// simulacion para paquetes que se ingresaron manualmente
                      System.out.println("asignado el valor 2 en tipoSim:"+tipoSim);
             }
         }
@@ -154,11 +154,11 @@ public class PanelSim extends javax.swing.JPanel {
                 hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
                 hilo.Iniciar();
             
-            }else{
+        }else if(tipoSim==1){
                 hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
                 System.out.println("creando el hilo simu hasta que se caiga");
                 hilo.Iniciar();
-            }
+        }
     }//GEN-LAST:event_buttonEmpezarActionPerformed
 
 

@@ -5,6 +5,7 @@
  */
 package utilitario;
 
+import constantes.constanteEstadoPaquete;
 import static constantes.constanteEstadoPaquete.*;
 import static constantes.constantesVentanaPrincipal.TIPO_OPERARIO;
 import controlador.Genetico;
@@ -58,6 +59,9 @@ public class funcionesRuteo {
         Lectura lector= new Lectura();
         //TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
         //ArrayList<Vuelo> vuelos=new ArrayList<>();
+        
+        System.out.println("Estado inicial: "+ constanteEstadoPaquete.values()[estadoPedido]);
+        System.out.println("Estado final: "+ constanteEstadoPaquete.values()[estadoFinal]);
         
         ArrayList<Pedido> pedidos=devolverPedidosTotal(estadoPedido);
         

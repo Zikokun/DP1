@@ -76,7 +76,7 @@ public class funcionesHiloEjecSimu extends Thread{
                                 estadoFinal = CON_TRES_DIAS.ordinal();
                                 estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
                             }
-                            else {
+                            else { // tipoSimu==1
                                 estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
                                 estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
                             }
