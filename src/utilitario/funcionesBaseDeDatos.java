@@ -22,12 +22,12 @@ public class funcionesBaseDeDatos {
         try{
            Class.forName("com.mysql.jdbc.Driver").newInstance();//.newInstance();
             //setConectar(DriverManager.getConnection("jdbc:mysql://200.16.7.149/mydb","root","iMVmZ5S"));
-            //setConectar(DriverManager.getConnection("jdbc:mysql://200.16.7.149/dbPrueba","root","iMVmZ5S"));
+            setConectar(DriverManager.getConnection("jdbc:mysql://200.16.7.149/dbPrueba","root","iMVmZ5S"));
             //setConectar(DriverManager.getConnection("jdbc:mysql://192.168.200.13/bdlp2_20090245","U20090245","K8900231"));
             //setConectar(DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","jinxRipperkiller12345"));
             //setConectar(DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","salvare00"));
             //setConectar(DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","diego123"));
-            setConectar(DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","root"));
+            //setConectar(DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","root"));
        }catch(SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error de conexion de la base de datos");
        }catch(ClassNotFoundException ex) {

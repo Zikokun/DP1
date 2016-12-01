@@ -94,9 +94,12 @@ public class Mapa extends PApplet{
             mapDay.panTo(new Location(49.6f, 9.4f));
             
             MapUtils.createDefaultEventDispatcher(this, mapDay);
+            Thread.sleep(12000);
         } catch (InstantiationException ex) {
             Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
+            Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 

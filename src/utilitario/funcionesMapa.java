@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapa.Mapa;
+import vista.PanelSim;
 
 /**
  *
@@ -37,8 +38,21 @@ public class funcionesMapa {
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
         
-        String sqlBuscarMenorFecha = " SELECT MIN(fechaEnvio) " +
-                                           " FROM paquete; ";
+        /*String sqlBuscarMenorFecha = " SELECT MIN(fechaEnvio) " +
+                                           " FROM paquete; ";*/
+        int tipoSimu = PanelSim.tipoSim;
+        int tipoSimulacion;
+        if (tipoSimu == 2) {
+            tipoSimulacion = SIN_ENVIAR_CON_RUTA.ordinal();
+        } else if (tipoSimu == 0) {
+            tipoSimulacion = CON_TRES_DIAS_SIN_RUTA.ordinal();
+        } else { // tipoSimu==1
+            tipoSimulacion = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
+        }
+
+        String sqlBuscarMenorFecha = " SELECT MIN(fechaEnvio) "
+                + " FROM paquete "
+                + " WHERE paquete.estado = " + tipoSimulacion + "; ";
         
         try {
             Statement st = conexion.createStatement();

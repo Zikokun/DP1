@@ -124,7 +124,7 @@ public class funcionesRuteo {
                 sqlCrearRuta.executeUpdate();
             }
             //Cambio estado actual del paquete
-            PreparedStatement sqlActualizarEstado = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + estadoFinal + "', `fechaRecepcion`= '" + fechaLlegada + "' WHERE `idPaquete`='"+ codPed +"'; ");
+            PreparedStatement sqlActualizarEstado = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + estadoFinal +"' WHERE `idPaquete`='"+ codPed +"'; ");
             sqlActualizarEstado.executeUpdate();
             //Genera correo de asignacion de ruta
 //            if(estadoPedido==0){
@@ -250,9 +250,9 @@ public class funcionesRuteo {
         String sqlBuscarPaquetes = "";
         ArrayList<Pedido> lstPaquetes = new ArrayList<>();
             
-        sqlBuscarPaquetes = " SELECT A.codCiudad,B.codCiudad, P.fechaEnvio, P.idPaquete\n" +
-                            "FROM paquete P, almacen A, almacen B\n" +
-                            "WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND estado="+estadoPedido+";";
+        sqlBuscarPaquetes = "SELECT A.codCiudad,B.codCiudad, P.fechaRecepcion, P.idPaquete\n" +
+"FROM paquete P, almacen A, almacen B\n" +
+"WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND estado= "+estadoPedido+ " ORDER BY P.fechaRecepcion;";
         
         try {   
             Statement st = conexion.createStatement();
