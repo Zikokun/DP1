@@ -106,6 +106,7 @@ public class funcionesRuteo {
             ArrayList<Vuelo> vuelos=item.getRuta().getVuelos();
             int cantVuelos=vuelos.size();
             int codPed=item.pedido.getIdPedido();  
+            String fechaLlegada="";
             calcularFechas(item,horasSalidas,horasLlegadas);
             for(int i=0;i<cantVuelos;i++){
                 sqlCrearRuta=conexion.prepareStatement("INSERT INTO avion_has_paquete VALUES (?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
@@ -116,13 +117,14 @@ public class funcionesRuteo {
                 Timestamp fechaL = new Timestamp(horasLlegadas.get(i).getTime());
                 sqlCrearRuta.setTimestamp(3, fechaL);
                 Timestamp fechaS = new Timestamp(horasSalidas.get(i).getTime());
+                fechaLlegada = fechaS.toString();
                 sqlCrearRuta.setTimestamp(4, fechaS);
                 if(i==0) sqlCrearRuta.setInt(5,0);
                 else sqlCrearRuta.setInt(5,1);
                 sqlCrearRuta.executeUpdate();
             }
             //Cambio estado actual del paquete
-            PreparedStatement sqlActualizarEstado = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + estadoFinal + "' WHERE `idPaquete`='"+ codPed +"'; ");
+            PreparedStatement sqlActualizarEstado = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + estadoFinal + "', `fechaRecepcion`= '" + fechaLlegada + "' WHERE `idPaquete`='"+ codPed +"'; ");
             sqlActualizarEstado.executeUpdate();
             //Genera correo de asignacion de ruta
 //            if(estadoPedido==0){
@@ -248,7 +250,7 @@ public class funcionesRuteo {
         String sqlBuscarPaquetes = "";
         ArrayList<Pedido> lstPaquetes = new ArrayList<>();
             
-        sqlBuscarPaquetes = " SELECT A.codCiudad,B.codCiudad, P.fechaRecepcion, P.idPaquete\n" +
+        sqlBuscarPaquetes = " SELECT A.codCiudad,B.codCiudad, P.fechaEnvio, P.idPaquete\n" +
                             "FROM paquete P, almacen A, almacen B\n" +
                             "WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND estado="+estadoPedido+";";
         
