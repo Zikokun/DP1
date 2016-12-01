@@ -777,7 +777,7 @@ public class PanelCrearEnvio extends javax.swing.JPanel {
 
                 Date fecha = new Date();
                 Timestamp fechaEnvio = new Timestamp(fecha.getTime());
-                Timestamp fechaRecepcion = new Timestamp(fecha.getTime() + 2 * 24 * 60 * 60 * 1000);
+                Timestamp fechaRecepcion = new Timestamp(fecha.getTime());
                 Cliente remitente = new Cliente();
                 Persona person = new Persona();
                 person.setDocumento(campoDNIEmisor.getText());

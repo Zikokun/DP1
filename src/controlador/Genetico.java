@@ -141,8 +141,10 @@ public class Genetico {
             */
             for(int j=0;j<pedidos.size();j++){ 
                 Pedido pedActual=pedidos.get(j);
+                System.out.println("Pedido ID: "+ pedActual.getIdPedido());
                 String origen=pedActual.getOrigen();
                 String destino=pedActual.getDestino();
+                System.out.println("Origen: "+ origen + " Destino: "+ destino);
                // System.out.println("Origen: "+origen+" Destino: "+destino);
                 ArrayList<Ruta> rutasOF=ciudades.get(origen).rutas.get(destino);//Lista de todas las posibles rutas con su origen y destino
                 Random ran=new Random();//Un random para escoger un ruta(solucion) aleatoria
