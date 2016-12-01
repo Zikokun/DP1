@@ -22,6 +22,7 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Paquete;
@@ -209,12 +210,21 @@ public class funcionesPanelCrearEnvio {
         //System.out.println(cc);
         Connection conexion = cc.conexion();//null
         String cadena = "";
-        int llaveGeneradaPersona = -1;
+        int llaveGeneradaPersona = -1, number=0;
+        Random r = new Random();
 
         try {
             PreparedStatement sqlCrearEnvio = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,?,?,?,?,?,0,0)", PreparedStatement.RETURN_GENERATED_KEYS);
             Date date = new Date();
-            long time = date.getTime()+(i-1)*24*60*60*1000;
+            number = r.nextInt(24);
+            long hour;
+            long h=date.getHours();
+            if(number<h) {
+                hour = (number - date.getHours())*60*1000*60 ;
+            }else{
+                hour = (number - date.getHours())*60*1000*60 ;
+            }
+            long time = date.getTime()+(i-1)*24*60*60*1000 + hour;
             Timestamp ts = new Timestamp(time);
             sqlCrearEnvio.setString(1, rastreo);
             sqlCrearEnvio.setInt(2, IDO);
