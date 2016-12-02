@@ -36,13 +36,15 @@ public class Genetico {
         
     }
     
-    public void ejecutar(TreeMap<String,Ciudad> aeropuertos, ArrayList<Vuelo> vuelos, ArrayList<Pedido> pedidos,int hora, int dia, String mensaje){
-        int fitnessTotal=generarPoblacion(pedidos,aeropuertos,vuelos);//poblacion incicial
+    public int ejecutar(TreeMap<String,Ciudad> aeropuertos, ArrayList<Vuelo> vuelos, ArrayList<Pedido> pedidos,int hora, int dia, String mensaje){
+        int noColapsa=1;//noColapsa=1, todo salio bien  noColapsa=0, el sistema colapsó
+        int fitnessTotal=generarPoblacion(pedidos,aeropuertos,vuelos,noColapsa);//poblacion incicial
         System.out.println("fitness Total: "+fitnessTotal);
         this.mensaje = "";
-        mensaje = reproduccion(fitnessTotal);
         horaSist=hora;
-        diaSist=dia;        
+        diaSist=dia; 
+        if(noColapsa==1)mensaje = reproduccion(fitnessTotal);
+        return noColapsa;      
     }
        
     public String reproduccion(int fitnessTotal){
@@ -130,7 +132,7 @@ public class Genetico {
         return hijo;
     }
     
-    public int generarPoblacion(ArrayList<Pedido> pedidos,TreeMap<String,Ciudad> ciudades,ArrayList<Vuelo> vuelos){
+    public int generarPoblacion(ArrayList<Pedido> pedidos,TreeMap<String,Ciudad> ciudades,ArrayList<Vuelo> vuelos,int noColapsa){
         //System.out.println("En generar Poblacion");
         int fitnessTotal=0; //servira en el momento de escoger el padre y madre
         for(int i=0; i<maxPoblacion;i++){ //generamos cromosomas
@@ -177,7 +179,11 @@ public class Genetico {
                         tiempTotal=(hSalida-hPedido+ruta.getTiempo())*60-mPedido;
                         k++;
                     }
-                    
+                    if(k==maxIntentos){
+                        noColapsa=0; //se cae
+                        System.out.println("Se acabaron las vidas :(");
+                        //return fitnessTotal;
+                    }
                     hSalida=ruta.getVuelos().get(0).gethSalida();
                     //System.out.println("Hora Salida Vuelo: "+hSalida);
                     if(hSalida<hPedido ||(hSalida==hPedido && mPedido!=0)) hSalida+=24;
