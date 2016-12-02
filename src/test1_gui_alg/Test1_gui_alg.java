@@ -4,14 +4,23 @@
  * and open the template in the editor.
  */
 package test1_gui_alg;
+import static constantes.constanteEstadoPaquete.CON_TRES_DIAS_SIN_RUTA;
 import controlador.Genetico;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +29,8 @@ import modelo.Lectura;
 import modelo.Pedido;
 import modelo.Ruta;
 import modelo.Vuelo;
+import static org.apache.poi.hssf.usermodel.HSSFFooter.time;
+import static org.apache.poi.hssf.usermodel.HSSFHeader.time;
 import utilitario.FuncionExponencial;
 import utilitario.funcionesAnimacionEjecSimu;
 import utilitario.funcionesBaseDeDatos;
@@ -35,14 +46,14 @@ public class Test1_gui_alg {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException, ParseException {
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException, ParseException, IOException, FileNotFoundException, SQLException {
         /*funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
         try {
             fps.lectorPaquetesSimulacion(0);
         } catch (ParseException ex) {
             Logger.getLogger(Test1_gui_alg.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        
+        //DataPrimaria();
         Nv nv= new Nv();
         nv.setVisible(true);
     }
@@ -155,5 +166,74 @@ public class Test1_gui_alg {
     public static void imprimirAeros(TreeMap<String,Ciudad> aeropuertos){
         for(Ciudad item:aeropuertos.values())
             System.out.println(item.getCiudad());
+    }
+    
+    public static void DataPrimaria() throws InstantiationException, IllegalAccessException, FileNotFoundException, IOException, SQLException, ParseException{
+        String linea, archivo = "src/recursos/2arch_";
+        int contBD=4;
+        int llaveGeneradaPersona = -1;
+        for (contBD = 4; contBD < 44; contBD++) {
+            funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+            Connection conexion = cc.conexion();//null
+            
+            String origen = "";
+            String sqlBuscarCiudad = "SELECT codCiudad FROM `almacen` WHERE idAlmacen = '" + contBD + "'";
+            try {
+                Statement st = conexion.createStatement();
+                ResultSet resultadoBuscar = st.executeQuery(sqlBuscarCiudad);
+
+                while (resultadoBuscar != null && resultadoBuscar.next()) {
+                    origen = resultadoBuscar.getString("codCiudad");
+                }
+            } catch (SQLException ex) {
+            }
+            //System.out.println(contBD + " " + origen);
+            
+            String fecha = "";
+            String sqlBuscarDestino = "";
+            String nombreArchivo = archivo + origen + ".txt";
+            int idDestino = 0;
+            BufferedReader buffer = new BufferedReader(new FileReader(nombreArchivo));
+            while ((linea = buffer.readLine()) != null) {
+                String codigoPaquete = linea.substring(0, 9);
+                int anho = Integer.parseInt(linea.substring(9, 13));
+                int mes = Integer.parseInt(linea.substring(13, 15));
+                int dia = Integer.parseInt(linea.substring(15, 17));
+                int hora = Integer.parseInt(linea.substring(17, 19));
+                int min = Integer.parseInt(linea.substring(20, 22));
+                fecha = anho + "-" + mes + "-" + dia + " " + hora + ":" + min + ":00";
+                String destino = linea.substring(22, 26);
+
+                sqlBuscarDestino = "SELECT idAlmacen FROM `almacen` WHERE codCiudad = '" + destino + "'";
+                Statement st2 = conexion.createStatement();
+                ResultSet resultadoBuscar2 = st2.executeQuery(sqlBuscarDestino);
+
+                while (resultadoBuscar2 != null && resultadoBuscar2.next()) {
+                    idDestino = resultadoBuscar2.getInt("idAlmacen");
+                }
+                //CadenaQuery = "INSERT INTO `mydb`.`paquete` (`numeroRastreo`, `idLugarOrigen`, `idLugarDestino`, `fechaEnvio`,  `fechaRecepcion`, `estado`, `Cliente_idCliente`, `Persona_idPersona`) VALUES ('" + codigoPaquete + "', '" + contBD + "', '" + idDestino + "', '" + fecha + "', '" + fecha + "', '7' ,'1', '1')\n";
+                PreparedStatement CadenaQuery = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,?,?,?,?,?,0,0)", PreparedStatement.RETURN_GENERATED_KEYS);
+                CadenaQuery.setString(1, codigoPaquete);
+                CadenaQuery.setInt(2, contBD);
+                CadenaQuery.setInt(3, idDestino);
+                java.text.SimpleDateFormat df = new java.text.SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+                Date formatDate = df.parse(fecha);
+                Timestamp finalDate = new Timestamp(formatDate.getTime());
+                CadenaQuery.setTimestamp(4, finalDate);
+                CadenaQuery.setTimestamp(5, finalDate);
+                CadenaQuery.setString(6, "");
+                CadenaQuery.setInt(7, CON_TRES_DIAS_SIN_RUTA.ordinal());
+                CadenaQuery.setInt(8, 1);
+                CadenaQuery.setInt(9, 1);
+                int rows = CadenaQuery.executeUpdate();
+
+                ResultSet rs = CadenaQuery.getGeneratedKeys();
+                if (rs != null && rs.next()) {
+                    llaveGeneradaPersona = rs.getInt(1);
+                }
+            }
+            conexion.close();
+
+        }
     }
 }
