@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import static constantes.constanteEstadoPaquete.CON_TRES_DIAS_SIN_RUTA;
 import static constantes.constantesGenerales.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,6 +14,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +29,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utilitario.funcionesBaseDeDatos;
 import utilitario.funcionesInicializarBaseDatos;
 import utilitario.funcionesPanelSimulacion;
 
@@ -31,7 +38,90 @@ import utilitario.funcionesPanelSimulacion;
  * @author a20111055 -Vivian
  */
 public class Lectura {
-
+    
+    
+    public void leerVuelosArchivos() throws SQLException, InstantiationException, IllegalAccessException, FileNotFoundException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+        
+        String sDirectorio = "src/recursos/Archivos3Anhos/";
+        File file = new File(sDirectorio);
+        
+        if (file.exists()) {
+            File[] ficheros = file.listFiles();
+            for (int i = 0; i < ficheros.length; i++) {
+                String nombreArchivo = ficheros[i].getName();
+                
+                System.out.println(nombreArchivo);
+                
+                BufferedReader buffer = new BufferedReader(new FileReader(sDirectorio+nombreArchivo));
+                
+                String aeropuerto = nombreArchivo.substring(nombreArchivo.length() - 8, nombreArchivo.length() - 4);
+                String linea; 
+                
+                try {
+                    String sqlBuscarIdOrigen = " SELECT A.idAlmacen FROM almacen A WHERE A.CodCiudad = '" + aeropuerto + "';";
+                    Statement st1 = conexion.createStatement();
+                    ResultSet resultadoBuscarIdOrigen= st1.executeQuery(sqlBuscarIdOrigen);
+                    
+                    int idAlmacenOrigen = -1;
+                    while (resultadoBuscarIdOrigen != null && resultadoBuscarIdOrigen.next()) {
+                        idAlmacenOrigen = resultadoBuscarIdOrigen.getInt(1);
+                    }
+                            
+                    while ((linea = buffer.readLine()) != null) {
+                        String idPaquete = linea.substring(0,9);
+                        String fechaEnvio = linea.substring(9,17);
+                        String hora = linea.substring(17,22);
+                        String airPort = linea.substring(22,26);
+                        
+                        //("yyyy-MM-dd HH:mm:ss");
+                        String anho = fechaEnvio.substring(0,4);
+                        String mes = fechaEnvio.substring(4,6);
+                        String dia = fechaEnvio.substring(6,8);
+                        
+                        hora = hora + ":00";
+                        
+                        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String fechaLlegadaAeropuerto = anho + "-" + mes + "-" + dia + " " + hora;
+                        
+                        Date fecha = null;
+                        try {
+                            fecha = formatoDelTexto.parse(fechaLlegadaAeropuerto);
+                        } catch (ParseException ex) {
+                            ex.printStackTrace();
+                        }
+                        String sqlBuscarIdPaquete = " SELECT A.idAlmacen FROM almacen A WHERE A.CodCiudad = '" + airPort + "';";
+                        Statement st = conexion.createStatement();
+                        ResultSet resultadoBuscarIdPaquetes = st.executeQuery(sqlBuscarIdPaquete);
+                        
+                        int idAlmacen = -1;
+                        while(resultadoBuscarIdPaquetes!=null && resultadoBuscarIdPaquetes.next()){
+                            idAlmacen = resultadoBuscarIdPaquetes.getInt(1);
+                        }
+                        
+                        PreparedStatement sqlGuardarPaquete = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,NULL,NULL,?,-1,NULL,?,?);");
+                        sqlGuardarPaquete.setString(1,idPaquete);
+                        sqlGuardarPaquete.setInt(2,idAlmacenOrigen);
+                        sqlGuardarPaquete.setInt(3,idAlmacen);
+                        sqlGuardarPaquete.setObject(4, fechaLlegadaAeropuerto);
+                        sqlGuardarPaquete.setInt(5, CON_TRES_DIAS_SIN_RUTA.ordinal());
+                        sqlGuardarPaquete.setInt(6, 0);
+                        sqlGuardarPaquete.setInt(7, 0);
+                        
+                        int rows = sqlGuardarPaquete.executeUpdate();
+                        //System.out.println(fechaLlegadaAeropuerto + " " + idPaquete + " " + airPort);
+                    }
+                }catch (IOException ex) {
+                    Logger.getLogger(Lectura.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } else {
+            System.out.println("El directorio no existe");
+        }
+    }
+    
+    
     public void leerArchivos(String archAeropuertos, String archVuelos, String archPedidos, String archHusos,
             ArrayList<Vuelo> vuelos, TreeMap<String, Ciudad> aeropuertos, ArrayList<Pedido> pedidos) {
         leerAeropuertos(archAeropuertos, aeropuertos);
