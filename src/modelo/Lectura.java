@@ -6,6 +6,7 @@
 package modelo;
 
 import static constantes.constanteEstadoPaquete.CON_TRES_DIAS_SIN_RUTA;
+import static constantes.constanteEstadoPaquete.SIMULACION_SIN_TRES_DIAS_SIN_RUTA;
 import static constantes.constantesGenerales.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,8 +47,6 @@ public class Lectura {
         
         String sDirectorio = "src/recursos/Archivos3Anhos/";
         File file = new File(sDirectorio);
-        
-        System.out.println("se llego");
         
         if (file.exists()) {
             File[] ficheros = file.listFiles();
@@ -107,7 +106,7 @@ public class Lectura {
                         sqlGuardarPaquete.setInt(2,idAlmacenOrigen);
                         sqlGuardarPaquete.setInt(3,idAlmacen);
                         sqlGuardarPaquete.setObject(4, fechaLlegadaAeropuerto);
-                        sqlGuardarPaquete.setInt(5, CON_TRES_DIAS_SIN_RUTA.ordinal());
+                        sqlGuardarPaquete.setInt(5, SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal());
                         sqlGuardarPaquete.setInt(6, 0);
                         sqlGuardarPaquete.setInt(7, 0);
                         
