@@ -47,6 +47,8 @@ public class Lectura {
         String sDirectorio = "src/recursos/Archivos3Anhos/";
         File file = new File(sDirectorio);
         
+        System.out.println("se llego");
+        
         if (file.exists()) {
             File[] ficheros = file.listFiles();
             for (int i = 0; i < ficheros.length; i++) {
@@ -100,7 +102,7 @@ public class Lectura {
                             idAlmacen = resultadoBuscarIdPaquetes.getInt(1);
                         }
                         
-                        PreparedStatement sqlGuardarPaquete = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,?,NULL,NULL,?,-1,NULL,?,?);");
+                        PreparedStatement sqlGuardarPaquete = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,NULL,?,NULL,?,-1,NULL,?,?);");
                         sqlGuardarPaquete.setString(1,idPaquete);
                         sqlGuardarPaquete.setInt(2,idAlmacenOrigen);
                         sqlGuardarPaquete.setInt(3,idAlmacen);

@@ -54,15 +54,15 @@ public class Test1_gui_alg {
             Logger.getLogger(Test1_gui_alg.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         //DataPrimaria();
-        /*Lectura lect = new Lectura();
+        Lectura lect = new Lectura();
         try {
             lect.leerVuelosArchivos();
         } catch (SQLException ex) {
             Logger.getLogger(Test1_gui_alg.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         
-        Nv nv= new Nv();
-        nv.setVisible(true);
+        /*Nv nv= new Nv();
+        nv.setVisible(true);*/
     }
     
     public static String principal() throws InstantiationException, IllegalAccessException{
