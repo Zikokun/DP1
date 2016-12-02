@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -94,6 +95,96 @@ public class funcionesRuteo {
         return solucion;
     }
     
+    public Cromosoma ruteoPedidosTresDias(Integer estadoPedido, Integer estadoFinal, Calendar fechaConsulta) throws InstantiationException, IllegalAccessException, IOException, SQLException{
+        //fechaConsulta es la fecha a partir de la cual se van a seleccionar los pedidos para enrutar
+        String mensaje = "";
+        int hora,dia;
+        Lectura lector= new Lectura();
+        
+        System.out.println("Estado inicial: "+ constanteEstadoPaquete.values()[estadoPedido]);
+        System.out.println("Estado final: "+ constanteEstadoPaquete.values()[estadoFinal]);
+        
+        ArrayList<Pedido> pedidos=devolverPedidosPorHora(estadoPedido, fechaConsulta);
+        
+        if(primeraVez==1){
+            lector.leerSinPedidosYVuelos("/recursos/_aeropuertos.OACI.txt", 
+                "/recursos/_husos_horarios.txt", ciudades);
+            vuelos=devolverVuelosTotal();
+            asignarTipoVuelo(vuelos,ciudades);
+            generarRutas(ciudades);            
+            primeraVez=0;
+        }
+        
+        Calendar calendario=Calendar.getInstance();
+        hora=calendario.get(Calendar.HOUR_OF_DAY);
+        dia=calendario.get(Calendar.DAY_OF_WEEK);
+        Cromosoma solucion=new Cromosoma();
+        if(pedidos.size()!=0){
+            Genetico algoritmo=new Genetico();
+            algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
+            solucion=algoritmo.getMejorCrom();
+            asignarRutasBD(solucion,estadoFinal);
+            ArrayList<Gen> genes=solucion.genes;
+            for(Gen item: genes){
+                
+                item.getRuta().print();
+                System.out.println("Tiempo Total: "+item.tiempo/60+" horas");
+            }
+        }
+        else System.out.println("No hay paquetes para enrutar");
+        return solucion;
+    }
+    
+    public ArrayList<Pedido> devolverPedidosPorHora(Integer estadoPedido, Calendar fechaConsulta) throws InstantiationException, IllegalAccessException{
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+            
+        String sqlBuscarPaquetes = "";
+        ArrayList<Pedido> lstPaquetes = new ArrayList<>();
+        
+        //Seteamos el rango de fechas de recepcion para la consulta
+        SimpleDateFormat formateador=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaInicial = formateador.format(fechaConsulta.getTime());
+        //el lapso de tiempo es de una hora:
+        fechaConsulta.add(Calendar.MINUTE, 59);
+        fechaConsulta.add(Calendar.SECOND,59);
+        String fechaFinal = formateador.format(fechaConsulta.getTime());
+            
+        sqlBuscarPaquetes = "SELECT A.codCiudad,B.codCiudad, P.fechaRecepcion, P.idPaquete\n" +
+                            "FROM paquete P, almacen A, almacen B\n" +
+                            "WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND estado= "+estadoPedido+"\n" +
+                            "AND P.fechaRecepcion BETWEEN '"+fechaInicial+"' AND '"+fechaFinal+"'\n" +
+                            "ORDER BY P.fechaRecepcion;";
+        
+        try {   
+            Statement st = conexion.createStatement();
+            ResultSet resultadoBuscarPaquetes = st.executeQuery(sqlBuscarPaquetes);
+            
+            while(resultadoBuscarPaquetes!=null && resultadoBuscarPaquetes.next()){
+
+                String origen = resultadoBuscarPaquetes.getString(1);
+                String destino = resultadoBuscarPaquetes.getString(2);
+                Date fecha = (Date) resultadoBuscarPaquetes.getObject(3);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(fecha);  
+                int hora = cal.get(Calendar.HOUR_OF_DAY);
+                int min=cal.get(Calendar.MINUTE);
+                int dia=cal.get(Calendar.DAY_OF_MONTH);
+                int mes=cal.get(Calendar.MONTH);
+                int año=cal.get(Calendar.YEAR);
+                int diaSem=cal.get(Calendar.DAY_OF_WEEK);
+                Pedido ped = new Pedido(origen,destino,1,hora,min,dia,mes,año);
+                ped.setDiaSemana(diaSem);
+                ped.setIdPedido(resultadoBuscarPaquetes.getInt(4));
+                lstPaquetes.add(ped);
+                
+                        
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesPanelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lstPaquetes;
+    }
     public void asignarRutasBD(Cromosoma solucion,int estadoFinal) throws InstantiationException, IllegalAccessException, SQLException{
         ArrayList<Gen> genes=solucion.genes;
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
@@ -251,8 +342,8 @@ public class funcionesRuteo {
         ArrayList<Pedido> lstPaquetes = new ArrayList<>();
             
         sqlBuscarPaquetes = "SELECT A.codCiudad,B.codCiudad, P.fechaRecepcion, P.idPaquete\n" +
-"FROM paquete P, almacen A, almacen B\n" +
-"WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND estado= "+estadoPedido+ " ORDER BY P.fechaRecepcion;";
+                            "FROM paquete P, almacen A, almacen B\n" +
+                            "WHERE P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND estado= "+estadoPedido+ " ORDER BY P.fechaRecepcion;";
         
         try {   
             Statement st = conexion.createStatement();
