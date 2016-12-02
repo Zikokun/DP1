@@ -30,27 +30,30 @@ import utilitario.renderizadoTabla.render;
  * @author gerson
  */
 public class funcionesPanelDetallePaquete {
-    public String devolverEstadoPaquete(int estadoPaquete){
+
+    public String devolverEstadoPaquete(int estadoPaquete) {
         constanteEstadoPaquete c[] = constanteEstadoPaquete.values();
-        if(estadoPaquete >= c.length) return ESTADO_PAQUETE_NO_VALIDO;
+        if (estadoPaquete >= c.length) {
+            return ESTADO_PAQUETE_NO_VALIDO;
+        }
         return c[estadoPaquete].getDetalle();
     }
-    
-    public List<String[]> devolverDetallePaquete(String numeroRastreo) throws InstantiationException, IllegalAccessException{
+
+    public List<String[]> devolverDetallePaquete(String numeroRastreo) throws InstantiationException, IllegalAccessException {
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
-        
+
         List<String[]> paqueteDetalle = new ArrayList<>();
         String SqlBuscarDetallePaquete = "";
-        SqlBuscarDetallePaquete = " SELECT P.numeroRastreo, P.estado, M.Nombres, M.ApellidoPaterno, A.ubicacion, P.descripcion " + 
-                                  " FROM paquete P, avion_has_paquete H, vuelo V, almacen A, persona M " +
-                                  " WHERE P.numeroRastreo = '" + numeroRastreo + "' AND H.Paquete_idPaquete = P.idPaquete AND H.Avion_idAvion = V.idVuelo AND V.idLugarDestino = A.idAlmacen AND P.Persona_idPersona = M.idPersona;";
-        
+        SqlBuscarDetallePaquete = " SELECT P.numeroRastreo, P.estado, M.Nombres, M.ApellidoPaterno, A.ubicacion, P.descripcion "
+                + " FROM paquete P, avion_has_paquete H, vuelo V, almacen A, persona M "
+                + " WHERE P.numeroRastreo = '" + numeroRastreo + "' AND H.Paquete_idPaquete = P.idPaquete AND H.Avion_idAvion = V.idVuelo AND V.idLugarDestino = A.idAlmacen AND P.Persona_idPersona = M.idPersona;";
+
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscarPaqueteDetalle = st.executeQuery(SqlBuscarDetallePaquete);
-            
-            while(resultadoBuscarPaqueteDetalle!=null && resultadoBuscarPaqueteDetalle.next()){
+
+            while (resultadoBuscarPaqueteDetalle != null && resultadoBuscarPaqueteDetalle.next()) {
                 String[] datosPaquete = new String[5];
                 datosPaquete[0] = resultadoBuscarPaqueteDetalle.getString(1);
                 datosPaquete[1] = devolverEstadoPaquete(resultadoBuscarPaqueteDetalle.getInt(2));
@@ -64,77 +67,98 @@ public class funcionesPanelDetallePaquete {
         }
         return paqueteDetalle;
     }
-    
-    public Paquete devolverDescripcionGeneralPaquete(String numeroRastreo) throws InstantiationException, IllegalAccessException{
+
+    public Paquete devolverDescripcionGeneralPaquete(String numeroRastreo) throws InstantiationException, IllegalAccessException {
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
-        
+
         Paquete paquete = new Paquete();
-        
+
         String sqlBuscarDescripcionPaquete = "";
-        
-        sqlBuscarDescripcionPaquete = " SELECT A.ubicacion, B.ubicacion, P.fechaEnvio, P.fechaRecepcion, P.estado, P.descripcion " +
-                                      " FROM paquete P, almacen A, almacen B " +
-                                      " WHERE P.numeroRastreo = '" + numeroRastreo + "' AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen;";
+
+        sqlBuscarDescripcionPaquete = " SELECT A.ubicacion, B.ubicacion, P.fechaEnvio, P.fechaRecepcion, P.estado, P.descripcion "
+                + " FROM paquete P, almacen A, almacen B "
+                + " WHERE P.numeroRastreo = '" + numeroRastreo + "' AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen;";
 
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscarDescripcionPaquete = st.executeQuery(sqlBuscarDescripcionPaquete);
-            
-            while(resultadoBuscarDescripcionPaquete!=null && resultadoBuscarDescripcionPaquete.next()){
+
+            while (resultadoBuscarDescripcionPaquete != null && resultadoBuscarDescripcionPaquete.next()) {
                 String sLugarOrigen = resultadoBuscarDescripcionPaquete.getString(1);
                 String sLugarDestino = resultadoBuscarDescripcionPaquete.getString(2);
-                
-                Date fechaEnvio = (Date)resultadoBuscarDescripcionPaquete.getObject(3);
-                Date fechaRecepcion = (Date)resultadoBuscarDescripcionPaquete.getObject(4);
-                
+
+                Date fechaEnvio = (Date) resultadoBuscarDescripcionPaquete.getObject(3);
+                Date fechaRecepcion = (Date) resultadoBuscarDescripcionPaquete.getObject(4);
+
                 int estado = resultadoBuscarDescripcionPaquete.getInt(5);
                 String sDescripcion = resultadoBuscarDescripcionPaquete.getString(6);
-                
+
                 paquete.setDescripcion(sDescripcion);
                 paquete.setEstado(estado);
                 paquete.setFechaEnvio(fechaEnvio);
                 paquete.setFechaRecepcion(fechaRecepcion);
-                
+
                 Ciudad ciudadOrigen = new Ciudad();
                 Ciudad ciudadDestino = new Ciudad();
-                
+
                 ciudadOrigen.setCiudad(sLugarOrigen);
                 ciudadDestino.setCiudad(sLugarDestino);
-                
+
                 paquete.setAlmacenOrigen(ciudadOrigen);
                 paquete.setAlamcenDestino(ciudadDestino);
             }
-            
+        } catch (SQLException ex) {
+            Logger.getLogger(funcionesPanelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String sqlBuscarFechaPaquete = "";
+
+        sqlBuscarFechaPaquete = " SELECT MAX(A.HoraLlegada) as HoraLlegada, MIN(A.HoraSalida) as HoraSalida "
+                + " FROM avion_has_paquete A, paquete P "
+                + " WHERE A.Paquete_idPaquete = P.idPaquete AND P.numeroRastreo = '" + numeroRastreo + "';";
+
+        try {
+            Statement st2 = conexion.createStatement();
+            ResultSet resultadoBuscarFechaPaquete = st2.executeQuery(sqlBuscarFechaPaquete);
+
+            while (resultadoBuscarFechaPaquete != null && resultadoBuscarFechaPaquete.next()) {
+                Date fechaAuxEnvio = (Date) resultadoBuscarFechaPaquete.getObject(2);
+                Date fechaAuxRecepcion = (Date) resultadoBuscarFechaPaquete.getObject(1);
+
+                if(fechaAuxEnvio != null) paquete.setFechaEnvio(fechaAuxEnvio);
+                if(fechaAuxRecepcion != null) paquete.setFechaRecepcion(fechaAuxRecepcion);
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(funcionesPanelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
         }
         return paquete;
     }
-    
-    public void colocarCampoComoNoEditable(JTextField campo){
+
+    public void colocarCampoComoNoEditable(JTextField campo) {
         campo.setEditable(false);
     }
-    
-    public String convertirStringFecha(Date fecha){
+
+    public String convertirStringFecha(Date fecha) {
         String sFecha = "";
-        
-        DateFormat fechaFormato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+
+        DateFormat fechaFormato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sFecha = fechaFormato.format(fecha);
-        
+
         return sFecha;
     }
-    
-     public void mostrarDetallePaquete(List<String[]> listadoDetallePaquete, JTable tablaDetallePaquete){
-        
-         tablaDetallePaquete.setDefaultRenderer(Object.class, new render());
-        
-        DefaultTableModel modelo=(DefaultTableModel) tablaDetallePaquete.getModel();
-        
-        for(int i = 0; i < listadoDetallePaquete.size(); i++){
+
+    public void mostrarDetallePaquete(List<String[]> listadoDetallePaquete, JTable tablaDetallePaquete) {
+
+        tablaDetallePaquete.setDefaultRenderer(Object.class, new render());
+
+        DefaultTableModel modelo = (DefaultTableModel) tablaDetallePaquete.getModel();
+
+        for (int i = 0; i < listadoDetallePaquete.size(); i++) {
             modelo.addRow(listadoDetallePaquete.get(i));
         }
-        
-        tablaDetallePaquete.setModel(modelo); 
-     }
+
+        tablaDetallePaquete.setModel(modelo);
+    }
 }
