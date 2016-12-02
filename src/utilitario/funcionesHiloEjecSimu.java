@@ -60,36 +60,40 @@ public class funcionesHiloEjecSimu extends Thread{
                 
                 try{
                     System.out.println("Boton:"+BOTON_PAUSA_NOVISIBLE);
-                    while(detenerse != BOTON_PAUSA_NOVISIBLE){
-                         System.out.println("en bucle del hilo");
-                        if(BOTON_PAUSA_APRETADO!=1){
-                            System.out.println("dentro del if");
-                            //func.lectorPaquetesSimulacion(tipoSimu);
-                            int estadoFinal;
-                            int estadoInicial;
+                    
+                    while(true){
+                        if(detenerse != BOTON_PAUSA_NOVISIBLE){
+                            System.out.println("en bucle del hilo");
+                            if(BOTON_PAUSA_APRETADO!=1){
+                                System.out.println("dentro del if");
 
-                            if(tipoSimu == 2){
-                                estadoInicial = SIN_ENVIAR.ordinal();
-                                estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
-                            }
-                            else if(tipoSimu == 0) {
-                                estadoFinal = CON_TRES_DIAS.ordinal();
-                                estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
-                            }
-                            else { // tipoSimu==1
-                                estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
-                                estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
-                            }
+                                int estadoFinal;
+                                int estadoInicial;
 
-                            //fps.lectorPaquetesSimulacion(0);
-                            funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
-
-                        }
+                                if(tipoSimu == 2){
+                                    estadoInicial = SIN_ENVIAR.ordinal();
+                                    estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
+                                }
+                                else if(tipoSimu == 0) {
+                                    estadoFinal = CON_TRES_DIAS.ordinal();
+                                    estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
+                                }
+                                else { // tipoSimu==1
+                                    estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
+                                    estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
+                                }
+                               // funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
+                                
+                            }else{
+                                System.out.println("En pausa no debe rutear");
+                               }
                         Thread.sleep(this.IntervaloTiempo);
+                        }else
+                            break;
                     }
                     System.out.println("FUERA DEL WHILE");
                 } catch(InterruptedException ex) {
-		} catch (InstantiationException | IllegalAccessException | IOException | SQLException ex) {
+		//} catch (InstantiationException | IllegalAccessException | IOException | SQLException ex) {
                 Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
                 }
 	}

@@ -32,6 +32,42 @@ import vista.PanelSim;
  * @author gerson
  */
 public class funcionesMapa {
+    public Date devolverFechaInicioSimuAnt() throws InstantiationException, IllegalAccessException{
+        Date fechaInicio = null;
+        
+        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        Connection conexion = cc.conexion();
+        
+        /*String sqlBuscarMenorFecha = " SELECT MIN(fechaEnvio) " +
+                                           " FROM paquete; ";*/
+        int tipoSimu = PanelSim.tipoSim;
+        int tipoSimulacion;
+        if (tipoSimu == 2) {
+            tipoSimulacion = SIN_ENVIAR_CON_RUTA.ordinal();
+        } else if (tipoSimu == 0) {
+            tipoSimulacion = CON_TRES_DIAS_SIN_RUTA.ordinal();
+        } else { // tipoSimu==1
+            tipoSimulacion = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
+        }
+
+        String sqlBuscarMenorFecha = " SELECT fechaActualSimu "
+                + " FROM `datossimu` "
+                + " WHERE iddatosSimu = '1' " + tipoSimulacion + "; ";
+        
+        try {
+            Statement st = conexion.createStatement();
+            ResultSet resultadoMenorFecha = st.executeQuery(sqlBuscarMenorFecha);
+            
+            
+            while(resultadoMenorFecha!=null && resultadoMenorFecha.next()){
+                fechaInicio = (Date)resultadoMenorFecha.getObject(1);
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(funcionesPanelDetallePaquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return fechaInicio;
+    } 
     public Date devolverFechaInicio() throws InstantiationException, IllegalAccessException{
         Date fechaInicio = null;
         

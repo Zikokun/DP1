@@ -166,4 +166,81 @@ public class funcionesPanelSimulacion {
             }
             System.out.println("termino crear paquetes");
        }
+        public int revisaFlagSimu() throws InstantiationException, IllegalAccessException{
+           int respt=2;
+           funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+           Connection conexion = cc.conexion();
+           int aux=0;
+                String sqlBuscaFlag = "SELECT flagSimu FROM `datossimu` WHERE `iddatosSimu`='1';";
+                try {
+                    Statement st = conexion.createStatement();
+                    ResultSet resultadoBuscar = st.executeQuery(sqlBuscaFlag);
+
+                    while (resultadoBuscar != null && resultadoBuscar.next()) {
+                        aux = resultadoBuscar.getInt(1);
+                    }
+                    if(aux==1)
+                        respt=1;
+                    else
+                        respt=0;
+                } catch (SQLException ex) {
+                }
+            System.out.println("flag:"+respt);
+           return respt;
+       }
+       public void actualizaFlag(int tipoSimu)throws InstantiationException, IllegalAccessException{
+           funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+           Connection conexion = cc.conexion();
+           int aux=0;
+          
+
+                try {
+                     PreparedStatement sqlactualizaFlag = conexion.prepareStatement( "UPDATE datossimu SET `flagSimu`='1', `tipoSimu`=' "+ tipoSimu +" ' WHERE `iddatosSimu`='1'; ");
+                    int actualizaFlag = sqlactualizaFlag.executeUpdate();
+                } catch (SQLException ex) {
+                }
+       }
+       public int comparaSimu(int tipoSim) throws InstantiationException, IllegalAccessException{
+           int respt=0;
+           funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+           Connection conexion = cc.conexion();
+           int aux=0;
+                String sqlBuscaFlag = "SELECT tipoSimu FROM `datossimu` WHERE `iddatosSimu`='1'; ";
+                try {
+                    Statement st = conexion.createStatement();
+                    ResultSet resultadoBuscar = st.executeQuery(sqlBuscaFlag);
+
+                    while (resultadoBuscar != null && resultadoBuscar.next()) {
+                        aux = resultadoBuscar.getInt(1);
+                    }
+                    if(aux==tipoSim)
+                        respt=1;
+                    else
+                        respt=0;
+                } catch (SQLException ex) {
+                }
+           return respt;
+       }
+       public Date obtieneFecha()throws InstantiationException, IllegalAccessException{
+           funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+           Connection conexion = cc.conexion();
+           Date respt=new Date();
+           int aux=0;
+          
+
+                String sqlBuscaFlag = "SELECT fechaActualSimu FROM `datossimu` WHERE `iddatosSimu`='1';";
+                try {
+                    Statement st = conexion.createStatement();
+                    ResultSet resultadoBuscar = st.executeQuery(sqlBuscaFlag);
+
+                    while (resultadoBuscar != null && resultadoBuscar.next()) {
+                        respt = resultadoBuscar.getDate(1);
+                    }
+                    
+                } catch (SQLException ex) {
+                }
+                
+           return respt;
+       }
+       
 }

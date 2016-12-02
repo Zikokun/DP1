@@ -14,6 +14,7 @@ import mapa.Mapa;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.marker.Marker;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilitario.funcionesAnimacionEjecSimu;
@@ -102,63 +103,76 @@ public class PanelSim extends javax.swing.JPanel {
        
 
     private void buttonEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEmpezarActionPerformed
-        // TODO add your handling code here:
-        if(this.jComboBox1.getSelectedIndex()==1){
-            tipoSim=0;//simulacion para 3 dias
-            System.out.println("asignado el valor 0 en tipoSim:"+tipoSim);
+        try {
+            // TODO add your handling code here:
             
-            try {
-                fps.lectorPaquetesSimulacion(0);
-            } catch (InstantiationException ex) {
-                Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println("paquetes creados para simu 3 dias");
-        }else{ 
-            if(this.jComboBox1.getSelectedIndex()==2){
-                tipoSim=1;//simulacion para mas de tres dias
-                 System.out.println("asignado el valor  en tipoSim:"+tipoSim);
-                 
+            if(this.jComboBox1.getSelectedIndex()==1){
+                tipoSim=0;//simulacion para 3 dias
+                System.out.println("asignado el valor 0 en tipoSim:"+tipoSim);
+                System.out.println("paquetes creados para simu 3 dias");
             }else{
-                if(this.jComboBox1.getSelectedIndex()==0)
-                    tipoSim=2;// simulacion para paquetes que se ingresaron manualmente
-                     System.out.println("asignado el valor 2 en tipoSim:"+tipoSim);
+                if(this.jComboBox1.getSelectedIndex()==2){
+                    tipoSim=1;//simulacion para mas de tres dias
+                    System.out.println("asignado el valor  en tipoSim:"+tipoSim);
+                    
+                }else{
+                    if(this.jComboBox1.getSelectedIndex()==0)
+                        tipoSim=2;// simulacion para paquetes que se ingresaron manualmente
+                    System.out.println("asignado el valor 2 en tipoSim:"+tipoSim);
+                }
             }
-        }
-        VentanaPrincipal topFrame = (VentanaPrincipal) SwingUtilities.getWindowAncestor(this);
-        topFrame.remove(topFrame.pnlFrente);
-        topFrame.pnlFondo.removeAll();
-        //panelEjecSimu pse=new panelEjecSimu(tipoSim);
-        //topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
-        
-        PApplet mapa = new Mapa();
-        
-        this.setSimulacion(mapa);
-        //topFrame.pnlFondo.add(mapa);
-        mapa.init();
-        
-        panelEjecSimu pse=new panelEjecSimu(tipoSim);
-        topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
-        
-        this.setVisible(false);
-        topFrame.revalidate();
-        topFrame.repaint();
-        if(tipoSim==0){
-           
-                System.out.println("creando el hilo simu 3 dias");
-                
-                
-                hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
-                hilo.Iniciar();
+            //revisar si ya esta una simulacion corriendo
+            if(fps.revisaFlagSimu()==0){//no hay simulaciones corriendo
+                if(tipoSim==0){
+                    System.out.println("creando el hilo simu 3 dias");
+                    hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
+                    hilo.Iniciar();
+                }else if(tipoSim==1){
+                    hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
+                    System.out.println("creando el hilo simu hasta que se caiga");
+                    hilo.Iniciar();
+                   
+                }
+                //empezara a correr una simulacion
+                System.out.println("aqui debe actualizar los flags");
+                fps.actualizaFlag(tipoSim);
+                System.out.println(" flags cambiados(?)");
+            }else{//hay una simulacion 
+                //aqui verifica la simulacion,si es el mismo tipo accede al tiempo
+                if(fps.comparaSimu(tipoSim)==0){//no es del mismo tipo
+                    //enviar mensaje de error
+                    
+                }else{//se debe setear la hora de simulacion que voy a empezar como lo que esta en base de datos
+                    Date tiempoenBase=new Date();
+                    tiempoenBase=fps.obtieneFecha();
+                    //se debe poner a la simulacion
+                    
+                }
+            }
+            VentanaPrincipal topFrame = (VentanaPrincipal) SwingUtilities.getWindowAncestor(this);
+            topFrame.remove(topFrame.pnlFrente);
+            topFrame.pnlFondo.removeAll();
             
-        }else if(tipoSim==1){
-                hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
-                System.out.println("creando el hilo simu hasta que se caiga");
-                hilo.Iniciar();
+            
+            PApplet mapa = new Mapa();
+            
+            this.setSimulacion(mapa);
+            
+            mapa.init();
+            
+            panelEjecSimu pse=new panelEjecSimu(tipoSim);
+            topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
+            
+            this.setVisible(false);
+            topFrame.revalidate();
+            topFrame.repaint();
+            
+        } catch (InstantiationException ex) {
+            Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_buttonEmpezarActionPerformed
 
 
