@@ -49,12 +49,12 @@ public class Test1_gui_alg {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, ParseException, IOException, FileNotFoundException, SQLException {
-        /*funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
-        try {
-            fps.lectorPaquetesSimulacion(0);
-        } catch (ParseException ex) {
-            Logger.getLogger(Test1_gui_alg.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+//        funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
+//        try {
+//            fps.lectorPaquetesSimulacion(1);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(Test1_gui_alg.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //DataPrimaria();
         /*
         SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

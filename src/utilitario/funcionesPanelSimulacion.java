@@ -71,76 +71,62 @@ public class funcionesPanelSimulacion {
         }
         
        public double[] calculaRegExpD(String nombArch) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
-            double[] resp=new double[3];
-            int id=0; 
-            double[] intArr,results = null;
-            double[] yValues={1,2,3,4,5,6,7,8,9,10,11,12};
-            double[] yValuesD=new double[312];
-            for(int i=0;i<312;i++){
-                yValuesD[i]=i+1;
-            }
-            funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
-            
-                Connection conexion = cc.conexion();
-            
-            
-            String codC= nombArch.substring(18,22);
-            String sqlBuscarUsuario = "";
-            String tabla = "";
-            String[] datosUsuario = new String[10];
-            tabla = " almacen ";
-            sqlBuscarUsuario = "SELECT idAlmacen " +
-                           " FROM " + tabla  +
-                           " WHERE codCiudad = '" + codC+ "'";
-            
-            try {
-            Statement st = conexion.createStatement();
-            ResultSet resultadoBuscarAlmacen = st.executeQuery(sqlBuscarUsuario);
-            
-            while(resultadoBuscarAlmacen!=null && resultadoBuscarAlmacen.next()){
-                id=Integer.parseInt(resultadoBuscarAlmacen.getString(1));
-            }
-                        
-        } catch (SQLException ex) {
-            Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            int flagDia=constantes.constantesGenerales.SIMULACION_POR_DIA;
-            int flagArch=constantes.constantesGenerales.LECTURA_TOTAL_ARCH;
-            if(flagDia==1){
-                if(flagArch==1)
-                    intArr=Lectura.leerPedidoxAeropuertoD_full(nombArch);
-                else
-                    intArr=Lectura.leerPedidoxAeropuertoD(nombArch);
-            }else{
-                if(flagArch==1)
-                    intArr=Lectura.leerPedidoxAeropuerto_full(nombArch);
-                else
-                     intArr=Lectura.leerPedidoxAeropuerto(nombArch);
-                
-            }
-               results=new double[2];
-   //            funcionesRegresionExp regExp=new funcionesRegresionExp(intArr,yValues);
-   //            results=regExp.calcExpValores();
+            double[] resp = new double[3];
+           int id = 0;
+           double[] intArr, results = null;
+           double[] yValues = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+           double[] yValuesD = new double[312];
+           for (int i = 0; i < 312; i++) {
+               yValuesD[i] = i + 1;
+           }
+           funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+
+           Connection conexion = cc.conexion();
+
+           //src/recursos/Archivos3Anhos/arch_
+           String codC = nombArch.substring(33, 37);
+
+           String sqlBuscarUsuario = "";
+           String tabla = "";
+           String[] datosUsuario = new String[10];
+           tabla = " almacen ";
+           sqlBuscarUsuario = "SELECT idAlmacen "
+                   + " FROM " + tabla
+                   + " WHERE codCiudad = '" + codC + "'";
+
            try {
-               if(flagDia==1)
-                   results=RegressionMethods.exponential(intArr,yValuesD);
-               else
-                   results=RegressionMethods.exponential(intArr,yValues);
+               Statement st = conexion.createStatement();
+               ResultSet resultadoBuscarAlmacen = st.executeQuery(sqlBuscarUsuario);
+
+               while (resultadoBuscarAlmacen != null && resultadoBuscarAlmacen.next()) {
+                   id = Integer.parseInt(resultadoBuscarAlmacen.getString(1));
+               }
+
+           } catch (SQLException ex) {
+               Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+           }
+
+           intArr = Lectura.leerPedidoxAeropuertoD(nombArch);
+           try {
+               results = RegressionMethods.exponential(intArr, yValuesD);
+
            } catch (NotEnoughValues ex) {
                Logger.getLogger(Test1_gui_alg.class.getName()).log(Level.SEVERE, null, ex);
            }
-          resp[0]=results[0];
-          resp[1]=results[1];
-          resp[2]=(double)id;
-          return resp;
+           resp[0] = results[0];
+           resp[1] = results[1];
+           resp[2] = (double) id;
+           return resp;
         }
        public void lectorPaquetesSimulacion(int tipo) throws InstantiationException, IllegalAccessException, ParseException{
            
             funcionesPanelSimulacion func = new funcionesPanelSimulacion();
-            String nombArch = "/recursos/arch_";
+            String nombArch = "src/recursos/Archivos3Anhos/arch_";
             int contBD = 4;
             int contador=0;
             FuncionExponencial funcion = new FuncionExponencial();
+            //int rastreo = utilitarioPanelCrearEnvio.GetLastNumeroRastreo() + 1;
+            
             for (contBD = 4; contBD < 44; contBD++) {
                 funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
                 Connection conexion = cc.conexion();//null
@@ -160,7 +146,7 @@ public class funcionesPanelSimulacion {
                     resp = func.calculaRegExpD(NombreCompleto);
                     //System.out.println("x="+resp[0]+" Y= "+resp[1]+" Id="+resp[2]);
                     resp[2] = contBD;
-                    contador = funcion.CalcularFuncion(resp[0], resp[1], resp[2],tipo,0);
+                    contador = funcion.CalcularFuncion(resp[0], resp[1], resp[2],tipo,origen);
                 } catch (SQLException ex) {
                 }
             }

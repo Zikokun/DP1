@@ -20,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -547,8 +548,9 @@ public class Lectura {
         
         BufferedReader bufer;
         try {
-            InputStream inn=Lectura.class.getResourceAsStream(archPedidos);
-            bufer = new BufferedReader(new InputStreamReader(inn));
+            //InputStream inn=Lectura.class.getResourceAsStream(archPedidos);
+            //BufferedReader buffer = new BufferedReader(new FileReader(nombreArchivo));
+            bufer = new BufferedReader(new FileReader(archPedidos));
             while((linea=bufer.readLine())!= null){
            
                 valor=linea.trim().split(":");
@@ -556,8 +558,6 @@ public class Lectura {
                     continue;
                 mes=Integer.parseInt(valor[0].substring(13, 15));
                 dia=Integer.parseInt(valor[0].substring(15, 17));
-                //System.out.println(mes);
-               // System.out.println(dia);
                 int pos=(dia-1)+((mes-1)*26);
                 intArrD[pos]+=1;
                 

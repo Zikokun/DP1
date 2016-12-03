@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Random;
@@ -224,7 +225,7 @@ public class funcionesPanelCrearEnvio {
             }else{
                 hour = (number - date.getHours())*60*1000*60 ;
             }
-            long time = date.getTime()+(i-1)*24*60*60*1000 + hour;
+            long time = date.getTime()+(i)*24*60*60*1000 + hour;
             Timestamp ts = new Timestamp(time);
             sqlCrearEnvio.setString(1, rastreo);
             sqlCrearEnvio.setInt(2, IDO);
@@ -251,6 +252,60 @@ public class funcionesPanelCrearEnvio {
             Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, "Error al registrar un usuario", ex);
         }
         conexion.close();
+        return cadena;
+    }
+    public String CrearEnvioExponencialS(int IDO, int IDD, String rastreo, int tipo, int i) throws InstantiationException, IllegalAccessException, SQLException, ParseException {
+//        funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+        //System.out.println(cc);
+//        Connection conexion = cc.conexion();//null
+        String cadena = "";
+//        int llaveGeneradaPersona = -1, number=0;
+        Random r = new Random();
+        
+//        try {
+           
+            //PreparedStatement sqlCrearEnvio = conexion.prepareStatement("INSERT INTO paquete VALUES (NULL,?,?,?,NULL,?,?,?,?,?,0,0)", PreparedStatement.RETURN_GENERATED_KEYS);
+            Date date = new Date();
+            int hour=0;
+            int min=0;
+            hour= r.nextInt(23) + 1;
+            min= r.nextInt(59) + 1;
+            Calendar calendarDate = Calendar.getInstance();
+            calendarDate.add(Calendar.DAY_OF_MONTH, i);
+            calendarDate.set(Calendar.HOUR, hour);
+            calendarDate.set(Calendar.MINUTE, min);
+            calendarDate.set(Calendar.SECOND,0);
+            calendarDate.set(Calendar.MILLISECOND,0);
+            long timeF=calendarDate.getTimeInMillis();
+            Timestamp ts = new Timestamp(timeF);
+           
+            
+//            sqlCrearEnvio.setString(1, rastreo);
+//            sqlCrearEnvio.setInt(2, IDO);
+//            sqlCrearEnvio.setInt(3, IDD);
+//            
+//            sqlCrearEnvio.setTimestamp(4, ts);
+//            sqlCrearEnvio.setString(5, "");
+//            if (tipo == 0) {
+//                sqlCrearEnvio.setInt(6, CON_TRES_DIAS_SIN_RUTA.ordinal());
+//            } else {
+//                sqlCrearEnvio.setInt(6, SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal());
+//            }
+//            sqlCrearEnvio.setInt(7, 1);
+//            sqlCrearEnvio.setInt(8, 1);
+            //int rows = sqlCrearEnvio.executeUpdate();
+            cadena="INSERT INTO paquete ( numeroRastreo, idLugarOrigen, idLugarDestino, fechaRecepcion, descripcion, estado, Cliente_idCliente, Persona_idPersona, longuitud, latitud)"+
+                               " VALUES (' "+rastreo+" ',"+IDO+","+IDD+",' "+ts.toString()+" ', ' ' ,"+SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal()+","+1+","+1+",0,0);";
+            //ResultSet rs = sqlCrearEnvio.getGeneratedKeys();
+            //if (rs != null && rs.next()) {
+               // llaveGeneradaPersona = rs.getInt(1);
+                //cadena=sqlCrearEnvio.toString();
+                
+            //}
+//        } catch (SQLException ex) {
+//            Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, "Error al registrar un usuario", ex);
+//       }
+//        conexion.close();
         return cadena;
     }
 }
