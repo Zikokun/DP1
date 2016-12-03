@@ -39,7 +39,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private String usuario;
     private String contrasenha;
     public funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
-    public  funcionesRuteo enrutador = new funcionesRuteo();
+    public static funcionesRuteo enrutador = new funcionesRuteo();
     public  funcionesControlHiloEjecRuteoPaquete hilo;
     public funcionesControlHiloActualizacionPaquetes hiloActualizador;
     public VentanaPrincipal(){

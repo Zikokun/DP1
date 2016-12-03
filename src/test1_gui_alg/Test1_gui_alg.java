@@ -18,6 +18,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +36,7 @@ import utilitario.FuncionExponencial;
 import utilitario.funcionesAnimacionEjecSimu;
 import utilitario.funcionesBaseDeDatos;
 import utilitario.funcionesPanelSimulacion;
+import utilitario.funcionesRuteo;
 import vista.Nv;
 import vista.VentanaPrincipal;
 /**
@@ -54,6 +56,27 @@ public class Test1_gui_alg {
             Logger.getLogger(Test1_gui_alg.class.getName()).log(Level.SEVERE, null, ex);
         }*/
         //DataPrimaria();
+        /*
+        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaActual = "2016-10-04 00:04:00";
+        
+        Date fecha = null;
+        try {
+            fecha = formatoDeFecha.parse(fechaActual);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        
+        Calendar calendarDate = Calendar.getInstance();
+        calendarDate.setTime(fecha);
+        
+        for (int i = 0; i < 48; i++) {
+            System.out.println("Ruteo pedido en la fecha = " + calendarDate.getTime());
+            funcionesRuteo fnRuteo = new funcionesRuteo();
+            fnRuteo.ruteoPedidosTresDias(7, 5, calendarDate);
+            calendarDate.add(Calendar.HOUR_OF_DAY,1);
+        }*/
+        
 //        Lectura lect = new Lectura();
 //        try {
 //            lect.leerVuelosArchivos();

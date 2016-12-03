@@ -11,11 +11,15 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import mapa.Mapa;
+import vista.VentanaPrincipal;
 /**
  *
  * @author FranciscoMartin
@@ -60,41 +64,60 @@ public class funcionesHiloEjecSimu extends Thread{
                 
                 try{
                     System.out.println("Boton:"+BOTON_PAUSA_NOVISIBLE);
-                    
-                    while(true){
-                        if(detenerse != BOTON_PAUSA_NOVISIBLE){
-                            System.out.println("en bucle del hilo");
-                            if(BOTON_PAUSA_APRETADO!=1){
-                                System.out.println("dentro del if");
-
-                                int estadoFinal;
-                                int estadoInicial;
-
-                                if(tipoSimu == 2){
-                                    estadoInicial = SIN_ENVIAR.ordinal();
-                                    estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
-                                }
-                                else if(tipoSimu == 0) {
-                                    estadoFinal = CON_TRES_DIAS.ordinal();
-                                    estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
-                                }
-                                else { // tipoSimu==1
-                                    estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
-                                    estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
-                                }
-                               // funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
-                                
-                            }else{
-                                System.out.println("En pausa no debe rutear");
-                               }
-                        Thread.sleep(this.IntervaloTiempo);
-                        }else
-                            break;
+                    System.out.println("Boton mostrar Pausa: " + detenerse);
+                    SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String fechaActual = "2016-10-04 00:04:00";
+                    Date fecha = null;
+                    try {
+                        fecha = formatoDeFecha.parse(fechaActual);
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
                     }
-                    System.out.println("FUERA DEL WHILE");
+
+                    Calendar calendarDate = Calendar.getInstance();
+                    calendarDate.setTime(fecha);
+                    while(true){
+                        //if(detenerse == BOTON_PAUSA_NOVISIBLE){
+                        System.out.println("en bucle del hilo");
+                        if (BOTON_PAUSA_APRETADO != 1) {
+                            System.out.println("dentro del if");
+
+                            int estadoFinal;
+                            int estadoInicial;
+
+                            if (tipoSimu == 2) {
+                                estadoInicial = SIN_ENVIAR.ordinal();
+                                estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
+                            } else if (tipoSimu == 0) {
+                                estadoFinal = CON_TRES_DIAS.ordinal();
+                                estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
+                            } else { // tipoSimu==1
+                                estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
+                                estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
+                            }
+                            // funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
+                            System.out.println("Ruteo pedido en la fecha = " + calendarDate.getTime());
+                            funcR.ruteoPedidosTresDias(7, 5, calendarDate);
+                            calendarDate.add(Calendar.HOUR_OF_DAY, 1);
+                        } else {
+                            System.out.println("En pausa no debe rutear");
+                        }
+                        Thread.sleep(this.IntervaloTiempo);
+                        //}else
+                        //break;
+                    }
+                    //System.out.println("FUERA DEL WHILE");
                 } catch(InterruptedException ex) {
 		//} catch (InstantiationException | IllegalAccessException | IOException | SQLException ex) {
                 Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } catch (InstantiationException ex) {
+                Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+            }
 	}
 }

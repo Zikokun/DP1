@@ -145,10 +145,13 @@ public class funcionesRuteo {
         //Seteamos el rango de fechas de recepcion para la consulta
         SimpleDateFormat formateador=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fechaInicial = formateador.format(fechaConsulta.getTime());
-        //el lapso de tiempo es de una hora:
-        fechaConsulta.add(Calendar.MINUTE, 59);
-        fechaConsulta.add(Calendar.SECOND,59);
-        String fechaFinal = formateador.format(fechaConsulta.getTime());
+        //el lapso de tiempo es de una hora
+        Calendar fechaActualizada = Calendar.getInstance();
+        fechaActualizada.setTime(fechaConsulta.getTime());
+        
+        fechaActualizada.add(Calendar.MINUTE, 59);
+        fechaActualizada.add(Calendar.SECOND,59);
+        String fechaFinal = formateador.format(fechaActualizada.getTime());
             
         sqlBuscarPaquetes = "SELECT A.codCiudad,B.codCiudad, P.fechaRecepcion, P.idPaquete\n" +
                             "FROM paquete P, almacen A, almacen B\n" +
@@ -161,7 +164,6 @@ public class funcionesRuteo {
             ResultSet resultadoBuscarPaquetes = st.executeQuery(sqlBuscarPaquetes);
             
             while(resultadoBuscarPaquetes!=null && resultadoBuscarPaquetes.next()){
-
                 String origen = resultadoBuscarPaquetes.getString(1);
                 String destino = resultadoBuscarPaquetes.getString(2);
                 Date fecha = (Date) resultadoBuscarPaquetes.getObject(3);
@@ -375,6 +377,29 @@ public class funcionesRuteo {
         return lstPaquetes;
     }
     
+    private static ArrayList<Ruta> limpiarRutas(ArrayList<Ruta> rutas, Ciudad ciudFin) {
+        ArrayList<Ruta> listadoRutas = new ArrayList<Ruta>();
+        int tamanho = rutas.size();
+        for (int i = 0; i < tamanho; i++) {
+            Ruta rutaAnalizar = rutas.get(i);
+            //if(rutaAnalizar.getVuelos().size()==1) continue;
+            int tam=rutaAnalizar.getVuelos().size();
+            ArrayList<Vuelo> lstVuelos = rutaAnalizar.getVuelos();
+            
+            boolean esPosible = true;
+            for(int j = 0; j < tam; j++){
+                Vuelo vuelo = lstVuelos.get(j);
+                if(vuelo.getOrigen().equals(ciudFin.getCodAeropuerto())){
+                    esPosible = false;
+                    break;
+                }
+            }
+            
+            if(esPosible) listadoRutas.add(rutaAnalizar);
+        }
+        return listadoRutas;
+    }
+    
     public static void generarRutas(TreeMap<String,Ciudad> ciudades){
         int tEspera;
         int tiempoRuta;
@@ -389,7 +414,10 @@ public class funcionesRuteo {
                 int tMax=48; //maximo de horas
                 if(ciudFin.getContinente().equals(ciudad.getContinente())) tMax=24;
                 ArrayList<Ruta> rutas=encuentraRutas(ciudad,ciudFin.getCodAeropuerto(),tMax,0);
-                if(rutas.size()>0) ciudad.rutas.put(ciudFin.getCodAeropuerto(), rutas);
+                if (rutas.size() > 0) {
+                    ArrayList<Ruta> rutaLimpia = limpiarRutas(rutas,ciudFin);
+                    ciudad.rutas.put(ciudFin.getCodAeropuerto(), rutaLimpia);
+                }
                 j++;
             }
         }        

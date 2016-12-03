@@ -195,7 +195,7 @@ public class funcionesPanelSimulacion {
           
 
                 try {
-                     PreparedStatement sqlactualizaFlag = conexion.prepareStatement( "UPDATE datossimu SET `flagSimu`='1', `tipoSimu`=' "+ tipoSimu +" ' WHERE `iddatosSimu`='1'; ");
+                     PreparedStatement sqlactualizaFlag = conexion.prepareStatement( "UPDATE datossimu SET `flagSimu`='1', `tipoSimu`=' "+ tipoSimu +" ' WHERE `iddatossimu`='1'; ");
                     int actualizaFlag = sqlactualizaFlag.executeUpdate();
                 } catch (SQLException ex) {
                 }

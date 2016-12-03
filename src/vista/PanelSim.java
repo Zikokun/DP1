@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static mapa.Mapa.mostrarBotonPausa;
 import utilitario.funcionesAnimacionEjecSimu;
 import utilitario.funcionesPanelSimulacion;
 /**
@@ -34,6 +35,7 @@ public class PanelSim extends javax.swing.JPanel {
      private funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
     public PanelSim() {
         initComponents();
+        Mapa.mostrarBotonPausa = BOTON_PAUSA_NOVISIBLE;
     }
 
     /**
