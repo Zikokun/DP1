@@ -102,14 +102,14 @@ public class funcionesHiloEjecSimu extends Thread{
                         } else {
                             System.out.println("En pausa no debe rutear");
                         }
-                        Thread.sleep(this.IntervaloTiempo);
+                        //Thread.sleep(this.IntervaloTiempo);
                         //}else
                         //break;
                     }
                     //System.out.println("FUERA DEL WHILE");
-                } catch(InterruptedException ex) {
+                //} catch(InterruptedException ex) {
 		//} catch (InstantiationException | IllegalAccessException | IOException | SQLException ex) {
-                Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
                 Logger.getLogger(funcionesHiloEjecSimu.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IllegalAccessException ex) {
