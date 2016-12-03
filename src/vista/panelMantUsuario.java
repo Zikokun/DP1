@@ -148,6 +148,16 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
         funcionesMantUsuario.colocarComboBoxesComoNoEditable(this.tipoUsuarioComboBox);
         funcionesMantUsuario.colocarComboBoxesComoNoEditable(this.docIdentidadComboBox);
+        
+        label1.setVisible(false);
+        label2.setVisible(false);
+        label3.setVisible(false);
+        label4.setVisible(false);
+        label5.setVisible(false);
+        label6.setVisible(false);
+        label7.setVisible(false);
+        label8.setVisible(false);
+        label9.setVisible(false);
     }
 
     public void enviarCorreo(Persona nuevoUsuario) {

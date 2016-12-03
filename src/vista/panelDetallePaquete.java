@@ -17,45 +17,52 @@ import utilitario.funcionesPanelDetallePaquete;
  * @author a20090245
  */
 public class panelDetallePaquete extends javax.swing.JPanel {
+
     private String usuario;
     private String contrasenha;
     private String tipoUsuario;
-    
+
     public panelDetallePaquete() {
         initComponents();
     }
-    
+
     public panelDetallePaquete(String numeroRastreo, String usuario, String contrasenha, String tipoUsuario) throws InstantiationException, IllegalAccessException {
         initComponents();
         this.setVisible(true);
-        
+
         this.usuario = usuario;
         this.contrasenha = contrasenha;
         this.tipoUsuario = tipoUsuario;
-        
+
         funcionesPanelDetallePaquete fuDetallePaquete = new funcionesPanelDetallePaquete();
         Paquete paquete = fuDetallePaquete.devolverDescripcionGeneralPaquete(numeroRastreo);
-        
+
         this.tituloRastreoLabel.setText("Detalle de envio: " + numeroRastreo);
         this.lugarOrigenTextField.setText(paquete.getAlmacenOrigen().getCiudad());
         this.lugarDestinoTextField.setText(paquete.getAlamcenDestino().getCiudad());
         String sFechaEnvio = fuDetallePaquete.convertirStringFecha(paquete.getFechaEnvio());
         String sFechaRecepcion = fuDetallePaquete.convertirStringFecha(paquete.getFechaRecepcion());
-        this.fechaSalidaTextField.setText(sFechaEnvio);
-        this.fechaLlegadaTextField.setText(sFechaRecepcion);
+        if(sFechaEnvio.equals(sFechaRecepcion)) {
+            this.fechaSalidaTextField.setText("Paquete esperando vuelo");
+            this.fechaLlegadaTextField.setText("Fecha aún no calculada");
+        }
+        else {
+            this.fechaLlegadaTextField.setText(sFechaRecepcion);
+            this.fechaSalidaTextField.setText(sFechaEnvio);
+        }
         this.estadoPaqueteTextField.setText(fuDetallePaquete.devolverEstadoPaquete(paquete.getEstado()));
         this.DesciprcionTextField.setText(paquete.getDescripcion());
-        
+
         fuDetallePaquete.colocarCampoComoNoEditable(lugarOrigenTextField);
         fuDetallePaquete.colocarCampoComoNoEditable(lugarDestinoTextField);
         fuDetallePaquete.colocarCampoComoNoEditable(fechaSalidaTextField);
         fuDetallePaquete.colocarCampoComoNoEditable(fechaLlegadaTextField);
         fuDetallePaquete.colocarCampoComoNoEditable(estadoPaqueteTextField);
         fuDetallePaquete.colocarCampoComoNoEditable(DesciprcionTextField);
-        
+
         List<String[]> listadoPaquetes = fuDetallePaquete.devolverDetallePaquete(numeroRastreo);
-        
-        fuDetallePaquete.mostrarDetallePaquete(listadoPaquetes,this.detallePaqueteTabla);
+
+        fuDetallePaquete.mostrarDetallePaquete(listadoPaquetes, this.detallePaqueteTabla);
     }
 
     /**
@@ -231,10 +238,10 @@ public class panelDetallePaquete extends javax.swing.JPanel {
         // TODO add your handling code here:
         panelPaqueteBusqueda pnlPaqueteBusqueda;
         try {
-            pnlPaqueteBusqueda = new panelPaqueteBusqueda(getUsuario(),getContrasenha(),getTipoUsuario());
-                    
+            pnlPaqueteBusqueda = new panelPaqueteBusqueda(getUsuario(), getContrasenha(), getTipoUsuario());
+
             VentanaPrincipal.pnlFondo.removeAll();
-            VentanaPrincipal.pnlFondo.add(pnlPaqueteBusqueda,BorderLayout.CENTER);
+            VentanaPrincipal.pnlFondo.add(pnlPaqueteBusqueda, BorderLayout.CENTER);
             VentanaPrincipal.pnlFondo.revalidate();
             VentanaPrincipal.pnlFondo.repaint();
         } catch (InstantiationException ex) {
