@@ -125,11 +125,11 @@ public class funcionesRuteo {
             solucion=algoritmo.getMejorCrom();
             asignarRutasBD(solucion,estadoFinal);
             ArrayList<Gen> genes=solucion.genes;
-            for(Gen item: genes){
-                
+            for(Gen item: genes){                
                 item.getRuta().print();
                 System.out.println("Tiempo Total: "+item.tiempo/60+" horas");
             }
+            //imprimirCaps();
         }
         else System.out.println("No hay paquetes para enrutar");
         return solucion;
@@ -187,6 +187,11 @@ public class funcionesRuteo {
         }
         return lstPaquetes;
     }
+    
+    public void imprimirCaps(){
+        
+    }
+    
     public void asignarRutasBD(Cromosoma solucion,int estadoFinal) throws InstantiationException, IllegalAccessException, SQLException{
         ArrayList<Gen> genes=solucion.genes;
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();

@@ -87,7 +87,6 @@ public class funcionesPanelCrearEnvio {
     
     public int GetComboCiudad(String NombreCiudad) throws InstantiationException, IllegalAccessException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
-        System.out.println(cc);
         Connection conexion = cc.conexion();//null
         int id=0;
         
