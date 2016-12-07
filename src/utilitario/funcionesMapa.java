@@ -154,17 +154,17 @@ public class funcionesMapa {
         DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //("yyyy-MM-dd HH:mm:ss");
         String sTiempo = fecha.format(Mapa.getFechaInicial());
         
-        String SqlBuscarRutasPaquetes = " SELECT H.Paquete_idPaquete, P.longuitud, P.latitud, A.longuitud, A.latitud, B.longuitud , B.latitud " +
+        String SqlBuscarRutasPaquetes = " SELECT H.Paquete_idPaquete, P.longuitud, P.latitud, A.longuitud, A.latitud, B.longuitud , B.latitud, H.Avion_idAvion " +
                                         " FROM avion_has_paquete H, vuelo V, almacen A, almacen B, paquete P " +
                                         " WHERE H.estado = " + ACTIVO.ordinal() + " AND '" + sTiempo + "' > H.horaSalida AND H.Avion_idAvion = V.idVuelo AND V.idLugarOrigen = A.idAlmacen AND V.idLugarDestino = B.idAlmacen AND P.idPaquete = H.Paquete_idPaquete "
-                                        + sqlTipoSimulacion +";";
+                                        + sqlTipoSimulacion +" ORDER BY H.Avion_idAvion;";
         
         try {
             Statement st = conexion.createStatement();
             ResultSet resultadoBuscarRutasPaquetes = st.executeQuery(SqlBuscarRutasPaquetes);
             
             while(resultadoBuscarRutasPaquetes!=null && resultadoBuscarRutasPaquetes.next()){
-                Object[] datosRuta = new Object[7];
+                Object[] datosRuta = new Object[8];
                 datosRuta[0] = resultadoBuscarRutasPaquetes.getInt(1);
                 datosRuta[1] = resultadoBuscarRutasPaquetes.getFloat(2);
                 datosRuta[2] = resultadoBuscarRutasPaquetes.getFloat(3);
@@ -172,6 +172,7 @@ public class funcionesMapa {
                 datosRuta[4] = resultadoBuscarRutasPaquetes.getFloat(5);
                 datosRuta[5] = resultadoBuscarRutasPaquetes.getFloat(6);
                 datosRuta[6] = resultadoBuscarRutasPaquetes.getFloat(7);
+                datosRuta[7] = resultadoBuscarRutasPaquetes.getInt(8);
                 
                 lstPaquetes.add(datosRuta);
             }

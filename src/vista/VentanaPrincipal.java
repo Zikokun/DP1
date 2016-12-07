@@ -365,7 +365,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(respuesta==JOptionPane.YES_OPTION){ 
             funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
             fVentanaPrincipal.terminarSimulacion();
-            hilo.Detener();
+            if(hilo != null) hilo.Detener();
             this.setVisible(false);
             this.dispose();
             Nv login=new Nv();

@@ -135,7 +135,7 @@ public class funcionesRuteo {
         return solucion;
     }
     
-    public ArrayList<Pedido> devolverPedidosPorHora(Integer estadoPedido, Calendar fechaConsulta) throws InstantiationException, IllegalAccessException{
+    public ArrayList<Pedido> devolverPedidosPorHora(Integer estadoPedido, Calendar fechaConsulta) throws InstantiationException, IllegalAccessException, SQLException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
             
@@ -185,6 +185,7 @@ public class funcionesRuteo {
         } catch (SQLException ex) {
             Logger.getLogger(funcionesPanelPaqueteBusqueda.class.getName()).log(Level.SEVERE, null, ex);
         }
+        conexion.close();
         return lstPaquetes;
     }
     

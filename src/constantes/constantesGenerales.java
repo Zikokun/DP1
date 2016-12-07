@@ -18,7 +18,7 @@ public class constantesGenerales {
     public static int CAPACIDAD_MAX_VUELO = 200;
     public static int CAPACIDAD_MIN_VUELO = 0;
     public static String NOMBRE_ARCH = "arch";
-    public static float FACTOR_INCREMENTO = 0.1f;
+    public static float FACTOR_INCREMENTO = 0.5f;
     public static int SIMULACION_POR_DIA=1;
     public static int LECTURA_TOTAL_ARCH=0;
     public static int FACTOR_TIEMPO_NORMAL = 1; //representa 38 min en simulacion

@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +57,7 @@ public class Mapa extends PApplet{
     
     Integrator blendIntegrator = new Integrator(255);
     private List<Object[]> listaPaquetesRutas;
+    private List<Object[]> listaVuelos;
     
     int contador = 99;
     int horaInicial = 0;
@@ -125,30 +127,39 @@ public class Mapa extends PApplet{
         
         funcionesMapa fMapa = new funcionesMapa();
         List<Object[]> lisPaquetesRutas = fMapa.devolverDetallePaquete(PanelSim.tipoSim);
+        this.listaVuelos = new ArrayList<Object[]>();
         this.listaPaquetesRutas = lisPaquetesRutas;
         
         mapDay.getMarkers().clear();
+        int idVueloAnterior = -1;
         
-        for(int i = 0; i < lisPaquetesRutas.size(); i++){
+        for (int i = 0; i < lisPaquetesRutas.size(); i++) {
             Object[] ruta = lisPaquetesRutas.get(i);
-            float longuitud = (float)ruta[1];
-            float latitud = (float)ruta[2];
             
-            boolean esPrimeraVezVuelo = false;
             
-            if(longuitud == 0 && latitud == 0){
-                longuitud = (float)ruta[3];
-                latitud = (float)ruta[4];
-                esPrimeraVezVuelo = true;
-            }
-            lisPaquetesRutas.get(i)[1] = longuitud;
-            lisPaquetesRutas.get(i)[2] = latitud;
+                float longuitud = (float) ruta[1];
+                float latitud = (float) ruta[2];
+
+                boolean esPrimeraVezVuelo = false;
+
+                if (longuitud == 0 && latitud == 0) {
+                    longuitud = (float) ruta[3];
+                    latitud = (float) ruta[4];
+                    esPrimeraVezVuelo = true;
+                }
+
+                lisPaquetesRutas.get(i)[1] = longuitud;
+                lisPaquetesRutas.get(i)[2] = latitud;
                 
-            Location ubicacion = new Location(latitud,longuitud);
-            SimplePointMarker ubicacionMarcador = new SimplePointMarker(ubicacion);
-            ubicacionMarcador.setColor(color(255, 0, 0, 100));
-            //if(esPrimeraVezVuelo) ubicacionMarcador.setColor(obtenerColorAleatorio());
-            mapDay.addMarker(ubicacionMarcador);
+            if (idVueloAnterior != (int) ruta[7]) {
+                Location ubicacion = new Location(latitud, longuitud);
+                SimplePointMarker ubicacionMarcador = new SimplePointMarker(ubicacion);
+                ubicacionMarcador.setColor(color(255, 0, 0, 100));
+                //if(esPrimeraVezVuelo) ubicacionMarcador.setColor(obtenerColorAleatorio());
+                mapDay.addMarker(ubicacionMarcador);
+                idVueloAnterior = (int) ruta[7];
+                listaVuelos.add(ruta);
+            }
         }
     }
     
@@ -184,32 +195,47 @@ public class Mapa extends PApplet{
     
     private void cambiarLonguitudYLatitudActuales(){
         List<Object[]> lisPaquetesRutas = this.listaPaquetesRutas;
-        for(int i = 0; i < lisPaquetesRutas.size() && fueApretado == BOTON_PAUSA_NO_APRETADO; i++){
+        int idVueloAnterior = -1;
+        int idContadorVuelo = 0;
+        for (int i = 0; i < lisPaquetesRutas.size() && fueApretado == BOTON_PAUSA_NO_APRETADO; i++) {
             Object[] ruta = lisPaquetesRutas.get(i);
-            float longuitudActual = (float)ruta[1];
-            float latitudActual = (float)ruta[2];
             
-            float diferenciaLonguitud = (float)ruta[5] - (float)ruta[3];
-            float diferenciaLatitud = (float)ruta[6] - (float)ruta[4];
+            int idVuelo = (int) ruta[7];
+            
+            float longuitudActual = (float) ruta[1];
+            float latitudActual = (float) ruta[2];
 
-            float hipotenusa = (float) Math.sqrt((diferenciaLonguitud*diferenciaLonguitud) + (diferenciaLatitud*diferenciaLatitud));
+            float diferenciaLonguitud = (float) ruta[5] - (float) ruta[3];
+            float diferenciaLatitud = (float) ruta[6] - (float) ruta[4];
+
+            float hipotenusa = (float) Math.sqrt((diferenciaLonguitud * diferenciaLonguitud) + (diferenciaLatitud * diferenciaLatitud));
+
             
-            Marker marker = mapDay.getMarkers().get(i);
-            Location actualLocacion = marker.getLocation();
-            
+
             int factorDecremento = 1;
-            if(llegoPuntoFinal(diferenciaLonguitud, diferenciaLatitud, ruta)) factorDecremento = 0;
+            if (llegoPuntoFinal(diferenciaLonguitud, diferenciaLatitud, ruta)) {
+                factorDecremento = 0;
+            }
+
+            float nuevaLonguitud = longuitudActual + (diferenciaLonguitud / abs(diferenciaLonguitud) * (abs(diferenciaLonguitud) / hipotenusa)) * FACTOR_INCREMENTO * factorDecremento; //tangente
+            float nuevaLatitud = latitudActual + (diferenciaLatitud / abs(diferenciaLatitud) * (abs(diferenciaLatitud) / hipotenusa)) * FACTOR_INCREMENTO * factorDecremento; //tangente
             
-            float nuevaLonguitud = longuitudActual + (diferenciaLonguitud/abs(diferenciaLonguitud)*(abs(diferenciaLonguitud)/hipotenusa)) * FACTOR_INCREMENTO * factorDecremento; //tangente
-            float nuevaLatitud = latitudActual + (diferenciaLatitud/abs(diferenciaLatitud) * (abs(diferenciaLatitud)/hipotenusa)) * FACTOR_INCREMENTO * factorDecremento; //tangente
-            actualLocacion.setLat(nuevaLatitud);
-            actualLocacion.setLon(nuevaLonguitud);
-            Location nuevaLocacion = actualLocacion;
-            mapDay.getMarkers().get(i).setLocation(nuevaLocacion);
+            if(idVuelo != idVueloAnterior){
+                Marker marker = mapDay.getMarkers().get(idContadorVuelo);
+                Location actualLocacion = marker.getLocation();
+                actualLocacion.setLat(nuevaLatitud);
+                actualLocacion.setLon(nuevaLonguitud);
+                Location nuevaLocacion = actualLocacion;
+                mapDay.getMarkers().get(idContadorVuelo).setLocation(nuevaLocacion);
+                idContadorVuelo++;
+                idVueloAnterior = idVuelo;
+            }
+            
 
             this.listaPaquetesRutas.get(i)[1] = nuevaLonguitud;
             this.listaPaquetesRutas.get(i)[2] = nuevaLatitud;
-        } 
+        }
+        System.out.println("Se tienen hasta el momento " + idContadorVuelo);
     }
     
     private void insertarCoordenadasTablas() throws InstantiationException, IllegalAccessException, SQLException{
