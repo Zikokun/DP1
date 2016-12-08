@@ -9,6 +9,7 @@ import constantes.constanteEstadoPaquete;
 import static constantes.constanteEstadoPaquete.*;
 import static constantes.constantesVentanaPrincipal.TIPO_OPERARIO;
 import controlador.Genetico;
+import static constantes.constantesGenerales.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -61,8 +62,8 @@ public class funcionesRuteo {
         //TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
         //ArrayList<Vuelo> vuelos=new ArrayList<>();
         
-        System.out.println("Estado inicial: "+ constanteEstadoPaquete.values()[estadoPedido]);
-        System.out.println("Estado final: "+ constanteEstadoPaquete.values()[estadoFinal]);
+        System.out.println(ANSI_GREEN+"Estado inicial: "+ constanteEstadoPaquete.values()[estadoPedido]+ANSI_RESET);
+        System.out.println(ANSI_GREEN+"Estado final: "+ constanteEstadoPaquete.values()[estadoFinal]+ANSI_RESET);
         
         ArrayList<Pedido> pedidos=devolverPedidosTotal(estadoPedido);
         

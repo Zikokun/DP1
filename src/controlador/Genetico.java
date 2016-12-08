@@ -14,6 +14,7 @@ import modelo.Gen;
 import modelo.Pedido;
 import modelo.Ruta;
 import modelo.Vuelo;
+import static constantes.constantesGenerales.*;
 
 /**
  *
@@ -186,7 +187,7 @@ public class Genetico {
                     int capCiudadFlag=0;
                     int capAvionFlag=0;
                     while(k<maxIntentos){
-                        if(tiempTotal<=tiempoMax*60){
+                        //if(tiempTotal<=tiempoMax*60){
                            capCiudadFlag= actualizarCaps(ruta,dPedido,hPedido,mPedido,1);
                            if(capCiudadFlag==1){
                                capAvionFlag=verificarCapsAvion(ruta,dPedido,hPedido,mPedido,1);
@@ -194,7 +195,7 @@ public class Genetico {
                                verificarCapsAvion(ruta,dPedido,hPedido,mPedido,-1);// deshacer los cambios
                            }
                            actualizarCaps(ruta,dPedido,hPedido,mPedido,-1);
-                        }
+                        //}
                         ruta=rutasOF.get(ran.nextInt(rutasOF.size())); //escogemos otra ruta aleatoriamente
                         hSalida=ruta.getVuelos().get(0).gethSalida();
                         if(hSalida<hPedido ||(hSalida==hPedido && mPedido!=0)) hSalida+=24;
@@ -203,7 +204,9 @@ public class Genetico {
                     }
                     if(k==maxIntentos){
                         noColapsa=0; //se cae
-                        System.out.println("Se acabaron las vidas :(");
+                        System.out.println(ANSI_PURPLE +"Flag Almacenes: "+capCiudadFlag+ANSI_RESET );
+                        System.out.println(ANSI_PURPLE +"Flag Vuelos: "+capAvionFlag+ANSI_RESET );
+                        System.out.println(ANSI_PURPLE+"Pedido ID falla:"+pedActual.getIdPedido()+ANSI_RESET);
                         //return fitnessTotal;
                     }
                     hSalida=ruta.getVuelos().get(0).gethSalida();
