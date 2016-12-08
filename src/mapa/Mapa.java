@@ -68,6 +68,7 @@ public class Mapa extends PApplet{
     public static int fueApretado;
     
     public void setup() {
+        System.out.println("Entro al seteado del mapa");
         try {
             mostrarBotonPausa = BOTON_PAUSA_VISIBLE;
             fueApretado = BOTON_PAUSA_NO_APRETADO;
@@ -76,6 +77,7 @@ public class Mapa extends PApplet{
             if(mostrarBotonPausa == BOTON_PAUSA_VISIBLE) VentanaPrincipal.botonPausa.setVisible(true);
             
             size(800, 600);
+            Thread.sleep(60000);
             funcionesMapa fMapa = new funcionesMapa();
             horaInicial = fMapa.devolverHoraInicial();
             
@@ -96,7 +98,7 @@ public class Mapa extends PApplet{
             mapDay.panTo(new Location(49.6f, 9.4f));
             
             MapUtils.createDefaultEventDispatcher(this, mapDay);
-            Thread.sleep(12000);
+            
         } catch (InstantiationException ex) {
             Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
@@ -303,12 +305,12 @@ public class Mapa extends PApplet{
         mapDay.draw();
         tint(255, blendIntegrator.value);
         try {
+            System.out.println("Esta en el dibujado");
             inicializacionMarcadores();
             //cambiarReloj();
             cambiarFecha();
             cambiarLonguitudYLatitudActuales();
             insertarCoordenadasTablas();
-            
         } catch (InstantiationException ex) {
             Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {

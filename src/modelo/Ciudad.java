@@ -20,7 +20,7 @@ public class Ciudad {
     private String abreviado;
     private String continente;
     public int huso;
-    private int capacidadTotal=600;
+    private int capacidadTotal=1000;
     private String []dias={"Lun","Mar","Mie","Jue","Vie","Sab","Dom"};
     public ArrayList<String> vecinos = new ArrayList<>(); //Vecinos son las ciudades a las que hay un vuelo desde esta ciudad
     public ArrayList<Vuelo> vuelos = new ArrayList<>(); //Lista de vuelos que salen de esta ciudad

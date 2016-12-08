@@ -17,7 +17,7 @@ public class Vuelo {
     private String destino;
     private String tipoVuelo;
     private int tiempo;
-    private int capacidad=200;
+    private int capacidad=300;
     private Ciudad aeroOrig;
     private Ciudad aeroFin;
     private ArrayList<Integer> capTiempo = new ArrayList<>(); // capacidades en el tiempo

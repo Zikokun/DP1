@@ -66,7 +66,13 @@ public class funcionesHiloEjecSimu extends Thread{
                     System.out.println("Boton:"+BOTON_PAUSA_NOVISIBLE);
                     System.out.println("Boton mostrar Pausa: " + detenerse);
                     SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String fechaActual = "2016-10-04 00:04:00";
+                    
+                    String fechaActual = "";
+                    if(tipoSimu == 0){
+                        fechaActual = "2016-10-04 00:04:00";
+                    }else if(tipoSimu == 1){
+                        fechaActual = "2016-12-03 16:00:00";
+                    }
                     Date fecha = null;
                     try {
                         fecha = formatoDeFecha.parse(fechaActual);
@@ -97,7 +103,7 @@ public class funcionesHiloEjecSimu extends Thread{
                             }
                             // funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
                             System.out.println("Ruteo pedido en la fecha = " + calendarDate.getTime());
-                            funcR.ruteoPedidosTresDias(7, 5, calendarDate);
+                            funcR.ruteoPedidosTresDias(estadoInicial, estadoFinal, calendarDate);
                             calendarDate.add(Calendar.HOUR_OF_DAY, 1);
                         } else {
                             System.out.println("En pausa no debe rutear");
