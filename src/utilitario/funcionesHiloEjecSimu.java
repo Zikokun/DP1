@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import mapa.Mapa;
+import modelo.Cromosoma;
 import vista.VentanaPrincipal;
 /**
  *
@@ -38,14 +39,15 @@ public class funcionesHiloEjecSimu extends Thread{
         private funcionesRuteo funcR = new funcionesRuteo();
         private funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
         private int detenerse;
-        
+        public Cromosoma flagSalida;
         public funcionesHiloEjecSimu(JPanel Vent, int IntervaloTiempo, funcionesDibujoEjecSimu Dib) {
 		this.Panel = Vent;
 		this.IntervaloTiempo = IntervaloTiempo;
 		this.Dib = Dib;
 		DebeDetenerse = false;
         }
-        public funcionesHiloEjecSimu(int IntervaloTiempo, int tipoSimu){
+        public funcionesHiloEjecSimu(JPanel Vent,int IntervaloTiempo, int tipoSimu){
+            this.Panel = Vent;
             this.DebeDetenerse = false;
             this.tipoSimu=tipoSimu;
             this.IntervaloTiempo = IntervaloTiempo;
@@ -94,16 +96,28 @@ public class funcionesHiloEjecSimu extends Thread{
                             if (tipoSimu == 2) {
                                 estadoInicial = SIN_ENVIAR.ordinal();
                                 estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
+                                funcR.setFlagTipoSimuTotal(0);
+                                funcR.setMensajeCaida("");
                             } else if (tipoSimu == 0) {
                                 estadoFinal = CON_TRES_DIAS.ordinal();
                                 estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
+                                funcR.setFlagTipoSimuTotal(0);
+                                funcR.setMensajeCaida("");
                             } else { // tipoSimu==1
                                 estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
                                 estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
+                                funcR.setFlagTipoSimuTotal(1);
+                                funcR.setMensajeCaida("");
+                                funcR.setContAux(110);
                             }
                             // funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
                             System.out.println("Ruteo pedido en la fecha = " + calendarDate.getTime());
-                            funcR.ruteoPedidosTresDias(estadoInicial, estadoFinal, calendarDate);
+                            flagSalida=funcR.ruteoPedidosTresDias(estadoInicial, estadoFinal, calendarDate);
+                            if(flagSalida==null){//quiere decir que ya se cayo la simulacion
+                                
+                                JOptionPane.showMessageDialog(this.Panel ,funcR.getMensajeCaida(),"Condicion de caida" , JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            }
                             calendarDate.add(Calendar.HOUR_OF_DAY, 1);
                         } else {
                             System.out.println("En pausa no debe rutear");

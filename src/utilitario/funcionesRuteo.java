@@ -54,7 +54,9 @@ public class funcionesRuteo {
     ArrayList<Vuelo> vuelos=new ArrayList<>();
     TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
     Correo corr = new Correo();
-    
+    private String mensajeCaida="";
+    private int flagTipoSimuTotal;
+    private int contAux;
     public Cromosoma ruteoPedidosManual(Integer estadoPedido, Integer estadoFinal) throws InstantiationException, IllegalAccessException, IOException, SQLException{
         String mensaje = "";
         int hora,dia;
@@ -101,7 +103,7 @@ public class funcionesRuteo {
         String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();
-        
+        int Colapsa=0;
         System.out.println("Estado inicial: "+ constanteEstadoPaquete.values()[estadoPedido]);
         System.out.println("Estado final: "+ constanteEstadoPaquete.values()[estadoFinal]);
         
@@ -122,7 +124,21 @@ public class funcionesRuteo {
         Cromosoma solucion=new Cromosoma();
         if(pedidos.size()!=0){
             Genetico algoritmo=new Genetico();
-            algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
+            algoritmo.setFlagTipoSimuTotal(this.getFlagTipoSimuTotal());
+            algoritmo.setFlagColapso(0);
+            algoritmo.setMensaje("");
+            algoritmo.setContAux(this.getContAux());
+            if(this.getFlagTipoSimuTotal()==1){
+                Colapsa=algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
+                
+            }else{
+                algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
+            }
+            if(Colapsa==1){//ya colapso
+                    this.setMensajeCaida(algoritmo.getMensaje());
+                    System.out.println("this mensajeCaida= "+this.mensajeCaida);
+                    return null;
+                }
             solucion=algoritmo.getMejorCrom();
             asignarRutasBD(solucion,estadoFinal);
             ArrayList<Gen> genes=solucion.genes;
@@ -575,6 +591,48 @@ public class funcionesRuteo {
     public static void imprimirAeros(TreeMap<String,Ciudad> aeropuertos){
         for(Ciudad item:aeropuertos.values())
             System.out.println(item.getCiudad());
+    }
+
+    /**
+     * @return the mensajeCaida
+     */
+    public String getMensajeCaida() {
+        return mensajeCaida;
+    }
+
+    /**
+     * @param mensajeCaida the mensajeCaida to set
+     */
+    public void setMensajeCaida(String mensajeCaida) {
+        this.mensajeCaida = mensajeCaida;
+    }
+
+    /**
+     * @return the flagTipoSimuTotal
+     */
+    public int getFlagTipoSimuTotal() {
+        return flagTipoSimuTotal;
+    }
+
+    /**
+     * @param flagTipoSimuTotal the flagTipoSimuTotal to set
+     */
+    public void setFlagTipoSimuTotal(int flagTipoSimuTotal) {
+        this.flagTipoSimuTotal = flagTipoSimuTotal;
+    }
+
+    /**
+     * @return the contAux
+     */
+    public int getContAux() {
+        return contAux;
+    }
+
+    /**
+     * @param contAux the contAux to set
+     */
+    public void setContAux(int contAux) {
+        this.contAux = contAux;
     }
     
 }

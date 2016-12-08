@@ -33,6 +33,9 @@ public class Genetico {
     private Cromosoma mejorCrom=new Cromosoma();
     int maxIntentos=50;
     private String mensaje;
+    private int flagTipoSimuTotal;
+    private int flagColapso;
+    private int contAux;
     public Genetico(){
         
     }
@@ -41,14 +44,15 @@ public class Genetico {
         int noColapsa=1;//noColapsa=1, todo salio bien  noColapsa=0, el sistema colapsó
         int fitnessTotal=generarPoblacion(pedidos,aeropuertos,vuelos,noColapsa);//poblacion incicial
         System.out.println("fitness Total: "+fitnessTotal);
-        this.mensaje = "";
+        
         horaSist=hora;
         diaSist=dia; 
-        if(noColapsa==1){
+        if(this.getFlagColapso()==0){
             mensaje = reproduccion(fitnessTotal);
             capsAuxAReales(vuelos,aeropuertos); // se copian las capacidades halladas para el mejor cromosoma a las reales
         }
-        return noColapsa;      
+        
+        return this.getFlagColapso();      
     }
        
     public String reproduccion(int fitnessTotal){
@@ -114,7 +118,7 @@ public class Genetico {
 //        }
 //        System.out.println("Tiempo total de entrega de paquetes: "+tiempoTotal+"\n");
 //        mensaje+="Tiempo total de entrega de paquetes: "+tiempoTotal+"\n";
-        return mensaje;
+        return getMensaje();
     }
     
     public void mutacion(Cromosoma crom){
@@ -202,12 +206,29 @@ public class Genetico {
                         tiempTotal=(hSalida-hPedido+ruta.getTiempo())*60-mPedido;
                         k++;
                     }
-                    if(k==maxIntentos){
+                    if(k==maxIntentos ){
                         noColapsa=0; //se cae
                         System.out.println(ANSI_PURPLE +"Flag Almacenes: "+capCiudadFlag+ANSI_RESET );
                         System.out.println(ANSI_PURPLE +"Flag Vuelos: "+capAvionFlag+ANSI_RESET );
                         System.out.println(ANSI_PURPLE+"Pedido ID falla:"+pedActual.getIdPedido()+ANSI_RESET);
-                        //return fitnessTotal;
+                        String aux1,aux2,aux3;
+                        aux3="Pedido ID falla: "+pedActual.getIdPedido()+"\t ";
+                        if(capCiudadFlag==0){
+                            aux1="-no encontro espacio en almacen destino: "+pedActual.getDestino()+"\n ";
+                            aux3.concat(aux1);
+                        }
+                        if(capAvionFlag==0){
+                            aux2="-no encontro espacio en vuelos desde: "+pedActual.getOrigen()+"\n ";
+                            aux3.concat(aux2);
+                        }
+                        this.setMensaje(aux3);
+                        if(this.getFlagTipoSimuTotal()==1)
+                            if (this.getContAux() == 0) {
+                                    this.setFlagColapso(1);
+                                    return fitnessTotal;
+                            } else {
+                                this.setContAux(this.getContAux() - 1);
+                            }
                     }
                     hSalida=ruta.getVuelos().get(0).gethSalida();
                     //System.out.println("Hora Salida Vuelo: "+hSalida);
@@ -413,5 +434,61 @@ public class Genetico {
      */
     public Cromosoma getMejorCrom() {
         return mejorCrom;
+    }
+
+    /**
+     * @return the flagTipoSimuTotal
+     */
+    public int getFlagTipoSimuTotal() {
+        return flagTipoSimuTotal;
+    }
+
+    /**
+     * @param flagTipoSimuTotal the flagTipoSimuTotal to set
+     */
+    public void setFlagTipoSimuTotal(int flagTipoSimuTotal) {
+        this.flagTipoSimuTotal = flagTipoSimuTotal;
+    }
+
+    /**
+     * @return the flagColapso
+     */
+    public int getFlagColapso() {
+        return flagColapso;
+    }
+
+    /**
+     * @param flagColapso the flagColapso to set
+     */
+    public void setFlagColapso(int flagColapso) {
+        this.flagColapso = flagColapso;
+    }
+
+    /**
+     * @return the mensaje
+     */
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    /**
+     * @param mensaje the mensaje to set
+     */
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    /**
+     * @return the contAux
+     */
+    public int getContAux() {
+        return contAux;
+    }
+
+    /**
+     * @param contAux the contAux to set
+     */
+    public void setContAux(int contAux) {
+        this.contAux = contAux;
     }
 }

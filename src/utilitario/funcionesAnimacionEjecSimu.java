@@ -32,8 +32,9 @@ public class funcionesAnimacionEjecSimu {
 		this.ADib = Dib;
 		Hilo = null;
 	}
-        public funcionesAnimacionEjecSimu(int IntervaloTiempo, int tipoSimu) {
-		this.IntervaloTiempo = IntervaloTiempo;
+        public funcionesAnimacionEjecSimu(JPanel Vent,int IntervaloTiempo, int tipoSimu) {
+		this.Vent = Vent;
+                this.IntervaloTiempo = IntervaloTiempo;
 		Hilo = null;
                 this.tipoSimu=tipoSimu;
 	}
@@ -51,7 +52,7 @@ public class funcionesAnimacionEjecSimu {
  	}
 	public void Iniciar() {
 		if(!EstaCorriendo()) {
-			Hilo = new funcionesHiloEjecSimu(IntervaloTiempo,tipoSimu);
+			Hilo = new funcionesHiloEjecSimu(Vent,IntervaloTiempo,tipoSimu);
                          System.out.println("antes del start del hilo");
 			Hilo.start();
 		}

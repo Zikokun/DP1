@@ -66,7 +66,7 @@ public class PanelSim extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Microsoft YaHei", 0, 24)); // NOI18N
         jLabel3.setText("Parámetros iniciales de Simulación");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simulacion tiempo Real", "Operacion 3 dias", "Simulacion total", " ", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Simulacion tiempo Real", "Operacion 3 dias", "Simulacion total" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,8 +81,8 @@ public class PanelSim extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(171, 171, 171)
                         .addComponent(jLabel2)
-                        .addGap(91, 91, 91)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(71, 71, 71)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(249, 249, 249)
                         .addComponent(buttonEmpezar)))
@@ -127,18 +127,18 @@ public class PanelSim extends javax.swing.JPanel {
             if(fps.revisaFlagSimu()==0){//no hay simulaciones corriendo
                 if(tipoSim==0){
                     System.out.println("creando el hilo simu 3 dias");
-                    hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
+                    hilo=new funcionesAnimacionEjecSimu(this,TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
                     hilo.Iniciar();
                 }else if(tipoSim==1){
-                    hilo=new funcionesAnimacionEjecSimu(TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
+                    hilo=new funcionesAnimacionEjecSimu(this,TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
                     System.out.println("creando el hilo simu hasta que se caiga");
                     hilo.Iniciar();
                    
                 }
                 //empezara a correr una simulacion
-                System.out.println("aqui debe actualizar los flags");
-                fps.actualizaFlag(tipoSim);
-                System.out.println(" flags cambiados(?)");
+                //System.out.println("aqui debe actualizar los flags");
+                //fps.actualizaFlag(tipoSim);
+                //System.out.println(" flags cambiados(?)");
             }else{//hay una simulacion 
                 //aqui verifica la simulacion,si es el mismo tipo accede al tiempo
                 if(fps.comparaSimu(tipoSim)==0){//no es del mismo tipo
