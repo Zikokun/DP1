@@ -23,17 +23,17 @@ import utilitario.funcionesPanelMantUsuario;
  * @author FranciscoMartin
  */
 public class panelMantUsuario extends javax.swing.JPanel {
-
+    
     private String usuario;
     private String contrasenha;
     private String tipoUsuario;
     Correo corr = new Correo();
-
+    
     public panelMantUsuario() {
         initComponents();
         this.setVisible(true);
     }
-
+    
     public panelMantUsuario(String usuario, String contrasenha, String tipoUsuario, int distinguidor) {
         this.usuario = usuario;
         this.contrasenha = contrasenha;
@@ -50,7 +50,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
         label8.setVisible(false);
         label9.setVisible(false);
     }
-
+    
     private int CamposObligatorios() throws InstantiationException, IllegalAccessException {
         int cont = 0;
         String cadena = "Ingresar:";
@@ -58,64 +58,84 @@ public class panelMantUsuario extends javax.swing.JPanel {
             cadena += "\n Contraseña";
             cont++;
             label1.setVisible(true);
-        }else {label1.setVisible(false);}
+        } else {
+            label1.setVisible(false);
+        }
         if (apellidoPaternoCampo.getText().isEmpty()) {
             cadena += "\n Apellido Paterno";
             cont++;
             label2.setVisible(true);
-        }else {label2.setVisible(false);}
+        } else {
+            label2.setVisible(false);
+        }
         if (apellidoMaternoCampo.getText().isEmpty()) {
             cadena += "\n Apellido Materno";
             cont++;
             label3.setVisible(true);
-        }else {label3.setVisible(false);}
+        } else {
+            label3.setVisible(false);
+        }
         if (fechaNacimientoCampo.getText().isEmpty()) {
             cadena += "\n Fecha de Nacimiento";
             cont++;
             label4.setVisible(true);
-        }else {label4.setVisible(false);}
+        } else {
+            label4.setVisible(false);
+        }
         if (direccionCampo.getText().isEmpty()) {
             cadena += "\n Dirección";
             cont++;
             label5.setVisible(true);
-        }else {label5.setVisible(false);}
+        } else {
+            label5.setVisible(false);
+        }
         if (correoCampo.getText().isEmpty()) {
             cadena += "\n Correo";
             cont++;
             label6.setVisible(true);
-        }else {label6.setVisible(false);}
+        } else {
+            label6.setVisible(false);
+        }
         if (docIdentidadCampo.getText().isEmpty()) {
             cadena += "\n Documento de Identidad";
             cont++;
             label7.setVisible(true);
-        }else {label7.setVisible(false);}
+        } else {
+            label7.setVisible(false);
+        }
         if (usuarioCampo.getText().isEmpty()) {
             cadena += "\n Nombre de Usuario";
             cont++;
             label8.setVisible(true);
-        }else {label8.setVisible(false);}
+        } else {
+            label8.setVisible(false);
+        }
         if (contrasenhaCampo.getText().isEmpty()) {
             cadena += "\n Contraseña";
             cont++;
             label9.setVisible(true);
-        }else {label9.setVisible(false);}
+        } else {
+            label9.setVisible(false);
+        }
         if (cont > 0) {
             //JOptionPane.showMessageDialog(this, cadena, "Campo Obligatorio", JOptionPane.INFORMATION_MESSAGE);
         }
         return cont;
     }
-
+    
     public panelMantUsuario(String usuario, String contrasenha, String tipoUsuario) throws InstantiationException, IllegalAccessException {
-
+        
         this.usuario = usuario;
         this.contrasenha = contrasenha;
         this.tipoUsuario = tipoUsuario;
         initComponents();
         this.setVisible(true);
+        this.contrasenhaCampo.setVisible(false);
+        this.jLabel11.setVisible(false);
         String[] datosUsuario = new String[10];
-
+        
         funcionesPanelMantUsuario funcionesMantUsuario = new funcionesPanelMantUsuario();
-
+        
         this.botonRegistrar.setVisible(false);
         datosUsuario = funcionesMantUsuario.devolverDatosUsuario(usuario, tipoUsuario);
         this.nombreCampo.setText(datosUsuario[0]);
@@ -125,7 +145,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
         this.direccionCampo.setText(datosUsuario[4]);
         this.correoCampo.setText(datosUsuario[5]);
         this.docIdentidadCampo.setText(datosUsuario[6]);
-
+        
         if (datosUsuario[7].equals(TIPO_CLIENTE)) {
             this.tipoUsuarioComboBox.setSelectedIndex(2);
         } else if (datosUsuario[7].equals(TIPO_ADMIN)) {
@@ -134,9 +154,9 @@ public class panelMantUsuario extends javax.swing.JPanel {
             this.tipoUsuarioComboBox.setSelectedIndex(1); //Operario
         }
         this.docIdentidadComboBox.setSelectedIndex(0);
-
+        
         this.usuarioCampo.setText(datosUsuario[9]);
-
+        
         funcionesMantUsuario.colocarCampoComoNoEditable(this.nombreCampo);
         funcionesMantUsuario.colocarCampoComoNoEditable(this.apellidoPaternoCampo);
         funcionesMantUsuario.colocarCampoComoNoEditable(this.apellidoMaternoCampo);
@@ -145,7 +165,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
         funcionesMantUsuario.colocarCampoComoNoEditable(this.correoCampo);
         funcionesMantUsuario.colocarCampoComoNoEditable(this.docIdentidadCampo);
         funcionesMantUsuario.colocarCampoComoNoEditable(this.usuarioCampo);
-
+        
         funcionesMantUsuario.colocarComboBoxesComoNoEditable(this.tipoUsuarioComboBox);
         funcionesMantUsuario.colocarComboBoxesComoNoEditable(this.docIdentidadComboBox);
         
@@ -159,7 +179,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
         label8.setVisible(false);
         label9.setVisible(false);
     }
-
+    
     public void enviarCorreo(Persona nuevoUsuario) {
         corr.setContrasenha("dfcljwktcrnxqulr");
         corr.setUsuarioCorreo("traslapack.packsis@gmail.com");
@@ -524,24 +544,24 @@ public class panelMantUsuario extends javax.swing.JPanel {
                 String documento = docIdentidadCampo.getText();
                 String usuario = usuarioCampo.getText();
                 String contrasenhia = contrasenhaCampo.getText();
-
+                
                 String tipoUsuario = (String) this.tipoUsuarioComboBox.getSelectedItem();
                 String tipoDocumento = "DNI";
-
+                
                 Persona usuarioNuevo = new Persona(nombre, apellidoP, apellidoM, fechaNac, direccion, correo, documento, usuario, contrasenhia);
-                String mensaje="";
+                String mensaje = "";
                 funcionesPanelMantUsuario utilitarioMantenimientos = new funcionesPanelMantUsuario();
                 try {
-                    if ((mensaje=utilitarioMantenimientos.DuplicadoUsuario(usuario)) == "OK") {
+                    if ((mensaje = utilitarioMantenimientos.DuplicadoUsuario(usuario)) == "OK") {
                         mensaje = utilitarioMantenimientos.RegistrarUsuario(usuarioNuevo, tipoUsuario);
                         JOptionPane.showMessageDialog(null, mensaje);
                         if (mensaje.equals("Usuario insertado con éxito")) {
                             enviarCorreo(usuarioNuevo);
                         }
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, mensaje);
                     }
-
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
@@ -551,7 +571,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
                 } catch (ParseException ex) {
                     Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             }
         } catch (InstantiationException ex) {
             Logger.getLogger(panelMantUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -562,7 +582,7 @@ public class panelMantUsuario extends javax.swing.JPanel {
 
     private void regresarBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regresarBotonMouseClicked
         VentanaPrincipal.pnlFondo.removeAll();
-
+        
         if (tipoUsuario.equals(TIPO_ADMIN)) {
             PanelSim ps = new PanelSim();
             VentanaPrincipal.pnlFondo.add(ps, BorderLayout.CENTER);
@@ -688,23 +708,23 @@ public class panelMantUsuario extends javax.swing.JPanel {
     public String getUsuario() {
         return usuario;
     }
-
+    
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-
+    
     public String getContrasenha() {
         return contrasenha;
     }
-
+    
     public void setContrasenha(String contrasenha) {
         this.contrasenha = contrasenha;
     }
-
+    
     public String getTipoUsuario() {
         return tipoUsuario;
     }
-
+    
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
