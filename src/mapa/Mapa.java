@@ -77,7 +77,7 @@ public class Mapa extends PApplet{
             if(mostrarBotonPausa == BOTON_PAUSA_VISIBLE) VentanaPrincipal.botonPausa.setVisible(true);
             
             size(800, 600);
-            Thread.sleep(60000);
+            Thread.sleep(12000);
             funcionesMapa fMapa = new funcionesMapa();
             horaInicial = fMapa.devolverHoraInicial();
             

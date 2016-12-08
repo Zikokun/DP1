@@ -86,7 +86,7 @@ public class funcionesMapa {
             tipoSimulacion = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
         }
 
-        String sqlBuscarMenorFecha = " SELECT MIN(fechaEnvio) "
+        String sqlBuscarMenorFecha = " SELECT MIN(fechaRecepcion) "
                 + " FROM paquete "
                 + " WHERE paquete.estado = " + tipoSimulacion + "; ";
         
