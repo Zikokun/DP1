@@ -112,6 +112,7 @@ public class funcionesHiloEjecSimu extends Thread{
                             }
                             // funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
                             System.out.println("Ruteo pedido en la fecha = " + calendarDate.getTime());
+                            if(DebeDetenerse)break;
                             flagSalida=funcR.ruteoPedidosTresDias(estadoInicial, estadoFinal, calendarDate);
                             if(flagSalida==null){//quiere decir que ya se cayo la simulacion
                                 

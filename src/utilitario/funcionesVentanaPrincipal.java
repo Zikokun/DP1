@@ -47,6 +47,9 @@ public class funcionesVentanaPrincipal {
         if (PanelSim.simulacion != null) {
             PanelSim.simulacion.stop();
         }
+        if (PanelSim.hilo.EstaCorriendo()) {
+            PanelSim.hilo.Detener();
+        }
         VentanaPrincipal.labelMostrarTiempoReal.setText("");
         VentanaPrincipal.labelMostrarTiempoReal.setVisible(false);
         VentanaPrincipal.botonPausa.setVisible(false);

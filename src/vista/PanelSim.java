@@ -31,7 +31,7 @@ public class PanelSim extends javax.swing.JPanel {
      */
     public static int tipoSim;
     public static PApplet simulacion;
-    public funcionesAnimacionEjecSimu hilo;
+    public static funcionesAnimacionEjecSimu hilo;
      private funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
     public PanelSim() {
         initComponents();
