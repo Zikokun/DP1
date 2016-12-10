@@ -15,6 +15,7 @@ import modelo.Pedido;
 import modelo.Ruta;
 import modelo.Vuelo;
 import static constantes.constantesGenerales.*;
+import mapa.Mapa;
 
 /**
  *
@@ -33,6 +34,8 @@ public class Genetico {
     private Cromosoma mejorCrom=new Cromosoma();
     int maxIntentos=50;
     private String mensaje;
+    private String ciudadColapso="";
+    private String vueloColapso="";
     private int flagTipoSimuTotal;
     private int flagColapso;
     private int contAux;
@@ -214,18 +217,24 @@ public class Genetico {
                         String aux1,aux2,aux3;
                         aux3="Pedido ID falla: "+pedActual.getIdPedido()+"\t ";
                         if(capCiudadFlag==0){
+                            System.out.println(ANSI_CYAN+"capCiudadFlag CERO"+ANSI_RESET);
                             aux1="-no encontro espacio en almacen destino: "+pedActual.getDestino()+"\n ";
-                            aux3.concat(aux1);
+                            //aux3.concat(aux1);
+                            aux3=aux3+aux1;
+                            System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
                         }
                         if(capAvionFlag==0){
-                            aux2="-no encontro espacio en vuelos desde: "+pedActual.getOrigen()+"\n ";
-                            aux3.concat(aux2);
+                            System.out.println(ANSI_CYAN+"capAvionFlag CERO"+ANSI_RESET);
+                            aux2="-no encontro espacio en vuelo: "+vueloColapso+"\n ";
+                            //aux3.concat(aux2);
+                            aux3=aux3+aux2;
+                            System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
                         }
                         this.setMensaje(aux3);
                         if(this.getFlagTipoSimuTotal()==1)
                             if (this.getContAux() == 0) {
                                     this.setFlagColapso(1);
-                                    //return fitnessTotal;
+                                    return fitnessTotal;
                             } else {
                                 this.setContAux(this.getContAux() - 1);
                             }
@@ -298,7 +307,12 @@ public class Genetico {
                     vueloActual.getCapTiempoAux().set(dia, espacioLibre);
                     diaLlegadaEscala=dia;
                 }
-                if (espacioLibre<0)return 0;
+                if (espacioLibre<0){
+                    System.out.println("Entro aquii xfin");
+                    System.out.println(vueloActual.getOrigen()+"-"+vueloActual.getDestino()+" "+vueloActual.gethSalida()+":00 "+vueloActual.gethLlegada()+":00");
+                    vueloColapso=vueloActual.getOrigen()+"-"+vueloActual.getDestino()+" "+vueloActual.gethSalida()+":00 "+vueloActual.gethLlegada()+":00";
+                    return 0;
+                }
             }
             if(i==1){
                 int horaL=vuelos.get(0).gethLlegada(),minL=vuelos.get(0).getmLlegada(),diaL;
@@ -313,7 +327,12 @@ public class Genetico {
                     espacioLibre=vueloActual.getCapTiempoAux().get(dia)-flag;
                     vueloActual.getCapTiempoAux().set(dia, espacioLibre);
                 }
-                if (espacioLibre<0)return 0;
+                if (espacioLibre<0){
+                    System.out.println("Entro aquii xfin");
+                    vueloColapso=vueloActual.getOrigen()+"-"+vueloActual.getDestino()+" "+vueloActual.gethSalida()+":00 "+vueloActual.gethLlegada()+":00";
+                    System.out.println(vueloActual.getOrigen()+"-"+vueloActual.getDestino()+" "+vueloActual.gethSalida()+":00 "+vueloActual.gethLlegada()+":00");
+                    return 0;
+                }
             }            
         }
         return 1;
