@@ -22,8 +22,8 @@ import static constantes.constantesGenerales.*;
  */
 public class Genetico {
     
-    private int maxPoblacion = 15; //maximo numero de soluciones posibles
-    private int maxGeneraciones=10;//maximo numero de iteraciones
+    private int maxPoblacion = 10; //maximo numero de soluciones posibles
+    private int maxGeneraciones=30;//maximo numero de iteraciones
     private double probMutacion=0.01;//probabilidad de mutacion
     private int horaSist;
     private int diaSist;
@@ -225,7 +225,7 @@ public class Genetico {
                         if(this.getFlagTipoSimuTotal()==1)
                             if (this.getContAux() == 0) {
                                     this.setFlagColapso(1);
-                                    return fitnessTotal;
+                                    //return fitnessTotal;
                             } else {
                                 this.setContAux(this.getContAux() - 1);
                             }

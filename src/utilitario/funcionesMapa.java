@@ -134,7 +134,7 @@ public class funcionesMapa {
         String sqlTipoSimulacion = "";
         
         if(tipoSimulacion == TIPO_SIMULACION_MANUAL){
-            sqlTipoSimulacion = " AND P.estado = " + SIN_ENVIAR.ordinal() + " ";
+            sqlTipoSimulacion = " AND P.estado = " + SIN_ENVIAR_CON_RUTA.ordinal() + " ";
         }else if(tipoSimulacion == TIPO_SIMULACION_TRES_DIAS){
             sqlTipoSimulacion = " AND P.estado = " + CON_TRES_DIAS.ordinal() + " ";
         }else {

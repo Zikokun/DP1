@@ -118,6 +118,17 @@ public class Mapa extends PApplet{
         return randomColor;
     }
     
+    private int colorCapacidad(int capacidadActual){
+        if (capacidadActual > 0 && capacidadActual < 200) {
+            return color(0, 255, 0, 100);
+        } else if (capacidadActual >= 200 && capacidadActual < 400) {
+            return color(0, 0, 255, 100);
+        } else if (capacidadActual >= 400 && capacidadActual <= 600) {
+            return color(255, 0, 0, 100);
+        }
+        return color(255, 0, 0, 100);
+    }
+    
     private void inicializacionMarcadores() throws InstantiationException, IllegalAccessException, SQLException{
         contador++;
         if (contador % 100 == 0) {
@@ -134,10 +145,10 @@ public class Mapa extends PApplet{
         
         mapDay.getMarkers().clear();
         int idVueloAnterior = -1;
+        int capacidadActual = 0;
         
         for (int i = 0; i < lisPaquetesRutas.size(); i++) {
             Object[] ruta = lisPaquetesRutas.get(i);
-            
             
                 float longuitud = (float) ruta[1];
                 float latitud = (float) ruta[2];
@@ -151,9 +162,16 @@ public class Mapa extends PApplet{
                 }
 
                 lisPaquetesRutas.get(i)[1] = longuitud;
-                lisPaquetesRutas.get(i)[2] = latitud;
+                lisPaquetesRutas.get(i)[2] = latitud;   
                 
             if (idVueloAnterior != (int) ruta[7]) {
+                
+                if (idVueloAnterior != -1) {
+                    int ultimoIndice = mapDay.getMarkers().size() - 1;
+                    Marker markerAnterior = mapDay.getMarkers().get(ultimoIndice);
+                    markerAnterior.setColor(colorCapacidad(capacidadActual));
+                    capacidadActual = 0;
+                }
                 Location ubicacion = new Location(latitud, longuitud);
                 SimplePointMarker ubicacionMarcador = new SimplePointMarker(ubicacion);
                 ubicacionMarcador.setColor(color(255, 0, 0, 100));
@@ -161,6 +179,8 @@ public class Mapa extends PApplet{
                 mapDay.addMarker(ubicacionMarcador);
                 idVueloAnterior = (int) ruta[7];
                 listaVuelos.add(ruta);
+            }else{
+                capacidadActual++;
             }
         }
     }
