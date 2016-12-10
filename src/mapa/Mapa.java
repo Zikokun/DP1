@@ -262,9 +262,10 @@ public class Mapa extends PApplet{
     
     private void insertarCoordenadasTablas() throws InstantiationException, IllegalAccessException, SQLException{
         List<Object[]> lisPaquetesRutas = this.listaPaquetesRutas;
-        
-        funcionesMapa fMapa = new funcionesMapa();
-        fMapa.insertarLonguitudYLatitudActualizados(lisPaquetesRutas);
+        if (lisPaquetesRutas.size() > 0) {
+            funcionesMapa fMapa = new funcionesMapa();
+            fMapa.insertarLonguitudYLatitudActualizados(lisPaquetesRutas);
+        }
     }
     
     private void cambiarFecha(){
