@@ -124,7 +124,7 @@ public class funcionesHiloEjecSimu extends Thread{
                             
                             flagSalida=funcR.ruteoPedidosTresDias(estadoInicial, estadoFinal, calendarDate);
                             
-                            if(funcR.getFlagSinPaqRutear()==1){  
+                            if(funcR.getFlagSinPaqRutear()==1 && tipoSimu==0){  
                                 this.Detener();
                             
                             }
