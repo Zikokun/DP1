@@ -164,12 +164,15 @@ public class Mapa extends PApplet{
                 lisPaquetesRutas.get(i)[1] = longuitud;
                 lisPaquetesRutas.get(i)[2] = latitud;   
                 
-            if (idVueloAnterior != (int) ruta[7]) {
+            if (idVueloAnterior != (int) ruta[7]) { //Ruta 7 siempre es idVuelo
                 
                 if (idVueloAnterior != -1) {
                     int ultimoIndice = mapDay.getMarkers().size() - 1;
                     Marker markerAnterior = mapDay.getMarkers().get(ultimoIndice);
                     markerAnterior.setColor(colorCapacidad(capacidadActual));
+                    
+                    //Aqui imprimir capacidadActual y idVueloAnterior
+                    //------------------>>>>
                     capacidadActual = 0;
                 }
                 Location ubicacion = new Location(latitud, longuitud);

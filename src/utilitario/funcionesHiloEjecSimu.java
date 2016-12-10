@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import mapa.Mapa;
 import modelo.Cromosoma;
+import vista.PanelSim;
 import vista.VentanaPrincipal;
 /**
  *
@@ -86,6 +87,9 @@ public class funcionesHiloEjecSimu extends Thread{
                     calendarDate.setTime(fecha);
                     while(true){
                         //if(detenerse == BOTON_PAUSA_NOVISIBLE){
+                        
+                          
+                        
                         System.out.println("en bucle del hilo");
                         if (BOTON_PAUSA_APRETADO != 1) {
                             System.out.println("dentro del if");
@@ -98,22 +102,32 @@ public class funcionesHiloEjecSimu extends Thread{
                                 estadoFinal = SIN_ENVIAR_CON_RUTA.ordinal();
                                 funcR.setFlagTipoSimuTotal(0);
                                 funcR.setMensajeCaida("");
+                                funcR.setFlagSinPaqRutear(0);
                             } else if (tipoSimu == 0) {
                                 estadoFinal = CON_TRES_DIAS.ordinal();
                                 estadoInicial = CON_TRES_DIAS_SIN_RUTA.ordinal();
                                 funcR.setFlagTipoSimuTotal(0);
                                 funcR.setMensajeCaida("");
+                                funcR.setFlagSinPaqRutear(0);
                             } else { // tipoSimu==1
                                 estadoFinal = SIMULACION_SIN_TRES_DIAS.ordinal();
                                 estadoInicial = SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal();
                                 funcR.setFlagTipoSimuTotal(1);
                                 funcR.setMensajeCaida("");
+                                funcR.setFlagSinPaqRutear(0);
                                 funcR.setContAux(110);
                             }
                             // funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
                             System.out.println("Ruteo pedido en la fecha = " + calendarDate.getTime());
-                            if(DebeDetenerse)break;
+                            if(DebeDetenerse)
+                                break;
+                            
                             flagSalida=funcR.ruteoPedidosTresDias(estadoInicial, estadoFinal, calendarDate);
+                            
+                            if(funcR.getFlagSinPaqRutear()==1){  
+                                this.Detener();
+                            
+                            }
                             if(flagSalida==null){//quiere decir que ya se cayo la simulacion
                                 
                                 JOptionPane.showMessageDialog(this.Panel ,funcR.getMensajeCaida(),"Condicion de caida" , JOptionPane.INFORMATION_MESSAGE);

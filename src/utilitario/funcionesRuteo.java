@@ -57,6 +57,8 @@ public class funcionesRuteo {
     private String mensajeCaida="";
     private int flagTipoSimuTotal;
     private int contAux;
+    private int flagSinPaqRutear = 0;
+    
     public Cromosoma ruteoPedidosManual(Integer estadoPedido, Integer estadoFinal) throws InstantiationException, IllegalAccessException, IOException, SQLException{
         String mensaje = "";
         int hora,dia;
@@ -148,7 +150,11 @@ public class funcionesRuteo {
             }
             //imprimirCaps();
         }
-        else System.out.println("No hay paquetes para enrutar");
+        else{
+            int valorUno = 1;
+            this.setFlagSinPaqRutear(valorUno);
+            System.out.println("No hay paquetes para enrutar");
+        }
         return solucion;
     }
     
@@ -633,6 +639,20 @@ public class funcionesRuteo {
      */
     public void setContAux(int contAux) {
         this.contAux = contAux;
+    }
+
+    /**
+     * @return the flagSinPaqRutear
+     */
+    public int getFlagSinPaqRutear() {
+        return flagSinPaqRutear;
+    }
+
+    /**
+     * @param flagSinPaqRutear the flagSinPaqRutear to set
+     */
+    public void setFlagSinPaqRutear(int flagSinPaqRutear) {
+        this.flagSinPaqRutear = flagSinPaqRutear;
     }
     
 }
