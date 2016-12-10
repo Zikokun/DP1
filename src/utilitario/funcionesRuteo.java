@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,7 +60,7 @@ public class funcionesRuteo {
     private int contAux;
     private int flagSinPaqRutear = 0;
     
-    public Cromosoma ruteoPedidosManual(Integer estadoPedido, Integer estadoFinal) throws InstantiationException, IllegalAccessException, IOException, SQLException{
+    public Cromosoma ruteoPedidosManual(Integer estadoPedido, Integer estadoFinal) throws InstantiationException, IllegalAccessException, IOException, SQLException, ParseException{
         String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();
@@ -100,7 +101,7 @@ public class funcionesRuteo {
         return solucion;
     }
     
-    public Cromosoma ruteoPedidosTresDias(Integer estadoPedido, Integer estadoFinal, Calendar fechaConsulta) throws InstantiationException, IllegalAccessException, IOException, SQLException{
+    public Cromosoma ruteoPedidosTresDias(Integer estadoPedido, Integer estadoFinal, Calendar fechaConsulta) throws InstantiationException, IllegalAccessException, IOException, SQLException, ParseException{
         //fechaConsulta es la fecha a partir de la cual se van a seleccionar los pedidos para enrutar
         String mensaje = "";
         int hora,dia;

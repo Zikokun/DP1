@@ -11,6 +11,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -29,6 +31,7 @@ import utilitario.funcionesAnimacionEjecSimu;
 import utilitario.funcionesBaseDeDatos;
 import utilitario.funcionesDibujoEjecSimu;
 import utilitario.funcionesHiloEjecSimu;
+import utilitario.funcionesPanelCrearEnvio;
 import utilitario.funcionesVentanaPrincipal;
 /**
  *
@@ -47,7 +50,7 @@ public class panelEjecSimu extends javax.swing.JPanel {
      * Creates new form panelEjecSimu
      */
     
-    public panelEjecSimu(int tipo)  {
+    public panelEjecSimu(int tipo) throws InstantiationException, IllegalAccessException, SQLException  {
       if(tipo==0){
             /////////////Cromosoma de prueba///////
             Vuelo tmpV1=new Vuelo(0,0,0,0,"Lima","Sao Paulo");
@@ -110,7 +113,7 @@ public class panelEjecSimu extends javax.swing.JPanel {
         //mapa.init();
        
        this.setVisible(true);
-       
+             
        for(int i=0;i<(this.rutas.genes.size());i++){
           ArrayList<Vuelo>tmpVuelo=this.rutas.genes.get(i).getRuta().getVuelos();
           if(tmpVuelo.size()==1){ 
@@ -130,10 +133,17 @@ public class panelEjecSimu extends javax.swing.JPanel {
           tmpDib=new funcionesDibujoEjecSimu(xIni,yIni,xFin,yFin,3);
           ADib.add(tmpDib);
        }
+       
        //Dib = new funcionesDibujoEjecSimu(175,300,227,227,3);
        //Anim = new funcionesAnimacionEjecSimu(this, 20, Dib);
        Anim = new funcionesAnimacionEjecSimu(this, 20, ADib);
     }
+    
+     public int Escribir(String mensaje){
+        this.logMensajesPanel.append(mensaje + "\n");
+        return 0;
+     }
+     
      public int getPosicionX(String origen){
            if(origen.compareTo("Lima")==0)
                 return 190;
@@ -175,6 +185,10 @@ public class panelEjecSimu extends javax.swing.JPanel {
         panelLog = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         logMensajesPanel = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         panelMapa = new javax.swing.JPanel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -186,20 +200,60 @@ public class panelEjecSimu extends javax.swing.JPanel {
 
         logMensajesPanel.setColumns(20);
         logMensajesPanel.setRows(5);
+        logMensajesPanel.setEnabled(false);
         jScrollPane1.setViewportView(logMensajesPanel);
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 51));
+        jLabel1.setText("    0 a 200 paquetes ");
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel2.setText("200 a 400 paquetes");
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 0, 51));
+        jLabel3.setText("400 a 600 paquetes");
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Leyenda:");
 
         javax.swing.GroupLayout panelLogLayout = new javax.swing.GroupLayout(panelLog);
         panelLog.setLayout(panelLogLayout);
         panelLogLayout.setHorizontalGroup(
             panelLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+            .addGroup(panelLogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelLogLayout.createSequentialGroup()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelLogLayout.setVerticalGroup(
             panelLogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLogLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(22, 22, 22))
         );
+
+        panelMapa.setEnabled(false);
 
         javax.swing.GroupLayout panelMapaLayout = new javax.swing.GroupLayout(panelMapa);
         panelMapa.setLayout(panelMapaLayout);
@@ -252,8 +306,12 @@ public class panelEjecSimu extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea logMensajesPanel;
+    public static javax.swing.JTextArea logMensajesPanel;
     private javax.swing.JPanel panelLog;
     private javax.swing.JPanel panelMapa;
     // End of variables declaration//GEN-END:variables

@@ -15,7 +15,10 @@ import modelo.Pedido;
 import modelo.Ruta;
 import modelo.Vuelo;
 import static constantes.constantesGenerales.*;
+import java.sql.SQLException;
+import java.text.ParseException;
 import mapa.Mapa;
+import utilitario.funcionesPanelCrearEnvio;
 
 /**
  *
@@ -43,7 +46,7 @@ public class Genetico {
         
     }
     
-    public int ejecutar(TreeMap<String,Ciudad> aeropuertos, ArrayList<Vuelo> vuelos, ArrayList<Pedido> pedidos,int hora, int dia, String mensaje){
+    public int ejecutar(TreeMap<String,Ciudad> aeropuertos, ArrayList<Vuelo> vuelos, ArrayList<Pedido> pedidos,int hora, int dia, String mensaje) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         int noColapsa=1;//noColapsa=1, todo salio bien  noColapsa=0, el sistema colapsó
         int fitnessTotal=generarPoblacion(pedidos,aeropuertos,vuelos,noColapsa);//poblacion incicial
         System.out.println("fitness Total: "+fitnessTotal);
@@ -154,7 +157,7 @@ public class Genetico {
         return hijo;
     }
     
-    public int generarPoblacion(ArrayList<Pedido> pedidos,TreeMap<String,Ciudad> ciudades,ArrayList<Vuelo> vuelos,int noColapsa){
+    public int generarPoblacion(ArrayList<Pedido> pedidos,TreeMap<String,Ciudad> ciudades,ArrayList<Vuelo> vuelos,int noColapsa) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         //System.out.println("En generar Poblacion");
         int fitnessTotal=0; //servira en el momento de escoger el padre y madre
         for(int i=0; i<maxPoblacion;i++){ //generamos cromosomas
@@ -209,7 +212,8 @@ public class Genetico {
                         tiempTotal=(hSalida-hPedido+ruta.getTiempo())*60-mPedido;
                         k++;
                     }
-                    if(k==maxIntentos ){
+                    if(k==maxIntentos ){                        
+                        funcionesPanelCrearEnvio nuevo = new funcionesPanelCrearEnvio();
                         noColapsa=0; //se cae
                         System.out.println(ANSI_PURPLE +"Flag Almacenes: "+capCiudadFlag+ANSI_RESET );
                         System.out.println(ANSI_PURPLE +"Flag Vuelos: "+capAvionFlag+ANSI_RESET );
@@ -218,16 +222,18 @@ public class Genetico {
                         aux3="Pedido ID falla: "+pedActual.getIdPedido()+"\t ";
                         if(capCiudadFlag==0){
                             System.out.println(ANSI_CYAN+"capCiudadFlag CERO"+ANSI_RESET);
-                            aux1="-no encontro espacio en almacen destino: "+pedActual.getDestino()+"\n ";
+                            aux1="No encontro espacio en almacen destino: "+pedActual.getDestino()+"\n ";
                             //aux3.concat(aux1);
-                            aux3=aux3+aux1;
+                            aux3=aux3+"-"+aux1;
+                            nuevo.GuardarMensajes(aux1);
                             System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
                         }
                         if(capAvionFlag==0){
                             System.out.println(ANSI_CYAN+"capAvionFlag CERO"+ANSI_RESET);
-                            aux2="-no encontro espacio en vuelo: "+vueloColapso+"\n ";
+                            aux2="No encontro espacio en vuelo: "+vueloColapso+"\n ";
                             //aux3.concat(aux2);
-                            aux3=aux3+aux2;
+                            aux3=aux3+"-"+aux2;
+                            nuevo.GuardarMensajes(aux2);
                             System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
                         }
                         this.setMensaje(aux3);

@@ -42,6 +42,8 @@ public class funcionesHiloEjecRuteoPaquete extends Thread {
         
         } catch (InstantiationException | IllegalAccessException | IOException | SQLException ex) {
             Logger.getLogger(funcionesHiloEjecRuteoPaquete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(funcionesHiloEjecRuteoPaquete.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
 }

@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 import mapa.Mapa;
 import processing.core.PApplet;
 import de.fhpotsdam.unfolding.marker.Marker;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -172,6 +173,8 @@ public class PanelSim extends javax.swing.JPanel {
         } catch (InstantiationException ex) {
             Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
+            Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(PanelSim.class.getName()).log(Level.SEVERE, null, ex);
         }
         

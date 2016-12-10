@@ -88,7 +88,7 @@ public class Test1_gui_alg {
         nv.setVisible(true);
     }
     
-    public static String principal() throws InstantiationException, IllegalAccessException{
+    public static String principal() throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         String mensaje = "";
         int hora,dia;
         Lectura lector= new Lectura();

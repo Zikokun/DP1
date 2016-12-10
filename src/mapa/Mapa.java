@@ -31,8 +31,10 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilitario.funcionesMapa;
+import utilitario.funcionesPanelCrearEnvio;
 import vista.PanelSim;
 import vista.VentanaPrincipal;
+import vista.panelEjecSimu;
 
 /**
  *
@@ -335,6 +337,9 @@ public class Mapa extends PApplet{
             cambiarFecha();
             cambiarLonguitudYLatitudActuales();
             insertarCoordenadasTablas();
+            funcionesPanelCrearEnvio nuevo = new funcionesPanelCrearEnvio();
+            String mensajes = nuevo.GetMensajes();
+            if(!mensajes.equals(""))panelEjecSimu.logMensajesPanel.append(mensajes);
         } catch (InstantiationException ex) {
             Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
