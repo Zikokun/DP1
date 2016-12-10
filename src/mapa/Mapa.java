@@ -339,7 +339,7 @@ public class Mapa extends PApplet{
             insertarCoordenadasTablas();
             funcionesPanelCrearEnvio nuevo = new funcionesPanelCrearEnvio();
             String mensajes = nuevo.GetMensajes();
-            if(!mensajes.equals(""))panelEjecSimu.logMensajesPanel.append(mensajes);
+            if(!mensajes.equals(""))panelEjecSimu.logMensajesPanel.append(mensajes+"\n");
         } catch (InstantiationException ex) {
             Logger.getLogger(Mapa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {

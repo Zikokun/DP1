@@ -168,12 +168,15 @@ public class Genetico {
             */
             //copiar caps reales al las auxiliares
             capsRealesAAux(vuelos,ciudades);
+            funcionesPanelCrearEnvio nuevo = new funcionesPanelCrearEnvio();
             for(int j=0;j<pedidos.size();j++){ 
                 Pedido pedActual=pedidos.get(j);
                 System.out.println("Pedido ID: "+ pedActual.getIdPedido());
                 String origen=pedActual.getOrigen();
                 String destino=pedActual.getDestino();
                 System.out.println("Origen: "+ origen + " Destino: "+ destino);
+                nuevo.GuardarMensajes("Pedido ID: "+ pedActual.getIdPedido());
+                nuevo.GuardarMensajes("Origen: "+ origen + " Destino: "+ destino);
                // System.out.println("Origen: "+origen+" Destino: "+destino);
                 ArrayList<Ruta> rutasOF=ciudades.get(origen).rutas.get(destino);//Lista de todas las posibles rutas con su origen y destino
                 Random ran=new Random();//Un random para escoger un ruta(solucion) aleatoria
@@ -213,7 +216,6 @@ public class Genetico {
                         k++;
                     }
                     if(k==maxIntentos ){                        
-                        funcionesPanelCrearEnvio nuevo = new funcionesPanelCrearEnvio();
                         noColapsa=0; //se cae
                         System.out.println(ANSI_PURPLE +"Flag Almacenes: "+capCiudadFlag+ANSI_RESET );
                         System.out.println(ANSI_PURPLE +"Flag Vuelos: "+capAvionFlag+ANSI_RESET );
@@ -225,7 +227,7 @@ public class Genetico {
                             aux1="No encontro espacio en almacen destino: "+pedActual.getDestino()+"\n ";
                             //aux3.concat(aux1);
                             aux3=aux3+"-"+aux1;
-                            nuevo.GuardarMensajes(aux1);
+                            //nuevo.GuardarMensajes(aux1);
                             System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
                         }
                         if(capAvionFlag==0){
@@ -233,7 +235,7 @@ public class Genetico {
                             aux2="No encontro espacio en vuelo: "+vueloColapso+"\n ";
                             //aux3.concat(aux2);
                             aux3=aux3+"-"+aux2;
-                            nuevo.GuardarMensajes(aux2);
+                            //nuevo.GuardarMensajes(aux2);
                             System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
                         }
                         this.setMensaje(aux3);

@@ -93,7 +93,7 @@ public class funcionesHiloEjecSimu extends Thread{
                         System.out.println("en bucle del hilo");
                         if (BOTON_PAUSA_APRETADO != 1) {
                             System.out.println("dentro del if");
-
+                            //funcionesPanelCrearEnvio nuevo = new funcionesPanelCrearEnvio();
                             int estadoFinal;
                             int estadoInicial;
 
@@ -119,6 +119,7 @@ public class funcionesHiloEjecSimu extends Thread{
                             }
                             // funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
                             System.out.println("Ruteo pedido en la fecha = " + calendarDate.getTime());
+                            //nuevo.GuardarMensajes("Ruteo en la fecha = " + calendarDate.getTime().toString());
                             if(DebeDetenerse)
                                 break;
                             
