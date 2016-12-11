@@ -60,7 +60,7 @@ public class funcionesAnimacionEjecSimu {
 	public void Detener() {
 		if(EstaCorriendo()) {
 			Hilo.Detener();
-			//try { Hilo.join(); } catch(InterruptedException ex) {}
+			try { Hilo.join(); } catch(InterruptedException ex) {}
 			Hilo = null;
 		}
   	}

@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Camila/Documents/GitHub/DP1/src/vista/panelMantUsuario.java</file>
+            <file>file:/C:/Users/FranciscoMartin/Documents/NetBeansProjects/DP1/src/vista/PanelSim.java</file>
+            <file>file:/C:/Users/FranciscoMartin/Documents/NetBeansProjects/DP1/src/utilitario/funcionesHiloEjecSimu.java</file>
+            <file>file:/C:/Users/FranciscoMartin/Documents/NetBeansProjects/DP1/src/vista/VentanaPrincipal.java</file>
+            <file>file:/C:/Users/FranciscoMartin/Documents/NetBeansProjects/DP1/src/utilitario/funcionesVentanaPrincipal.java</file>
+            <file>file:/C:/Users/FranciscoMartin/Documents/NetBeansProjects/DP1/src/utilitario/funcionesBaseDeDatos.java</file>
+            <file>file:/C:/Users/FranciscoMartin/Documents/NetBeansProjects/DP1/src/utilitario/funcionesAnimacionEjecSimu.java</file>
         </group>
     </open-files>
 </project-private>

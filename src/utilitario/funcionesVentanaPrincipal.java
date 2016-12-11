@@ -9,6 +9,7 @@ import static constantes.constantesGenerales.*;
 import constantes.constantesVentanaPrincipal;
 import static constantes.constantesVentanaPrincipal.*;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,7 +43,35 @@ public class funcionesVentanaPrincipal {
             PanelSim.simulacion.resume();
         }
     }
-    
+    public void terminarSimulacion2(){
+        if (PanelSim.simulacion != null) {
+            PanelSim.simulacion.stop();
+        }
+        if (PanelSim.hilo.EstaCorriendo()) {
+            PanelSim.hilo.Detener();
+        }
+//                if(!PanelSim.hilo.EstaCorriendo()){
+//                    System.out.println("Se acabo el hilo de ruteo y se procede a limpiar la base");
+//                    try {
+//                        limpiarBase(PanelSim.getTipoSim());
+////                         break;
+//                    } catch (InstantiationException ex) {
+//                        Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (IllegalAccessException ex) {
+//                        Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (SQLException ex) {
+//                        Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    
+//                } 
+//          
+//        System.out.println("Fuera del while de limpieza");
+                
+        VentanaPrincipal.labelMostrarTiempoReal.setText("");
+        VentanaPrincipal.labelMostrarTiempoReal.setVisible(false);
+        VentanaPrincipal.botonPausa.setVisible(false);
+        Mapa.mostrarBotonPausa = BOTON_PAUSA_NOVISIBLE;
+    }
     public void terminarSimulacion(){
         if (PanelSim.simulacion != null) {
             PanelSim.simulacion.stop();
@@ -50,12 +79,52 @@ public class funcionesVentanaPrincipal {
         if (PanelSim.hilo.EstaCorriendo()) {
             PanelSim.hilo.Detener();
         }
+                if(!PanelSim.hilo.EstaCorriendo()){
+                    System.out.println("Se acabo el hilo de ruteo y se procede a limpiar la base");
+                    try {
+                        limpiarBase(PanelSim.getTipoSim());
+//                         break;
+                    } catch (InstantiationException ex) {
+                        Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IllegalAccessException ex) {
+                        Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(funcionesVentanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                } 
+          
+        System.out.println("Fuera del while de limpieza");
+                
         VentanaPrincipal.labelMostrarTiempoReal.setText("");
         VentanaPrincipal.labelMostrarTiempoReal.setVisible(false);
         VentanaPrincipal.botonPausa.setVisible(false);
         Mapa.mostrarBotonPausa = BOTON_PAUSA_NOVISIBLE;
     }
-    
+    public static void limpiarBase(int tipoSimu) throws InstantiationException, IllegalAccessException, SQLException{
+            funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
+            Connection conexion = cc.conexion();//null
+            if(tipoSimu==0){//simu 3 dias
+            PreparedStatement sqlActualizarLongYLatActuales = conexion.prepareStatement(" UPDATE `paquete` SET `longuitud`='" + 0 + "', `latitud`='" + 0 + "' WHERE `estado`='"+ 5 +"'; ");
+            int rows = sqlActualizarLongYLatActuales.executeUpdate();
+            
+            PreparedStatement sqlActualizaPaquetes = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + 7 +"' WHERE `estado`='" + 5 + "'" + " ; ");
+            int rowsPaquetesActualizados = sqlActualizaPaquetes.executeUpdate();
+            }else{//simu hasta que se caiga
+                if(tipoSimu==1){
+                    PreparedStatement sqlActualizarLongYLatActuales = conexion.prepareStatement(" UPDATE `paquete` SET `longuitud`='" + 0 + "', `latitud`='" + 0 + "' WHERE `estado`='"+ 6 +"'; ");
+                    int rows = sqlActualizarLongYLatActuales.executeUpdate();
+            
+                    PreparedStatement sqlActualizaPaquetes = conexion.prepareStatement(" UPDATE `paquete` SET `estado`='" + 8 +"' WHERE `estado`='" + 6 + "'" + " ; ");
+                    int rowsPaquetesActualizados = sqlActualizaPaquetes.executeUpdate();
+                }
+            }
+            PreparedStatement sqlLimpiaRutas = conexion.prepareStatement(" DELETE  FROM avion_has_paquete; ");
+            int rowsLimpiadas = sqlLimpiaRutas.executeUpdate();
+              
+            conexion.close();
+            System.out.println("BD limpia");
+        }
     public String devolverTipoUsuario(String usuario, String contrasenha) throws InstantiationException, IllegalAccessException{
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();//null

@@ -141,7 +141,7 @@ public class Mapa extends PApplet{
         }
         
         funcionesMapa fMapa = new funcionesMapa();
-        List<Object[]> lisPaquetesRutas = fMapa.devolverDetallePaquete(PanelSim.tipoSim);
+        List<Object[]> lisPaquetesRutas = fMapa.devolverDetallePaquete(PanelSim.getTipoSim());
         this.listaVuelos = new ArrayList<Object[]>();
         this.listaPaquetesRutas = lisPaquetesRutas;
         

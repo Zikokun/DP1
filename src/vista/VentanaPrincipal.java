@@ -181,7 +181,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelOpciones.setText("Opciones");
 
         labelCerrarSesion.setText("Cerrar Sesión");
-        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        labelCerrarSesion.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         labelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelCerrarSesionMouseClicked(evt);
@@ -489,7 +489,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion();
+        fVentanaPrincipal.terminarSimulacion2();
     }//GEN-LAST:event_formWindowClosed
 
     private void botonPausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPausaActionPerformed

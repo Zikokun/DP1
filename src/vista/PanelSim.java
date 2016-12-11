@@ -30,9 +30,23 @@ public class PanelSim extends javax.swing.JPanel {
     /**
      * Creates new form PanelSim
      */
-    public static int tipoSim;
+    private static int tipoSim;
     public static PApplet simulacion;
     public static funcionesAnimacionEjecSimu hilo;
+
+    /**
+     * @return the tipoSim
+     */
+    public static int getTipoSim() {
+        return tipoSim;
+    }
+
+    /**
+     * @param aTipoSim the tipoSim to set
+     */
+    public static void setTipoSim(int aTipoSim) {
+        tipoSim = aTipoSim;
+    }
      private funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
     public PanelSim() {
         initComponents();
@@ -110,28 +124,28 @@ public class PanelSim extends javax.swing.JPanel {
             // TODO add your handling code here:
             
             if(this.jComboBox1.getSelectedIndex()==1){
-                tipoSim=0;//simulacion para 3 dias
-                System.out.println("asignado el valor 0 en tipoSim:"+tipoSim);
+                setTipoSim(0);//simulacion para 3 dias
+                System.out.println("asignado el valor 0 en tipoSim:"+getTipoSim());
                 System.out.println("paquetes creados para simu 3 dias");
             }else{
                 if(this.jComboBox1.getSelectedIndex()==2){
-                    tipoSim=1;//simulacion para mas de tres dias
-                    System.out.println("asignado el valor  en tipoSim:"+tipoSim);
+                    setTipoSim(1);//simulacion para mas de tres dias
+                    System.out.println("asignado el valor  en tipoSim:"+getTipoSim());
                     
                 }else{
                     if(this.jComboBox1.getSelectedIndex()==0)
-                        tipoSim=2;// simulacion para paquetes que se ingresaron manualmente
-                    System.out.println("asignado el valor 2 en tipoSim:"+tipoSim);
+                        setTipoSim(2);// simulacion para paquetes que se ingresaron manualmente
+                    System.out.println("asignado el valor 2 en tipoSim:"+getTipoSim());
                 }
             }
             //revisar si ya esta una simulacion corriendo
             if(fps.revisaFlagSimu()==0){//no hay simulaciones corriendo
-                if(tipoSim==0){
+                if(getTipoSim()==0){
                     System.out.println("creando el hilo simu 3 dias");
-                    hilo=new funcionesAnimacionEjecSimu(this,TIEMPO_ENTRE_RUTEO_SIMU_3,tipoSim);
+                    hilo=new funcionesAnimacionEjecSimu(this,TIEMPO_ENTRE_RUTEO_SIMU_3, getTipoSim());
                     hilo.Iniciar();
-                }else if(tipoSim==1){
-                    hilo=new funcionesAnimacionEjecSimu(this,TIEMPO_ENTRE_RUTEO_SIMU_NO_3,tipoSim);
+                }else if(getTipoSim()==1){
+                    hilo=new funcionesAnimacionEjecSimu(this,TIEMPO_ENTRE_RUTEO_SIMU_NO_3, getTipoSim());
                     System.out.println("creando el hilo simu hasta que se caiga");
                     hilo.Iniciar();
                    
@@ -142,7 +156,7 @@ public class PanelSim extends javax.swing.JPanel {
                 //System.out.println(" flags cambiados(?)");
             }else{//hay una simulacion 
                 //aqui verifica la simulacion,si es el mismo tipo accede al tiempo
-                if(fps.comparaSimu(tipoSim)==0){//no es del mismo tipo
+                if(fps.comparaSimu(getTipoSim())==0){//no es del mismo tipo
                     //enviar mensaje de error
                     
                 }else{//se debe setear la hora de simulacion que voy a empezar como lo que esta en base de datos
@@ -163,7 +177,7 @@ public class PanelSim extends javax.swing.JPanel {
             
             mapa.init();
             
-            panelEjecSimu pse=new panelEjecSimu(tipoSim);
+            panelEjecSimu pse=new panelEjecSimu(getTipoSim());
             topFrame.pnlFondo.add(pse,BorderLayout.CENTER);
             
             this.setVisible(false);

@@ -40,7 +40,7 @@ public class funcionesMapa {
         
         /*String sqlBuscarMenorFecha = " SELECT MIN(fechaEnvio) " +
                                            " FROM paquete; ";*/
-        int tipoSimu = PanelSim.tipoSim;
+        int tipoSimu = PanelSim.getTipoSim();
         int tipoSimulacion;
         if (tipoSimu == 2) {
             tipoSimulacion = SIN_ENVIAR_CON_RUTA.ordinal();
@@ -76,7 +76,7 @@ public class funcionesMapa {
         
         /*String sqlBuscarMenorFecha = " SELECT MIN(fechaEnvio) " +
                                            " FROM paquete; ";*/
-        int tipoSimu = PanelSim.tipoSim;
+        int tipoSimu = PanelSim.getTipoSim();
         int tipoSimulacion;
         if (tipoSimu == 2) {
             tipoSimulacion = SIN_ENVIAR_CON_RUTA.ordinal();
