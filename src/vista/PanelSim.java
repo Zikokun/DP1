@@ -125,28 +125,28 @@ public class PanelSim extends javax.swing.JPanel {
             
             if(this.jComboBox1.getSelectedIndex()==1){
                 setTipoSim(0);//simulacion para 3 dias
-                System.out.println("asignado el valor 0 en tipoSim:"+getTipoSim());
-                System.out.println("paquetes creados para simu 3 dias");
+//                System.out.println("asignado el valor 0 en tipoSim:"+getTipoSim());
+//                System.out.println("paquetes creados para simu 3 dias");
             }else{
                 if(this.jComboBox1.getSelectedIndex()==2){
                     setTipoSim(1);//simulacion para mas de tres dias
-                    System.out.println("asignado el valor  en tipoSim:"+getTipoSim());
+//                    System.out.println("asignado el valor  en tipoSim:"+getTipoSim());
                     
                 }else{
                     if(this.jComboBox1.getSelectedIndex()==0)
                         setTipoSim(2);// simulacion para paquetes que se ingresaron manualmente
-                    System.out.println("asignado el valor 2 en tipoSim:"+getTipoSim());
+//                    System.out.println("asignado el valor 2 en tipoSim:"+getTipoSim());
                 }
             }
             //revisar si ya esta una simulacion corriendo
             if(fps.revisaFlagSimu()==0){//no hay simulaciones corriendo
                 if(getTipoSim()==0){
-                    System.out.println("creando el hilo simu 3 dias");
+//                    System.out.println("creando el hilo simu 3 dias");
                     hilo=new funcionesAnimacionEjecSimu(this,TIEMPO_ENTRE_RUTEO_SIMU_3, getTipoSim());
                     hilo.Iniciar();
                 }else if(getTipoSim()==1){
                     hilo=new funcionesAnimacionEjecSimu(this,TIEMPO_ENTRE_RUTEO_SIMU_NO_3, getTipoSim());
-                    System.out.println("creando el hilo simu hasta que se caiga");
+//                    System.out.println("creando el hilo simu hasta que se caiga");
                     hilo.Iniciar();
                    
                 }

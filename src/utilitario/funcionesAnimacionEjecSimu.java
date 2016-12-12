@@ -53,7 +53,7 @@ public class funcionesAnimacionEjecSimu {
 	public void Iniciar() {
 		if(!EstaCorriendo()) {
 			Hilo = new funcionesHiloEjecSimu(Vent,IntervaloTiempo,tipoSimu);
-                         System.out.println("antes del start del hilo");
+                        // System.out.println("antes del start del hilo");
 			Hilo.start();
 		}
 	}

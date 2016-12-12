@@ -128,8 +128,8 @@ public class panelEjecSimu extends javax.swing.JPanel {
           yIni=this.getPosicionY(Inicio);
           xFin=this.getPosicionX(Destino);
           yFin=this.getPosicionY(Destino);
-          System.out.print(xIni+" " +yIni+" " +xFin+" " +yFin);
-          System.out.println();
+          //System.out.print(xIni+" " +yIni+" " +xFin+" " +yFin);
+          //System.out.println();
           tmpDib=new funcionesDibujoEjecSimu(xIni,yIni,xFin,yFin,3);
           ADib.add(tmpDib);
        }

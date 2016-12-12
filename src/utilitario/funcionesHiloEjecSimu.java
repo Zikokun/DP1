@@ -22,11 +22,14 @@ import mapa.Mapa;
 import modelo.Cromosoma;
 import vista.PanelSim;
 import vista.VentanaPrincipal;
+import vista.panelEjecSimu;
 /**
  *
  * @author FranciscoMartin
  */
 public class funcionesHiloEjecSimu extends Thread{
+
+   
     
 	private JPanel Panel;
 	private int IntervaloTiempo;
@@ -41,6 +44,7 @@ public class funcionesHiloEjecSimu extends Thread{
         private funcionesPanelSimulacion fps = new funcionesPanelSimulacion();
         private int detenerse;
         public Cromosoma flagSalida;
+        public static String mensajeLog ="";
         public funcionesHiloEjecSimu(JPanel Vent, int IntervaloTiempo, funcionesDibujoEjecSimu Dib) {
 		this.Panel = Vent;
 		this.IntervaloTiempo = IntervaloTiempo;
@@ -66,8 +70,8 @@ public class funcionesHiloEjecSimu extends Thread{
 	public void run() {
                 
                 try{
-                    System.out.println("Boton:"+BOTON_PAUSA_NOVISIBLE);
-                    System.out.println("Boton mostrar Pausa: " + detenerse);
+                    //System.out.println("Boton:"+BOTON_PAUSA_NOVISIBLE);
+                    //System.out.println("Boton mostrar Pausa: " + detenerse);
                     SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     
                     String fechaActual = "";
@@ -90,9 +94,9 @@ public class funcionesHiloEjecSimu extends Thread{
                         
                           
                         
-                        System.out.println("en bucle del hilo");
+                        //System.out.println("en bucle del hilo");
                         if (BOTON_PAUSA_APRETADO != 1) {
-                            System.out.println("dentro del if");
+                           // System.out.println("dentro del if");
                             //funcionesPanelCrearEnvio nuevo = new funcionesPanelCrearEnvio();
                             int estadoFinal;
                             int estadoInicial;
@@ -118,20 +122,23 @@ public class funcionesHiloEjecSimu extends Thread{
                                 funcR.setContAux(110);
                             }
                             // funcR.ruteoPedidosManual(estadoInicial,estadoFinal);
-                            System.out.println("Ruteo pedido en la fecha = " + calendarDate.getTime());
+                            //panelEjecSimu.logMensajesPanel.append("Ruteo pedido en la fecha = " + calendarDate.getTime()+"\n");
+                            //panelEjecSimu.logMensajesPanel.repaint();
                             //nuevo.GuardarMensajes("Ruteo en la fecha = " + calendarDate.getTime().toString());
                             if(DebeDetenerse)
                                 break;
+                            System.out.println("Ruteo pedido en la fecha = " + calendarDate.getTime());
+                            this.mensajeLog="Ruteo pedido en la fecha = " + calendarDate.getTime();
                             
                             flagSalida=funcR.ruteoPedidosTresDias(estadoInicial, estadoFinal, calendarDate);
                             
                             if(funcR.getFlagSinPaqRutear()==1 && tipoSimu==0){  
                                 this.Detener();
-                            
+                                
                             }
                             if(flagSalida==null){//quiere decir que ya se cayo la simulacion
                                 
-                                JOptionPane.showMessageDialog(this.Panel ,funcR.getMensajeCaida()+" Fecha Colapso: "+Mapa.getFechaInicial().toString(),"Condicion de caida" , JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(this.Panel ,funcR.getMensajeCaida()+" Fecha Colapso: "+calendarDate.getTime().toString(),"Condicion de caida" , JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
                             calendarDate.add(Calendar.HOUR_OF_DAY, 1);

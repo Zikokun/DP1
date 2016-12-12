@@ -67,8 +67,8 @@ public class funcionesRuteo {
         //TreeMap<String,Ciudad> ciudades=new TreeMap<>();//MAP Key-Codigo Ciudad y VALUE Objeto Ciudad
         //ArrayList<Vuelo> vuelos=new ArrayList<>();
         
-        System.out.println(ANSI_GREEN+"Estado inicial: "+ constanteEstadoPaquete.values()[estadoPedido]+ANSI_RESET);
-        System.out.println(ANSI_GREEN+"Estado final: "+ constanteEstadoPaquete.values()[estadoFinal]+ANSI_RESET);
+        //System.out.println(ANSI_GREEN+"Estado inicial: "+ constanteEstadoPaquete.values()[estadoPedido]+ANSI_RESET);
+        //System.out.println(ANSI_GREEN+"Estado final: "+ constanteEstadoPaquete.values()[estadoFinal]+ANSI_RESET);
         
         ArrayList<Pedido> pedidos=devolverPedidosTotal(estadoPedido);
         
@@ -109,8 +109,8 @@ public class funcionesRuteo {
         int hora,dia;
         Lectura lector= new Lectura();
         int Colapsa=0;
-        System.out.println("Estado inicial: "+ constanteEstadoPaquete.values()[estadoPedido]);
-        System.out.println("Estado final: "+ constanteEstadoPaquete.values()[estadoFinal]);
+        //System.out.println("Estado inicial: "+ constanteEstadoPaquete.values()[estadoPedido]);
+        //System.out.println("Estado final: "+ constanteEstadoPaquete.values()[estadoFinal]);
         
         ArrayList<Pedido> pedidos=devolverPedidosPorHora(estadoPedido, fechaConsulta);
         
@@ -149,10 +149,10 @@ public class funcionesRuteo {
             solucion=algoritmo.getMejorCrom();
             asignarRutasBD(solucion,estadoFinal);
             ArrayList<Gen> genes=solucion.genes;
-            for(Gen item: genes){                
-                item.getRuta().print();
-                System.out.println("Tiempo Total: "+item.tiempo/60+" horas");
-            }
+//            for(Gen item: genes){                
+//                item.getRuta().print();
+//                System.out.println("Tiempo Total: "+item.tiempo/60+" horas");
+//            }
             //imprimirCaps();
         }
         else{
@@ -223,6 +223,7 @@ public class funcionesRuteo {
     
     public void asignarRutasBD(Cromosoma solucion,int estadoFinal) throws InstantiationException, IllegalAccessException, SQLException{
         ArrayList<Gen> genes=solucion.genes;
+        funcionesPanelCrearEnvio nuevo = new funcionesPanelCrearEnvio();
         funcionesBaseDeDatos cc = new funcionesBaseDeDatos();
         Connection conexion = cc.conexion();
         PreparedStatement sqlCrearRuta; 
@@ -234,11 +235,28 @@ public class funcionesRuteo {
             int cantVuelos=vuelos.size();
             int codPed=item.pedido.getIdPedido();  
             String fechaLlegada="";
-            calcularFechas(item,horasSalidas,horasLlegadas);
+            fechaLlegada=calcularFechas(item,horasSalidas,horasLlegadas);
+            
+//            try {
+//                nuevo.GuardarMensajes(fechaLlegada);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(funcionesRuteo.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            
             for(int i=0;i<cantVuelos;i++){
                 sqlCrearRuta=conexion.prepareStatement("INSERT INTO avion_has_paquete VALUES (?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
-                System.out.println("Salida: "+horasSalidas.get(i));  
-                System.out.println("Llegada: "+horasLlegadas.get(i));                
+                //System.out.println("Salida: "+horasSalidas.get(i));
+//                try {
+//                    nuevo.GuardarMensajes("Salida: "+horasSalidas.get(i));
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(funcionesRuteo.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+                //System.out.println("Llegada: "+horasLlegadas.get(i));  
+//                try {
+//                    nuevo.GuardarMensajes("Llegada: "+horasLlegadas.get(i));
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(funcionesRuteo.class.getName()).log(Level.SEVERE, null, ex);
+//                }
                 sqlCrearRuta.setInt(1,vuelos.get(i).getIdVuelo());
                 sqlCrearRuta.setInt(2,codPed);
                 Timestamp fechaL = new Timestamp(horasLlegadas.get(i).getTime());
@@ -299,12 +317,13 @@ public class funcionesRuteo {
             Logger.getLogger(funcionesRuteo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void calcularFechas(Gen gen, ArrayList<Date> horasSalidas, ArrayList<Date> horasLlegadas){
+    public String calcularFechas(Gen gen, ArrayList<Date> horasSalidas, ArrayList<Date> horasLlegadas){
         Pedido pedido = gen.pedido;
         ArrayList<Vuelo> vuelos=gen.getRuta().getVuelos();
         Calendar fechaRecepcion= Calendar.getInstance();
         fechaRecepcion.set(pedido.getAño(), pedido.getMes(), pedido.getDia(), pedido.getHora(), pedido.getMin());
-        System.out.println("Fecha Recepcion: "+fechaRecepcion.getTime());
+        //System.out.println("Fecha Recepcion: "+fechaRecepcion.getTime());
+        String salida="Fecha Recepcion: "+fechaRecepcion.getTime();
         int cantVuelos=vuelos.size();
         int horaP=pedido.getHora();
         int minP=pedido.getMin(); 
@@ -327,6 +346,7 @@ public class funcionesRuteo {
             horaP=fechaRecepcion.get(Calendar.HOUR_OF_DAY);
             minP=fechaRecepcion.get(Calendar.MINUTE);
         }
+        return salida;
     }
     
     public ArrayList<Vuelo> devolverVuelosTotal() throws InstantiationException, IllegalAccessException{
