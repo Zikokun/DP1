@@ -26,8 +26,8 @@ import utilitario.funcionesPanelCrearEnvio;
  */
 public class Genetico {
     
-    private int maxPoblacion = 10; //maximo numero de soluciones posibles
-    private int maxGeneraciones=30;//maximo numero de iteraciones
+    private int maxPoblacion = 15; //maximo numero de soluciones posibles
+    private int maxGeneraciones=10;//maximo numero de iteraciones
     private double probMutacion=0.01;//probabilidad de mutacion
     private int horaSist;
     private int diaSist;
@@ -64,10 +64,10 @@ public class Genetico {
     public String reproduccion(int fitnessTotal){
         //Cromosoma mejorCrom=new Cromosoma();
         mejorCrom.fitness=0;
-        for(int i=0;i<maxGeneraciones;i++){
+        for(int i=0;i<getMaxGeneraciones();i++){
             int auxFitnessTotal=0;
             ArrayList<Cromosoma> descendencia= new ArrayList<>();
-            for(int j=0;j<maxPoblacion;j++){
+            for(int j=0;j<getMaxPoblacion();j++){
                 Random semilla=new Random();//seleccionar padre
                 Random semilla2=new Random();//seleccionar madre
                 int posPadre=semilla.nextInt(fitnessTotal);
@@ -90,7 +90,7 @@ public class Genetico {
             fitnessTotal=auxFitnessTotal;
             //System.out.println("generacion-"+i+" Fitnessprom= "+fitnessTotal/maxPoblacion);
             //System.out.println("fitness Total: "+fitnessTotal);
-            for(int h=0;h<maxPoblacion;h++)//reemplazo de nuevo generacion
+            for(int h=0;h<getMaxPoblacion();h++)//reemplazo de nuevo generacion
                 cromosomas.set(h, descendencia.get(h));
             
         }
@@ -131,7 +131,7 @@ public class Genetico {
         if(Math.random()<=probMutacion){ //prob Mutacion
             Random paqueteRand=new Random();
             Random rutaRand=new Random();
-            int cromNumero=rutaRand.nextInt(maxPoblacion);//Elegimos otro cromosoma de la poblacion
+            int cromNumero=rutaRand.nextInt(getMaxPoblacion());//Elegimos otro cromosoma de la poblacion
             int aleloNumero=paqueteRand.nextInt(crom.genes.size());//elegimos un gen de ese cromosoma
             crom.genes.set(aleloNumero,cromosomas.get(cromNumero).genes.get(aleloNumero));//hacemos la mutacion
         }
@@ -160,7 +160,7 @@ public class Genetico {
     public int generarPoblacion(ArrayList<Pedido> pedidos,TreeMap<String,Ciudad> ciudades,ArrayList<Vuelo> vuelos,int noColapsa) throws InstantiationException, IllegalAccessException, SQLException, ParseException{
         //System.out.println("En generar Poblacion");
         int fitnessTotal=0; //servira en el momento de escoger el padre y madre
-        for(int i=0; i<maxPoblacion;i++){ //generamos cromosomas
+        for(int i=0; i<getMaxPoblacion();i++){ //generamos cromosomas
             // System.out.println("En generar Poblacion");
             Cromosoma crom= new Cromosoma();
             /*Un cromosoma tiene tanto genes como paquetes (un pedido consta de 0 o muchos paquetes)
@@ -452,7 +452,7 @@ public class Genetico {
             //espacioLibre+=gen.espacioLibre;
         }
         //48 porque es el mayor tiempo que se puede demorar,a mayor fitness es una mejor solucion
-        fitness=48*60-tiempoTotal/crom.genes.size();
+        fitness=60*60-tiempoTotal/crom.genes.size();
         return fitness;
     }
 
@@ -517,5 +517,33 @@ public class Genetico {
      */
     public void setContAux(int contAux) {
         this.contAux = contAux;
+    }
+
+    /**
+     * @return the maxPoblacion
+     */
+    public int getMaxPoblacion() {
+        return maxPoblacion;
+    }
+
+    /**
+     * @param maxPoblacion the maxPoblacion to set
+     */
+    public void setMaxPoblacion(int maxPoblacion) {
+        this.maxPoblacion = maxPoblacion;
+    }
+
+    /**
+     * @return the maxGeneraciones
+     */
+    public int getMaxGeneraciones() {
+        return maxGeneraciones;
+    }
+
+    /**
+     * @param maxGeneraciones the maxGeneraciones to set
+     */
+    public void setMaxGeneraciones(int maxGeneraciones) {
+        this.maxGeneraciones = maxGeneraciones;
     }
 }

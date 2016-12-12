@@ -57,7 +57,7 @@ public class funcionesPanelPaqueteBusqueda {
         sqlBuscarPaquetes = " SELECT P.numeroRastreo, P.estado, U.nombreUsuario, M.Nombres, M.ApellidoPaterno , A.ubicacion, B.ubicacion, P.descripcion, M.DNI " +
                 " FROM cliente C, usuario U, paquete P, almacen A, almacen B, persona M " +
                 " WHERE P.Cliente_idCliente = C.idCliente AND C.Usuario_idUsuario = U.idUsuario " + nombreUsuario + numRastreo
-                + " AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND M.idPersona = P.Persona_idPersona; ";
+                + " AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND M.idPersona = P.Persona_idPersona AND (P.estado=0 OR P.estado=4); ";
         
         try {   
             Statement st = conexion.createStatement();
@@ -188,7 +188,7 @@ public class funcionesPanelPaqueteBusqueda {
         sqlBuscarPaquetes = " SELECT P.numeroRastreo, P.estado, U.nombreUsuario, M.Nombres, M.ApellidoPaterno , A.ubicacion, B.ubicacion, P.descripcion, M.DNI " +
                 " FROM cliente C, usuario U, paquete P, almacen A, almacen B, persona M " +
                 " WHERE P.Cliente_idCliente = C.idCliente AND C.Usuario_idUsuario = U.idUsuario " +  nombreUsuario
-                + " AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND M.idPersona = P.Persona_idPersona; ";
+                + " AND P.idLugarOrigen = A.idAlmacen AND P.idLugarDestino = B.idAlmacen AND M.idPersona = P.Persona_idPersona AND (P.estado=0 OR P.estado=4); ";
         
         try {   
             Statement st = conexion.createStatement();

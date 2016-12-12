@@ -131,7 +131,7 @@ public class funcionesHiloEjecSimu extends Thread{
                             }
                             if(flagSalida==null){//quiere decir que ya se cayo la simulacion
                                 
-                                JOptionPane.showMessageDialog(this.Panel ,funcR.getMensajeCaida()+" Fecha Colapso: "+calendarDate.getTime(),"Condicion de caida" , JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(this.Panel ,funcR.getMensajeCaida()+" Fecha Colapso: "+Mapa.getFechaInicial().toString(),"Condicion de caida" , JOptionPane.INFORMATION_MESSAGE);
                                 break;
                             }
                             calendarDate.add(Calendar.HOUR_OF_DAY, 1);

@@ -87,6 +87,8 @@ public class funcionesRuteo {
         Cromosoma solucion=new Cromosoma();
         if(pedidos.size()!=0){
             Genetico algoritmo=new Genetico();
+            //algoritmo.setMaxPoblacion(10);
+            //algoritmo.setMaxGeneraciones(30);
             algoritmo.ejecutar(ciudades, vuelos, pedidos, hora, dia, mensaje);
             solucion=algoritmo.getMejorCrom();
             asignarRutasBD(solucion,estadoFinal);
@@ -127,6 +129,8 @@ public class funcionesRuteo {
         Cromosoma solucion=new Cromosoma();
         if(pedidos.size()!=0){
             Genetico algoritmo=new Genetico();
+            //algoritmo.setMaxPoblacion(15);
+            //algoritmo.setMaxGeneraciones(10);
             algoritmo.setFlagTipoSimuTotal(this.getFlagTipoSimuTotal());
             algoritmo.setFlagColapso(0);
             algoritmo.setMensaje("");
