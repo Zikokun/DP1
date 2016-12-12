@@ -36,7 +36,7 @@ import utilitario.funcionesRuteo;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    public String tipoUsuario;
+    private String tipoUsuario;
     private String usuario;
     private String contrasenha;
     public funcionesVentanaPrincipal utilitarioVentanaPrincial = new funcionesVentanaPrincipal();
@@ -342,7 +342,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         //fVentanaPrincipal.terminarSimulacion();
         this.remove(pnlFrente);
         pnlFondo.removeAll();
-        panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario,DISTINGUIDOR);
+        panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha, getTipoUsuario(),DISTINGUIDOR);
         pnlFondo.add(pmu,BorderLayout.CENTER);
         this.revalidate();
     }//GEN-LAST:event_mantUsuarioActionPerformed
@@ -352,7 +352,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
         //fVentanaPrincipal.terminarSimulacion();
         this.remove(pnlFrente);
-        panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario,DISTINGUIDOR);
+        panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha, getTipoUsuario(),DISTINGUIDOR);
         pnlFondo.add(pmu,BorderLayout.CENTER);
         this.revalidate();
     }//GEN-LAST:event_mantUsuarioMouseClicked
@@ -365,7 +365,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         int respuesta=JOptionPane.showOptionDialog(this,"¿Estás seguro que deseas cerrar sesión?", "Cerrar Sesión",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[1]);
         if(respuesta==JOptionPane.YES_OPTION){ 
             funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-            fVentanaPrincipal.terminarSimulacion();
+            
+            if(getTipoUsuario().equals(TIPO_ADMIN) && botonPausa.isShowing()){
+                fVentanaPrincipal.terminarSimulacion();
+            }
             if(hilo != null) hilo.Detener();
             this.setVisible(false);
             this.dispose();
@@ -378,7 +381,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
         //fVentanaPrincipal.terminarSimulacion();
-        if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
+        if(getTipoUsuario().equals(TIPO_OPERARIO)||getTipoUsuario().equals(TIPO_CLIENTE)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
             panelPaqueteBusqueda ppb=new panelPaqueteBusqueda();
@@ -391,7 +394,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
         //fVentanaPrincipal.terminarSimulacion();
-        if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
+        if(getTipoUsuario().equals(TIPO_OPERARIO)||getTipoUsuario().equals(TIPO_CLIENTE)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
             panelPaqueteBusqueda ppb=new panelPaqueteBusqueda();
@@ -404,7 +407,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
         fVentanaPrincipal.terminarSimulacion();
-        if(tipoUsuario.equals(TIPO_ADMIN)){
+        if(getTipoUsuario().equals(TIPO_ADMIN)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
             PanelSim ps=new PanelSim();
@@ -417,7 +420,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
         //fVentanaPrincipal.terminarSimulacion(); 
-        if(tipoUsuario.equals(TIPO_OPERARIO)){
+        if(getTipoUsuario().equals(TIPO_OPERARIO)){
          this.remove(pnlFrente);
          pnlFondo.removeAll();
          PanelCrearEnvio pb = null;
@@ -436,11 +439,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void envioVisualizarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioVisualizarHistorialActionPerformed
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
         //fVentanaPrincipal.terminarSimulacion();
-        if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
+        if(getTipoUsuario().equals(TIPO_OPERARIO)||getTipoUsuario().equals(TIPO_CLIENTE)){
             try {
                 this.remove(pnlFrente);
                 pnlFondo.removeAll();
-                panelPaqueteBusqueda pdp=new panelPaqueteBusqueda(usuario,contrasenha,tipoUsuario);
+                panelPaqueteBusqueda pdp=new panelPaqueteBusqueda(usuario,contrasenha, getTipoUsuario());
                 pnlFondo.add(pdp,BorderLayout.CENTER);
                 this.revalidate();
             } catch (InstantiationException ex) {
@@ -454,12 +457,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuMiCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMiCuentaMouseClicked
         try {
             funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-            if(tipoUsuario.equals(TIPO_ADMIN) && botonPausa.isShowing()){
+            if(getTipoUsuario().equals(TIPO_ADMIN) && botonPausa.isShowing()){
                 fVentanaPrincipal.terminarSimulacion();
             }
             this.remove(pnlFrente);
             pnlFondo.removeAll();
-            panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario);
+            panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha, getTipoUsuario());
             pnlFondo.add(pmu,BorderLayout.CENTER);
             this.revalidate();
         } catch (InstantiationException ex) {
@@ -491,7 +494,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion2();
+        if(tipoUsuario.equals(TIPO_ADMIN) && botonPausa.isShowing()){
+                fVentanaPrincipal.terminarSimulacion2();
+            }
+        
     }//GEN-LAST:event_formWindowClosed
 
     private void botonPausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPausaActionPerformed
@@ -512,10 +518,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuSimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSimMouseClicked
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        if(tipoUsuario.equals(TIPO_ADMIN)  && botonPausa.isShowing()){
+        if(getTipoUsuario().equals(TIPO_ADMIN)  && botonPausa.isShowing()){
             fVentanaPrincipal.terminarSimulacion();
         }
-        if(tipoUsuario.equals(TIPO_ADMIN)){
+        if(getTipoUsuario().equals(TIPO_ADMIN)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
             PanelSim ps=new PanelSim();
@@ -590,5 +596,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     public void setContrasenha(String contrasenha) {
         this.contrasenha = contrasenha;
+    }
+
+    /**
+     * @return the tipoUsuario
+     */
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    /**
+     * @param tipoUsuario the tipoUsuario to set
+     */
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 }
