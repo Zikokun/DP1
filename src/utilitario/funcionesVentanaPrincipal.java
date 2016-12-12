@@ -73,6 +73,7 @@ public class funcionesVentanaPrincipal {
         Mapa.mostrarBotonPausa = BOTON_PAUSA_NOVISIBLE;
     }
     public void terminarSimulacion(){
+        
         if (PanelSim.simulacion != null) {
             PanelSim.simulacion.stop();
         }

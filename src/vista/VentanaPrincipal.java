@@ -339,7 +339,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void mantUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantUsuarioActionPerformed
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion();
+        //fVentanaPrincipal.terminarSimulacion();
         this.remove(pnlFrente);
         pnlFondo.removeAll();
         panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario,DISTINGUIDOR);
@@ -350,7 +350,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void mantUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mantUsuarioMouseClicked
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion();
+        //fVentanaPrincipal.terminarSimulacion();
         this.remove(pnlFrente);
         panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario,DISTINGUIDOR);
         pnlFondo.add(pmu,BorderLayout.CENTER);
@@ -377,7 +377,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuRastreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuRastreoMouseClicked
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion();
+        //fVentanaPrincipal.terminarSimulacion();
         if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
@@ -390,7 +390,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuRastreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRastreoActionPerformed
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion();
+        //fVentanaPrincipal.terminarSimulacion();
         if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
@@ -416,7 +416,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void envoRegEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoRegEnvioActionPerformed
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion(); 
+        //fVentanaPrincipal.terminarSimulacion(); 
         if(tipoUsuario.equals(TIPO_OPERARIO)){
          this.remove(pnlFrente);
          pnlFondo.removeAll();
@@ -435,7 +435,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void envioVisualizarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioVisualizarHistorialActionPerformed
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion();
+        //fVentanaPrincipal.terminarSimulacion();
         if(tipoUsuario.equals(TIPO_OPERARIO)||tipoUsuario.equals(TIPO_CLIENTE)){
             try {
                 this.remove(pnlFrente);
@@ -454,7 +454,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuMiCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMiCuentaMouseClicked
         try {
             funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-            fVentanaPrincipal.terminarSimulacion();
+            if(tipoUsuario.equals(TIPO_ADMIN) && botonPausa.isShowing()){
+                fVentanaPrincipal.terminarSimulacion();
+            }
             this.remove(pnlFrente);
             pnlFondo.removeAll();
             panelMantUsuario pmu=new panelMantUsuario(usuario,contrasenha,tipoUsuario);
@@ -469,7 +471,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void rutearPaqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rutearPaqActionPerformed
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion();
+        //fVentanaPrincipal.terminarSimulacion();
         try {
             // TODO add your handling code here:
             enrutador.ruteoPedidosManual(SIN_ENVIAR.ordinal(), SIN_ENVIAR_CON_RUTA.ordinal());
@@ -510,7 +512,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void menuSimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSimMouseClicked
         // TODO add your handling code here:
         funcionesVentanaPrincipal fVentanaPrincipal = new funcionesVentanaPrincipal();
-        fVentanaPrincipal.terminarSimulacion();
+        if(tipoUsuario.equals(TIPO_ADMIN)  && botonPausa.isShowing()){
+            fVentanaPrincipal.terminarSimulacion();
+        }
         if(tipoUsuario.equals(TIPO_ADMIN)){
             this.remove(pnlFrente);
             pnlFondo.removeAll();
