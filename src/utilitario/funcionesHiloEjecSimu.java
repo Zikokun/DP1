@@ -78,7 +78,7 @@ public class funcionesHiloEjecSimu extends Thread{
                     if(tipoSimu == 0){
                         fechaActual = "2016-10-04 00:04:00";
                     }else if(tipoSimu == 1){
-                        fechaActual = "2016-12-03 16:00:00";
+                        fechaActual = "2016-10-04 00:05:00";
                     }
                     Date fecha = null;
                     try {

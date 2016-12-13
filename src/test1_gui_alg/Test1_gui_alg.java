@@ -5,6 +5,7 @@
  */
 package test1_gui_alg;
 import static constantes.constanteEstadoPaquete.CON_TRES_DIAS_SIN_RUTA;
+import static constantes.constanteEstadoPaquete.SIMULACION_SIN_TRES_DIAS_SIN_RUTA;
 import controlador.Genetico;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -55,7 +56,8 @@ public class Test1_gui_alg {
 //        } catch (ParseException ex) {
 //            Logger.getLogger(Test1_gui_alg.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        //DataPrimaria();
+//        DataPrimaria(0);//para la segunda simulacion
+//        DataPrimaria(1);//para la tercera simulacion
         /*
         SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fechaActual = "2016-10-04 00:04:00";
@@ -198,8 +200,15 @@ public class Test1_gui_alg {
             System.out.println(item.getCiudad());
     }
     
-    public static void DataPrimaria() throws InstantiationException, IllegalAccessException, FileNotFoundException, IOException, SQLException, ParseException{
-        String linea, archivo = "src/recursos/2arch_";
+    public static void DataPrimaria(int tipoSimu) throws InstantiationException, IllegalAccessException, FileNotFoundException, IOException, SQLException, ParseException{
+        String linea, archivo;
+        if(tipoSimu==0){
+             linea= "src/recursos/2arch_";
+             archivo = "src/recursos/2arch_";
+        }else{
+            linea= "src/recursos/9arch_";
+             archivo = "src/recursos/9arch_";
+        }
         int contBD=4;
         int llaveGeneradaPersona = -1;
         for (contBD = 4; contBD < 44; contBD++) {
@@ -252,7 +261,10 @@ public class Test1_gui_alg {
                 CadenaQuery.setTimestamp(4, finalDate);
                 CadenaQuery.setTimestamp(5, finalDate);
                 CadenaQuery.setString(6, "");
-                CadenaQuery.setInt(7, CON_TRES_DIAS_SIN_RUTA.ordinal());
+                if(tipoSimu==0)
+                    CadenaQuery.setInt(7, CON_TRES_DIAS_SIN_RUTA.ordinal());
+                else
+                    CadenaQuery.setInt(7, SIMULACION_SIN_TRES_DIAS_SIN_RUTA.ordinal());
                 CadenaQuery.setInt(8, 1);
                 CadenaQuery.setInt(9, 1);
                 int rows = CadenaQuery.executeUpdate();
@@ -265,5 +277,6 @@ public class Test1_gui_alg {
             conexion.close();
 
         }
+        System.out.println("Se termino la carga de paquetes de tipo "+tipoSimu);
     }
 }
