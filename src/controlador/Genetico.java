@@ -217,26 +217,26 @@ public class Genetico {
                     }
                     if(k==maxIntentos ){                        
                         noColapsa=0; //se cae
-                        System.out.println(ANSI_PURPLE +"Flag Almacenes: "+capCiudadFlag+ANSI_RESET );
-                        System.out.println(ANSI_PURPLE +"Flag Vuelos: "+capAvionFlag+ANSI_RESET );
-                        System.out.println(ANSI_PURPLE+"Pedido ID falla:"+pedActual.getIdPedido()+ANSI_RESET);
+                        //System.out.println(ANSI_PURPLE +"Flag Almacenes: "+capCiudadFlag+ANSI_RESET );
+                        //System.out.println(ANSI_PURPLE +"Flag Vuelos: "+capAvionFlag+ANSI_RESET );
+                        //System.out.println(ANSI_PURPLE+"Pedido ID falla:"+pedActual.getIdPedido()+ANSI_RESET);
                         String aux1,aux2,aux3;
                         aux3="Pedido ID falla: "+pedActual.getIdPedido()+"\t ";
                         if(capCiudadFlag==0){
-                            System.out.println(ANSI_CYAN+"capCiudadFlag CERO"+ANSI_RESET);
+                            //System.out.println(ANSI_CYAN+"capCiudadFlag CERO"+ANSI_RESET);
                             aux1="No encontro espacio en almacen destino: "+pedActual.getDestino()+"\n ";
                             //aux3.concat(aux1);
                             aux3=aux3+"-"+aux1;
                             //nuevo.GuardarMensajes(aux1);
-                            System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
+                            //System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
                         }
                         if(capAvionFlag==0){
-                            System.out.println(ANSI_CYAN+"capAvionFlag CERO"+ANSI_RESET);
+                            //System.out.println(ANSI_CYAN+"capAvionFlag CERO"+ANSI_RESET);
                             aux2="No encontro espacio en vuelo: "+vueloColapso+"\n ";
                             //aux3.concat(aux2);
                             aux3=aux3+"-"+aux2;
                             //nuevo.GuardarMensajes(aux2);
-                            System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
+                            //System.out.println(ANSI_CYAN+aux3+ANSI_RESET);
                         }
                         this.setMensaje(aux3);
                         if(this.getFlagTipoSimuTotal()==1)
